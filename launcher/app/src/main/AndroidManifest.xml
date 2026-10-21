@@ -32,6 +32,9 @@
         </intent>
         <!-- China-market MIUI TV firmware: the Settings and Wi-Fi pills fall back to Xiaomi's settings app. -->
         <package android:name="com.xiaomi.mitv.settings" />
+        <!-- MiTV-MFTR0/freeguy: a media browser without a launcher entry and the built-in TV player. -->
+        <package android:name="com.xiaomi.mitv.mediaexplorer" />
+        <package android:name="com.xiaomi.mitv.tvplayer" />
     </queries>
 
     <application

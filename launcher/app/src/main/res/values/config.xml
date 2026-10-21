@@ -9,10 +9,10 @@
 
     <!-- Apps pinned to the dock row at the bottom, in this order. Missing apps are skipped. -->
     <string-array name="dock_apps">
-        <item>com.netflix.ninja</item>
-        <item>com.amazon.amazonvideo.livingroom</item>
-        <item>com.google.android.youtube.tv</item>
-        <item>in.startv.hotstar</item>
+        <item>com.xiaomi.mitv.smartshare</item>
+        <item>com.xiaodianshi.tv.yst</item>
+        <item>com.zb.test</item>
+        <item>com.mb.android</item>
     </string-array>
     <!-- With fewer dock_apps than columns (or a dock app that is not installed), the free dock slots take
          the first grid apps, so the dock never shows a gap. false leaves them empty (#162); a theme can
@@ -21,30 +21,47 @@
 
     <!-- Apps never shown as tiles (e.g. the Live TV app, which the Inputs menu already covers). -->
     <string-array name="hidden_apps">
-        <item>com.mediatek.wwtv.tvcenter</item>
         <item>com.mitv.gallery</item>
     </string-array>
 
     <!-- The TV's Live TV / tuner app, offered at the end of the Inputs menu. Leave empty to omit. -->
-    <string name="live_tv_package" translatable="false">com.mediatek.wwtv.tvcenter</string>
+    <string name="live_tv_package" translatable="false">com.xiaomi.mitv.tvplayer</string>
 
     <!-- Some TVs give their Live TV app no leanback entry point at all, so `live_tv_package` above
          resolves to nothing (TCL Android TV 9 on China-market sets is one). This action is then sent
          to that package instead, and the app starts normally. Leave empty to omit. -->
-    <string name="live_tv_action" translatable="false"></string>
+    <string name="live_tv_action" translatable="false">com.xiaomi.mitv.tvplayer.ATV_PLAY</string>
 
     <!-- Tiles that open a screen of the app instead of its start screen: "package=action", sent to that package.
          A tile whose action no longer resolves opens the app normally. MagentaTV's program guide:
          com.telekom.onetv.tv.pl=com.telekom.onetv.tv.pl.action.PROGRAM_GUIDE. -->
     <string-array name="launch_actions">
+        <item>com.xiaomi.mitv.mediaexplorer=duokan.mediaexplorer.intent.action.BROWSE_DEVICE_LIST</item>
     </string-array>
 
     <!-- A tile's name instead of the app's own: "package=Name". It also shows above the dock. -->
     <string-array name="app_labels">
+        <item>com.xiaomi.mitv.mediaexplorer=高清播放器</item>
     </string-array>
     <!-- A tile's artwork instead of the app's banner: "package=drawable", a banner_* drawable bundled with the
          launcher (res/drawable). banner_tv is a magenta field with the Live TV glyph. -->
     <string-array name="app_banners">
+        <item>com.xiaomi.mitv.smartshare=banner_soft_cast</item>
+        <item>com.xiaodianshi.tv.yst=banner_soft_bili</item>
+        <item>com.zb.test=banner_soft_live</item>
+        <item>com.xiaomi.mitv.mediaexplorer=banner_soft_player</item>
+        <item>com.yyw.box.androidclient=banner_soft_115</item>
+        <item>com.mb.android=banner_soft_emby</item>
+        <item>com.ktcp.video=banner_soft_tencent</item>
+        <item>com.xiaomi.tweather=banner_soft_weather</item>
+        <item>com.mitv.alarmcenter=banner_soft_alarm</item>
+        <item>com.xiaomi.voicecontrol=banner_soft_voice</item>
+        <item>com.xiaomi.mitv.light=banner_soft_light</item>
+        <item>com.xiaomi.mitv.calendar=banner_soft_calendar</item>
+        <item>com.xiaomi.tv.gallery=banner_soft_gallery</item>
+        <item>com.xiaomi.mitv.tvmanager=banner_soft_manager</item>
+        <item>com.xiaomi.mitv.settings=banner_soft_settings</item>
+        <item>com.duokan.videodaily=banner_soft_video</item>
     </string-array>
 
     <!-- TVs with no TvInputManager have no HDMI list to read, but their own source-selection panel
@@ -128,7 +145,7 @@
     <bool name="show_network_pill">true</bool>
     <!-- Names under every tile, not only the focused one: unfocused names stay dimmed, the focused one is full white.
          With dock_row the band grows down to hold the dock's names too. -->
-    <bool name="always_show_names">false</bool>
+    <bool name="always_show_names">true</bool>
     <!-- Wallpapers decode as RGB_565 (2 bytes a pixel, 4 MB at 1080p), which bands dark gradients such as a night
          sky, most of all under wallpaper_dim. true decodes them in 32-bit colour: 8 MB, for TVs with 2 GB or more. -->
     <bool name="wallpaper_true_color">false</bool>
@@ -154,11 +171,11 @@
     <bool name="show_home_settings_shortcut">false</bool>
 
     <!-- Installed launchable apps, including ordinary Android apps. Also settable in config.json. -->
-    <bool name="app_library">false</bool>
+    <bool name="app_library">true</bool>
 
     <!-- Module cards: an app that declares a card (docs/specs/card.md) can stand in for its tile with its own
          label, caption and glow colour, once you answer Show on the prompt. false: never look for cards or ask. -->
-    <bool name="module_cards">true</bool>
+    <bool name="module_cards">false</bool>
 
     <!-- Reduced motion: for TVs whose GPU cannot keep up (MediaTek MT5895 on Android 10 is the known case).
          true keeps the GPU drawing path but calms the movement: a stiff highlight spring with no bounce,

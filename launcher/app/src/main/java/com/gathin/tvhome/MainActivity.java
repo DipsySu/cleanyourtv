@@ -2173,6 +2173,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      * On firmware with a standard settings handler the behaviour is unchanged.
      */
     private Intent systemIntent(String standardAction) {
+        if (isXiaomiFreeguy()) {
+            String action = Settings.ACTION_WIFI_SETTINGS.equals(standardAction)
+                    ? "com.xiaomi.mitv.settings.WIFI_SETTINGS"
+                    : "com.xiaomi.mitv.settings.SETTINGS";
+            Intent xiaomi = new Intent(action).setPackage("com.xiaomi.mitv.settings");
+            if (xiaomi.resolveActivity(getPackageManager()) != null) return xiaomi;
+        }
         Intent i = new Intent(standardAction);
         if (i.resolveActivity(getPackageManager()) != null) return i;
         i = new Intent().setComponent(new ComponentName(
@@ -2243,12 +2250,63 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             startActivity(view);
             return;
         } catch (ActivityNotFoundException e) {
+            if (openXiaomiExternalSource(inputId)) return;
             if (inputAction.isEmpty()) {
                 Toast.makeText(this, R.string.not_available, Toast.LENGTH_SHORT).show();
                 return;
             }
         }
         open(new Intent(inputAction).setDataAndType(uri, "vnd.android.cursor.item/channel"));
+    }
+
+    /**
+     * MiTV-MFTR0/freeguy reports HDMI through TvInputManager but does not register a handler for
+     * the standard passthrough ACTION_VIEW intent.  Its own TV player has a stable explicit source
+     * activity; keep this deliberately narrow so other Android TVs retain the standard path.
+     */
+    private boolean openXiaomiExternalSource(String inputId) {
+        if (!isXiaomiFreeguy()) return false;
+        String physicalId = inputId;
+        TvInputManager tim = (TvInputManager) getSystemService(TV_INPUT_SERVICE);
+        if (tim != null) {
+            Map<String, TvInputInfo> inputs = new HashMap<>();
+            for (TvInputInfo info : tim.getTvInputList()) inputs.put(info.getId(), info);
+            TvInputInfo info = inputs.get(physicalId);
+            // A CEC child identifies the attached device; its parent is the actual HDMI port.
+            Set<String> visited = new HashSet<>();
+            while (info != null && info.getParentId() != null && inputs.containsKey(info.getParentId())
+                    && visited.add(physicalId)) {
+                physicalId = info.getParentId();
+                info = inputs.get(physicalId);
+            }
+        }
+        int source;
+        if (physicalId.matches(".*/HW5$")) source = 23;
+        else if (physicalId.matches(".*/HW6$")) source = 24;
+        else if (physicalId.matches(".*/HW7$")) source = 25;
+        else if (physicalId.matches(".*/HW2$")) source = 2;
+        else return false;
+        Intent i = new Intent("com.xiaomi.mitv.tvplayer.EXTSRC_PLAY")
+                .setComponent(new ComponentName("com.xiaomi.mitv.tvplayer",
+                        "com.xiaomi.mitv.tvplayer.ExternalSourceActivity"))
+                .putExtra("input", source)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (i.resolveActivity(getPackageManager()) == null) return false;
+        try {
+            startActivity(i);
+            return true;
+        } catch (ActivityNotFoundException ignored) {
+            return false;
+        }
+    }
+
+    private static boolean isXiaomiFreeguy() {
+        return "freeguy".equals(Build.DEVICE) && "xiaomi".equalsIgnoreCase(Build.MANUFACTURER);
+    }
+
+    /** MiTV-MFTR0/freeguy reports HW8 even though this model has no fourth HDMI port. */
+    private static boolean isXiaomiVirtualHdmi(TvInputInfo info) {
+        return isXiaomiFreeguy() && info.getId().matches(".*/HW8$");
     }
 
     /** Dropdown menu under the Inputs pill: HDMI ports (with connection state), AV and Live TV. */
@@ -2299,6 +2357,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             // so drop the HDMI status then. A TV with every port really in use loses it too.
             int hdmiPorts = 0, hdmiConnected = 0;
             for (TvInputInfo info : inputs) {
+                if (isXiaomiVirtualHdmi(info)) continue;
                 if (!info.isPassthroughInput() || info.getType() != TvInputInfo.TYPE_HDMI) continue;
                 if (info.getParentId() != null && inputIds.contains(info.getParentId())) continue;
                 hdmiPorts++;
@@ -2306,6 +2365,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             }
             boolean hdmiStateBogus = hdmiPorts > 1 && hdmiConnected == hdmiPorts;
             for (TvInputInfo info : inputs) {
+                if (isXiaomiVirtualHdmi(info)) continue;
                 if (info.getType() == TvInputInfo.TYPE_TUNER
                         && (info.getServiceInfo().applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
                     // Prefer a hardware tuner: the framework names those ".../HW<n>". System apps such as

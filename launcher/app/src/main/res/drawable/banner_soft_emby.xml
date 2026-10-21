@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Soft raised artwork for Emby. Native vectors retain detail at TV focus scale. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="180dp" android:height="101.25dp"
+    android:viewportWidth="320" android:viewportHeight="180">
+  <path android:pathData="M0,0H320V180H0Z">
+    <aapt:attr name="android:fillColor">
+      <gradient android:startX="45" android:startY="0" android:endX="275" android:endY="190"
+          android:startColor="#A2D6AD" android:endColor="#5AA97E" android:type="linear" />
+    </aapt:attr>
+  </path>
+  <path android:pathData="M0,0H320V180H0Z">
+    <aapt:attr name="android:fillColor">
+      <gradient android:centerX="80" android:centerY="-20" android:gradientRadius="280"
+          android:startColor="#28FFFFFF" android:endColor="#00FFFFFF" android:type="radial" />
+    </aapt:attr>
+  </path>
+  <group android:translateX="107.2" android:translateY="42.2" android:scaleX="4.4" android:scaleY="4.4">
+    <path android:pathData="M11,2L15,6L16,5L23,12L16,19L15,18L11,22L1,12Z" android:fillColor="#080D2744" />
+  </group>
+  <group android:translateX="107.2" android:translateY="40.400000000000006" android:scaleX="4.4" android:scaleY="4.4">
+    <path android:pathData="M11,2L15,6L16,5L23,12L16,19L15,18L11,22L1,12Z" android:fillColor="#110D2744" />
+  </group>
+  <group android:translateX="107.2" android:translateY="38.6" android:scaleX="4.4" android:scaleY="4.4">
+    <path android:pathData="M11,2L15,6L16,5L23,12L16,19L15,18L11,22L1,12Z" android:fillColor="#170D2744" />
+  </group>
+  <group android:translateX="107.2" android:translateY="37.2" android:scaleX="4.4" android:scaleY="4.4">
+    <path android:pathData="M11,2L15,6L16,5L23,12L16,19L15,18L11,22L1,12Z">
+      <aapt:attr name="android:fillColor">
+        <gradient android:startX="5" android:startY="2" android:endX="19" android:endY="24"
+            android:startColor="#FFFFFF" android:endColor="#DCE8EE" android:type="linear" />
+      </aapt:attr>
+    </path>
+    <path android:pathData="M9,7.6Q9,7 9.7,7.4L16,11.4Q17,12 16,12.6L9.7,16.6Q9,17 9,16.4Z" android:fillColor="#57A878" />
+  </group>
+</vector>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Soft raised artwork for 天气. Native vectors retain detail at TV focus scale. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="180dp" android:height="101.25dp"
+    android:viewportWidth="320" android:viewportHeight="180">
+  <path android:pathData="M0,0H320V180H0Z">
+    <aapt:attr name="android:fillColor">
+      <gradient android:startX="45" android:startY="0" android:endX="275" android:endY="190"
+          android:startColor="#A6CFE5" android:endColor="#6495C6" android:type="linear" />
+    </aapt:attr>
+  </path>
+  <path android:pathData="M0,0H320V180H0Z">
+    <aapt:attr name="android:fillColor">
+      <gradient android:centerX="80" android:centerY="-20" android:gradientRadius="280"
+          android:startColor="#28FFFFFF" android:endColor="#00FFFFFF" android:type="radial" />
+    </aapt:attr>
+  </path>
+  <group android:translateX="107.2" android:translateY="42.2" android:scaleX="4.4" android:scaleY="4.4">
+    <path android:pathData="M12,8a4,4 0,1 0,8,0a4,4 0,1 0,-8,0Z" android:fillColor="#080D2744" />
+    <path android:pathData="M5,19Q1,19 1,15.8Q1,12.5 4.8,12.2Q5,8 9,8Q13,8 14,12Q18,11 20,14Q23,19 18,19Z" android:fillColor="#080D2744" />
+  </group>
+  <group android:translateX="107.2" android:translateY="40.400000000000006" android:scaleX="4.4" android:scaleY="4.4">
+    <path android:pathData="M12,8a4,4 0,1 0,8,0a4,4 0,1 0,-8,0Z" android:fillColor="#110D2744" />
+    <path android:pathData="M5,19Q1,19 1,15.8Q1,12.5 4.8,12.2Q5,8 9,8Q13,8 14,12Q18,11 20,14Q23,19 18,19Z" android:fillColor="#110D2744" />
+  </group>
+  <group android:translateX="107.2" android:translateY="38.6" android:scaleX="4.4" android:scaleY="4.4">
+    <path android:pathData="M12,8a4,4 0,1 0,8,0a4,4 0,1 0,-8,0Z" android:fillColor="#170D2744" />
+    <path android:pathData="M5,19Q1,19 1,15.8Q1,12.5 4.8,12.2Q5,8 9,8Q13,8 14,12Q18,11 20,14Q23,19 18,19Z" android:fillColor="#170D2744" />
+  </group>
+  <group android:translateX="107.2" android:translateY="37.2" android:scaleX="4.4" android:scaleY="4.4">
+    <path android:pathData="M12,8a4,4 0,1 0,8,0a4,4 0,1 0,-8,0Z" android:fillColor="#FFE3A4" />
+    <path android:pathData="M5,19Q1,19 1,15.8Q1,12.5 4.8,12.2Q5,8 9,8Q13,8 14,12Q18,11 20,14Q23,19 18,19Z">
+      <aapt:attr name="android:fillColor">
+        <gradient android:startX="5" android:startY="2" android:endX="19" android:endY="24"
+            android:startColor="#FFFFFF" android:endColor="#DCE8EE" android:type="linear" />
+      </aapt:attr>
+    </path>
+  </group>
+</vector>

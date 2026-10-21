@@ -237,6 +237,29 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         Set<String> tvPackages = new HashSet<>();
         for (ResolveInfo ri : found) if (ri.activityInfo != null) tvPackages.add(ri.activityInfo.packageName);
         leanbackPackages = tvPackages;
+        // A Xiaomi TV can carry useful ordinary LAUNCHER apps alongside its TV-only entries.
+        // Add the first ordinary entry per package after the leanback set, so the two categories
+        // remain one tile per app.
+        Set<String> launchablePackages = new HashSet<>(tvPackages);
+        for (ResolveInfo ri : pm.queryIntentActivities(
+                new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER), 0)) {
+            if (ri.activityInfo != null && launchablePackages.add(ri.activityInfo.packageName)) found.add(ri);
+        }
+        // A few useful TV apps deliberately expose only a private-looking action instead of a
+        // launcher activity (for example Xiaomi's Media Explorer).  A configured action is an
+        // explicit owner choice, so make a tile from its resolved activity even without a
+        // LEANBACK entry.  It still goes through the ordinary hidden/removed checks below.
+        Set<String> actionPackages = new HashSet<>();
+        Set<String> knownPackages = launchablePackages;
+        for (Map.Entry<String, String> action : launchActions.entrySet()) {
+            Intent intent = new Intent(action.getValue()).setPackage(action.getKey());
+            ResolveInfo ri = pm.resolveActivity(intent, 0);
+            if (ri != null && ri.activityInfo != null && action.getKey().equals(ri.activityInfo.packageName)
+                    && knownPackages.add(action.getKey())) {
+                found.add(ri);
+                actionPackages.add(action.getKey());
+            }
+        }
         Set<String> added = LibraryApps.load(ctx);
         Set<String> removed = LibraryApps.loadRemoved(ctx);
         if (!added.isEmpty()) {
@@ -257,7 +280,8 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             if (ri.activityInfo == null) continue;
             String pkg = ri.activityInfo.packageName;
             if (pkg.equals(ctx.getPackageName()) || !ri.activityInfo.exported
-                    || !LibraryApps.visible(tvPackages.contains(pkg), hidden.contains(pkg), added.contains(pkg), removed.contains(pkg))) continue;
+                    || !LibraryApps.visible(launchablePackages.contains(pkg) || actionPackages.contains(pkg),
+                    hidden.contains(pkg), added.contains(pkg), removed.contains(pkg))) continue;
             ComponentName component = new ComponentName(pkg, ri.activityInfo.name);
             Cards.Card card = cardByPkg.get(pkg);
             if (card != null && !card.component.equals(component)) continue;   // the card stands in for this tile

@@ -1,3 +1,5 @@
+> **Fork customization:** The `xiaomi-freeguy-home` branch contains the Xiaomi Android 11 compatibility changes, soft vector artwork and Emby dock preset. See the [device and change notes](docs/devices/xiaomi-mitv-mftr0-freeguy-android11.md) and build with `./launcher/build-freeguy.sh`. The upstream overview follows.
+
 <p align="center">
   <a href="https://cleanyour.tv"><img src="https://raw.githubusercontent.com/Gathin23/cleanyourtv/main/docs/banner.png" alt="CleanYourTV. Your TV, minus the ads. Strip the bloatware from any Android TV or Google TV over Wi-Fi and replace the ad-filled home screen with a clean launcher that looks like an Apple TV. No root, no cable, nothing uninstalled, and a one-line restore." width="800"></a>
 </p>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Soft raised artwork for 云视听极光. Native vectors retain detail at TV focus scale. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="180dp" android:height="101.25dp"
+    android:viewportWidth="320" android:viewportHeight="180">
+  <path android:pathData="M0,0H320V180H0Z">
+    <aapt:attr name="android:fillColor">
+      <gradient android:startX="45" android:startY="0" android:endX="275" android:endY="190"
+          android:startColor="#9AD8E3" android:endColor="#5C9FC9" android:type="linear" />
+    </aapt:attr>
+  </path>
+  <path android:pathData="M0,0H320V180H0Z">
+    <aapt:attr name="android:fillColor">
+      <gradient android:centerX="80" android:centerY="-20" android:gradientRadius="280"
+          android:startColor="#28FFFFFF" android:endColor="#00FFFFFF" android:type="radial" />
+    </aapt:attr>
+  </path>
+  <group android:translateX="107.2" android:translateY="42.2" android:scaleX="4.4" android:scaleY="4.4">
+    <path android:pathData="M5,3Q4,2.4 4,4V20Q4,21.6 5.5,20.7L21,12.7Q22.5,12 21,11.2Z" android:fillColor="#080D2744" />
+    <path android:pathData="M4,7Q2.5,6 2.5,8V20Q2.5,22 4,21.1L17,14.5Q18.4,13.8 17,13Z" android:fillColor="#080D2744" />
+    <path android:pathData="M6,7Q5,6.4 5,8V18Q5,19.6 6.3,18.9L18,12.9Q19.3,12.2 18,11.5Z" android:fillColor="#080D2744" />
+  </group>
+  <group android:translateX="107.2" android:translateY="40.400000000000006" android:scaleX="4.4" android:scaleY="4.4">
+    <path android:pathData="M5,3Q4,2.4 4,4V20Q4,21.6 5.5,20.7L21,12.7Q22.5,12 21,11.2Z" android:fillColor="#110D2744" />
+    <path android:pathData="M4,7Q2.5,6 2.5,8V20Q2.5,22 4,21.1L17,14.5Q18.4,13.8 17,13Z" android:fillColor="#110D2744" />
+    <path android:pathData="M6,7Q5,6.4 5,8V18Q5,19.6 6.3,18.9L18,12.9Q19.3,12.2 18,11.5Z" android:fillColor="#110D2744" />
+  </group>
+  <group android:translateX="107.2" android:translateY="38.6" android:scaleX="4.4" android:scaleY="4.4">
+    <path android:pathData="M5,3Q4,2.4 4,4V20Q4,21.6 5.5,20.7L21,12.7Q22.5,12 21,11.2Z" android:fillColor="#170D2744" />
+    <path android:pathData="M4,7Q2.5,6 2.5,8V20Q2.5,22 4,21.1L17,14.5Q18.4,13.8 17,13Z" android:fillColor="#170D2744" />
+    <path android:pathData="M6,7Q5,6.4 5,8V18Q5,19.6 6.3,18.9L18,12.9Q19.3,12.2 18,11.5Z" android:fillColor="#170D2744" />
+  </group>
+  <group android:translateX="107.2" android:translateY="37.2" android:scaleX="4.4" android:scaleY="4.4">
+    <path android:pathData="M5,3Q4,2.4 4,4V20Q4,21.6 5.5,20.7L21,12.7Q22.5,12 21,11.2Z" android:fillColor="#40BADD" />
+    <path android:pathData="M4,7Q2.5,6 2.5,8V20Q2.5,22 4,21.1L17,14.5Q18.4,13.8 17,13Z" android:fillColor="#F5C95C" />
+    <path android:pathData="M6,7Q5,6.4 5,8V18Q5,19.6 6.3,18.9L18,12.9Q19.3,12.2 18,11.5Z" android:fillColor="#80D9A4" />
+    <path android:pathData="M8,9L14,12.3L8,15.6Z" android:fillColor="#FFFFFF" />
+  </group>
+</vector>
