@@ -1,0 +1,19 @@
+{
+  "icons": 40,
+  "originalsUnmodified": true,
+  "bannerDimensions": [
+    640,
+    360
+  ],
+  "squareDimensions": [
+    512,
+    512
+  ],
+  "androidResources": 80,
+  "androidMatchesExports": true,
+  "aapt2Compile": true,
+  "aapt2Link": true,
+  "compileSdk": 35,
+  "minSdk": 30,
+  "tvDeployed": false
+}

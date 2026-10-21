@@ -1,0 +1,871 @@
+[
+  {
+    "id": "cast",
+    "label": "无线投屏",
+    "category": "电视工具",
+    "package": "com.xiaomi.mitv.smartshare",
+    "aliases": [],
+    "character": "Cappy",
+    "character_zh": "凯皮",
+    "background": [
+      "#35598A",
+      "#1E3A60"
+    ],
+    "pairing_note": "抛帽连接屏幕",
+    "image": "characters/cast.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/cast.png",
+    "square": "squares/cast.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_cast.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_cast.png"
+  },
+  {
+    "id": "bili",
+    "label": "云视听小电视",
+    "category": "当前入口",
+    "package": "com.xiaodianshi.tv.yst",
+    "aliases": [
+      "B站",
+      "Bilibili",
+      "哔哩哔哩"
+    ],
+    "character": "Toad",
+    "character_zh": "奇诺比奥",
+    "background": [
+      "#D7EFE8",
+      "#7EB8A8"
+    ],
+    "pairing_note": "红菇信使报信",
+    "image": "characters/bili.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/bili.png",
+    "square": "squares/bili.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_bili.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_bili.png"
+  },
+  {
+    "id": "live",
+    "label": "直播电视",
+    "category": "当前入口",
+    "package": "com.zb.test",
+    "aliases": [],
+    "character": "Pauline",
+    "character_zh": "宝琳",
+    "background": [
+      "#E6EDF5",
+      "#93A9C4"
+    ],
+    "pairing_note": "市长登台开唱",
+    "image": "characters/live.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/live.png",
+    "square": "squares/live.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_live.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_live.png"
+  },
+  {
+    "id": "player",
+    "label": "高清播放器",
+    "category": "媒体播放器",
+    "package": "com.xiaomi.mitv.mediaexplorer",
+    "aliases": [],
+    "character": "Captain Toad",
+    "character_zh": "奇诺比奥队长",
+    "background": [
+      "#C9DDD4",
+      "#5E8F78"
+    ],
+    "pairing_note": "头灯探险向导",
+    "image": "characters/player.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/player.png",
+    "square": "squares/player.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_player.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_player.png"
+  },
+  {
+    "id": "115",
+    "label": "115生活",
+    "category": "网盘",
+    "package": "com.yyw.box.androidclient",
+    "aliases": [
+      "115网盘"
+    ],
+    "character": "Coin Coffer",
+    "character_zh": "钱袋怪",
+    "background": [
+      "#F8E4BC",
+      "#E0A24E"
+    ],
+    "pairing_note": "钱袋收纳珍藏",
+    "image": "characters/115.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/115.png",
+    "square": "squares/115.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_115.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_115.png"
+  },
+  {
+    "id": "emby",
+    "label": "Emby",
+    "category": "媒体播放器",
+    "package": "com.mb.android",
+    "aliases": [],
+    "character": "Mario",
+    "character_zh": "马里奥",
+    "background": [
+      "#FFF3DE",
+      "#F0C48A"
+    ],
+    "pairing_note": "红帽主角出发",
+    "image": "characters/emby.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/emby.png",
+    "square": "squares/emby.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_emby.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_emby.png"
+  },
+  {
+    "id": "tencent",
+    "label": "腾讯视频",
+    "category": "国内视频",
+    "package": "com.ktcp.video",
+    "aliases": [
+      "云视听极光",
+      "Tencent Video"
+    ],
+    "character": "Luigi",
+    "character_zh": "路易吉",
+    "background": [
+      "#FDE8F0",
+      "#E7B0C8"
+    ],
+    "pairing_note": "绿帽高个兄弟",
+    "image": "characters/tencent.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/tencent.png",
+    "square": "squares/tencent.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_tencent.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_tencent.png"
+  },
+  {
+    "id": "weather",
+    "label": "天气",
+    "category": "电视工具",
+    "package": "com.xiaomi.tweather",
+    "aliases": [],
+    "character": "Lakitu",
+    "character_zh": "朱盖木",
+    "background": [
+      "#E6DDF6",
+      "#A890CC"
+    ],
+    "pairing_note": "云上眺望天气",
+    "image": "characters/weather.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/weather.png",
+    "square": "squares/weather.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_weather.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_weather.png"
+  },
+  {
+    "id": "alarm",
+    "label": "定时提醒",
+    "category": "电视工具",
+    "package": "com.mitv.alarmcenter",
+    "aliases": [],
+    "character": "Talkatoo",
+    "character_zh": "提示鹦鹉",
+    "background": [
+      "#F8E7C6",
+      "#E2B15C"
+    ],
+    "pairing_note": "鹦鹉开口提醒",
+    "image": "characters/alarm.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/alarm.png",
+    "square": "squares/alarm.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_alarm.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_alarm.png"
+  },
+  {
+    "id": "voice",
+    "label": "小爱同学",
+    "category": "电视工具",
+    "package": "com.xiaomi.voicecontrol",
+    "aliases": [],
+    "character": "Tiara",
+    "character_zh": "缇雅拉",
+    "background": [
+      "#E4E8FB",
+      "#8FA0DC"
+    ],
+    "pairing_note": "冠灵轻声应答",
+    "image": "characters/voice.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/voice.png",
+    "square": "squares/voice.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_voice.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_voice.png"
+  },
+  {
+    "id": "light",
+    "label": "幻彩随影",
+    "category": "电视工具",
+    "package": "com.xiaomi.mitv.light",
+    "aliases": [],
+    "character": "Bonneter",
+    "character_zh": "帽子国居民",
+    "background": [
+      "#C9856C",
+      "#8E5A48"
+    ],
+    "pairing_note": "帽灵变幻光影",
+    "image": "characters/light.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/light.png",
+    "square": "squares/light.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_light.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_light.png"
+  },
+  {
+    "id": "calendar",
+    "label": "日历",
+    "category": "电视工具",
+    "package": "com.xiaomi.mitv.calendar",
+    "aliases": [],
+    "character": "Toadette",
+    "character_zh": "奇诺比珂",
+    "background": [
+      "#E3F6EC",
+      "#8FCBAA"
+    ],
+    "pairing_note": "粉菇打理日程",
+    "image": "characters/calendar.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/calendar.png",
+    "square": "squares/calendar.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_calendar.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_calendar.png"
+  },
+  {
+    "id": "gallery",
+    "label": "时尚画报",
+    "category": "电视工具",
+    "package": "com.xiaomi.tv.gallery",
+    "aliases": [],
+    "character": "Princess Peach",
+    "character_zh": "碧姬公主",
+    "background": [
+      "#E5F3FF",
+      "#8EC0EA"
+    ],
+    "pairing_note": "公主风尚肖像",
+    "image": "characters/gallery.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/gallery.png",
+    "square": "squares/gallery.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_gallery.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_gallery.png"
+  },
+  {
+    "id": "manager",
+    "label": "电视管家",
+    "category": "电视工具",
+    "package": "com.xiaomi.mitv.tvmanager",
+    "aliases": [],
+    "character": "Bowser",
+    "character_zh": "酷霸王",
+    "background": [
+      "#E2E7EF",
+      "#8B9BB3"
+    ],
+    "pairing_note": "霸王镇守管家",
+    "image": "characters/manager.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/manager.png",
+    "square": "squares/manager.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_manager.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_manager.png"
+  },
+  {
+    "id": "settings",
+    "label": "电视设置",
+    "category": "电视工具",
+    "package": "com.xiaomi.mitv.settings",
+    "aliases": [],
+    "character": "Steam Gardener",
+    "character_zh": "森之国园丁",
+    "background": [
+      "#E4EEF3",
+      "#8AADC0"
+    ],
+    "pairing_note": "园丁精细调校",
+    "image": "characters/settings.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/settings.png",
+    "square": "squares/settings.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_settings.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_settings.png"
+  },
+  {
+    "id": "video",
+    "label": "视频头条",
+    "category": "电视工具",
+    "package": "com.duokan.videodaily",
+    "aliases": [],
+    "character": "Goomba",
+    "character_zh": "栗宝宝",
+    "background": [
+      "#E3F6FB",
+      "#7EC4D6"
+    ],
+    "pairing_note": "栗宝闯上头条",
+    "image": "characters/video.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/video.png",
+    "square": "squares/video.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_video.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_video.png"
+  },
+  {
+    "id": "jellyfin",
+    "label": "Jellyfin",
+    "category": "媒体播放器",
+    "package": "",
+    "aliases": [],
+    "character": "Gushen",
+    "character_zh": "喷水章鱼",
+    "background": [
+      "#D2F3F4",
+      "#5EAEB6"
+    ],
+    "pairing_note": "水泡畅游片海",
+    "image": "characters/jellyfin.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/jellyfin.png",
+    "square": "squares/jellyfin.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_jellyfin.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_jellyfin.png"
+  },
+  {
+    "id": "plex",
+    "label": "Plex",
+    "category": "媒体播放器",
+    "package": "",
+    "aliases": [],
+    "character": "Glydon",
+    "character_zh": "滑翔蜥蜴",
+    "background": [
+      "#DEEAF2",
+      "#8EACC4"
+    ],
+    "pairing_note": "翼蜥滑翔穿梭",
+    "image": "characters/plex.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/plex.png",
+    "square": "squares/plex.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_plex.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_plex.png"
+  },
+  {
+    "id": "kodi",
+    "label": "Kodi",
+    "category": "媒体播放器",
+    "package": "",
+    "aliases": [],
+    "character": "Shiverian",
+    "character_zh": "雪之国居民",
+    "background": [
+      "#E7C3AE",
+      "#C4846A"
+    ],
+    "pairing_note": "雪民暖绒围坐",
+    "image": "characters/kodi.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/kodi.png",
+    "square": "squares/kodi.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_kodi.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_kodi.png"
+  },
+  {
+    "id": "vlc",
+    "label": "VLC",
+    "category": "媒体播放器",
+    "package": "",
+    "aliases": [],
+    "character": "Cheep Cheep",
+    "character_zh": "泡泡鱼",
+    "background": [
+      "#D5EEF8",
+      "#6AAFDB"
+    ],
+    "pairing_note": "赤鱼游过片流",
+    "image": "characters/vlc.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/vlc.png",
+    "square": "squares/vlc.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_vlc.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_vlc.png"
+  },
+  {
+    "id": "nova",
+    "label": "Nova Video Player",
+    "category": "媒体播放器",
+    "package": "",
+    "aliases": [],
+    "character": "T-Rex",
+    "character_zh": "霸王龙",
+    "background": [
+      "#F6E1CC",
+      "#D49268"
+    ],
+    "pairing_note": "巨兽撑满画面",
+    "image": "characters/nova.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/nova.png",
+    "square": "squares/nova.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_nova.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_nova.png"
+  },
+  {
+    "id": "mxplayer",
+    "label": "MX Player",
+    "category": "媒体播放器",
+    "package": "",
+    "aliases": [],
+    "character": "Bullet Bill",
+    "character_zh": "炮弹刺客",
+    "background": [
+      "#F7F4EC",
+      "#E6D7B0"
+    ],
+    "pairing_note": "炮弹直线冲刺",
+    "image": "characters/mxplayer.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/mxplayer.png",
+    "square": "squares/mxplayer.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_mxplayer.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_mxplayer.png"
+  },
+  {
+    "id": "iqiyi",
+    "label": "爱奇艺/奇异果",
+    "category": "国内视频",
+    "package": "",
+    "aliases": [
+      "爱奇艺",
+      "奇异果",
+      "iQIYI"
+    ],
+    "character": "Yoshi",
+    "character_zh": "耀西",
+    "background": [
+      "#FFF1F4",
+      "#F0B7C6"
+    ],
+    "pairing_note": "绿龙伙伴同行",
+    "image": "characters/iqiyi.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/iqiyi.png",
+    "square": "squares/iqiyi.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_iqiyi.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_iqiyi.png"
+  },
+  {
+    "id": "youku",
+    "label": "优酷/酷喵",
+    "category": "国内视频",
+    "package": "",
+    "aliases": [
+      "优酷",
+      "酷喵",
+      "Youku"
+    ],
+    "character": "Rango",
+    "character_zh": "兰戈",
+    "background": [
+      "#F8E8B8",
+      "#E2B84E"
+    ],
+    "pairing_note": "长耳跃入精彩",
+    "image": "characters/youku.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/youku.png",
+    "square": "squares/youku.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_youku.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_youku.png"
+  },
+  {
+    "id": "mango",
+    "label": "芒果TV",
+    "category": "国内视频",
+    "package": "",
+    "aliases": [],
+    "character": "Tropical Wiggler",
+    "character_zh": "热带花毛毛",
+    "background": [
+      "#D4F0E6",
+      "#5AA88A"
+    ],
+    "pairing_note": "彩节连接剧情",
+    "image": "characters/mango.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/mango.png",
+    "square": "squares/mango.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_mango.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_mango.png"
+  },
+  {
+    "id": "cctv",
+    "label": "央视频",
+    "category": "国内视频",
+    "package": "",
+    "aliases": [],
+    "character": "Jaxi",
+    "character_zh": "贾克西",
+    "background": [
+      "#DEEAF7",
+      "#91AECE"
+    ],
+    "pairing_note": "石狮稳稳守望",
+    "image": "characters/cctv.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/cctv.png",
+    "square": "squares/cctv.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_cctv.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_cctv.png"
+  },
+  {
+    "id": "dangbei",
+    "label": "当贝影视",
+    "category": "国内视频",
+    "package": "",
+    "aliases": [],
+    "character": "Pokio",
+    "character_zh": "啄啄",
+    "background": [
+      "#E8F5D8",
+      "#9CC97A"
+    ],
+    "pairing_note": "长喙啄开画面",
+    "image": "characters/dangbei.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/dangbei.png",
+    "square": "squares/dangbei.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_dangbei.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_dangbei.png"
+  },
+  {
+    "id": "youtube",
+    "label": "YouTube",
+    "category": "国际视频",
+    "package": "",
+    "aliases": [],
+    "character": "Fire Bro",
+    "character_zh": "火焰兄弟",
+    "background": [
+      "#E4EEF6",
+      "#8AA9C6"
+    ],
+    "pairing_note": "喷火映亮热映",
+    "image": "characters/youtube.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/youtube.png",
+    "square": "squares/youtube.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_youtube.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_youtube.png"
+  },
+  {
+    "id": "netflix",
+    "label": "Netflix",
+    "category": "国际视频",
+    "package": "",
+    "aliases": [],
+    "character": "Goombette",
+    "character_zh": "栗子女孩",
+    "background": [
+      "#E6F2EC",
+      "#8FB5A2"
+    ],
+    "pairing_note": "粉帽主角登场",
+    "image": "characters/netflix.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/netflix.png",
+    "square": "squares/netflix.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_netflix.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_netflix.png"
+  },
+  {
+    "id": "primevideo",
+    "label": "Prime Video",
+    "category": "国际视频",
+    "package": "",
+    "aliases": [],
+    "character": "Koopa Troopa",
+    "character_zh": "慢慢龟",
+    "background": [
+      "#F8EDD8",
+      "#E6C48A"
+    ],
+    "pairing_note": "绿壳稳步前行",
+    "image": "characters/primevideo.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/primevideo.png",
+    "square": "squares/primevideo.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_primevideo.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_primevideo.png"
+  },
+  {
+    "id": "disneyplus",
+    "label": "Disney+",
+    "category": "国际视频",
+    "package": "",
+    "aliases": [],
+    "character": "Lochlady",
+    "character_zh": "湖之国居民",
+    "background": [
+      "#D4F4EF",
+      "#6BB8AE"
+    ],
+    "pairing_note": "湖畔优雅漫游",
+    "image": "characters/disneyplus.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/disneyplus.png",
+    "square": "squares/disneyplus.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_disneyplus.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_disneyplus.png"
+  },
+  {
+    "id": "appletv",
+    "label": "Apple TV",
+    "category": "国际视频",
+    "package": "",
+    "aliases": [],
+    "character": "Moe-Eye",
+    "character_zh": "摩艾石像",
+    "background": [
+      "#E3E4F6",
+      "#8E8EC4"
+    ],
+    "pairing_note": "墨镜切换视界",
+    "image": "characters/appletv.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/appletv.png",
+    "square": "squares/appletv.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_appletv.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_appletv.png"
+  },
+  {
+    "id": "twitch",
+    "label": "Twitch",
+    "category": "国际视频",
+    "package": "",
+    "aliases": [],
+    "character": "Dog",
+    "character_zh": "寻宝小狗",
+    "background": [
+      "#E6E2FF",
+      "#ACA2D8"
+    ],
+    "pairing_note": "小狗陪你看播",
+    "image": "characters/twitch.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/twitch.png",
+    "square": "squares/twitch.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_twitch.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_twitch.png"
+  },
+  {
+    "id": "spotify",
+    "label": "Spotify",
+    "category": "音乐与短视频",
+    "package": "",
+    "aliases": [],
+    "character": "Volbonan",
+    "character_zh": "料理国居民",
+    "background": [
+      "#D8F4F2",
+      "#6BB4AE"
+    ],
+    "pairing_note": "料理节拍开场",
+    "image": "characters/spotify.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/spotify.png",
+    "square": "squares/spotify.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_spotify.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_spotify.png"
+  },
+  {
+    "id": "qqmusic",
+    "label": "QQ音乐",
+    "category": "音乐与短视频",
+    "package": "",
+    "aliases": [
+      "QQ Music"
+    ],
+    "character": "Uproot",
+    "character_zh": "伸长根茎",
+    "background": [
+      "#F3E9FB",
+      "#C4A6E2"
+    ],
+    "pairing_note": "伸长聆听旋律",
+    "image": "characters/qqmusic.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/qqmusic.png",
+    "square": "squares/qqmusic.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_qqmusic.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_qqmusic.png"
+  },
+  {
+    "id": "netease",
+    "label": "网易云音乐",
+    "category": "音乐与短视频",
+    "package": "",
+    "aliases": [
+      "网易云",
+      "NetEase Cloud Music"
+    ],
+    "character": "Lava Bubble",
+    "character_zh": "熔岩泡泡",
+    "background": [
+      "#E5F1F7",
+      "#8FB4CC"
+    ],
+    "pairing_note": "火红旋律跃动",
+    "image": "characters/netease.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/netease.png",
+    "square": "squares/netease.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_netease.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_netease.png"
+  },
+  {
+    "id": "douyin",
+    "label": "抖音",
+    "category": "音乐与短视频",
+    "package": "",
+    "aliases": [],
+    "character": "Chargin’ Chuck",
+    "character_zh": "运动衫龟",
+    "background": [
+      "#E6F6D6",
+      "#8FCB70"
+    ],
+    "pairing_note": "球员低头冲锋",
+    "image": "characters/douyin.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/douyin.png",
+    "square": "squares/douyin.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_douyin.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_douyin.png"
+  },
+  {
+    "id": "aliyundrive",
+    "label": "阿里云盘",
+    "category": "网盘",
+    "package": "",
+    "aliases": [
+      "阿里云盘",
+      "Alipan"
+    ],
+    "character": "Ty-foo",
+    "character_zh": "吹风云",
+    "background": [
+      "#E7A07A",
+      "#C46B4E"
+    ],
+    "pairing_note": "云朵鼓嘴送风",
+    "image": "characters/aliyundrive.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/aliyundrive.png",
+    "square": "squares/aliyundrive.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_aliyundrive.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_aliyundrive.png"
+  },
+  {
+    "id": "baidunetdisk",
+    "label": "百度网盘",
+    "category": "网盘",
+    "package": "",
+    "aliases": [
+      "Baidu Netdisk"
+    ],
+    "character": "Chain Chomp",
+    "character_zh": "汪汪",
+    "background": [
+      "#F6F8EC",
+      "#D5E0A4"
+    ],
+    "pairing_note": "铁球锁链看守",
+    "image": "characters/baidunetdisk.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/baidunetdisk.png",
+    "square": "squares/baidunetdisk.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_baidunetdisk.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_baidunetdisk.png"
+  },
+  {
+    "id": "quark",
+    "label": "夸克网盘",
+    "category": "网盘",
+    "package": "",
+    "aliases": [
+      "Quark"
+    ],
+    "character": "Tostarenan",
+    "character_zh": "沙之国居民",
+    "background": [
+      "#E4EEF8",
+      "#8FB0D6"
+    ],
+    "pairing_note": "宽帽旅人寻路",
+    "image": "characters/quark.png",
+    "source_kind": "game-artwork",
+    "renderer": "rendered-character-card",
+    "banner": "banners/quark.png",
+    "square": "squares/quark.png",
+    "android_banner": "android/res/drawable-nodpi/banner_odyssey_quark.png",
+    "android_square": "android/res/drawable-nodpi/icon_odyssey_quark.png"
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "app_banners": [
+    "com.xiaomi.mitv.smartshare=banner_odyssey_cast",
+    "com.xiaodianshi.tv.yst=banner_odyssey_bili",
+    "com.zb.test=banner_odyssey_live",
+    "com.xiaomi.mitv.mediaexplorer=banner_odyssey_player",
+    "com.yyw.box.androidclient=banner_odyssey_115",
+    "com.mb.android=banner_odyssey_emby",
+    "com.ktcp.video=banner_odyssey_tencent",
+    "com.xiaomi.tweather=banner_odyssey_weather",
+    "com.mitv.alarmcenter=banner_odyssey_alarm",
+    "com.xiaomi.voicecontrol=banner_odyssey_voice",
+    "com.xiaomi.mitv.light=banner_odyssey_light",
+    "com.xiaomi.mitv.calendar=banner_odyssey_calendar",
+    "com.xiaomi.tv.gallery=banner_odyssey_gallery",
+    "com.xiaomi.mitv.tvmanager=banner_odyssey_manager",
+    "com.xiaomi.mitv.settings=banner_odyssey_settings",
+    "com.duokan.videodaily=banner_odyssey_video"
+  ],
+  "always_show_names": true
+}

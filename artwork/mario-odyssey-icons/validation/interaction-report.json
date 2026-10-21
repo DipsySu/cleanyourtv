@@ -1,0 +1,21 @@
+{
+  "icons": 40,
+  "imagesLoaded": 44,
+  "search": true,
+  "categories": true,
+  "emptyState": true,
+  "dialogAndDownload": true,
+  "keyboard": true,
+  "square": true,
+  "smallSquare": [
+    160,
+    160
+  ],
+  "smallBanner": [
+    160,
+    90
+  ],
+  "mobileWidth": 390,
+  "errors": [],
+  "remoteRequests": []
+}

@@ -1,0 +1,12 @@
+{
+  "name": "odyssey-tv-icon-artwork",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "render": "node render_previews.mjs",
+    "verify": "node render_previews.mjs test-only"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}

@@ -2,6 +2,8 @@
 
 > **新图标设计包：** [40 枚柔光电视图标](artwork/soft-tv-icons/README.md)，包含横幅/方形 SVG、Android 矢量资源及离线预览。本套件已完成设计验收，尚未替换电视当前主题。
 
+> **奥德赛角色主题：** [40 个应用的角色图标](artwork/mario-odyssey-icons/README.md)，包含横幅/方形 PNG、Android 资源、素材来源与离线预览，尚未部署到电视。
+
 <p align="center">
   <a href="https://cleanyour.tv"><img src="docs/banner.png" alt="CleanYourTV：让电视桌面回归简洁" width="800"></a>
 </p>

@@ -1,0 +1,562 @@
+[
+  {
+    "id": "cast",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "cast",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "bili",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "bili",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "live",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "live",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "player",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "player",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "115",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "115",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "emby",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "emby",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "tencent",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "tencent",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "weather",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "weather",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "alarm",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "alarm",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "voice",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "voice",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "light",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "light",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "calendar",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "calendar",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "gallery",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "gallery",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "manager",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "manager",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "settings",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "settings",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "video",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "video",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "jellyfin",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "jellyfin",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "plex",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "plex",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "kodi",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "kodi",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "vlc",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "vlc",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "nova",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "nova",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "mxplayer",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "mxplayer",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "iqiyi",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "iqiyi",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "youku",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "youku",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "mango",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "mango",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "cctv",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "cctv",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "dangbei",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "dangbei",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "youtube",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "youtube",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "netflix",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "netflix",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "primevideo",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "primevideo",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "disneyplus",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "disneyplus",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "appletv",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "appletv",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "twitch",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "twitch",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "spotify",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "spotify",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "qqmusic",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "qqmusic",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "netease",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "netease",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "douyin",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "douyin",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "aliyundrive",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "aliyundrive",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "baidunetdisk",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "baidunetdisk",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  },
+  {
+    "id": "quark",
+    "format": "banners",
+    "width": 640,
+    "height": 360,
+    "cornersTransparent": true
+  },
+  {
+    "id": "quark",
+    "format": "squares",
+    "width": 512,
+    "height": 512,
+    "cornersTransparent": true
+  }
+]

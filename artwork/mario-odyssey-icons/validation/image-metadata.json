@@ -1,0 +1,322 @@
+[
+  {
+    "id": "cast",
+    "width": 316,
+    "height": 283,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "bili",
+    "width": 107,
+    "height": 203,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "live",
+    "width": 2207,
+    "height": 4592,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "player",
+    "width": 123,
+    "height": 190,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "115",
+    "width": 141,
+    "height": 136,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "emby",
+    "width": 2234,
+    "height": 3000,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "tencent",
+    "width": 828,
+    "height": 1158,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "weather",
+    "width": 335,
+    "height": 426,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "alarm",
+    "width": 939,
+    "height": 1680,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "voice",
+    "width": 1664,
+    "height": 1488,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "light",
+    "width": 282,
+    "height": 264,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "calendar",
+    "width": 111,
+    "height": 203,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "gallery",
+    "width": 137,
+    "height": 231,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "manager",
+    "width": 2500,
+    "height": 2339,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "settings",
+    "width": 530,
+    "height": 635,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "video",
+    "width": 103,
+    "height": 130,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "jellyfin",
+    "width": 1640,
+    "height": 1586,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "plex",
+    "width": 1475,
+    "height": 1740,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "kodi",
+    "width": 205,
+    "height": 204,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "vlc",
+    "width": 212,
+    "height": 215,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "nova",
+    "width": 138,
+    "height": 162,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "mxplayer",
+    "width": 143,
+    "height": 108,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "iqiyi",
+    "width": 105,
+    "height": 219,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "youku",
+    "width": 1636,
+    "height": 2114,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "mango",
+    "width": 1276,
+    "height": 1410,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "cctv",
+    "width": 1673,
+    "height": 1942,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "dangbei",
+    "width": 177,
+    "height": 194,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "youtube",
+    "width": 931,
+    "height": 1507,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "netflix",
+    "width": 406,
+    "height": 407,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "primevideo",
+    "width": 1045,
+    "height": 2045,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "disneyplus",
+    "width": 412,
+    "height": 672,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "appletv",
+    "width": 1064,
+    "height": 1508,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "twitch",
+    "width": 154,
+    "height": 185,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "spotify",
+    "width": 53,
+    "height": 205,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "qqmusic",
+    "width": 1441,
+    "height": 1236,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "netease",
+    "width": 887,
+    "height": 994,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "douyin",
+    "width": 129,
+    "height": 140,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "aliyundrive",
+    "width": 95,
+    "height": 138,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "baidunetdisk",
+    "width": 854,
+    "height": 855,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  },
+  {
+    "id": "quark",
+    "width": 385,
+    "height": 368,
+    "hasAlpha": true,
+    "alphaMin": 0,
+    "alphaMax": 255
+  }
+]

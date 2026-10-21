@@ -2,6 +2,8 @@
 
 > **Icon design pack:** [40 soft TV app icons](artwork/soft-tv-icons/README.md), with banner/square SVGs, Android vectors and an offline preview. This separate design pack has not replaced the installed TV theme.
 
+> **Odyssey character theme:** [40 character-based app icons](artwork/mario-odyssey-icons/README.md), with banner/square PNGs, Android resources, source credits and an offline preview. This theme has not been installed on the TV.
+
 <p align="center">
   <a href="https://cleanyour.tv"><img src="https://raw.githubusercontent.com/Gathin23/cleanyourtv/main/docs/banner.png" alt="CleanYourTV. Your TV, minus the ads. Strip the bloatware from any Android TV or Google TV over Wi-Fi and replace the ad-filled home screen with a clean launcher that looks like an Apple TV. No root, no cable, nothing uninstalled, and a one-line restore." width="800"></a>
 </p>
