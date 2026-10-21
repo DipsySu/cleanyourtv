@@ -38,4 +38,6 @@ python3 build_resources.py
 
 Android资源使用导出的640×360/512×512图片，避免加载数千像素原画。源素材分辨率不一，放大导出不会增加原图细节，优先按电视图标尺寸使用。
 
-这套主题尚未部署到电视。角色素材与来源见[SOURCES.md](SOURCES.md)，美术权利说明见[LICENSE-ASSETS.md](LICENSE-ASSETS.md)。
+2026-10-22 已安装到小米 MiTV-MFTR0 / freeguy。桌面工程内置 40 张横幅，启用 16 个已核实应用映射；方形图标与角色原图保留在设计包中，不进入桌面 APK。内置默认配置和 [Odyssey 预设](../../themes/xiaomi-freeguy-odyssey/config.json)保持原固定栏顺序，覆盖更新保留应用数据。部署与恢复说明见[设备记录](../../docs/devices/xiaomi-mitv-mftr0-freeguy-android11.md)。
+
+角色素材与来源见[SOURCES.md](SOURCES.md)，美术权利说明见[LICENSE-ASSETS.md](LICENSE-ASSETS.md)。

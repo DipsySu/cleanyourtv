@@ -46,22 +46,22 @@
     <!-- A tile's artwork instead of the app's banner: "package=drawable", a banner_* drawable bundled with the
          launcher (res/drawable). banner_tv is a magenta field with the Live TV glyph. -->
     <string-array name="app_banners">
-        <item>com.xiaomi.mitv.smartshare=banner_soft_cast</item>
-        <item>com.xiaodianshi.tv.yst=banner_soft_bili</item>
-        <item>com.zb.test=banner_soft_live</item>
-        <item>com.xiaomi.mitv.mediaexplorer=banner_soft_player</item>
-        <item>com.yyw.box.androidclient=banner_soft_115</item>
-        <item>com.mb.android=banner_soft_emby</item>
-        <item>com.ktcp.video=banner_soft_tencent</item>
-        <item>com.xiaomi.tweather=banner_soft_weather</item>
-        <item>com.mitv.alarmcenter=banner_soft_alarm</item>
-        <item>com.xiaomi.voicecontrol=banner_soft_voice</item>
-        <item>com.xiaomi.mitv.light=banner_soft_light</item>
-        <item>com.xiaomi.mitv.calendar=banner_soft_calendar</item>
-        <item>com.xiaomi.tv.gallery=banner_soft_gallery</item>
-        <item>com.xiaomi.mitv.tvmanager=banner_soft_manager</item>
-        <item>com.xiaomi.mitv.settings=banner_soft_settings</item>
-        <item>com.duokan.videodaily=banner_soft_video</item>
+        <item>com.xiaomi.mitv.smartshare=banner_odyssey_cast</item>
+        <item>com.xiaodianshi.tv.yst=banner_odyssey_bili</item>
+        <item>com.zb.test=banner_odyssey_live</item>
+        <item>com.xiaomi.mitv.mediaexplorer=banner_odyssey_player</item>
+        <item>com.yyw.box.androidclient=banner_odyssey_115</item>
+        <item>com.mb.android=banner_odyssey_emby</item>
+        <item>com.ktcp.video=banner_odyssey_tencent</item>
+        <item>com.xiaomi.tweather=banner_odyssey_weather</item>
+        <item>com.mitv.alarmcenter=banner_odyssey_alarm</item>
+        <item>com.xiaomi.voicecontrol=banner_odyssey_voice</item>
+        <item>com.xiaomi.mitv.light=banner_odyssey_light</item>
+        <item>com.xiaomi.mitv.calendar=banner_odyssey_calendar</item>
+        <item>com.xiaomi.tv.gallery=banner_odyssey_gallery</item>
+        <item>com.xiaomi.mitv.tvmanager=banner_odyssey_manager</item>
+        <item>com.xiaomi.mitv.settings=banner_odyssey_settings</item>
+        <item>com.duokan.videodaily=banner_odyssey_video</item>
     </string-array>
 
     <!-- TVs with no TvInputManager have no HDMI list to read, but their own source-selection panel
