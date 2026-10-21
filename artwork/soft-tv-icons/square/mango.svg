@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="mango_square_background" gradientUnits="userSpaceOnUse" x1="32" y1="0" x2="233.6" y2="256">
+      <stop offset="0" stop-color="#FFB21A" stop-opacity="1" />
+      <stop offset="1" stop-color="#FF6200" stop-opacity="1" />
+    </linearGradient>
+    <radialGradient id="mango_square_glow" gradientUnits="userSpaceOnUse" cx="57.6" cy="-22.784" r="198.4">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="mango_square_foreground" gradientUnits="userSpaceOnUse" x1="2.495" y1="2.5" x2="21.495" y2="21.5">
+      <stop offset="0" stop-color="#F8FBFF" stop-opacity="1" />
+      <stop offset="1" stop-color="#E4E7EB" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+  <path d="M58,0H198Q256,0 256,58V198Q256,256 198,256H58Q0,256 0,198V58Q0,0 58,0Z" fill="url(#mango_square_background)" />
+  <path d="M58,0H198Q256,0 256,58V198Q256,256 198,256H58Q0,256 0,198V58Q0,0 58,0Z" fill="url(#mango_square_glow)" />
+  <g transform="translate(37.51201 40.512) scale(8)">
+    <path d="M12 3.5A8.5 8.5 0 1 1 11.99 3.5" fill="none" stroke="#102432" stroke-opacity="0.14118" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M8.2 16.3V8.7H9.7L12 12.1L14.3 8.7H15.8V16.3H14.1V11.5L12.5 13.9H11.5L9.9 11.5V16.3Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+  </g>
+  <g transform="translate(34.47201 35.952) scale(8)">
+    <path d="M12 3.5A8.5 8.5 0 1 1 11.99 3.5" fill="none" stroke="#102432" stroke-opacity="0.23922" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M8.2 16.3V8.7H9.7L12 12.1L14.3 8.7H15.8V16.3H14.1V11.5L12.5 13.9H11.5L9.9 11.5V16.3Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+  </g>
+  <g transform="translate(32.04001 32) scale(8)">
+    <path d="M12 3.5A8.5 8.5 0 1 1 11.99 3.5" fill="none" stroke="url(#mango_square_foreground)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M8.2 16.3V8.7H9.7L12 12.1L14.3 8.7H15.8V16.3H14.1V11.5L12.5 13.9H11.5L9.9 11.5V16.3Z" fill="url(#mango_square_foreground)" stroke="none" />
+  </g>
+</svg>

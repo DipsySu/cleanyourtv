@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="youtube_square_background" gradientUnits="userSpaceOnUse" x1="32" y1="0" x2="233.6" y2="256">
+      <stop offset="0" stop-color="#FF3131" stop-opacity="1" />
+      <stop offset="1" stop-color="#C00000" stop-opacity="1" />
+    </linearGradient>
+    <radialGradient id="youtube_square_glow" gradientUnits="userSpaceOnUse" cx="57.6" cy="-22.784" r="198.4">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="youtube_square_foreground" gradientUnits="userSpaceOnUse" x1="0" y1="3.545" x2="24" y2="20.455">
+      <stop offset="0" stop-color="#F8FBFF" stop-opacity="1" />
+      <stop offset="1" stop-color="#E4E7EB" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+  <path d="M58,0H198Q256,0 256,58V198Q256,256 198,256H58Q0,256 0,198V58Q0,0 58,0Z" fill="url(#youtube_square_background)" />
+  <path d="M58,0H198Q256,0 256,58V198Q256,256 198,256H58Q0,256 0,198V58Q0,0 58,0Z" fill="url(#youtube_square_glow)" />
+  <g transform="translate(47.672 50.71201) scale(7.15)">
+    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+  </g>
+  <g transform="translate(44.632 46.15201) scale(7.15)">
+    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+  </g>
+  <g transform="translate(42.2 42.20001) scale(7.15)">
+    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="url(#youtube_square_foreground)" stroke="none" />
+  </g>
+</svg>

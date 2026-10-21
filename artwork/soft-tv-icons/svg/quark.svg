@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180">
+  <defs>
+    <linearGradient id="quark_banner_background" gradientUnits="userSpaceOnUse" x1="40" y1="0" x2="292" y2="180">
+      <stop offset="0" stop-color="#5AD0FF" stop-opacity="1" />
+      <stop offset="1" stop-color="#6E56F5" stop-opacity="1" />
+    </linearGradient>
+    <radialGradient id="quark_banner_glow" gradientUnits="userSpaceOnUse" cx="72" cy="-16.02" r="248">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="quark_banner_foreground" gradientUnits="userSpaceOnUse" x1="3.45059" y1="3.44458" x2="20.85" y2="21.95">
+      <stop offset="0" stop-color="#F8FBFF" stop-opacity="1" />
+      <stop offset="1" stop-color="#E4E7EB" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+  <path d="M0,0H320V180H0Z" fill="url(#quark_banner_background)" />
+  <path d="M0,0H320V180H0Z" fill="url(#quark_banner_glow)" />
+  <g transform="translate(100.42427 29.50664) scale(5.18767)">
+    <path d="M17.4 17.2A7.5 7.5 0 1 1 18.85 15.05" fill="none" stroke="#102432" stroke-opacity="0.14118" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M16 15.6L19.8 19.5L18.3 20.9L14.5 17Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+  </g>
+  <g transform="translate(98.50427 26.62664) scale(5.18767)">
+    <path d="M17.4 17.2A7.5 7.5 0 1 1 18.85 15.05" fill="none" stroke="#102432" stroke-opacity="0.23922" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M16 15.6L19.8 19.5L18.3 20.9L14.5 17Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+  </g>
+  <g transform="translate(96.96827 24.13064) scale(5.18767)">
+    <path d="M17.4 17.2A7.5 7.5 0 1 1 18.85 15.05" fill="none" stroke="url(#quark_banner_foreground)" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M16 15.6L19.8 19.5L18.3 20.9L14.5 17Z" fill="url(#quark_banner_foreground)" stroke="none" />
+  </g>
+</svg>

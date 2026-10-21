@@ -1,0 +1,242 @@
+[
+  {
+    "id": "115",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "alarm",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "aliyundrive",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "appletv",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "baidunetdisk",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "bili",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "calendar",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "cast",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "cctv",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "dangbei",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "disneyplus",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "douyin",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "emby",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "gallery",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "iqiyi",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "jellyfin",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "kodi",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "light",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "live",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "manager",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "mango",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "mxplayer",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "netease",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "netflix",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "nova",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "player",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "plex",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "primevideo",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "qqmusic",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "quark",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "settings",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "spotify",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "tencent",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "twitch",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "video",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "vlc",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "voice",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "weather",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "youku",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  },
+  {
+    "id": "youtube",
+    "meanChannelDifference": 0,
+    "maximumChannelDifference": 0,
+    "channelsAbove8Percent": 0
+  }
+]

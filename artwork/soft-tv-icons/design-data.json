@@ -1,0 +1,1014 @@
+{
+  "name": "柔光电视图标",
+  "icons": [
+    {
+      "id": "cast",
+      "label": "无线投屏",
+      "category": "电视工具",
+      "top_color": "#6AAEFF",
+      "bottom_color": "#2F62E0",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 108,
+      "height": 92,
+      "shapes": [
+        {
+          "d": "M 12.2 15.6 H 18.8 Q 21.6 15.6 21.6 12.8 V 6.6 Q 21.6 3.8 18.8 3.8 H 8.4 Q 5.6 3.8 5.6 6.6 V 10.2",
+          "fill": "none",
+          "stroke": "#F7F2EA",
+          "stroke_width": 1.9
+        },
+        {
+          "d": "M 3.8 18.3 A 2.9 2.9 0 0 1 6.7 21.2",
+          "fill": "none",
+          "stroke": "#F7F2EA",
+          "stroke_width": 1.9
+        },
+        {
+          "d": "M 3.8 15.8 A 5.4 5.4 0 0 1 9.2 21.2",
+          "fill": "none",
+          "stroke": "#F7F2EA",
+          "stroke_width": 1.9
+        },
+        {
+          "d": "M 3.8 13.2 A 8.0 8.0 0 0 1 11.8 21.2",
+          "fill": "none",
+          "stroke": "#F7F2EA",
+          "stroke_width": 1.9
+        }
+      ]
+    },
+    {
+      "id": "bili",
+      "label": "云视听小电视",
+      "category": "当前入口",
+      "top_color": "#F2A3C0",
+      "bottom_color": "#6C8FE0",
+      "foreground": "#F8FBFF",
+      "brand_slug": "bilibili",
+      "width": 104,
+      "height": 96,
+      "shapes": []
+    },
+    {
+      "id": "live",
+      "label": "直播电视",
+      "category": "当前入口",
+      "top_color": "#F0A08A",
+      "bottom_color": "#B24A62",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M9.4 6.5A3 3 0 0 1 14.6 6.5",
+          "fill": "none",
+          "stroke": "pearl",
+          "stroke_width": 1.45
+        },
+        {
+          "d": "M7.84 5.6A4.8 4.8 0 0 1 16.16 5.6",
+          "fill": "none",
+          "stroke": "pearl",
+          "stroke_width": 1.45
+        },
+        {
+          "d": "M6.37 4.75A6.5 6.5 0 0 1 17.63 4.75",
+          "fill": "none",
+          "stroke": "pearl",
+          "stroke_width": 1.45
+        },
+        {
+          "d": "M7.5 20.3L12 10.2L16.5 20.3",
+          "fill": "none",
+          "stroke": "pearl",
+          "stroke_width": 1.45
+        },
+        {
+          "d": "M9.2 15.1H14.8",
+          "fill": "none",
+          "stroke": "pearl",
+          "stroke_width": 1.45
+        },
+        {
+          "d": "M11.25 10.6H12.75V19.35H11.25Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M10.65 9.15A1.35 1.35 0 1 0 13.35 9.15A1.35 1.35 0 1 0 10.65 9.15Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M6.2 19.35H17.8V21.05H6.2Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        }
+      ]
+    },
+    {
+      "id": "player",
+      "label": "高清播放器",
+      "category": "媒体播放器",
+      "top_color": "#7B8CFF",
+      "bottom_color": "#3A4296",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M 4.4 6.4 Q 4.4 3.8 7.0 3.8 H 17.0 Q 19.6 3.8 19.6 6.4 V 15.2 Q 19.6 17.8 17.0 17.8 H 7.0 Q 4.4 17.8 4.4 15.2 Z",
+          "fill": "none",
+          "stroke": "#F7F2EA",
+          "stroke_width": 2
+        },
+        {
+          "d": "M 9.8 7.6 L 15.2 10.8 L 9.8 14.0 Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M 12 17.8 V 20.4 M 8.6 20.4 H 15.4",
+          "fill": "none",
+          "stroke": "#F7F2EA",
+          "stroke_width": 2
+        }
+      ]
+    },
+    {
+      "id": "115",
+      "label": "115生活",
+      "category": "网盘",
+      "top_color": "#FF9A4A",
+      "bottom_color": "#E25A12",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 176,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M 2.4 8.8 L 4.8 7.2 V 16.8 M 9.2 8.8 L 11.6 7.2 V 16.8 M 21.4 7.4 H 15.0 V 11.5 H 19.4 Q 21.6 11.5 21.6 13.9 Q 21.6 16.8 18.4 16.8 H 14.8",
+          "fill": "none",
+          "stroke": "#F7F2EA",
+          "stroke_width": 2
+        }
+      ]
+    },
+    {
+      "id": "emby",
+      "label": "Emby",
+      "category": "媒体播放器",
+      "top_color": "#7EC9A4",
+      "bottom_color": "#2F7D68",
+      "foreground": "#F8FBFF",
+      "brand_slug": "emby",
+      "width": 104,
+      "height": 96,
+      "shapes": []
+    },
+    {
+      "id": "tencent",
+      "label": "腾讯视频",
+      "category": "国内视频",
+      "top_color": "#C4E7FF",
+      "bottom_color": "#62B0EE",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M 5 4.8 Q 5 2 7.7 3.4 L 19.2 9.7 Q 22 11 19.3 12.6 L 7.2 20.5 Q 5 22 5 19.3 Z",
+          "fill": "#2E7BFF",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M 3 9.4 Q 3 7 5.15 8 L 15.85 13.05 Q 18 14 16 15.1 L 4.9 20.95 Q 3 22 3 19.6 Z",
+          "fill": "#FF7A00",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M 6 8.7 Q 6 7 7.75 7.65 L 17.25 11.3 Q 19 12 17.4 12.9 L 7.55 18.1 Q 6 19 6 17.15 Z",
+          "fill": "#21C45A",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M 9.6 11.1 L 13 12.7 L 9.6 14.3 Z",
+          "fill": "#FFFFFF",
+          "stroke": "none",
+          "stroke_width": 0
+        }
+      ]
+    },
+    {
+      "id": "weather",
+      "label": "天气",
+      "category": "电视工具",
+      "top_color": "#7EC8FF",
+      "bottom_color": "#3C8EED",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M 12.8 8.4 A 3.2 3.2 0 1 1 12.78 8.4 Z",
+          "fill": "#FFE7A3",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M 9.6 3.2 V 4.4 M 13.4 4.8 L 12.6 5.8 M 15.2 8.4 H 14.0 M 5.8 4.8 L 6.6 5.8 M 4.0 8.4 H 5.2",
+          "fill": "none",
+          "stroke": "#FFE7A3",
+          "stroke_width": 1.8
+        },
+        {
+          "d": "M 8.2 15.6 Q 8.0 13.2 10.4 13.0 Q 11.2 11.2 13.6 12.2 Q 16.4 11.6 17.4 13.8 Q 20.0 14.0 19.8 16.2 Q 19.6 18.8 16.8 18.8 H 10.4 Q 7.6 18.8 8.2 15.6 Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        }
+      ]
+    },
+    {
+      "id": "alarm",
+      "label": "定时提醒",
+      "category": "电视工具",
+      "top_color": "#EDE4F8",
+      "bottom_color": "#C8BAD6",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M 1.5 4.8 A 3.5 3.5 0 0 1 8.5 4.8 Q 7.8 8.3 5 8.1 Q 2.2 8.3 1.5 4.8 Z M 15.5 4.8 A 3.5 3.5 0 0 1 22.5 4.8 Q 21.8 8.3 19 8.1 Q 16.2 8.3 15.5 4.8 Z",
+          "fill": "pearl",
+          "stroke": "#5C3D82",
+          "stroke_width": 1.15
+        },
+        {
+          "d": "M 19 13 A 7 7 0 0 1 5 13 A 7 7 0 0 1 19 13 Z",
+          "fill": "pearl",
+          "stroke": "#5C3D82",
+          "stroke_width": 1.35
+        },
+        {
+          "d": "M 5.1 20 A 1.9 1.4 0 1 1 8.9 20 A 1.9 1.4 0 1 1 5.1 20 Z M 15.1 20 A 1.9 1.4 0 1 1 18.9 20 A 1.9 1.4 0 1 1 15.1 20 Z",
+          "fill": "pearl",
+          "stroke": "#5C3D82",
+          "stroke_width": 1.15
+        },
+        {
+          "d": "M 12 13 L 8.4 10.9 M 12 13 L 16.7 10.25 M 12 7.35 L 12 8.7 M 17.15 13 L 15.85 13 M 12 18.65 L 12 17.3 M 6.85 13 L 8.15 13 M 10.9 13 A 1.1 1.1 0 1 1 13.1 13 A 1.1 1.1 0 1 1 10.9 13 Z",
+          "fill": "#43206A",
+          "stroke": "#43206A",
+          "stroke_width": 1.5
+        }
+      ]
+    },
+    {
+      "id": "voice",
+      "label": "小爱同学",
+      "category": "电视工具",
+      "top_color": "#8B7CFF",
+      "bottom_color": "#3EC6E0",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M 10.2 11.4 V 6.2 Q 10.2 4.2 12.0 4.2 Q 13.8 4.2 13.8 6.2 V 11.4 Q 13.8 13.2 12.0 13.2 Q 10.2 13.2 10.2 11.4 Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M 10.2 11.0 V 12.8 A 1.8 1.8 0 0 0 13.8 12.8 V 11.0 M 12.0 14.6 V 18.4 M 9.2 18.4 H 14.8",
+          "fill": "none",
+          "stroke": "#F7F2EA",
+          "stroke_width": 1.8
+        },
+        {
+          "d": "M 16.6 8.4 A 2.5 2.5 0 0 1 16.6 14.0 M 19.0 6.8 A 3.8 3.8 0 0 1 19.0 15.6",
+          "fill": "none",
+          "stroke": "#F7F2EA",
+          "stroke_width": 1.8
+        }
+      ]
+    },
+    {
+      "id": "light",
+      "label": "幻彩随影",
+      "category": "电视工具",
+      "top_color": "#5B4BFF",
+      "bottom_color": "#C26BFF",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M 4.6 5.4 Q 4.6 3.6 6.6 3.6 H 17.4 Q 19.4 3.6 19.4 5.4 V 12.8 Q 19.4 14.6 17.4 14.6 H 6.6 Q 4.6 14.6 4.6 12.8 Z",
+          "fill": "none",
+          "stroke": "#F7F2EA",
+          "stroke_width": 2
+        },
+        {
+          "d": "M 7.4 16.4 L 5.6 21.0 Q 7.2 21.6 8.8 21.0 Z",
+          "fill": "#46D6FF",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M 10.6 16.4 L 9.2 21.2 Q 12.0 21.8 14.8 21.2 Z",
+          "fill": "#E2B4FF",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M 16.4 16.4 L 15.0 21.0 Q 17.2 21.6 18.8 21.0 Z",
+          "fill": "#FFC14A",
+          "stroke": "none",
+          "stroke_width": 0
+        }
+      ]
+    },
+    {
+      "id": "calendar",
+      "label": "日历",
+      "category": "电视工具",
+      "top_color": "#F8C3B0",
+      "bottom_color": "#E36A58",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M6.4 7.2 H17.6 A2 2 0 0 1 19.6 9.2 V19.2 A2 2 0 0 1 17.6 21.2 H6.4 A2 2 0 0 1 4.4 19.2 V9.2 A2 2 0 0 1 6.4 7.2 Z",
+          "fill": "none",
+          "stroke": "pearl",
+          "stroke_width": 1.8
+        },
+        {
+          "d": "M8.2 7.2 V5.2 A1.15 1.15 0 0 0 10.5 5.2 V7.2 M13.5 7.2 V5.2 A1.15 1.15 0 0 0 15.8 5.2 V7.2",
+          "fill": "none",
+          "stroke": "pearl",
+          "stroke_width": 1.8
+        },
+        {
+          "d": "M4.8 11.1 H19.2",
+          "fill": "none",
+          "stroke": "pearl",
+          "stroke_width": 1.8
+        },
+        {
+          "d": "M7.2 13.5 H10.1 A0.9 0.9 0 0 1 11 14.4 V17 A0.9 0.9 0 0 1 10.1 17.9 H7.2 A0.9 0.9 0 0 1 6.3 17 V14.4 A0.9 0.9 0 0 1 7.2 13.5 Z M13 13.5 H15.9 A0.9 0.9 0 0 1 16.8 14.4 V17 A0.9 0.9 0 0 1 15.9 17.9 H13 A0.9 0.9 0 0 1 12.1 17 V14.4 A0.9 0.9 0 0 1 13 13.5 Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        }
+      ]
+    },
+    {
+      "id": "gallery",
+      "label": "时尚画报",
+      "category": "电视工具",
+      "top_color": "#F6C6DE",
+      "bottom_color": "#C25686",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M7.2 2.8 H16.8 A2 2 0 0 1 18.8 4.8 V19.2 A2 2 0 0 1 16.8 21.2 H7.2 A2 2 0 0 1 5.2 19.2 V4.8 A2 2 0 0 1 7.2 2.8 Z",
+          "fill": "none",
+          "stroke": "pearl",
+          "stroke_width": 1.8
+        },
+        {
+          "d": "M15.3 9.5 A3.3 3.3 0 1 1 8.7 9.5 A3.3 3.3 0 1 1 15.3 9.5 Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M8 15.2 H16 M8.8 17.8 H13.6",
+          "fill": "none",
+          "stroke": "pearl",
+          "stroke_width": 1.7
+        }
+      ]
+    },
+    {
+      "id": "manager",
+      "label": "电视管家",
+      "category": "电视工具",
+      "top_color": "#A7E0D6",
+      "bottom_color": "#2E8F86",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M12 2.6 L19.4 5.5 V11.8 C19.4 16.2 16.4 19.1 12 21.4 C7.6 19.1 4.6 16.2 4.6 11.8 V5.5 Z",
+          "fill": "none",
+          "stroke": "pearl",
+          "stroke_width": 1.8
+        },
+        {
+          "d": "M8.4 12.7 L12 9.5 L15.6 12.7 V16.7 H13.3 V13.9 H10.7 V16.7 H8.4 Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "label": "电视设置",
+      "category": "电视工具",
+      "top_color": "#B7D0FA",
+      "bottom_color": "#4C74BE",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M4.6 5.2 H19.4 A2.1 2.1 0 0 1 21.5 7.3 V16.7 A2.1 2.1 0 0 1 19.4 18.8 H4.6 A2.1 2.1 0 0 1 2.5 16.7 V7.3 A2.1 2.1 0 0 1 4.6 5.2 Z",
+          "fill": "none",
+          "stroke": "pearl",
+          "stroke_width": 1.8
+        },
+        {
+          "d": "M6.2 9 H17.8 M6.2 12 H17.8 M6.2 15 H17.8",
+          "fill": "none",
+          "stroke": "pearl",
+          "stroke_width": 1.8
+        },
+        {
+          "d": "M10.45 9 A1.45 1.45 0 1 1 7.55 9 A1.45 1.45 0 1 1 10.45 9 Z M15.65 12 A1.45 1.45 0 1 1 12.75 12 A1.45 1.45 0 1 1 15.65 12 Z M12.65 15 A1.45 1.45 0 1 1 9.75 15 A1.45 1.45 0 1 1 12.65 15 Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        }
+      ]
+    },
+    {
+      "id": "video",
+      "label": "视频头条",
+      "category": "电视工具",
+      "top_color": "#FFB2A8",
+      "bottom_color": "#E23A48",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M4.4 5.2 H19.6 A2.2 2.2 0 0 1 21.8 7.4 V16.6 A2.2 2.2 0 0 1 19.6 18.8 H4.4 A2.2 2.2 0 0 1 2.2 16.6 V7.4 A2.2 2.2 0 0 1 4.4 5.2 Z",
+          "fill": "none",
+          "stroke": "pearl",
+          "stroke_width": 1.8
+        },
+        {
+          "d": "M6.5 8.3 L6.5 15.7 L12.6 12 Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M14.5 9.2 H19.6 M14.5 12 H18.5 M14.5 14.8 H17.1",
+          "fill": "none",
+          "stroke": "pearl",
+          "stroke_width": 1.6
+        }
+      ]
+    },
+    {
+      "id": "jellyfin",
+      "label": "Jellyfin",
+      "category": "媒体播放器",
+      "top_color": "#9AA8F2",
+      "bottom_color": "#5C4E96",
+      "foreground": "#F8FBFF",
+      "brand_slug": "jellyfin",
+      "width": 104,
+      "height": 96,
+      "shapes": []
+    },
+    {
+      "id": "plex",
+      "label": "Plex",
+      "category": "媒体播放器",
+      "top_color": "#F0C14B",
+      "bottom_color": "#C4842A",
+      "foreground": "#3F2914",
+      "brand_slug": "plex",
+      "width": 160,
+      "height": 80,
+      "shapes": []
+    },
+    {
+      "id": "kodi",
+      "label": "Kodi",
+      "category": "媒体播放器",
+      "top_color": "#7EB6DE",
+      "bottom_color": "#356892",
+      "foreground": "#F8FBFF",
+      "brand_slug": "kodi",
+      "width": 104,
+      "height": 96,
+      "shapes": []
+    },
+    {
+      "id": "vlc",
+      "label": "VLC",
+      "category": "媒体播放器",
+      "top_color": "#FFC78A",
+      "bottom_color": "#F07820",
+      "foreground": "#F8FBFF",
+      "brand_slug": "vlcmediaplayer",
+      "width": 104,
+      "height": 96,
+      "shapes": []
+    },
+    {
+      "id": "nova",
+      "label": "Nova Video Player",
+      "category": "媒体播放器",
+      "top_color": "#5B74FF",
+      "bottom_color": "#6D35D6",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M12 2.55C12.38 6.15 12.78 8.05 14.2 9.55C15.72 11.12 17.72 11.52 21.45 12C17.72 12.48 15.72 12.88 14.2 14.45C12.78 15.95 12.38 17.85 12 21.45C11.62 17.85 11.22 15.95 9.8 14.45C8.28 12.88 6.28 12.48 2.55 12C6.28 11.52 8.28 11.12 9.8 9.55C11.22 8.05 11.62 6.15 12 2.55ZM12 8.05L13.2 10.8L15.95 12L13.2 13.2L12 15.95L10.8 13.2L8.05 12L10.8 10.8Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0,
+          "fill_rule": "evenodd"
+        },
+        {
+          "d": "M18.05 4.35L18.62 5.72L20.05 6.28L18.62 6.84L18.05 8.22L17.48 6.84L16.05 6.28L17.48 5.72Z",
+          "fill": "#F6C453",
+          "stroke": "none",
+          "stroke_width": 0
+        }
+      ]
+    },
+    {
+      "id": "mxplayer",
+      "label": "MX Player",
+      "category": "媒体播放器",
+      "top_color": "#6CB6FF",
+      "bottom_color": "#1D6AD8",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M2.2 19 V5.3 H4.7 L8 10.8 L11.3 5.3 H13.8 V19 H11.4 V11.6 L8 16.4 L4.6 11.6 V19 Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M15.4 5.3 L17.8 5.3 L22.8 16.9 L20.4 16.9 Z M20.4 5.3 L22.8 5.3 L17.8 16.9 L15.4 16.9 Z",
+          "fill": "#FFD36A",
+          "stroke": "none",
+          "stroke_width": 0
+        }
+      ]
+    },
+    {
+      "id": "iqiyi",
+      "label": "爱奇艺/奇异果",
+      "category": "国内视频",
+      "top_color": "#8BE58A",
+      "bottom_color": "#00A84F",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M18.8 13.3 A6.8 6.8 0 1 1 5.2 13.3 A6.8 6.8 0 1 1 18.8 13.3 Z M10.4 10.3 L15.2 13.3 L10.4 16.3 Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0,
+          "fill_rule": "evenodd"
+        },
+        {
+          "d": "M16.7 6.9 C18.4 5.2 21 4.9 21.7 6.4 C21.2 8.3 18.6 9 16.9 8.1 C16.6 7.7 16.5 7.3 16.7 6.9 Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        }
+      ]
+    },
+    {
+      "id": "youku",
+      "label": "优酷/酷喵",
+      "category": "国内视频",
+      "top_color": "#FFC56A",
+      "bottom_color": "#F07432",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M7.35 8.75L6.05 3.15L10.45 8.2C11 8.4 11.5 8.5 12 8.5C12.5 8.5 13 8.4 13.55 8.2L17.95 3.15L16.65 8.75C18.95 9.4 20.75 11.4 21.2 14C21.8 17.25 19.75 20.4 16.2 21.4C14.9 21.8 13.45 22 12 22C10.55 22 9.1 21.8 7.8 21.4C4.25 20.4 2.2 17.25 2.8 14C3.25 11.4 5.05 9.4 7.35 8.75Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M7.15 4.7L9.55 7.75L8.05 8.25ZM16.85 4.7L14.45 7.75L15.95 8.25Z",
+          "fill": "#FF8EAE",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M10.55 13.85A1.4 1.4 0 1 1 7.75 13.85A1.4 1.4 0 1 1 10.55 13.85Z",
+          "fill": "#4C86FF",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M13.15 13.7Q14.85 12.25 16.55 13.7Q14.85 14.55 13.15 13.7Z",
+          "fill": "#FF6B9D",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M12 15.45L11.2 16.55L12.8 16.55Z",
+          "fill": "#FF8EAE",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M9.35 17.25Q12 19.05 14.65 17.25",
+          "fill": "none",
+          "stroke": "#4C86FF",
+          "stroke_width": 0.85
+        }
+      ]
+    },
+    {
+      "id": "mango",
+      "label": "芒果TV",
+      "category": "国内视频",
+      "top_color": "#FFB21A",
+      "bottom_color": "#FF6200",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M12 3.5A8.5 8.5 0 1 1 11.99 3.5",
+          "fill": "none",
+          "stroke": "pearl",
+          "stroke_width": 2
+        },
+        {
+          "d": "M8.2 16.3V8.7H9.7L12 12.1L14.3 8.7H15.8V16.3H14.1V11.5L12.5 13.9H11.5L9.9 11.5V16.3Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        }
+      ]
+    },
+    {
+      "id": "cctv",
+      "label": "央视频",
+      "category": "国内视频",
+      "top_color": "#FF4A45",
+      "bottom_color": "#C8102E",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M15.6 6.8C13.2 4.9 9.4 4.6 6.8 6.7C4.1 8.9 3.8 12.8 5.8 15.4C7.5 17.6 10.4 18.7 13.3 18.2C14.6 18 15.7 17.2 16.5 16.2",
+          "fill": "none",
+          "stroke": "pearl",
+          "stroke_width": 2.2
+        },
+        {
+          "d": "M18.2 8.1H19.6C20.2 8.1 20.6 8.5 20.6 9.1V14.9C20.6 15.5 20.2 15.9 19.6 15.9H18.2C17.6 15.9 17.2 15.5 17.2 14.9V9.1C17.2 8.5 17.6 8.1 18.2 8.1Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        }
+      ]
+    },
+    {
+      "id": "dangbei",
+      "label": "当贝影视",
+      "category": "国内视频",
+      "top_color": "#FFB24A",
+      "bottom_color": "#FF6A00",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M4.6 8.5L7.3 5.3H16.6L19.3 8.5Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M5.4 10.4H18.6Q20.2 10.4 20.2 12V17.2Q20.2 18.8 18.6 18.8H5.4Q3.8 18.8 3.8 17.2V12Q3.8 10.4 5.4 10.4Z",
+          "fill": "none",
+          "stroke": "pearl",
+          "stroke_width": 1.8
+        },
+        {
+          "d": "M10 13.1L14.6 15L10 16.9Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        }
+      ]
+    },
+    {
+      "id": "youtube",
+      "label": "YouTube",
+      "category": "国际视频",
+      "top_color": "#FF3131",
+      "bottom_color": "#C00000",
+      "foreground": "#F8FBFF",
+      "brand_slug": "youtube",
+      "width": 104,
+      "height": 96,
+      "shapes": []
+    },
+    {
+      "id": "netflix",
+      "label": "Netflix",
+      "category": "国际视频",
+      "top_color": "#E07A78",
+      "bottom_color": "#8C2E38",
+      "foreground": "#F8FBFF",
+      "brand_slug": "netflix",
+      "width": 104,
+      "height": 96,
+      "shapes": []
+    },
+    {
+      "id": "primevideo",
+      "label": "Prime Video",
+      "category": "国际视频",
+      "top_color": "#31465C",
+      "bottom_color": "#121A22",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M8.2 3.8C7.6 3.5 6.9 3.9 6.9 4.6V11.6C6.9 12.3 7.6 12.7 8.2 12.4L14.6 8.9C15.2 8.6 15.2 7.6 14.6 7.3Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M3.6 15.4C6.8 19.2 12 19.8 15.2 17.4L15.9 18.9C12 21.6 6.2 20.8 2.6 16.8Z",
+          "fill": "#FF9900",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M16.6 14.2L21.4 16.2L17 19.5Z",
+          "fill": "#FF9900",
+          "stroke": "none",
+          "stroke_width": 0
+        }
+      ]
+    },
+    {
+      "id": "disneyplus",
+      "label": "Disney+",
+      "category": "国际视频",
+      "top_color": "#2A62E8",
+      "bottom_color": "#071433",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M4 19.2H20V17.5H4Z M5.3 17.5V12.1H6.6V10.3H7.9V12.1H9.1V17.5Z M10.3 17.5V11.2H11.4V8.1L12 6.3L12.6 8.1V11.2H13.7V17.5Z M15 17.5V12.1H16.3V10.3H17.6V12.1H18.8V17.5Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M17.5 3.1H18.8V4.5H20.3V5.8H18.8V7.2H17.5V5.8H16V4.5H17.5Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        }
+      ]
+    },
+    {
+      "id": "appletv",
+      "label": "Apple TV",
+      "category": "国际视频",
+      "top_color": "#3A3A3C",
+      "bottom_color": "#141416",
+      "foreground": "#F8FBFF",
+      "brand_slug": "appletv",
+      "width": 160,
+      "height": 90,
+      "shapes": []
+    },
+    {
+      "id": "twitch",
+      "label": "Twitch",
+      "category": "国际视频",
+      "top_color": "#C4A0FF",
+      "bottom_color": "#6D28D9",
+      "foreground": "#F8FBFF",
+      "brand_slug": "twitch",
+      "width": 104,
+      "height": 96,
+      "shapes": []
+    },
+    {
+      "id": "spotify",
+      "label": "Spotify",
+      "category": "音乐与短视频",
+      "top_color": "#5BE58A",
+      "bottom_color": "#0E9B4A",
+      "foreground": "#F8FBFF",
+      "brand_slug": "spotify",
+      "width": 104,
+      "height": 96,
+      "shapes": []
+    },
+    {
+      "id": "qqmusic",
+      "label": "QQ音乐",
+      "category": "音乐与短视频",
+      "top_color": "#5AE07A",
+      "bottom_color": "#12B352",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M12 3.6A8.4 8.4 0 1 1 11.99 3.6",
+          "fill": "none",
+          "stroke": "pearl",
+          "stroke_width": 1.9
+        },
+        {
+          "d": "M10.35 13.5A2.2 2.2 0 1 1 10.34 13.5Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M11.9 7.2H13.45V15.4H11.9Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M13.2 7.35C15.5 7.7 17.05 9.15 16.6 10.85C16.25 12.15 14.85 12.45 13.7 11.55C13.35 11.25 13.25 10.15 13.35 9.2Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        }
+      ]
+    },
+    {
+      "id": "netease",
+      "label": "网易云音乐",
+      "category": "音乐与短视频",
+      "top_color": "#FF6B6B",
+      "bottom_color": "#E11D2E",
+      "foreground": "#F8FBFF",
+      "brand_slug": "neteasecloudmusic",
+      "width": 104,
+      "height": 96,
+      "shapes": []
+    },
+    {
+      "id": "douyin",
+      "label": "抖音",
+      "category": "音乐与短视频",
+      "top_color": "#3EF0F0",
+      "bottom_color": "#FE2C55",
+      "foreground": "#F8FBFF",
+      "brand_slug": "tiktok",
+      "width": 104,
+      "height": 96,
+      "shapes": []
+    },
+    {
+      "id": "aliyundrive",
+      "label": "阿里云盘",
+      "category": "网盘",
+      "top_color": "#FF9A4A",
+      "bottom_color": "#7C4DFF",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M17.3 18.3A8.2 8.2 0 1 1 18.7 7.3L16 9.2A4.9 4.9 0 1 0 15.2 15.8Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        },
+        {
+          "d": "M15.6 9.6C18.2 8.8 20 11.2 19.2 14.2C18.6 16.4 16.6 16.8 15.4 15.6C16.2 14.2 16.6 12.2 16.2 10.8C15.8 10.2 15.6 9.8 15.6 9.6Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        }
+      ]
+    },
+    {
+      "id": "baidunetdisk",
+      "label": "百度网盘",
+      "category": "网盘",
+      "top_color": "#5B9BFF",
+      "bottom_color": "#F2554A",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M8.6 6.5A5.5 5.5 0 1 1 8.59 6.5M8.6 8.75A3.25 3.25 0 1 0 8.61 8.75",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0,
+          "fill_rule": "evenodd"
+        },
+        {
+          "d": "M15.4 6.5A5.5 5.5 0 1 1 15.39 6.5M15.4 8.75A3.25 3.25 0 1 0 15.41 8.75",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0,
+          "fill_rule": "evenodd"
+        }
+      ]
+    },
+    {
+      "id": "quark",
+      "label": "夸克网盘",
+      "category": "网盘",
+      "top_color": "#5AD0FF",
+      "bottom_color": "#6E56F5",
+      "foreground": "#F8FBFF",
+      "brand_slug": "",
+      "width": 104,
+      "height": 96,
+      "shapes": [
+        {
+          "d": "M17.4 17.2A7.5 7.5 0 1 1 18.85 15.05",
+          "fill": "none",
+          "stroke": "pearl",
+          "stroke_width": 2.1
+        },
+        {
+          "d": "M16 15.6L19.8 19.5L18.3 20.9L14.5 17Z",
+          "fill": "pearl",
+          "stroke": "none",
+          "stroke_width": 0
+        }
+      ]
+    }
+  ]
+}

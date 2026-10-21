@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="disneyplus_square_background" gradientUnits="userSpaceOnUse" x1="32" y1="0" x2="233.6" y2="256">
+      <stop offset="0" stop-color="#2A62E8" stop-opacity="1" />
+      <stop offset="1" stop-color="#071433" stop-opacity="1" />
+    </linearGradient>
+    <radialGradient id="disneyplus_square_glow" gradientUnits="userSpaceOnUse" cx="57.6" cy="-22.784" r="198.4">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="disneyplus_square_foreground" gradientUnits="userSpaceOnUse" x1="4" y1="3.1" x2="20.3" y2="19.2">
+      <stop offset="0" stop-color="#F8FBFF" stop-opacity="1" />
+      <stop offset="1" stop-color="#E4E7EB" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+  <path d="M58,0H198Q256,0 256,58V198Q256,256 198,256H58Q0,256 0,198V58Q0,0 58,0Z" fill="url(#disneyplus_square_background)" />
+  <path d="M58,0H198Q256,0 256,58V198Q256,256 198,256H58Q0,256 0,198V58Q0,0 58,0Z" fill="url(#disneyplus_square_glow)" />
+  <g transform="translate(18.76393 31.24492) scale(9.44099)">
+    <path d="M4 19.2H20V17.5H4Z M5.3 17.5V12.1H6.6V10.3H7.9V12.1H9.1V17.5Z M10.3 17.5V11.2H11.4V8.1L12 6.3L12.6 8.1V11.2H13.7V17.5Z M15 17.5V12.1H16.3V10.3H17.6V12.1H18.8V17.5Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+    <path d="M17.5 3.1H18.8V4.5H20.3V5.8H18.8V7.2H17.5V5.8H16V4.5H17.5Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+  </g>
+  <g transform="translate(15.72393 26.68492) scale(9.44099)">
+    <path d="M4 19.2H20V17.5H4Z M5.3 17.5V12.1H6.6V10.3H7.9V12.1H9.1V17.5Z M10.3 17.5V11.2H11.4V8.1L12 6.3L12.6 8.1V11.2H13.7V17.5Z M15 17.5V12.1H16.3V10.3H17.6V12.1H18.8V17.5Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+    <path d="M17.5 3.1H18.8V4.5H20.3V5.8H18.8V7.2H17.5V5.8H16V4.5H17.5Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+  </g>
+  <g transform="translate(13.29193 22.73292) scale(9.44099)">
+    <path d="M4 19.2H20V17.5H4Z M5.3 17.5V12.1H6.6V10.3H7.9V12.1H9.1V17.5Z M10.3 17.5V11.2H11.4V8.1L12 6.3L12.6 8.1V11.2H13.7V17.5Z M15 17.5V12.1H16.3V10.3H17.6V12.1H18.8V17.5Z" fill="url(#disneyplus_square_foreground)" stroke="none" />
+    <path d="M17.5 3.1H18.8V4.5H20.3V5.8H18.8V7.2H17.5V5.8H16V4.5H17.5Z" fill="url(#disneyplus_square_foreground)" stroke="none" />
+  </g>
+</svg>

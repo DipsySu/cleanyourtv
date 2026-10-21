@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="tencent_square_background" gradientUnits="userSpaceOnUse" x1="32" y1="0" x2="233.6" y2="256">
+      <stop offset="0" stop-color="#C4E7FF" stop-opacity="1" />
+      <stop offset="1" stop-color="#62B0EE" stop-opacity="1" />
+    </linearGradient>
+    <radialGradient id="tencent_square_glow" gradientUnits="userSpaceOnUse" cx="57.6" cy="-22.784" r="198.4">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="tencent_square_foreground" gradientUnits="userSpaceOnUse" x1="3" y1="2.93333" x2="20.62545" y2="21.26956">
+      <stop offset="0" stop-color="#F8FBFF" stop-opacity="1" />
+      <stop offset="1" stop-color="#E4E7EB" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+  <path d="M58,0H198Q256,0 256,58V198Q256,256 198,256H58Q0,256 0,198V58Q0,0 58,0Z" fill="url(#tencent_square_background)" />
+  <path d="M58,0H198Q256,0 256,58V198Q256,256 198,256H58Q0,256 0,198V58Q0,0 58,0Z" fill="url(#tencent_square_glow)" />
+  <g transform="translate(35.54923 36.19584) scale(8.2896)">
+    <path d="M 5 4.8 Q 5 2 7.7 3.4 L 19.2 9.7 Q 22 11 19.3 12.6 L 7.2 20.5 Q 5 22 5 19.3 Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+    <path d="M 3 9.4 Q 3 7 5.15 8 L 15.85 13.05 Q 18 14 16 15.1 L 4.9 20.95 Q 3 22 3 19.6 Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+    <path d="M 6 8.7 Q 6 7 7.75 7.65 L 17.25 11.3 Q 19 12 17.4 12.9 L 7.55 18.1 Q 6 19 6 17.15 Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+    <path d="M 9.6 11.1 L 13 12.7 L 9.6 14.3 Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+  </g>
+  <g transform="translate(32.50923 31.63584) scale(8.2896)">
+    <path d="M 5 4.8 Q 5 2 7.7 3.4 L 19.2 9.7 Q 22 11 19.3 12.6 L 7.2 20.5 Q 5 22 5 19.3 Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+    <path d="M 3 9.4 Q 3 7 5.15 8 L 15.85 13.05 Q 18 14 16 15.1 L 4.9 20.95 Q 3 22 3 19.6 Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+    <path d="M 6 8.7 Q 6 7 7.75 7.65 L 17.25 11.3 Q 19 12 17.4 12.9 L 7.55 18.1 Q 6 19 6 17.15 Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+    <path d="M 9.6 11.1 L 13 12.7 L 9.6 14.3 Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+  </g>
+  <g transform="translate(30.07723 27.68384) scale(8.2896)">
+    <path d="M 5 4.8 Q 5 2 7.7 3.4 L 19.2 9.7 Q 22 11 19.3 12.6 L 7.2 20.5 Q 5 22 5 19.3 Z" fill="#2E7BFF" stroke="none" />
+    <path d="M 3 9.4 Q 3 7 5.15 8 L 15.85 13.05 Q 18 14 16 15.1 L 4.9 20.95 Q 3 22 3 19.6 Z" fill="#FF7A00" stroke="none" />
+    <path d="M 6 8.7 Q 6 7 7.75 7.65 L 17.25 11.3 Q 19 12 17.4 12.9 L 7.55 18.1 Q 6 19 6 17.15 Z" fill="#21C45A" stroke="none" />
+    <path d="M 9.6 11.1 L 13 12.7 L 9.6 14.3 Z" fill="#FFFFFF" stroke="none" />
+  </g>
+</svg>

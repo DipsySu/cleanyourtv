@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180">
+  <defs>
+    <linearGradient id="live_banner_background" gradientUnits="userSpaceOnUse" x1="40" y1="0" x2="292" y2="180">
+      <stop offset="0" stop-color="#F0A08A" stop-opacity="1" />
+      <stop offset="1" stop-color="#B24A62" stop-opacity="1" />
+    </linearGradient>
+    <radialGradient id="live_banner_glow" gradientUnits="userSpaceOnUse" cx="72" cy="-16.02" r="248">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="live_banner_foreground" gradientUnits="userSpaceOnUse" x1="5.475" y1="0.77355" x2="18.525" y2="21.775">
+      <stop offset="0" stop-color="#F8FBFF" stop-opacity="1" />
+      <stop offset="1" stop-color="#E4E7EB" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+  <path d="M0,0H320V180H0Z" fill="url(#live_banner_background)" />
+  <path d="M0,0H320V180H0Z" fill="url(#live_banner_glow)" />
+  <g transform="translate(108.60263 43.84) scale(4.57111)">
+    <path d="M9.4 6.5A3 3 0 0 1 14.6 6.5" fill="none" stroke="#102432" stroke-opacity="0.14118" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M7.84 5.6A4.8 4.8 0 0 1 16.16 5.6" fill="none" stroke="#102432" stroke-opacity="0.14118" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M6.37 4.75A6.5 6.5 0 0 1 17.63 4.75" fill="none" stroke="#102432" stroke-opacity="0.14118" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M7.5 20.3L12 10.2L16.5 20.3" fill="none" stroke="#102432" stroke-opacity="0.14118" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M9.2 15.1H14.8" fill="none" stroke="#102432" stroke-opacity="0.14118" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M11.25 10.6H12.75V19.35H11.25Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+    <path d="M10.65 9.15A1.35 1.35 0 1 0 13.35 9.15A1.35 1.35 0 1 0 10.65 9.15Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+    <path d="M6.2 19.35H17.8V21.05H6.2Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+  </g>
+  <g transform="translate(106.68263 40.96) scale(4.57111)">
+    <path d="M9.4 6.5A3 3 0 0 1 14.6 6.5" fill="none" stroke="#102432" stroke-opacity="0.23922" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M7.84 5.6A4.8 4.8 0 0 1 16.16 5.6" fill="none" stroke="#102432" stroke-opacity="0.23922" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M6.37 4.75A6.5 6.5 0 0 1 17.63 4.75" fill="none" stroke="#102432" stroke-opacity="0.23922" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M7.5 20.3L12 10.2L16.5 20.3" fill="none" stroke="#102432" stroke-opacity="0.23922" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M9.2 15.1H14.8" fill="none" stroke="#102432" stroke-opacity="0.23922" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M11.25 10.6H12.75V19.35H11.25Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+    <path d="M10.65 9.15A1.35 1.35 0 1 0 13.35 9.15A1.35 1.35 0 1 0 10.65 9.15Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+    <path d="M6.2 19.35H17.8V21.05H6.2Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+  </g>
+  <g transform="translate(105.14663 38.464) scale(4.57111)">
+    <path d="M9.4 6.5A3 3 0 0 1 14.6 6.5" fill="none" stroke="url(#live_banner_foreground)" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M7.84 5.6A4.8 4.8 0 0 1 16.16 5.6" fill="none" stroke="url(#live_banner_foreground)" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M6.37 4.75A6.5 6.5 0 0 1 17.63 4.75" fill="none" stroke="url(#live_banner_foreground)" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M7.5 20.3L12 10.2L16.5 20.3" fill="none" stroke="url(#live_banner_foreground)" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M9.2 15.1H14.8" fill="none" stroke="url(#live_banner_foreground)" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M11.25 10.6H12.75V19.35H11.25Z" fill="url(#live_banner_foreground)" stroke="none" />
+    <path d="M10.65 9.15A1.35 1.35 0 1 0 13.35 9.15A1.35 1.35 0 1 0 10.65 9.15Z" fill="url(#live_banner_foreground)" stroke="none" />
+    <path d="M6.2 19.35H17.8V21.05H6.2Z" fill="url(#live_banner_foreground)" stroke="none" />
+  </g>
+</svg>

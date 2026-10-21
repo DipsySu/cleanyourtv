@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180">
+  <defs>
+    <linearGradient id="video_banner_background" gradientUnits="userSpaceOnUse" x1="40" y1="0" x2="292" y2="180">
+      <stop offset="0" stop-color="#FFB2A8" stop-opacity="1" />
+      <stop offset="1" stop-color="#E23A48" stop-opacity="1" />
+    </linearGradient>
+    <radialGradient id="video_banner_glow" gradientUnits="userSpaceOnUse" cx="72" cy="-16.02" r="248">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="video_banner_foreground" gradientUnits="userSpaceOnUse" x1="1.3" y1="4.3" x2="22.7" y2="19.7">
+      <stop offset="0" stop-color="#F8FBFF" stop-opacity="1" />
+      <stop offset="1" stop-color="#E4E7EB" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+  <path d="M0,0H320V180H0Z" fill="url(#video_banner_background)" />
+  <path d="M0,0H320V180H0Z" fill="url(#video_banner_glow)" />
+  <g transform="translate(105.13824 37.05824) scale(4.85981)">
+    <path d="M4.4 5.2 H19.6 A2.2 2.2 0 0 1 21.8 7.4 V16.6 A2.2 2.2 0 0 1 19.6 18.8 H4.4 A2.2 2.2 0 0 1 2.2 16.6 V7.4 A2.2 2.2 0 0 1 4.4 5.2 Z" fill="none" stroke="#102432" stroke-opacity="0.14118" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M6.5 8.3 L6.5 15.7 L12.6 12 Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+    <path d="M14.5 9.2 H19.6 M14.5 12 H18.5 M14.5 14.8 H17.1" fill="none" stroke="#102432" stroke-opacity="0.14118" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+  <g transform="translate(103.21824 34.17824) scale(4.85981)">
+    <path d="M4.4 5.2 H19.6 A2.2 2.2 0 0 1 21.8 7.4 V16.6 A2.2 2.2 0 0 1 19.6 18.8 H4.4 A2.2 2.2 0 0 1 2.2 16.6 V7.4 A2.2 2.2 0 0 1 4.4 5.2 Z" fill="none" stroke="#102432" stroke-opacity="0.23922" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M6.5 8.3 L6.5 15.7 L12.6 12 Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+    <path d="M14.5 9.2 H19.6 M14.5 12 H18.5 M14.5 14.8 H17.1" fill="none" stroke="#102432" stroke-opacity="0.23922" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+  <g transform="translate(101.68224 31.68224) scale(4.85981)">
+    <path d="M4.4 5.2 H19.6 A2.2 2.2 0 0 1 21.8 7.4 V16.6 A2.2 2.2 0 0 1 19.6 18.8 H4.4 A2.2 2.2 0 0 1 2.2 16.6 V7.4 A2.2 2.2 0 0 1 4.4 5.2 Z" fill="none" stroke="url(#video_banner_foreground)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M6.5 8.3 L6.5 15.7 L12.6 12 Z" fill="url(#video_banner_foreground)" stroke="none" />
+    <path d="M14.5 9.2 H19.6 M14.5 12 H18.5 M14.5 14.8 H17.1" fill="none" stroke="url(#video_banner_foreground)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+</svg>

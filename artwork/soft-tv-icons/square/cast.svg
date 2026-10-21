@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="cast_square_background" gradientUnits="userSpaceOnUse" x1="32" y1="0" x2="233.6" y2="256">
+      <stop offset="0" stop-color="#6AAEFF" stop-opacity="1" />
+      <stop offset="1" stop-color="#2F62E0" stop-opacity="1" />
+    </linearGradient>
+    <radialGradient id="cast_square_glow" gradientUnits="userSpaceOnUse" cx="57.6" cy="-22.784" r="198.4">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="cast_square_foreground" gradientUnits="userSpaceOnUse" x1="2.85" y1="2.85" x2="22.55" y2="22.15">
+      <stop offset="0" stop-color="#F8FBFF" stop-opacity="1" />
+      <stop offset="1" stop-color="#E4E7EB" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+  <path d="M58,0H198Q256,0 256,58V198Q256,256 198,256H58Q0,256 0,198V58Q0,0 58,0Z" fill="url(#cast_square_background)" />
+  <path d="M58,0H198Q256,0 256,58V198Q256,256 198,256H58Q0,256 0,198V58Q0,0 58,0Z" fill="url(#cast_square_glow)" />
+  <g transform="translate(33.45128 38.06641) scale(7.87565)">
+    <path d="M 12.2 15.6 H 18.8 Q 21.6 15.6 21.6 12.8 V 6.6 Q 21.6 3.8 18.8 3.8 H 8.4 Q 5.6 3.8 5.6 6.6 V 10.2" fill="none" stroke="#102432" stroke-opacity="0.14118" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M 3.8 18.3 A 2.9 2.9 0 0 1 6.7 21.2" fill="none" stroke="#102432" stroke-opacity="0.14118" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M 3.8 15.8 A 5.4 5.4 0 0 1 9.2 21.2" fill="none" stroke="#102432" stroke-opacity="0.14118" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M 3.8 13.2 A 8.0 8.0 0 0 1 11.8 21.2" fill="none" stroke="#102432" stroke-opacity="0.14118" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+  <g transform="translate(30.41128 33.50641) scale(7.87565)">
+    <path d="M 12.2 15.6 H 18.8 Q 21.6 15.6 21.6 12.8 V 6.6 Q 21.6 3.8 18.8 3.8 H 8.4 Q 5.6 3.8 5.6 6.6 V 10.2" fill="none" stroke="#102432" stroke-opacity="0.23922" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M 3.8 18.3 A 2.9 2.9 0 0 1 6.7 21.2" fill="none" stroke="#102432" stroke-opacity="0.23922" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M 3.8 15.8 A 5.4 5.4 0 0 1 9.2 21.2" fill="none" stroke="#102432" stroke-opacity="0.23922" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M 3.8 13.2 A 8.0 8.0 0 0 1 11.8 21.2" fill="none" stroke="#102432" stroke-opacity="0.23922" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+  <g transform="translate(27.97928 29.55441) scale(7.87565)">
+    <path d="M 12.2 15.6 H 18.8 Q 21.6 15.6 21.6 12.8 V 6.6 Q 21.6 3.8 18.8 3.8 H 8.4 Q 5.6 3.8 5.6 6.6 V 10.2" fill="none" stroke="#F7F2EA" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M 3.8 18.3 A 2.9 2.9 0 0 1 6.7 21.2" fill="none" stroke="#F7F2EA" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M 3.8 15.8 A 5.4 5.4 0 0 1 9.2 21.2" fill="none" stroke="#F7F2EA" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M 3.8 13.2 A 8.0 8.0 0 0 1 11.8 21.2" fill="none" stroke="#F7F2EA" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+</svg>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180">
+  <defs>
+    <linearGradient id="primevideo_banner_background" gradientUnits="userSpaceOnUse" x1="40" y1="0" x2="292" y2="180">
+      <stop offset="0" stop-color="#31465C" stop-opacity="1" />
+      <stop offset="1" stop-color="#121A22" stop-opacity="1" />
+    </linearGradient>
+    <radialGradient id="primevideo_banner_glow" gradientUnits="userSpaceOnUse" cx="72" cy="-16.02" r="248">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="primevideo_banner_foreground" gradientUnits="userSpaceOnUse" x1="2.6" y1="3.69922" x2="21.4" y2="20.4798">
+      <stop offset="0" stop-color="#F8FBFF" stop-opacity="1" />
+      <stop offset="1" stop-color="#E4E7EB" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+  <path d="M0,0H320V180H0Z" fill="url(#primevideo_banner_background)" />
+  <path d="M0,0H320V180H0Z" fill="url(#primevideo_banner_glow)" />
+  <g transform="translate(97.07302 28.49785) scale(5.53192)">
+    <path d="M8.2 3.8C7.6 3.5 6.9 3.9 6.9 4.6V11.6C6.9 12.3 7.6 12.7 8.2 12.4L14.6 8.9C15.2 8.6 15.2 7.6 14.6 7.3Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+    <path d="M3.6 15.4C6.8 19.2 12 19.8 15.2 17.4L15.9 18.9C12 21.6 6.2 20.8 2.6 16.8Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+    <path d="M16.6 14.2L21.4 16.2L17 19.5Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+  </g>
+  <g transform="translate(95.15302 25.61785) scale(5.53192)">
+    <path d="M8.2 3.8C7.6 3.5 6.9 3.9 6.9 4.6V11.6C6.9 12.3 7.6 12.7 8.2 12.4L14.6 8.9C15.2 8.6 15.2 7.6 14.6 7.3Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+    <path d="M3.6 15.4C6.8 19.2 12 19.8 15.2 17.4L15.9 18.9C12 21.6 6.2 20.8 2.6 16.8Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+    <path d="M16.6 14.2L21.4 16.2L17 19.5Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+  </g>
+  <g transform="translate(93.61702 23.12185) scale(5.53192)">
+    <path d="M8.2 3.8C7.6 3.5 6.9 3.9 6.9 4.6V11.6C6.9 12.3 7.6 12.7 8.2 12.4L14.6 8.9C15.2 8.6 15.2 7.6 14.6 7.3Z" fill="url(#primevideo_banner_foreground)" stroke="none" />
+    <path d="M3.6 15.4C6.8 19.2 12 19.8 15.2 17.4L15.9 18.9C12 21.6 6.2 20.8 2.6 16.8Z" fill="#FF9900" stroke="none" />
+    <path d="M16.6 14.2L21.4 16.2L17 19.5Z" fill="#FF9900" stroke="none" />
+  </g>
+</svg>

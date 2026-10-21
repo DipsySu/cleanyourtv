@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180">
+  <defs>
+    <linearGradient id="qqmusic_banner_background" gradientUnits="userSpaceOnUse" x1="40" y1="0" x2="292" y2="180">
+      <stop offset="0" stop-color="#5AE07A" stop-opacity="1" />
+      <stop offset="1" stop-color="#12B352" stop-opacity="1" />
+    </linearGradient>
+    <radialGradient id="qqmusic_banner_glow" gradientUnits="userSpaceOnUse" cx="72" cy="-16.02" r="248">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="qqmusic_banner_foreground" gradientUnits="userSpaceOnUse" x1="2.645" y1="2.65" x2="21.345" y2="21.35">
+      <stop offset="0" stop-color="#F8FBFF" stop-opacity="1" />
+      <stop offset="1" stop-color="#E4E7EB" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+  <path d="M0,0H320V180H0Z" fill="url(#qqmusic_banner_background)" />
+  <path d="M0,0H320V180H0Z" fill="url(#qqmusic_banner_glow)" />
+  <g transform="translate(101.87739 33.77172) scale(5.13369)">
+    <path d="M12 3.6A8.4 8.4 0 1 1 11.99 3.6" fill="none" stroke="#102432" stroke-opacity="0.14118" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M10.35 13.5A2.2 2.2 0 1 1 10.34 13.5Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+    <path d="M11.9 7.2H13.45V15.4H11.9Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+    <path d="M13.2 7.35C15.5 7.7 17.05 9.15 16.6 10.85C16.25 12.15 14.85 12.45 13.7 11.55C13.35 11.25 13.25 10.15 13.35 9.2Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+  </g>
+  <g transform="translate(99.95739 30.89172) scale(5.13369)">
+    <path d="M12 3.6A8.4 8.4 0 1 1 11.99 3.6" fill="none" stroke="#102432" stroke-opacity="0.23922" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M10.35 13.5A2.2 2.2 0 1 1 10.34 13.5Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+    <path d="M11.9 7.2H13.45V15.4H11.9Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+    <path d="M13.2 7.35C15.5 7.7 17.05 9.15 16.6 10.85C16.25 12.15 14.85 12.45 13.7 11.55C13.35 11.25 13.25 10.15 13.35 9.2Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+  </g>
+  <g transform="translate(98.42139 28.39572) scale(5.13369)">
+    <path d="M12 3.6A8.4 8.4 0 1 1 11.99 3.6" fill="none" stroke="url(#qqmusic_banner_foreground)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M10.35 13.5A2.2 2.2 0 1 1 10.34 13.5Z" fill="url(#qqmusic_banner_foreground)" stroke="none" />
+    <path d="M11.9 7.2H13.45V15.4H11.9Z" fill="url(#qqmusic_banner_foreground)" stroke="none" />
+    <path d="M13.2 7.35C15.5 7.7 17.05 9.15 16.6 10.85C16.25 12.15 14.85 12.45 13.7 11.55C13.35 11.25 13.25 10.15 13.35 9.2Z" fill="url(#qqmusic_banner_foreground)" stroke="none" />
+  </g>
+</svg>

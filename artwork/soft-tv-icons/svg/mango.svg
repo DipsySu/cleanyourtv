@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180">
+  <defs>
+    <linearGradient id="mango_banner_background" gradientUnits="userSpaceOnUse" x1="40" y1="0" x2="292" y2="180">
+      <stop offset="0" stop-color="#FFB21A" stop-opacity="1" />
+      <stop offset="1" stop-color="#FF6200" stop-opacity="1" />
+    </linearGradient>
+    <radialGradient id="mango_banner_glow" gradientUnits="userSpaceOnUse" cx="72" cy="-16.02" r="248">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="mango_banner_foreground" gradientUnits="userSpaceOnUse" x1="2.495" y1="2.5" x2="21.495" y2="21.5">
+      <stop offset="0" stop-color="#F8FBFF" stop-opacity="1" />
+      <stop offset="1" stop-color="#E4E7EB" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+  <path d="M0,0H320V180H0Z" fill="url(#mango_banner_background)" />
+  <path d="M0,0H320V180H0Z" fill="url(#mango_banner_glow)" />
+  <g transform="translate(102.84969 34.74442) scale(5.05263)">
+    <path d="M12 3.5A8.5 8.5 0 1 1 11.99 3.5" fill="none" stroke="#102432" stroke-opacity="0.14118" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M8.2 16.3V8.7H9.7L12 12.1L14.3 8.7H15.8V16.3H14.1V11.5L12.5 13.9H11.5L9.9 11.5V16.3Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+  </g>
+  <g transform="translate(100.92969 31.86442) scale(5.05263)">
+    <path d="M12 3.5A8.5 8.5 0 1 1 11.99 3.5" fill="none" stroke="#102432" stroke-opacity="0.23922" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M8.2 16.3V8.7H9.7L12 12.1L14.3 8.7H15.8V16.3H14.1V11.5L12.5 13.9H11.5L9.9 11.5V16.3Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+  </g>
+  <g transform="translate(99.39369 29.36842) scale(5.05263)">
+    <path d="M12 3.5A8.5 8.5 0 1 1 11.99 3.5" fill="none" stroke="url(#mango_banner_foreground)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M8.2 16.3V8.7H9.7L12 12.1L14.3 8.7H15.8V16.3H14.1V11.5L12.5 13.9H11.5L9.9 11.5V16.3Z" fill="url(#mango_banner_foreground)" stroke="none" />
+  </g>
+</svg>

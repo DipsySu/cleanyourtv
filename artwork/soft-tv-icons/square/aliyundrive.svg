@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="aliyundrive_square_background" gradientUnits="userSpaceOnUse" x1="32" y1="0" x2="233.6" y2="256">
+      <stop offset="0" stop-color="#FF9A4A" stop-opacity="1" />
+      <stop offset="1" stop-color="#7C4DFF" stop-opacity="1" />
+    </linearGradient>
+    <radialGradient id="aliyundrive_square_glow" gradientUnits="userSpaceOnUse" cx="57.6" cy="-22.784" r="198.4">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="aliyundrive_square_foreground" gradientUnits="userSpaceOnUse" x1="3.80682" y1="3.83723" x2="19.39176" y2="20.23723">
+      <stop offset="0" stop-color="#F8FBFF" stop-opacity="1" />
+      <stop offset="1" stop-color="#E4E7EB" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+  <path d="M58,0H198Q256,0 256,58V198Q256,256 198,256H58Q0,256 0,198V58Q0,0 58,0Z" fill="url(#aliyundrive_square_background)" />
+  <path d="M58,0H198Q256,0 256,58V198Q256,256 198,256H58Q0,256 0,198V58Q0,0 58,0Z" fill="url(#aliyundrive_square_glow)" />
+  <g transform="translate(25.96639 24.94742) scale(9.26829)">
+    <path d="M17.3 18.3A8.2 8.2 0 1 1 18.7 7.3L16 9.2A4.9 4.9 0 1 0 15.2 15.8Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+    <path d="M15.6 9.6C18.2 8.8 20 11.2 19.2 14.2C18.6 16.4 16.6 16.8 15.4 15.6C16.2 14.2 16.6 12.2 16.2 10.8C15.8 10.2 15.6 9.8 15.6 9.6Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+  </g>
+  <g transform="translate(22.92639 20.38742) scale(9.26829)">
+    <path d="M17.3 18.3A8.2 8.2 0 1 1 18.7 7.3L16 9.2A4.9 4.9 0 1 0 15.2 15.8Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+    <path d="M15.6 9.6C18.2 8.8 20 11.2 19.2 14.2C18.6 16.4 16.6 16.8 15.4 15.6C16.2 14.2 16.6 12.2 16.2 10.8C15.8 10.2 15.6 9.8 15.6 9.6Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+  </g>
+  <g transform="translate(20.49439 16.43542) scale(9.26829)">
+    <path d="M17.3 18.3A8.2 8.2 0 1 1 18.7 7.3L16 9.2A4.9 4.9 0 1 0 15.2 15.8Z" fill="url(#aliyundrive_square_foreground)" stroke="none" />
+    <path d="M15.6 9.6C18.2 8.8 20 11.2 19.2 14.2C18.6 16.4 16.6 16.8 15.4 15.6C16.2 14.2 16.6 12.2 16.2 10.8C15.8 10.2 15.6 9.8 15.6 9.6Z" fill="url(#aliyundrive_square_foreground)" stroke="none" />
+  </g>
+</svg>

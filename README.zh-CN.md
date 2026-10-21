@@ -1,5 +1,7 @@
 > **本 fork 的定制分支：** `xiaomi-freeguy-home` 包含小米 Android 11 兼容适配、柔和立体图标和 Emby 固定栏。改动与验证见[设备记录](docs/devices/xiaomi-mitv-mftr0-freeguy-android11.md)，使用 `./launcher/build-freeguy.sh` 构建。下文保留上游通用说明。
 
+> **新图标设计包：** [40 枚柔光电视图标](artwork/soft-tv-icons/README.md)，包含横幅/方形 SVG、Android 矢量资源及离线预览。本套件已完成设计验收，尚未替换电视当前主题。
+
 <p align="center">
   <a href="https://cleanyour.tv"><img src="docs/banner.png" alt="CleanYourTV：让电视桌面回归简洁" width="800"></a>
 </p>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="weather_square_background" gradientUnits="userSpaceOnUse" x1="32" y1="0" x2="233.6" y2="256">
+      <stop offset="0" stop-color="#7EC8FF" stop-opacity="1" />
+      <stop offset="1" stop-color="#3C8EED" stop-opacity="1" />
+    </linearGradient>
+    <radialGradient id="weather_square_glow" gradientUnits="userSpaceOnUse" cx="57.6" cy="-22.784" r="198.4">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="weather_square_foreground" gradientUnits="userSpaceOnUse" x1="3.1" y1="2.3" x2="20.71429" y2="19.7">
+      <stop offset="0" stop-color="#F8FBFF" stop-opacity="1" />
+      <stop offset="1" stop-color="#E4E7EB" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+  <path d="M58,0H198Q256,0 256,58V198Q256,256 198,256H58Q0,256 0,198V58Q0,0 58,0Z" fill="url(#weather_square_background)" />
+  <path d="M58,0H198Q256,0 256,58V198Q256,256 198,256H58Q0,256 0,198V58Q0,0 58,0Z" fill="url(#weather_square_glow)" />
+  <g transform="translate(29.45558 40.42004) scale(8.73563)">
+    <path d="M 12.8 8.4 A 3.2 3.2 0 1 1 12.78 8.4 Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+    <path d="M 9.6 3.2 V 4.4 M 13.4 4.8 L 12.6 5.8 M 15.2 8.4 H 14.0 M 5.8 4.8 L 6.6 5.8 M 4.0 8.4 H 5.2" fill="none" stroke="#102432" stroke-opacity="0.14118" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M 8.2 15.6 Q 8.0 13.2 10.4 13.0 Q 11.2 11.2 13.6 12.2 Q 16.4 11.6 17.4 13.8 Q 20.0 14.0 19.8 16.2 Q 19.6 18.8 16.8 18.8 H 10.4 Q 7.6 18.8 8.2 15.6 Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+  </g>
+  <g transform="translate(26.41558 35.86004) scale(8.73563)">
+    <path d="M 12.8 8.4 A 3.2 3.2 0 1 1 12.78 8.4 Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+    <path d="M 9.6 3.2 V 4.4 M 13.4 4.8 L 12.6 5.8 M 15.2 8.4 H 14.0 M 5.8 4.8 L 6.6 5.8 M 4.0 8.4 H 5.2" fill="none" stroke="#102432" stroke-opacity="0.23922" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M 8.2 15.6 Q 8.0 13.2 10.4 13.0 Q 11.2 11.2 13.6 12.2 Q 16.4 11.6 17.4 13.8 Q 20.0 14.0 19.8 16.2 Q 19.6 18.8 16.8 18.8 H 10.4 Q 7.6 18.8 8.2 15.6 Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+  </g>
+  <g transform="translate(23.98358 31.90804) scale(8.73563)">
+    <path d="M 12.8 8.4 A 3.2 3.2 0 1 1 12.78 8.4 Z" fill="#FFE7A3" stroke="none" />
+    <path d="M 9.6 3.2 V 4.4 M 13.4 4.8 L 12.6 5.8 M 15.2 8.4 H 14.0 M 5.8 4.8 L 6.6 5.8 M 4.0 8.4 H 5.2" fill="none" stroke="#FFE7A3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M 8.2 15.6 Q 8.0 13.2 10.4 13.0 Q 11.2 11.2 13.6 12.2 Q 16.4 11.6 17.4 13.8 Q 20.0 14.0 19.8 16.2 Q 19.6 18.8 16.8 18.8 H 10.4 Q 7.6 18.8 8.2 15.6 Z" fill="url(#weather_square_foreground)" stroke="none" />
+  </g>
+</svg>

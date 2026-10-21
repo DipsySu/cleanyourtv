@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180">
+  <defs>
+    <linearGradient id="youku_banner_background" gradientUnits="userSpaceOnUse" x1="40" y1="0" x2="292" y2="180">
+      <stop offset="0" stop-color="#FFC56A" stop-opacity="1" />
+      <stop offset="1" stop-color="#F07432" stop-opacity="1" />
+    </linearGradient>
+    <radialGradient id="youku_banner_glow" gradientUnits="userSpaceOnUse" cx="72" cy="-16.02" r="248">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="youku_banner_foreground" gradientUnits="userSpaceOnUse" x1="2.27138" y1="2.725" x2="21.72862" y2="22.425">
+      <stop offset="0" stop-color="#F8FBFF" stop-opacity="1" />
+      <stop offset="1" stop-color="#E4E7EB" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+  <path d="M0,0H320V180H0Z" fill="url(#youku_banner_background)" />
+  <path d="M0,0H320V180H0Z" fill="url(#youku_banner_glow)" />
+  <g transform="translate(104.97885 34.09681) scale(4.8731)">
+    <path d="M7.35 8.75L6.05 3.15L10.45 8.2C11 8.4 11.5 8.5 12 8.5C12.5 8.5 13 8.4 13.55 8.2L17.95 3.15L16.65 8.75C18.95 9.4 20.75 11.4 21.2 14C21.8 17.25 19.75 20.4 16.2 21.4C14.9 21.8 13.45 22 12 22C10.55 22 9.1 21.8 7.8 21.4C4.25 20.4 2.2 17.25 2.8 14C3.25 11.4 5.05 9.4 7.35 8.75Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+    <path d="M7.15 4.7L9.55 7.75L8.05 8.25ZM16.85 4.7L14.45 7.75L15.95 8.25Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+    <path d="M10.55 13.85A1.4 1.4 0 1 1 7.75 13.85A1.4 1.4 0 1 1 10.55 13.85Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+    <path d="M13.15 13.7Q14.85 12.25 16.55 13.7Q14.85 14.55 13.15 13.7Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+    <path d="M12 15.45L11.2 16.55L12.8 16.55Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+    <path d="M9.35 17.25Q12 19.05 14.65 17.25" fill="none" stroke="#102432" stroke-opacity="0.14118" stroke-width="0.85" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+  <g transform="translate(103.05885 31.21681) scale(4.8731)">
+    <path d="M7.35 8.75L6.05 3.15L10.45 8.2C11 8.4 11.5 8.5 12 8.5C12.5 8.5 13 8.4 13.55 8.2L17.95 3.15L16.65 8.75C18.95 9.4 20.75 11.4 21.2 14C21.8 17.25 19.75 20.4 16.2 21.4C14.9 21.8 13.45 22 12 22C10.55 22 9.1 21.8 7.8 21.4C4.25 20.4 2.2 17.25 2.8 14C3.25 11.4 5.05 9.4 7.35 8.75Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+    <path d="M7.15 4.7L9.55 7.75L8.05 8.25ZM16.85 4.7L14.45 7.75L15.95 8.25Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+    <path d="M10.55 13.85A1.4 1.4 0 1 1 7.75 13.85A1.4 1.4 0 1 1 10.55 13.85Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+    <path d="M13.15 13.7Q14.85 12.25 16.55 13.7Q14.85 14.55 13.15 13.7Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+    <path d="M12 15.45L11.2 16.55L12.8 16.55Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+    <path d="M9.35 17.25Q12 19.05 14.65 17.25" fill="none" stroke="#102432" stroke-opacity="0.23922" stroke-width="0.85" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+  <g transform="translate(101.52285 28.72081) scale(4.8731)">
+    <path d="M7.35 8.75L6.05 3.15L10.45 8.2C11 8.4 11.5 8.5 12 8.5C12.5 8.5 13 8.4 13.55 8.2L17.95 3.15L16.65 8.75C18.95 9.4 20.75 11.4 21.2 14C21.8 17.25 19.75 20.4 16.2 21.4C14.9 21.8 13.45 22 12 22C10.55 22 9.1 21.8 7.8 21.4C4.25 20.4 2.2 17.25 2.8 14C3.25 11.4 5.05 9.4 7.35 8.75Z" fill="url(#youku_banner_foreground)" stroke="none" />
+    <path d="M7.15 4.7L9.55 7.75L8.05 8.25ZM16.85 4.7L14.45 7.75L15.95 8.25Z" fill="#FF8EAE" stroke="none" />
+    <path d="M10.55 13.85A1.4 1.4 0 1 1 7.75 13.85A1.4 1.4 0 1 1 10.55 13.85Z" fill="#4C86FF" stroke="none" />
+    <path d="M13.15 13.7Q14.85 12.25 16.55 13.7Q14.85 14.55 13.15 13.7Z" fill="#FF6B9D" stroke="none" />
+    <path d="M12 15.45L11.2 16.55L12.8 16.55Z" fill="#FF8EAE" stroke="none" />
+    <path d="M9.35 17.25Q12 19.05 14.65 17.25" fill="none" stroke="#4C86FF" stroke-width="0.85" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+</svg>

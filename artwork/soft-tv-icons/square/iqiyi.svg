@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="iqiyi_square_background" gradientUnits="userSpaceOnUse" x1="32" y1="0" x2="233.6" y2="256">
+      <stop offset="0" stop-color="#8BE58A" stop-opacity="1" />
+      <stop offset="1" stop-color="#00A84F" stop-opacity="1" />
+    </linearGradient>
+    <radialGradient id="iqiyi_square_glow" gradientUnits="userSpaceOnUse" cx="57.6" cy="-22.784" r="198.4">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="iqiyi_square_foreground" gradientUnits="userSpaceOnUse" x1="5.2" y1="5.43135" x2="21.7" y2="20.10332">
+      <stop offset="0" stop-color="#F8FBFF" stop-opacity="1" />
+      <stop offset="1" stop-color="#E4E7EB" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+  <path d="M58,0H198Q256,0 256,58V198Q256,256 198,256H58Q0,256 0,198V58Q0,0 58,0Z" fill="url(#iqiyi_square_background)" />
+  <path d="M58,0H198Q256,0 256,58V198Q256,256 198,256H58Q0,256 0,198V58Q0,0 58,0Z" fill="url(#iqiyi_square_glow)" />
+  <g transform="translate(-5.86848 4.24386) scale(10.35989)">
+    <path d="M18.8 13.3 A6.8 6.8 0 1 1 5.2 13.3 A6.8 6.8 0 1 1 18.8 13.3 Z M10.4 10.3 L15.2 13.3 L10.4 16.3 Z" fill-rule="evenodd" fill="#102432" fill-opacity="0.14118" stroke="none" />
+    <path d="M16.7 6.9 C18.4 5.2 21 4.9 21.7 6.4 C21.2 8.3 18.6 9 16.9 8.1 C16.6 7.7 16.5 7.3 16.7 6.9 Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+  </g>
+  <g transform="translate(-8.90848 -0.31614) scale(10.35989)">
+    <path d="M18.8 13.3 A6.8 6.8 0 1 1 5.2 13.3 A6.8 6.8 0 1 1 18.8 13.3 Z M10.4 10.3 L15.2 13.3 L10.4 16.3 Z" fill-rule="evenodd" fill="#102432" fill-opacity="0.23922" stroke="none" />
+    <path d="M16.7 6.9 C18.4 5.2 21 4.9 21.7 6.4 C21.2 8.3 18.6 9 16.9 8.1 C16.6 7.7 16.5 7.3 16.7 6.9 Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+  </g>
+  <g transform="translate(-11.34048 -4.26814) scale(10.35989)">
+    <path d="M18.8 13.3 A6.8 6.8 0 1 1 5.2 13.3 A6.8 6.8 0 1 1 18.8 13.3 Z M10.4 10.3 L15.2 13.3 L10.4 16.3 Z" fill-rule="evenodd" fill="url(#iqiyi_square_foreground)" stroke="none" />
+    <path d="M16.7 6.9 C18.4 5.2 21 4.9 21.7 6.4 C21.2 8.3 18.6 9 16.9 8.1 C16.6 7.7 16.5 7.3 16.7 6.9 Z" fill="url(#iqiyi_square_foreground)" stroke="none" />
+  </g>
+</svg>

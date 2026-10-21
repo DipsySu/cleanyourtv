@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="manager_square_background" gradientUnits="userSpaceOnUse" x1="32" y1="0" x2="233.6" y2="256">
+      <stop offset="0" stop-color="#A7E0D6" stop-opacity="1" />
+      <stop offset="1" stop-color="#2E8F86" stop-opacity="1" />
+    </linearGradient>
+    <radialGradient id="manager_square_glow" gradientUnits="userSpaceOnUse" cx="57.6" cy="-22.784" r="198.4">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="manager_square_foreground" gradientUnits="userSpaceOnUse" x1="3.7" y1="1.7" x2="20.3" y2="22.3">
+      <stop offset="0" stop-color="#F8FBFF" stop-opacity="1" />
+      <stop offset="1" stop-color="#E4E7EB" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+  <path d="M58,0H198Q256,0 256,58V198Q256,256 198,256H58Q0,256 0,198V58Q0,0 58,0Z" fill="url(#manager_square_background)" />
+  <path d="M58,0H198Q256,0 256,58V198Q256,256 198,256H58Q0,256 0,198V58Q0,0 58,0Z" fill="url(#manager_square_glow)" />
+  <g transform="translate(44.92831 47.96831) scale(7.37864)">
+    <path d="M12 2.6 L19.4 5.5 V11.8 C19.4 16.2 16.4 19.1 12 21.4 C7.6 19.1 4.6 16.2 4.6 11.8 V5.5 Z" fill="none" stroke="#102432" stroke-opacity="0.14118" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M8.4 12.7 L12 9.5 L15.6 12.7 V16.7 H13.3 V13.9 H10.7 V16.7 H8.4 Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+  </g>
+  <g transform="translate(41.88831 43.40831) scale(7.37864)">
+    <path d="M12 2.6 L19.4 5.5 V11.8 C19.4 16.2 16.4 19.1 12 21.4 C7.6 19.1 4.6 16.2 4.6 11.8 V5.5 Z" fill="none" stroke="#102432" stroke-opacity="0.23922" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M8.4 12.7 L12 9.5 L15.6 12.7 V16.7 H13.3 V13.9 H10.7 V16.7 H8.4 Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+  </g>
+  <g transform="translate(39.45631 39.45631) scale(7.37864)">
+    <path d="M12 2.6 L19.4 5.5 V11.8 C19.4 16.2 16.4 19.1 12 21.4 C7.6 19.1 4.6 16.2 4.6 11.8 V5.5 Z" fill="none" stroke="url(#manager_square_foreground)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M8.4 12.7 L12 9.5 L15.6 12.7 V16.7 H13.3 V13.9 H10.7 V16.7 H8.4 Z" fill="url(#manager_square_foreground)" stroke="none" />
+  </g>
+</svg>

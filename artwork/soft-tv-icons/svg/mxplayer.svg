@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180">
+  <defs>
+    <linearGradient id="mxplayer_banner_background" gradientUnits="userSpaceOnUse" x1="40" y1="0" x2="292" y2="180">
+      <stop offset="0" stop-color="#6CB6FF" stop-opacity="1" />
+      <stop offset="1" stop-color="#1D6AD8" stop-opacity="1" />
+    </linearGradient>
+    <radialGradient id="mxplayer_banner_glow" gradientUnits="userSpaceOnUse" cx="72" cy="-16.02" r="248">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="mxplayer_banner_foreground" gradientUnits="userSpaceOnUse" x1="2.2" y1="5.3" x2="22.8" y2="19">
+      <stop offset="0" stop-color="#F8FBFF" stop-opacity="1" />
+      <stop offset="1" stop-color="#E4E7EB" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+  <path d="M0,0H320V180H0Z" fill="url(#mxplayer_banner_background)" />
+  <path d="M0,0H320V180H0Z" fill="url(#mxplayer_banner_glow)" />
+  <g transform="translate(100.3492 34.03619) scale(5.04854)">
+    <path d="M2.2 19 V5.3 H4.7 L8 10.8 L11.3 5.3 H13.8 V19 H11.4 V11.6 L8 16.4 L4.6 11.6 V19 Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+    <path d="M15.4 5.3 L17.8 5.3 L22.8 16.9 L20.4 16.9 Z M20.4 5.3 L22.8 5.3 L17.8 16.9 L15.4 16.9 Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+  </g>
+  <g transform="translate(98.4292 31.15619) scale(5.04854)">
+    <path d="M2.2 19 V5.3 H4.7 L8 10.8 L11.3 5.3 H13.8 V19 H11.4 V11.6 L8 16.4 L4.6 11.6 V19 Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+    <path d="M15.4 5.3 L17.8 5.3 L22.8 16.9 L20.4 16.9 Z M20.4 5.3 L22.8 5.3 L17.8 16.9 L15.4 16.9 Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+  </g>
+  <g transform="translate(96.8932 28.66019) scale(5.04854)">
+    <path d="M2.2 19 V5.3 H4.7 L8 10.8 L11.3 5.3 H13.8 V19 H11.4 V11.6 L8 16.4 L4.6 11.6 V19 Z" fill="url(#mxplayer_banner_foreground)" stroke="none" />
+    <path d="M15.4 5.3 L17.8 5.3 L22.8 16.9 L20.4 16.9 Z M20.4 5.3 L22.8 5.3 L17.8 16.9 L15.4 16.9 Z" fill="#FFD36A" stroke="none" />
+  </g>
+</svg>

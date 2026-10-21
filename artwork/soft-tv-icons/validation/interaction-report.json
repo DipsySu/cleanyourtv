@@ -1,0 +1,14 @@
+{
+  "icons": 40,
+  "search": true,
+  "emptySearch": true,
+  "square": true,
+  "lightBackground": true,
+  "smallBanner160x90": true,
+  "arrowNavigation": true,
+  "visibleKeyboardFocus": true,
+  "noDuplicateGradientIds": true,
+  "mobileNoOverflow": true,
+  "errors": [],
+  "remoteRequests": []
+}

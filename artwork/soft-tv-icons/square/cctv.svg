@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="cctv_square_background" gradientUnits="userSpaceOnUse" x1="32" y1="0" x2="233.6" y2="256">
+      <stop offset="0" stop-color="#FF4A45" stop-opacity="1" />
+      <stop offset="1" stop-color="#C8102E" stop-opacity="1" />
+    </linearGradient>
+    <radialGradient id="cctv_square_glow" gradientUnits="userSpaceOnUse" cx="57.6" cy="-22.784" r="198.4">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="cctv_square_foreground" gradientUnits="userSpaceOnUse" x1="3.40376" y1="4.14626" x2="21.7" y2="19.41917">
+      <stop offset="0" stop-color="#F8FBFF" stop-opacity="1" />
+      <stop offset="1" stop-color="#E4E7EB" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+  <path d="M58,0H198Q256,0 256,58V198Q256,256 198,256H58Q0,256 0,198V58Q0,0 58,0Z" fill="url(#cctv_square_background)" />
+  <path d="M58,0H198Q256,0 256,58V198Q256,256 198,256H58Q0,256 0,198V58Q0,0 58,0Z" fill="url(#cctv_square_glow)" />
+  <g transform="translate(15.74824 26.00221) scale(9.37897)">
+    <path d="M15.6 6.8C13.2 4.9 9.4 4.6 6.8 6.7C4.1 8.9 3.8 12.8 5.8 15.4C7.5 17.6 10.4 18.7 13.3 18.2C14.6 18 15.7 17.2 16.5 16.2" fill="none" stroke="#102432" stroke-opacity="0.14118" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M18.2 8.1H19.6C20.2 8.1 20.6 8.5 20.6 9.1V14.9C20.6 15.5 20.2 15.9 19.6 15.9H18.2C17.6 15.9 17.2 15.5 17.2 14.9V9.1C17.2 8.5 17.6 8.1 18.2 8.1Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+  </g>
+  <g transform="translate(12.70824 21.44221) scale(9.37897)">
+    <path d="M15.6 6.8C13.2 4.9 9.4 4.6 6.8 6.7C4.1 8.9 3.8 12.8 5.8 15.4C7.5 17.6 10.4 18.7 13.3 18.2C14.6 18 15.7 17.2 16.5 16.2" fill="none" stroke="#102432" stroke-opacity="0.23922" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M18.2 8.1H19.6C20.2 8.1 20.6 8.5 20.6 9.1V14.9C20.6 15.5 20.2 15.9 19.6 15.9H18.2C17.6 15.9 17.2 15.5 17.2 14.9V9.1C17.2 8.5 17.6 8.1 18.2 8.1Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+  </g>
+  <g transform="translate(10.27624 17.49021) scale(9.37897)">
+    <path d="M15.6 6.8C13.2 4.9 9.4 4.6 6.8 6.7C4.1 8.9 3.8 12.8 5.8 15.4C7.5 17.6 10.4 18.7 13.3 18.2C14.6 18 15.7 17.2 16.5 16.2" fill="none" stroke="url(#cctv_square_foreground)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M18.2 8.1H19.6C20.2 8.1 20.6 8.5 20.6 9.1V14.9C20.6 15.5 20.2 15.9 19.6 15.9H18.2C17.6 15.9 17.2 15.5 17.2 14.9V9.1C17.2 8.5 17.6 8.1 18.2 8.1Z" fill="url(#cctv_square_foreground)" stroke="none" />
+  </g>
+</svg>

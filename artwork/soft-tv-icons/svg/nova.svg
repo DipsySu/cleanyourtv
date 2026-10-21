@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180">
+  <defs>
+    <linearGradient id="nova_banner_background" gradientUnits="userSpaceOnUse" x1="40" y1="0" x2="292" y2="180">
+      <stop offset="0" stop-color="#5B74FF" stop-opacity="1" />
+      <stop offset="1" stop-color="#6D35D6" stop-opacity="1" />
+    </linearGradient>
+    <radialGradient id="nova_banner_glow" gradientUnits="userSpaceOnUse" cx="72" cy="-16.02" r="248">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="nova_banner_foreground" gradientUnits="userSpaceOnUse" x1="2.55" y1="2.55" x2="21.45" y2="21.45">
+      <stop offset="0" stop-color="#F8FBFF" stop-opacity="1" />
+      <stop offset="1" stop-color="#E4E7EB" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+  <path d="M0,0H320V180H0Z" fill="url(#nova_banner_background)" />
+  <path d="M0,0H320V180H0Z" fill="url(#nova_banner_glow)" />
+  <g transform="translate(102.50362 34.42362) scale(5.07936)">
+    <path d="M12 2.55C12.38 6.15 12.78 8.05 14.2 9.55C15.72 11.12 17.72 11.52 21.45 12C17.72 12.48 15.72 12.88 14.2 14.45C12.78 15.95 12.38 17.85 12 21.45C11.62 17.85 11.22 15.95 9.8 14.45C8.28 12.88 6.28 12.48 2.55 12C6.28 11.52 8.28 11.12 9.8 9.55C11.22 8.05 11.62 6.15 12 2.55ZM12 8.05L13.2 10.8L15.95 12L13.2 13.2L12 15.95L10.8 13.2L8.05 12L10.8 10.8Z" fill-rule="evenodd" fill="#102432" fill-opacity="0.14118" stroke="none" />
+    <path d="M18.05 4.35L18.62 5.72L20.05 6.28L18.62 6.84L18.05 8.22L17.48 6.84L16.05 6.28L17.48 5.72Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+  </g>
+  <g transform="translate(100.58362 31.54362) scale(5.07936)">
+    <path d="M12 2.55C12.38 6.15 12.78 8.05 14.2 9.55C15.72 11.12 17.72 11.52 21.45 12C17.72 12.48 15.72 12.88 14.2 14.45C12.78 15.95 12.38 17.85 12 21.45C11.62 17.85 11.22 15.95 9.8 14.45C8.28 12.88 6.28 12.48 2.55 12C6.28 11.52 8.28 11.12 9.8 9.55C11.22 8.05 11.62 6.15 12 2.55ZM12 8.05L13.2 10.8L15.95 12L13.2 13.2L12 15.95L10.8 13.2L8.05 12L10.8 10.8Z" fill-rule="evenodd" fill="#102432" fill-opacity="0.23922" stroke="none" />
+    <path d="M18.05 4.35L18.62 5.72L20.05 6.28L18.62 6.84L18.05 8.22L17.48 6.84L16.05 6.28L17.48 5.72Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+  </g>
+  <g transform="translate(99.04762 29.04762) scale(5.07936)">
+    <path d="M12 2.55C12.38 6.15 12.78 8.05 14.2 9.55C15.72 11.12 17.72 11.52 21.45 12C17.72 12.48 15.72 12.88 14.2 14.45C12.78 15.95 12.38 17.85 12 21.45C11.62 17.85 11.22 15.95 9.8 14.45C8.28 12.88 6.28 12.48 2.55 12C6.28 11.52 8.28 11.12 9.8 9.55C11.22 8.05 11.62 6.15 12 2.55ZM12 8.05L13.2 10.8L15.95 12L13.2 13.2L12 15.95L10.8 13.2L8.05 12L10.8 10.8Z" fill-rule="evenodd" fill="url(#nova_banner_foreground)" stroke="none" />
+    <path d="M18.05 4.35L18.62 5.72L20.05 6.28L18.62 6.84L18.05 8.22L17.48 6.84L16.05 6.28L17.48 5.72Z" fill="#F6C453" stroke="none" />
+  </g>
+</svg>

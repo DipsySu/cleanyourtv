@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180">
+  <defs>
+    <linearGradient id="disneyplus_banner_background" gradientUnits="userSpaceOnUse" x1="40" y1="0" x2="292" y2="180">
+      <stop offset="0" stop-color="#2A62E8" stop-opacity="1" />
+      <stop offset="1" stop-color="#071433" stop-opacity="1" />
+    </linearGradient>
+    <radialGradient id="disneyplus_banner_glow" gradientUnits="userSpaceOnUse" cx="72" cy="-16.02" r="248">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="disneyplus_banner_foreground" gradientUnits="userSpaceOnUse" x1="4" y1="3.1" x2="20.3" y2="19.2">
+      <stop offset="0" stop-color="#F8FBFF" stop-opacity="1" />
+      <stop offset="1" stop-color="#E4E7EB" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+  <path d="M0,0H320V180H0Z" fill="url(#disneyplus_banner_background)" />
+  <path d="M0,0H320V180H0Z" fill="url(#disneyplus_banner_glow)" />
+  <g transform="translate(91.0088 28.89153) scale(5.96273)">
+    <path d="M4 19.2H20V17.5H4Z M5.3 17.5V12.1H6.6V10.3H7.9V12.1H9.1V17.5Z M10.3 17.5V11.2H11.4V8.1L12 6.3L12.6 8.1V11.2H13.7V17.5Z M15 17.5V12.1H16.3V10.3H17.6V12.1H18.8V17.5Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+    <path d="M17.5 3.1H18.8V4.5H20.3V5.8H18.8V7.2H17.5V5.8H16V4.5H17.5Z" fill="#102432" fill-opacity="0.14118" stroke="none" />
+  </g>
+  <g transform="translate(89.0888 26.01153) scale(5.96273)">
+    <path d="M4 19.2H20V17.5H4Z M5.3 17.5V12.1H6.6V10.3H7.9V12.1H9.1V17.5Z M10.3 17.5V11.2H11.4V8.1L12 6.3L12.6 8.1V11.2H13.7V17.5Z M15 17.5V12.1H16.3V10.3H17.6V12.1H18.8V17.5Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+    <path d="M17.5 3.1H18.8V4.5H20.3V5.8H18.8V7.2H17.5V5.8H16V4.5H17.5Z" fill="#102432" fill-opacity="0.23922" stroke="none" />
+  </g>
+  <g transform="translate(87.5528 23.51553) scale(5.96273)">
+    <path d="M4 19.2H20V17.5H4Z M5.3 17.5V12.1H6.6V10.3H7.9V12.1H9.1V17.5Z M10.3 17.5V11.2H11.4V8.1L12 6.3L12.6 8.1V11.2H13.7V17.5Z M15 17.5V12.1H16.3V10.3H17.6V12.1H18.8V17.5Z" fill="url(#disneyplus_banner_foreground)" stroke="none" />
+    <path d="M17.5 3.1H18.8V4.5H20.3V5.8H18.8V7.2H17.5V5.8H16V4.5H17.5Z" fill="url(#disneyplus_banner_foreground)" stroke="none" />
+  </g>
+</svg>

@@ -1,0 +1,21 @@
+{
+  "app_banners": [
+    "com.xiaomi.mitv.smartshare=banner_studio_cast",
+    "com.xiaodianshi.tv.yst=banner_studio_bili",
+    "com.zb.test=banner_studio_live",
+    "com.xiaomi.mitv.mediaexplorer=banner_studio_player",
+    "com.yyw.box.androidclient=banner_studio_115",
+    "com.mb.android=banner_studio_emby",
+    "com.ktcp.video=banner_studio_tencent",
+    "com.xiaomi.tweather=banner_studio_weather",
+    "com.mitv.alarmcenter=banner_studio_alarm",
+    "com.xiaomi.voicecontrol=banner_studio_voice",
+    "com.xiaomi.mitv.light=banner_studio_light",
+    "com.xiaomi.mitv.calendar=banner_studio_calendar",
+    "com.xiaomi.tv.gallery=banner_studio_gallery",
+    "com.xiaomi.mitv.tvmanager=banner_studio_manager",
+    "com.xiaomi.mitv.settings=banner_studio_settings",
+    "com.duokan.videodaily=banner_studio_video"
+  ],
+  "always_show_names": true
+}
