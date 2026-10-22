@@ -53,7 +53,7 @@ final class WorldHeader {
         greeting.setTextSize(TypedValue.COMPLEX_UNIT_SP, animal ? 13.5f : 13f);
         greeting.setLetterSpacing(animal ? .025f : .09f);
         greeting.setTextColor(animal ? CREAM : GOLD);
-        greeting.setShadowLayer(animal ? 0 : 2 * dp, 0, dp, 0x99000000);
+        greeting.setShadowLayer(2 * dp, 0, dp, 0x99000000);
         greeting.setCompoundDrawablePadding(Math.round(7 * dp));
         Drawable greetingMark = new MarkDrawable(animal ? MarkDrawable.LEAF : MarkDrawable.TRIFORCE,
                 animal ? LEAF : GOLD);
@@ -105,9 +105,7 @@ final class WorldHeader {
                 animal ? MarkDrawable.LEAF : MarkDrawable.RUPEE, null);
         TextView wifi = activity.findViewById(R.id.btnWifi);
         // MainActivity sets the current Wi-Fi/Ethernet glyph immediately before this method. Preserve that signal.
-        Drawable network = wifi.getCompoundDrawablesRelative()[0];
-        // onCreate and a network change can both restyle the pill; unwrap our previous badge first.
-        while (network instanceof LayerDrawable) network = ((LayerDrawable) network).getDrawable(1);
+        Drawable network = networkGlyph(wifi.getCompoundDrawablesRelative()[0]);
         stylePill(wifi, animal, animal ? MarkDrawable.LEAF : MarkDrawable.RUPEE, network);
         stylePill((TextView) activity.findViewById(R.id.btnSettings), animal,
                 animal ? MarkDrawable.LEAF : MarkDrawable.TRIFORCE, null);
@@ -122,13 +120,15 @@ final class WorldHeader {
         int face = animal ? CREAM : SLATE;
         int text = animal ? LEAF_DARK : CREAM;
         int accent = animal ? LEAF : GOLD;
-        pill.setBackground(selector(face, animal ? MINT : JADE_DARK, accent, animal ? 18 * dp : 3 * dp,
+        int focusFace = animal ? LEAF_DARK : GOLD;
+        int focusInk = animal ? CREAM : SLATE;
+        pill.setBackground(selector(face, accent, focusFace, focusInk, animal ? 18 * dp : 3 * dp,
                 animal ? 1 * dp : 1.5f * dp));
-        pill.setTextColor(text);
+        pill.setTextColor(textSelector(text, focusInk));
         pill.setTypeface(animal ? android.graphics.Typeface.create("sans-serif-medium", android.graphics.Typeface.NORMAL)
                 : android.graphics.Typeface.create(android.graphics.Typeface.SERIF, android.graphics.Typeface.BOLD));
         pill.setCompoundDrawableTintList(null);
-        Drawable emblem = emblem(pill, mark, accent, network);
+        Drawable emblem = emblem(pill, mark, accent, focusInk, animal, network);
         pill.setCompoundDrawablesRelativeWithIntrinsicBounds(emblem, null, null, null);
         if (pill.getText().length() == 0) {
             int side = Math.max(0, (pill.getLayoutParams().width - emblem.getIntrinsicWidth()) / 2);
@@ -139,11 +139,41 @@ final class WorldHeader {
         }
     }
 
-    private static Drawable emblem(TextView owner, int mark, int accent, Drawable network) {
+    /**
+     * Returns the actual Wi-Fi/Ethernet icon after stripping only the header badge we own. This makes each
+     * network refresh idempotent without treating a framework-supplied layered network glyph as ours.
+     */
+    private static Drawable networkGlyph(Drawable drawable) {
+        if (drawable instanceof PillEmblemDrawable) {
+            return ((PillEmblemDrawable) drawable).networkGlyph();
+        }
+        // A framework network icon may itself contain layers; only unwrap our own wrapper.
+        return drawable;
+    }
+
+    private static ColorStateList textSelector(int normal, int focused) {
+        return new ColorStateList(new int[][]{
+                new int[]{android.R.attr.state_pressed},
+                new int[]{android.R.attr.state_focused},
+                new int[0]
+        }, new int[]{focused, focused, normal});
+    }
+
+    private static Drawable emblem(TextView owner, int mark, int accent, int focusInk, boolean animal, Drawable network) {
+        int normalDisc = network == null ? 0x00000000 : (animal ? LEAF : JADE_DARK);
+        Drawable normal = emblemLayer(owner, mark, accent, normalDisc, network);
+        // A white network glyph stays legible on leaf green or dark slate while focused. Non-network marks use
+        // the same ink as the focused label and border.
+        int focusDisc = network == null ? 0x00000000 : (animal ? LEAF : SLATE);
+        Drawable focused = emblemLayer(owner, mark, focusInk, focusDisc, network);
+        return new PillEmblemDrawable(normal, focused, network);
+    }
+
+    private static Drawable emblemLayer(TextView owner, int mark, int markColor, int discColor, Drawable network) {
         float dp = owner.getResources().getDisplayMetrics().density;
         int size = Math.round(23 * dp);
-        Drawable disc = panel(network == null ? 0x00000000 : accent, accent, 12 * dp, 1.2f * dp);
-        Drawable symbol = network == null ? new MarkDrawable(mark, accent) : network.mutate();
+        Drawable disc = panel(discColor, markColor, 12 * dp, 1.2f * dp);
+        Drawable symbol = network == null ? new MarkDrawable(mark, markColor) : copyDrawable(network);
         if (network != null) symbol.clearColorFilter();
         LayerDrawable result = new LayerDrawable(new Drawable[]{disc, symbol});
         result.setLayerSize(0, size, size);
@@ -153,11 +183,16 @@ final class WorldHeader {
         return result;
     }
 
-    private static Drawable selector(int normal, int focused, int stroke, float radius, float width) {
+    private static Drawable copyDrawable(Drawable drawable) {
+        Drawable.ConstantState state = drawable.getConstantState();
+        return state == null ? drawable.mutate() : state.newDrawable().mutate();
+    }
+
+    private static Drawable selector(int normal, int normalStroke, int focused, int focusStroke, float radius, float width) {
         StateListDrawable states = new StateListDrawable();
-        states.addState(new int[]{android.R.attr.state_pressed}, panel(focused, stroke, radius, width));
-        states.addState(new int[]{android.R.attr.state_focused}, panel(focused, stroke, radius, width));
-        states.addState(new int[0], panel(normal, stroke, radius, width));
+        states.addState(new int[]{android.R.attr.state_pressed}, panel(focused, focusStroke, radius, width));
+        states.addState(new int[]{android.R.attr.state_focused}, panel(focused, focusStroke, radius, width));
+        states.addState(new int[0], panel(normal, normalStroke, radius, width));
         return states;
     }
 
@@ -168,6 +203,22 @@ final class WorldHeader {
         panel.setCornerRadius(radius);
         panel.setStroke(Math.max(1, Math.round(width)), stroke);
         return panel;
+    }
+
+    /** Stateful, private emblem layers prevent normal/focused children from sharing mutable drawable state. */
+    private static final class PillEmblemDrawable extends StateListDrawable {
+        private final Drawable networkGlyph;
+
+        PillEmblemDrawable(Drawable normal, Drawable focused, Drawable networkGlyph) {
+            this.networkGlyph = networkGlyph == null ? null : copyDrawable(networkGlyph);
+            addState(new int[]{android.R.attr.state_pressed}, focused);
+            addState(new int[]{android.R.attr.state_focused}, focused);
+            addState(new int[0], normal);
+        }
+
+        Drawable networkGlyph() {
+            return networkGlyph == null ? null : copyDrawable(networkGlyph);
+        }
     }
 
     /** Small drawables keep the headers self-contained and avoid visual assets that compete with the dock artwork. */
@@ -190,7 +241,7 @@ final class WorldHeader {
                 path.cubicTo(x + .08f * w, y + .23f * h, x + .55f * w, y + .04f * h, x + .9f * w, y + .1f * h);
                 path.cubicTo(x + .93f * w, y + .57f * h, x + .63f * w, y + .91f * h, x + .12f * w, y + .78f * h);
                 canvas.drawPath(path, paint);
-                paint.setColor(CREAM);
+                paint.setColor(color == CREAM ? LEAF_DARK : CREAM);
                 paint.setStrokeWidth(Math.max(1, .08f * w));
                 paint.setStyle(Paint.Style.STROKE);
                 canvas.drawLine(x + .2f * w, y + .76f * h, x + .76f * w, y + .25f * h, paint);

@@ -230,7 +230,7 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.rowsBelowDock = cfg.rowsBelowDock;
         this.dockTitle = cfg.dockTitle;
         this.dockRow = cfg.dockRow;
-        this.restNameAlpha = cfg.alwaysShowNames ? 0.75f : 0f;
+        this.restNameAlpha = cfg.alwaysShowNames ? (WorldHeader.matches(cfg.headerStyle) ? 0.88f : 0.75f) : 0f;
         this.cinematic = cfg.cinematicHome;
         this.launchActions = cfg.launchActions;
         this.appLabels = cfg.appLabels;
@@ -445,7 +445,12 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         cardLp.width = w;
         cardLp.height = h;
         card.setLayoutParams(cardLp);
-        View name = v.findViewById(R.id.name);
+        TextView name = v.findViewById(R.id.name);
+        if (WorldHeader.matches(headerStyle)) {
+            // Use the same system family for Chinese and Latin labels, with a quiet shadow over scenic wallpaper.
+            name.setTypeface(android.graphics.Typeface.create("sans-serif-medium", android.graphics.Typeface.NORMAL));
+            name.setShadowLayer(3 * density, 0, density, 0x99000000);
+        }
         ViewGroup.MarginLayoutParams nameLp = (ViewGroup.MarginLayoutParams) name.getLayoutParams();
         nameLp.width = w;
         nameLp.topMargin = h + Math.round((dockRow ? 7 : 4) * density);
@@ -561,7 +566,7 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             nameLp.height = nameHeight;
             h.name.setLayoutParams(nameLp);
         }
-        h.name.setTextSize(dockRow && position < dockSize ? 13f : 14f);
+        h.name.setTextSize(WorldHeader.matches(headerStyle) ? 15f : dockRow && position < dockSize ? 13f : 14f);
     }
 
     @Override public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {

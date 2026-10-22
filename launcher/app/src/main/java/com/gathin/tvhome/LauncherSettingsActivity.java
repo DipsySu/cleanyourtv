@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
 import android.view.View;
@@ -51,6 +52,7 @@ public final class LauncherSettingsActivity extends Activity {
     private boolean animations;
     private boolean advancedEffects;
     private boolean odyssey;
+    private SettingsAppearance appearance;
     private Map<String, String> wallpaperNames;
     private final ExecutorService thumbnailExecutor = Executors.newSingleThreadExecutor();
     private final ExecutorService themeExecutor = Executors.newSingleThreadExecutor();
@@ -64,6 +66,7 @@ public final class LauncherSettingsActivity extends Activity {
         choices = getSharedPreferences(Config.SETTINGS_NAME, MODE_PRIVATE);
         Config config = Config.load(this);
         odyssey = HeaderStyle.ODYSSEY.equals(config.headerStyle);
+        appearance = SettingsAppearance.forHeader(config.headerStyle);
         wallpaperNames = config.wallpaperNames;
         applyTheme();
         columns = config.columns;
@@ -120,12 +123,14 @@ public final class LauncherSettingsActivity extends Activity {
             if (advancedEffects) {
                 setAdvanced(false);
             } else {
-                new AlertDialog.Builder(this)
+                AlertDialog dialog = new AlertDialog.Builder(this)
                         .setTitle(R.string.advanced_effects)
                         .setMessage(R.string.advanced_effects_warning)
-                        .setPositiveButton(R.string.enable, (dialog, which) -> setAdvanced(true))
+                        .setPositiveButton(R.string.enable, (ignoredDialog, which) -> setAdvanced(true))
                         .setNegativeButton(android.R.string.cancel, null)
-                        .show();
+                        .create();
+                dialog.setOnShowListener(ignored -> styleDialog(dialog, R.string.advanced_effects));
+                dialog.show();
             }
         });
         followThemeChoice = findViewById(R.id.followThemeChoice);
@@ -192,7 +197,7 @@ public final class LauncherSettingsActivity extends Activity {
                 RecyclerView.ViewHolder deferred = list.findViewHolderForAdapterPosition(target);
                 if (deferred != null) deferred.itemView.requestFocus();
             });
-            styleOdysseyDialog(dialog, R.string.wallpaper_label);
+            styleDialog(dialog, R.string.wallpaper_label);
         });
         dialog.setOnDismissListener(ignored -> {
             if (pickerGeneration == generation) pickerGeneration++;
@@ -230,7 +235,7 @@ public final class LauncherSettingsActivity extends Activity {
                 RecyclerView.ViewHolder holder = list.findViewHolderForAdapterPosition(position);
                 if (holder != null) holder.itemView.requestFocus();
             });
-            styleOdysseyDialog(dialog, R.string.theme_label);
+            styleDialog(dialog, R.string.theme_label);
         });
         dialog.show();
     }
@@ -378,23 +383,29 @@ public final class LauncherSettingsActivity extends Activity {
     }
 
     private void applyTheme() {
-        if (!odyssey) return;
-        findViewById(R.id.settingsRoot).setBackgroundResource(R.drawable.settings_odyssey_background);
-        int cream = 0xFFFFF2D1;
-        int gold = 0xFFE1AB35;
+        if (!odyssey && appearance == null) return;
+        int cream = odyssey ? 0xFFFFF2D1 : appearance.primary;
+        int accent = odyssey ? 0xFFE1AB35 : appearance.accent;
+        int secondary = odyssey ? 0xFFD8C7B0 : appearance.secondary;
+        if (odyssey) findViewById(R.id.settingsRoot).setBackgroundResource(R.drawable.settings_odyssey_background);
+        else appearance.applyRoot(findViewById(R.id.settingsRoot));
         ((TextView) findViewById(R.id.settingsTitle)).setTextColor(cream);
-        ((TextView) findViewById(R.id.columnsLabel)).setTextColor(gold);
-        ((TextView) findViewById(R.id.rowsLabel)).setTextColor(gold);
-        ((TextView) findViewById(R.id.advancedHint)).setTextColor(0xFFD8C7B0);
-        ((TextView) findViewById(R.id.followThemeHint)).setTextColor(0xFFD8C7B0);
-        ((TextView) findViewById(R.id.homeSettingsHint)).setTextColor(0xFFD8C7B0);
+        ((TextView) findViewById(R.id.columnsLabel)).setTextColor(accent);
+        ((TextView) findViewById(R.id.rowsLabel)).setTextColor(accent);
+        ((TextView) findViewById(R.id.advancedHint)).setTextColor(secondary);
+        ((TextView) findViewById(R.id.followThemeHint)).setTextColor(secondary);
+        ((TextView) findViewById(R.id.homeSettingsHint)).setTextColor(secondary);
         int[] choices = {R.id.themeChoice, R.id.importThemeChoice, R.id.columns4, R.id.columns6, R.id.rows0, R.id.rows1, R.id.rows2, R.id.rows3,
                 R.id.wallpaperChoice, R.id.animationsChoice, R.id.advancedChoice, R.id.followThemeChoice,
                 R.id.defaultHomeChoice, R.id.tvSettingsChoice};
         for (int id : choices) {
             TextView choice = findViewById(id);
-            choice.setBackgroundResource(R.drawable.settings_odyssey_choice_bg);
-            choice.setTextColor(odysseyTextColor(cream));
+            if (odyssey) {
+                choice.setBackgroundResource(R.drawable.settings_odyssey_choice_bg);
+                choice.setTextColor(odysseyTextColor(cream));
+            } else {
+                appearance.applyChoice(choice);
+            }
         }
     }
 
@@ -403,15 +414,29 @@ public final class LauncherSettingsActivity extends Activity {
                 new int[] {0xFF34204A, normal});
     }
 
-    private void styleOdysseyDialog(AlertDialog dialog, int titleResource) {
-        if (!odyssey) return;
+    private void styleDialog(AlertDialog dialog, int titleResource) {
+        if (!odyssey && appearance == null) return;
         Window window = dialog.getWindow();
-        if (window != null) window.setBackgroundDrawableResource(R.drawable.settings_odyssey_dialog_bg);
+        if (window != null) {
+            if (odyssey) window.setBackgroundDrawableResource(R.drawable.settings_odyssey_dialog_bg);
+            else window.setBackgroundDrawable(appearance.dialogBackground());
+        }
         SpannableString title = new SpannableString(getString(titleResource));
-        title.setSpan(new ForegroundColorSpan(0xFFFFF2D1), 0, title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        int primary = odyssey ? 0xFFFFF2D1 : appearance.primary;
+        title.setSpan(new ForegroundColorSpan(primary), 0, title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         dialog.setTitle(title);
         TextView cancel = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-        if (cancel != null) cancel.setTextColor(0xFFE1AB35);
+        TextView confirm = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        TextView message = dialog.findViewById(android.R.id.message);
+        if (odyssey) {
+            if (cancel != null) cancel.setTextColor(0xFFE1AB35);
+            if (confirm != null) confirm.setTextColor(0xFFE1AB35);
+            if (message != null) message.setTextColor(0xFFD8C7B0);
+        } else {
+            appearance.applyDialogButton(cancel);
+            appearance.applyDialogButton(confirm);
+            if (message != null) message.setTextColor(appearance.secondary);
+        }
     }
 
     private int dp(int value) {
@@ -435,22 +460,24 @@ public final class LauncherSettingsActivity extends Activity {
             row.setPadding(dp(12), dp(10), dp(8), dp(10));
             row.setFocusable(true);
             row.setClickable(true);
-            RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(-1, dp(66));
+            row.setMinimumHeight(dp(66));
+            RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(-1, ViewGroup.LayoutParams.WRAP_CONTENT);
             params.setMargins(0, dp(3), 0, dp(3));
             row.setLayoutParams(params);
             LinearLayout words = new LinearLayout(LauncherSettingsActivity.this);
             words.setOrientation(LinearLayout.VERTICAL);
             words.setGravity(Gravity.CENTER_VERTICAL);
-            row.addView(words, new LinearLayout.LayoutParams(0, -1, 1f));
+            row.addView(words, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
             TextView label = new TextView(LauncherSettingsActivity.this);
             label.setTextSize(18);
-            label.setTextColor(odyssey ? 0xFFFFF2D1 : 0xFFFFFFFF);
-            label.setMaxLines(1);
+            label.setTextColor(odyssey ? 0xFFFFF2D1 : appearance != null ? appearance.primary : 0xFFFFFFFF);
+            label.setMaxLines(2);
+            label.setEllipsize(TextUtils.TruncateAt.END);
             label.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
             words.addView(label, new LinearLayout.LayoutParams(-1, -2));
             TextView status = new TextView(LauncherSettingsActivity.this);
             status.setTextSize(13);
-            status.setTextColor(odyssey ? 0xFFD8C7B0 : 0xFFACB8C1);
+            status.setTextColor(odyssey ? 0xFFD8C7B0 : appearance != null ? appearance.secondary : 0xFFACB8C1);
             status.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
             words.addView(status, new LinearLayout.LayoutParams(-1, -2));
             RadioButton checked = new RadioButton(LauncherSettingsActivity.this);
@@ -469,8 +496,9 @@ public final class LauncherSettingsActivity extends Activity {
             holder.status.setText(current ? R.string.theme_current : R.string.theme_not_current);
             holder.checked.setChecked(current);
             holder.itemView.setSelected(current);
-            holder.itemView.setBackgroundResource(odyssey ? R.drawable.settings_odyssey_choice_bg
-                    : R.drawable.settings_choice_bg);
+            if (odyssey) holder.itemView.setBackgroundResource(R.drawable.settings_odyssey_choice_bg);
+            else if (appearance != null) holder.itemView.setBackground(appearance.rowBackground());
+            else holder.itemView.setBackgroundResource(R.drawable.settings_choice_bg);
             holder.itemView.setContentDescription(getString(R.string.theme_option_description, name,
                     current ? getString(R.string.theme_current) : getString(R.string.theme_not_current)));
             holder.itemView.setOnFocusChangeListener((view, focused) -> applyFocus(holder, focused, current));
@@ -487,11 +515,16 @@ public final class LauncherSettingsActivity extends Activity {
         @Override public int getItemCount() { return entries.size(); }
 
         private void applyFocus(Holder holder, boolean focused, boolean current) {
-            if (!odyssey) return;
-            holder.label.setTextColor(focused ? 0xFF34204A : 0xFFFFF2D1);
-            holder.status.setTextColor(focused ? 0xFF34204A : 0xFFD8C7B0);
-            holder.checked.setButtonTintList(ColorStateList.valueOf(focused ? 0xFF34204A
-                    : current ? 0xFFE1AB35 : 0xFFD8C7B0));
+            if (odyssey) {
+                holder.label.setTextColor(focused ? 0xFF34204A : 0xFFFFF2D1);
+                holder.status.setTextColor(focused ? 0xFF34204A : 0xFFD8C7B0);
+                holder.checked.setButtonTintList(ColorStateList.valueOf(focused ? 0xFF34204A
+                        : current ? 0xFFE1AB35 : 0xFFD8C7B0));
+            } else if (appearance != null) {
+                holder.label.setTextColor(focused ? appearance.focusText : appearance.primary);
+                holder.status.setTextColor(focused ? appearance.focusText : appearance.secondary);
+                holder.checked.setButtonTintList(appearance.radio(current, focused));
+            }
         }
 
         final class Holder extends RecyclerView.ViewHolder {
@@ -530,30 +563,32 @@ public final class LauncherSettingsActivity extends Activity {
             row.setPadding(dp(12), dp(10), dp(8), dp(10));
             row.setFocusable(true);
             row.setClickable(true);
-            RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(-1, dp(84));
+            row.setMinimumHeight(dp(84));
+            RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(-1, ViewGroup.LayoutParams.WRAP_CONTENT);
             params.setMargins(0, dp(3), 0, dp(3));
             row.setLayoutParams(params);
             ImageView thumbnail = new ImageView(LauncherSettingsActivity.this);
             thumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            thumbnail.setBackgroundColor(0xFF34204A);
+            thumbnail.setBackgroundColor(appearance != null ? appearance.row : 0xFF34204A);
             thumbnail.setContentDescription(null);
             thumbnail.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
             row.addView(thumbnail, new LinearLayout.LayoutParams(dp(112), dp(64)));
             LinearLayout words = new LinearLayout(LauncherSettingsActivity.this);
             words.setOrientation(LinearLayout.VERTICAL);
             words.setGravity(Gravity.CENTER_VERTICAL);
-            LinearLayout.LayoutParams wordParams = new LinearLayout.LayoutParams(0, -1, 1f);
+            LinearLayout.LayoutParams wordParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
             wordParams.setMargins(dp(14), 0, dp(8), 0);
             row.addView(words, wordParams);
             TextView label = new TextView(LauncherSettingsActivity.this);
             label.setTextSize(18);
-            label.setTextColor(odyssey ? 0xFFFFF2D1 : 0xFFFFFFFF);
-            label.setMaxLines(1);
+            label.setTextColor(odyssey ? 0xFFFFF2D1 : appearance != null ? appearance.primary : 0xFFFFFFFF);
+            label.setMaxLines(2);
+            label.setEllipsize(TextUtils.TruncateAt.END);
             label.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
             words.addView(label, new LinearLayout.LayoutParams(-1, -2));
             TextView status = new TextView(LauncherSettingsActivity.this);
             status.setTextSize(13);
-            status.setTextColor(odyssey ? 0xFFD8C7B0 : 0xFFACB8C1);
+            status.setTextColor(odyssey ? 0xFFD8C7B0 : appearance != null ? appearance.secondary : 0xFFACB8C1);
             status.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
             words.addView(status, new LinearLayout.LayoutParams(-1, -2));
             RadioButton checked = new RadioButton(LauncherSettingsActivity.this);
@@ -578,8 +613,9 @@ public final class LauncherSettingsActivity extends Activity {
             holder.status.setText(status);
             holder.checked.setChecked(current);
             holder.itemView.setSelected(current);
-            holder.itemView.setBackgroundResource(odyssey ? R.drawable.settings_odyssey_choice_bg
-                    : R.drawable.settings_choice_bg);
+            if (odyssey) holder.itemView.setBackgroundResource(R.drawable.settings_odyssey_choice_bg);
+            else if (appearance != null) holder.itemView.setBackground(appearance.rowBackground());
+            else holder.itemView.setBackgroundResource(R.drawable.settings_choice_bg);
             holder.itemView.setContentDescription(getString(R.string.wallpaper_option_description, label,
                     current ? getString(R.string.wallpaper_current) : getString(R.string.wallpaper_not_current)));
             holder.thumbnail.setImageBitmap(null);
@@ -626,11 +662,16 @@ public final class LauncherSettingsActivity extends Activity {
         }
 
         private void applyPickerFocus(Holder holder, boolean focused, boolean selected) {
-            if (!odyssey) return;
-            holder.label.setTextColor(focused ? 0xFF34204A : 0xFFFFF2D1);
-            holder.status.setTextColor(focused ? 0xFF34204A : 0xFFD8C7B0);
-            int color = focused ? 0xFF34204A : selected ? 0xFFE1AB35 : 0xFFD8C7B0;
-            holder.checked.setButtonTintList(ColorStateList.valueOf(color));
+            if (odyssey) {
+                holder.label.setTextColor(focused ? 0xFF34204A : 0xFFFFF2D1);
+                holder.status.setTextColor(focused ? 0xFF34204A : 0xFFD8C7B0);
+                int color = focused ? 0xFF34204A : selected ? 0xFFE1AB35 : 0xFFD8C7B0;
+                holder.checked.setButtonTintList(ColorStateList.valueOf(color));
+            } else if (appearance != null) {
+                holder.label.setTextColor(focused ? appearance.focusText : appearance.primary);
+                holder.status.setTextColor(focused ? appearance.focusText : appearance.secondary);
+                holder.checked.setButtonTintList(appearance.radio(selected, focused));
+            }
         }
 
         final class Holder extends RecyclerView.ViewHolder {
