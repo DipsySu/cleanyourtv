@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "render": "node render_previews.mjs",
-    "verify": "node render_previews.mjs test-only"
+    "verify": "node render_previews.mjs test-only",
+    "launcher": "node render_launcher.mjs && python3 -I build_launcher.py"
   },
   "devDependencies": {
     "playwright": "1.62.1"
