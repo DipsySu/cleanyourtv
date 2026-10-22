@@ -14,14 +14,16 @@
         android:layout_gravity="center_horizontal|top"
         android:background="@drawable/tile_bg"
         android:focusable="true"
-        android:clickable="true">
+        android:clickable="true"
+        android:importantForAccessibility="yes">
 
         <ImageView
             android:id="@+id/banner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:contentDescription="@null" />
+            android:contentDescription="@null"
+            android:importantForAccessibility="no" />
 
         <ImageView
             android:id="@+id/icon"
@@ -30,7 +32,8 @@
             android:layout_gravity="center"
             android:layout_marginBottom="14dp"
             android:visibility="gone"
-            android:contentDescription="@null" />
+            android:contentDescription="@null"
+            android:importantForAccessibility="no" />
 
         <TextView
             android:id="@+id/label"
@@ -46,7 +49,8 @@
             android:textColor="#FFFFFFFF"
             android:textSize="13sp"
             android:fontFamily="@font/outfit"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:importantForAccessibility="no" />
     </FrameLayout>
 
     <TextView
@@ -63,5 +67,6 @@
         android:textColor="#F2FFFFFF"
         android:textSize="14sp"
         android:fontFamily="@font/outfit_medium"
-        android:letterSpacing="0.02" />
+        android:letterSpacing="0.02"
+        android:importantForAccessibility="no" />
 </FrameLayout>

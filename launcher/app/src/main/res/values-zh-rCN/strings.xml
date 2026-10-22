@@ -14,6 +14,13 @@
     <string name="wallpaper_none">无</string>
     <string name="wallpaper_applied">壁纸已更换</string>
     <string name="wallpaper_theme_default">主题默认</string>
+    <string name="wallpaper_theme_rotation">跟随主题（自动轮换）</string>
+    <string name="wallpaper_theme_rotation_hint">使用主题壁纸及其自动轮换设置</string>
+    <string name="wallpaper_off_hint">使用主题颜色，不显示壁纸</string>
+    <string name="wallpaper_fixed_hint">固定使用此壁纸</string>
+    <string name="wallpaper_current">当前已选</string>
+    <string name="wallpaper_not_current">未选</string>
+    <string name="wallpaper_option_description">%1$s，%2$s</string>
     <string name="animations_state">动态效果：%1$s</string>
     <string name="advanced_effects">高级动态效果</string>
     <string name="advanced_effects_state">高级动态效果：%1$s</string>

@@ -30,29 +30,4 @@ public class WallpaperFadeTest {
         }
     }
 
-    @Test public void theHeaderSwitchesWhenTheNewPictureIsHalfIn() {
-        assertEquals(351, WallpaperFade.halfway(1200));
-        assertEquals(0.5f, WallpaperFade.eased(WallpaperFade.halfway(1200) / 1200f), 0.001f);
-        assertEquals(0.5f, WallpaperFade.eased(WallpaperFade.halfway(10_000) / 10_000f), 0.0001f);
-        assertEquals(0, WallpaperFade.halfway(0));
-    }
-
-    @Test public void theTwoTraysAlphasAlwaysAddUpToOpaque() {
-        assertEquals(0, WallpaperFade.inAlpha(0f));
-        assertEquals(255, WallpaperFade.outAlpha(0f));
-        assertEquals(255, WallpaperFade.inAlpha(1f));
-        assertEquals(0, WallpaperFade.outAlpha(1f));
-        assertEquals(128, WallpaperFade.inAlpha(0.5f));   // 127.5 rounds up
-        assertEquals(127, WallpaperFade.outAlpha(0.5f));
-        assertEquals(0, WallpaperFade.inAlpha(-1f));
-        assertEquals(255, WallpaperFade.inAlpha(2f));
-        int last = -1;
-        for (int i = 0; i <= 1000; i++) {
-            float eased = WallpaperFade.eased(i / 1000f);
-            int in = WallpaperFade.inAlpha(eased);
-            assertEquals(255, in + WallpaperFade.outAlpha(eased));
-            assertTrue(in >= last);
-            last = in;
-        }
-    }
 }

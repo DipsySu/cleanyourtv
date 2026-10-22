@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/settingsRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FF101419"
     android:fillViewport="true">
 
     <LinearLayout
+        android:id="@+id/settingsContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -15,6 +17,7 @@
         android:paddingBottom="38dp">
 
         <TextView
+            android:id="@+id/settingsTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/launcher_settings"
@@ -22,6 +25,7 @@
             android:textSize="34sp" />
 
         <TextView
+            android:id="@+id/columnsLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
@@ -40,6 +44,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/rowsLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
@@ -75,6 +80,7 @@
             android:layout_marginTop="10dp" />
 
         <TextView
+            android:id="@+id/advancedHint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -89,6 +95,7 @@
             android:text="@string/follow_theme" />
 
         <TextView
+            android:id="@+id/followThemeHint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
@@ -103,6 +110,7 @@
             android:text="@string/home_settings" />
 
         <TextView
+            android:id="@+id/homeSettingsHint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"

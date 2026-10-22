@@ -467,15 +467,25 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             // A free dock slot keeps its place in the row and the band, but shows nothing and takes no focus.
             h.card.setVisibility(View.INVISIBLE);
             h.card.setFocusable(false);
+            h.card.setContentDescription(null);
+            h.card.setBackground(h.cardBackground);
             h.name.setVisibility(View.INVISIBLE);
+            h.name.setText(null);
             h.banner.setImageDrawable(null);
             h.icon.setImageDrawable(null);
+            h.label.setText(null);
+            h.label.setVisibility(View.GONE);
             h.card.setOnClickListener(null);
             h.card.setOnLongClickListener(null);
+            h.card.setClickable(false);
+            h.card.setLongClickable(false);
             return;
         }
         h.card.setVisibility(View.VISIBLE);
         h.card.setFocusable(true);
+        h.card.setClickable(true);
+        h.card.setLongClickable(e.kind != Entry.HOME_SETTINGS);
+        h.card.setContentDescription(e.name);
         h.name.setText(e.name);
         // The dock has no labels, unless always_show_names asks for them (DockDecoration then makes room in the band).
         h.name.setVisibility(dockRow && position < dockSize && restNameAlpha == 0f ? View.INVISIBLE : View.VISIBLE);
@@ -495,7 +505,9 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             h.banner.setImageDrawable(e.banner);
             h.banner.setVisibility(View.VISIBLE);
             h.icon.setVisibility(View.GONE);
+            h.icon.setImageDrawable(null);
             h.label.setVisibility(View.GONE);
+            h.label.setText(null);
         } else {
             h.banner.setImageDrawable(null);
             h.banner.setVisibility(View.GONE);

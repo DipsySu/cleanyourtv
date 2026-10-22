@@ -75,4 +75,40 @@ public class DockTintTest {
         assertEquals(DockTint.NONE, DockTint.of(tints, "01-CAP.JPG"));   // filenames match exactly, as for names
         assertEquals(DockTint.NONE, DockTint.of(Collections.emptyMap(), "01-cap.jpg"));
     }
+
+    @Test public void oneLayerGradientInterpolatesEveryArgbChannelWithoutAnAlphaDip() {
+        int tintedTop = DockTint.bandTop(DockTint.parse("#454C87"));
+        int darkTop = DockTint.darkBandTop(false);
+        assertEquals(tintedTop, DockTint.interpolate(tintedTop, darkTop, 0f));
+        assertEquals(darkTop, DockTint.interpolate(tintedTop, darkTop, 1f));
+        // One gradient at half progress is the ARGB midpoint (0x6B to 0xE6), rather than two translucent
+        // source-over layers whose combined alpha would be lower than either intended midpoint.
+        assertEquals(0xA9353C5E, DockTint.interpolate(tintedTop, darkTop, .5f));
+    }
+
+    @Test public void rotatingBetweenKingdomsKeepsTheTrayOpacityConstantAtEveryStep() {
+        int from = DockTint.parse("#454C87"), to = DockTint.parse("#9E5F2E");
+        for (int step = 0; step <= 100; step++) {
+            float progress = step / 100f;
+            assertEquals(0x6B, DockTint.interpolate(DockTint.bandTop(from), DockTint.bandTop(to), progress) >>> 24);
+            assertEquals(0x8F, DockTint.interpolate(DockTint.bandBottom(from), DockTint.bandBottom(to), progress) >>> 24);
+        }
+    }
+
+    @Test public void tintAndNoneAlsoInterpolateTheBottomShade() {
+        assertEquals(0x00000000, DockTint.interpolate(0, DockTint.darkShadeBottom(), 0f));
+        assertEquals(0x14000000, DockTint.interpolate(0, DockTint.darkShadeBottom(), .5f));
+        assertEquals(DockTint.darkShadeBottom(), DockTint.interpolate(0, DockTint.darkShadeBottom(), 1f));
+        assertEquals(0xA8252B35, DockTint.darkBandTop(true));
+        assertEquals(0xE6252B35, DockTint.darkBandTop(false));
+    }
+
+    @Test public void interruptedTintTransitionCanAlwaysLandOnItsExactTarget() {
+        int from = DockTint.bandBottom(DockTint.parse("#454C87"));
+        int to = DockTint.darkBandBottom(false);
+        int interruptedFrame = DockTint.interpolate(from, to, .31f);
+        assertEquals(to, DockTint.interpolate(interruptedFrame, to, 1f));
+        // DockDecoration.endFade() uses the original target at 1, which avoids retaining a rounded intermediate.
+        assertEquals(to, DockTint.interpolate(from, to, 1f));
+    }
 }

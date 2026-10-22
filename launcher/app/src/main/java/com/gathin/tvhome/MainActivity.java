@@ -174,11 +174,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private Map<String, String> wallpaperTints = Collections.emptyMap();
     /** The tray behind the dock row; null without dock_row. */
     private DockDecoration dockDecoration;
-    /**
-     * The Odyssey header's kingdom and coin, switched when a fading wallpaper is half in (WallpaperFade.halfway); one
-     * Runnable for every change. kingdomPending while it waits, so onPause can switch them at once instead.
-     */
-    private final Runnable kingdomSwitch = this::switchKingdom;
+    /** Switch the header once the one wallpaper animator reaches half alpha, regardless of system duration scale. */
     private boolean kingdomPending;
     /** Optional time-of-day backdrop (config.xml, sky_intensity); 0 keeps it hidden. */
     private SkyView sky;
@@ -254,14 +250,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private int dockEditSlot = -1;
     /** Pin to dock with every dock place taken: the app waiting for the place OK chooses (edit-dock mode), or null. */
     private String dockPickKey;
-    /**
-     * The dock row when the reorder session started: its first dockRegion tiles (the dock apps and any grid apps
-     * filling free places) and the dock apps among them. endReorder saves a changed row as the owner's dock.
-     */
-    private int dockRegion;
-    private List<String> dockRowAtStart = Collections.emptyList(), pinnedAtStart = Collections.emptyList();
-    /** Apps the owner picked up or swapped in during the reorder session: kept in the dock row's saved dock. */
-    private final Set<String> touchedPackages = new HashSet<>();
+    /** The visible editable row, original pins and apps touched during this edit, kept as one snapshot. */
+    private DockEditSession dockSession;
     private AppLibraryDialog appLibrary;
     private boolean libraryFocusPending;
     private RecyclerView.OnScrollListener pendingFocusScroll;
@@ -423,6 +413,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             greetingColor = greeting.getCurrentTextColor();
         }
         wallpaperPlayer.setOnChange(this::onWallpaperChanged);
+        wallpaperPlayer.setOnProgress(this::onWallpaperProgress);
         vpnApp = cfg.vpnApp;
         moduleCards = cfg.moduleCards;
         hiddenApps = new HashSet<>(cfg.hiddenApps);
@@ -586,7 +577,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             open(systemIntent(Settings.ACTION_WIFI_SETTINGS));
             return true;
         });
-        btnSettings.setOnClickListener(v -> open(systemIntent(Settings.ACTION_SETTINGS)));
+        btnSettings.setOnClickListener(v -> showSettingsMenu());
         btnReorder = findViewById(R.id.btnReorder);
         btnReorder.setOnClickListener(v -> toggleReorder());
         btnReorder.setVisibility(cfg.reorderButton ? View.VISIBLE : View.GONE);
@@ -887,10 +878,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         endReorder();   // Home or another app while reordering keeps the order so far
         // A wallpaper fade lands at once, the new picture fully in, and the header and the dock's tray land with it.
         wallpaperPlayer.stop();
-        if (kingdomPending) {
-            handler.removeCallbacks(kingdomSwitch);
-            switchKingdom();
-        }
+        if (kingdomPending) switchKingdom();
         if (dockDecoration != null) dockDecoration.endFade();
         stopAmbientAnimation();
         hero.animate().cancel();
@@ -957,7 +945,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         springX.cancel();
         springY.cancel();
         wallpaperPlayer.close();
-        handler.removeCallbacks(kingdomSwitch);
         if (dockDecoration != null) dockDecoration.endFade();
         ConnectivityManager cm = getSystemService(ConnectivityManager.class);
         TvInputManager tim = (TvInputManager) getSystemService(TV_INPUT_SERVICE);
@@ -1059,13 +1046,12 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     /** The start shared by reorder and edit-dock mode. False when there is nothing to move. */
     private boolean beginReorder() {
         if (adapter.movableCount() < 2) return false;
-        // The dock row as it is, before the empty dock places (fill_dock false) are left out.
-        dockRegion = adapter.dockFilled();
-        dockRowAtStart = adapter.packagesBefore(dockRegion);
-        pinnedAtStart = adapter.pinnedPackages();
-        touchedPackages.clear();
+        List<String> pinned = adapter.pinnedPackages();
         adapter.setReordering(true);
         if (adapter.hasEmptySlots()) reloadTiles();   // every position must hold a tile that can move
+        // All positions the editor offers must also be saved. Snapshot after compacting a sparse dock,
+        // so opening/cancelling the editor does not turn its temporary filler apps into saved pins.
+        dockSession = new DockEditSession(DOCK_COLUMNS, adapter.packagesBefore(DOCK_COLUMNS), pinned);
         reordering = true;
         orderAtStart = adapter.movableKeys();
         glass.setAccent(REORDER_ACCENT);
@@ -1169,7 +1155,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     /** Puts the app at pos into dock place slot, and the app that was there where the chosen one was; then saves. */
     private void swapIntoDock(int slot, int pos) {
         String pkg = adapter.packageAt(pos);
-        if (pkg != null) touchedPackages.add(pkg);
+        dockSession.touch(pkg);
         String slotKey = adapter.keyAt(slot);
         if (pos != slot) {
             keepScroll(() -> {
@@ -1185,7 +1171,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         if (pos >= adapter.movableCount()) return;   // the "Default home" tile stays put
         movingKey = adapter.keyAt(pos);
         String pkg = adapter.packageAt(pos);
-        if (pkg != null) touchedPackages.add(pkg);
+        dockSession.touch(pkg);
         dimOthers();
     }
 
@@ -1237,6 +1223,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         orderAtStart = null;
         // The dock first: the saved order leaves out the apps of the dock it ends up with.
         boolean dockChanged = saveDockRow();
+        dockSession = null;
         if (!keys.equals(before) && !saveOrder(keys, adapter.dock())) {
             Toast.makeText(this, R.string.reorder_not_saved, Toast.LENGTH_SHORT).show();
         }
@@ -1249,11 +1236,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      * only fill free places (DockChoice.fromRow). False when the row is unchanged or could not be saved.
      */
     private boolean saveDockRow() {
-        List<String> row = adapter.packagesBefore(dockRegion);
-        if (row.equals(dockRowAtStart)) return false;
-        Set<String> keep = new HashSet<>(pinnedAtStart);
-        keep.addAll(touchedPackages);
-        List<String> dock = DockChoice.fromRow(row, keep);
+        List<String> dock = dockSession.dockAfter(adapter.packagesBefore(dockSession.slots));
+        if (dock == null) return false;
         if (!DockChoice.save(DockChoice.file(this), dock)) {
             Toast.makeText(this, R.string.dock_not_saved, Toast.LENGTH_SHORT).show();
             return false;
@@ -1340,6 +1324,16 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         View panel = getLayoutInflater().inflate(R.layout.popup_inputs, root, false);
         LinearLayout rows = panel.findViewById(R.id.rows);
         PopupWindow popup = glassPopup(panel, (int) (200 * density));
+        TextView title = new TextView(this);
+        title.setText(adapter.labelAt(position));
+        title.setTextColor(odysseyHeader ? 0xFFFFE9AB : 0xFFCED7E5);
+        title.setTextSize(14);
+        title.setSingleLine(true);
+        title.setEllipsize(TextUtils.TruncateAt.END);
+        title.setPadding((int) (16 * density), (int) (10 * density),
+                (int) (16 * density), (int) (8 * density));
+        title.setFocusable(false);
+        rows.addView(title);
         int pinned = adapter.pinnedCount();
         if (position < pinned) {
             addSettingsMenuRow(rows, popup, R.string.dock_unpin, () -> unpinFromDock(pkg));
@@ -1358,7 +1352,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         panel.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         popup.setWidth(Math.max((int) (200 * density), panel.getMeasuredWidth()));
         dropIn(popup, panel, card, rtlAppGrid ? Gravity.END : Gravity.START);
-        rows.getChildAt(0).requestFocus();
+        rows.getChildAt(1).requestFocus();
     }
 
     /** Pin to dock: the app takes the first free dock place; with every place taken, the owner picks the place. */
@@ -2272,22 +2266,23 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      */
     private void onWallpaperChanged(long fadeMs) {
         if (odysseyHeader) {
-            handler.removeCallbacks(kingdomSwitch);
-            if (fadeMs > 0) {
-                kingdomPending = true;
-                handler.postDelayed(kingdomSwitch, WallpaperFade.halfway(fadeMs));
-            } else {
-                switchKingdom();
-            }
+            kingdomPending = fadeMs > 0;
+            if (!kingdomPending) switchKingdom();
         }
         if (dockDecoration != null) {
             int tint = DockTint.of(wallpaperTints, wallpaperPlayer.displayed());
             if (fadeMs > 0) {
-                dockDecoration.fadeTint(tint, fadeMs, grid);   // redraws the grid itself, each frame of the fade
+                dockDecoration.beginTint(tint);
             } else if (dockDecoration.setTint(tint)) {
                 grid.invalidate();   // the tray is drawn in the grid's onDraw; the dock's offsets stay, so no layout
             }
         }
+    }
+
+    /** The wallpaper, kingdom label, coin and tray all consume the same actual eased progress. */
+    private void onWallpaperProgress(float progress) {
+        if (kingdomPending && progress >= 0.5f) switchKingdom();
+        if (dockDecoration != null && dockDecoration.setProgress(progress)) grid.invalidate();
     }
 
     /** The Odyssey header's kingdom and coin for the picture on screen. */
@@ -2902,7 +2897,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     // ---- launcher settings and module cards -------------------------------------------------------
 
-    /** Keep a normal Settings click for the TV; the launcher's choices live behind hold OK. */
+    /** A press and a hold both expose launcher and system settings, without a hidden gesture. */
     private void showSettingsMenu() {
         View anchor = findViewById(R.id.btnSettings);
         View panel = getLayoutInflater().inflate(R.layout.popup_inputs, root, false);
@@ -2910,6 +2905,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         PopupWindow popup = glassPopup(panel, (int) (200 * density));
         addSettingsMenuRow(rows, popup, R.string.launcher_settings, () -> startActivityForResult(
                 new Intent(this, LauncherSettingsActivity.class), LAUNCHER_SETTINGS_REQUEST));
+        addSettingsMenuRow(rows, popup, R.string.tv_settings,
+                () -> open(systemIntent(Settings.ACTION_SETTINGS)));
         if (moduleCards) addSettingsMenuRow(rows, popup, R.string.module_cards, this::showModuleCards);
         if (dockRow) addSettingsMenuRow(rows, popup, R.string.dock_edit, this::startDockEdit);
         addSettingsMenuRow(rows, popup, R.string.dock_reset, this::resetDock);

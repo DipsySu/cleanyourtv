@@ -33,10 +33,16 @@ final class WallpaperPlayer {
     /** Told on the main thread when a rotation puts another picture on screen. */
     interface OnChange {
         /**
-         * {@code fadeMs}: the new picture has just started fading in and is fully in that many ms from now, so what
-         * follows it can keep time (WallpaperFade.halfway); 0 when it was cut in.
+         * {@code fadeMs}: the animator's unscaled duration, or 0 for a cut. Follow {@link OnProgress} for actual
+         * timing, including the system animation duration scale.
          */
         void onWallpaperChanged(long fadeMs);
+    }
+
+    /** Receives the alpha actually applied to the incoming wallpaper, after interpolation. */
+    interface OnProgress {
+        /** {@code progress} is the visible incoming alpha, from 0 to 1. */
+        void onWallpaperProgress(float progress);
     }
 
     private final FrameLayout root;
@@ -64,6 +70,8 @@ final class WallpaperPlayer {
     private String displayed = "";
     /** Runs on the main thread when a rotation puts another picture on screen (the Odyssey header, the dock's tint). */
     private OnChange onChange;
+    /** Runs on the main thread from the one wallpaper animator (or with 1 for a cut/settled wallpaper). */
+    private OnProgress onProgress;
 
     WallpaperPlayer(Context context, FrameLayout root, Config config) {
         this.root = root;
@@ -98,9 +106,13 @@ final class WallpaperPlayer {
                 fader = ObjectAnimator.ofFloat(incoming, View.ALPHA, 0f, 1f);
                 fader.setInterpolator(WallpaperFade::eased);
                 fader.setDuration(fadeMs);
+                fader.addUpdateListener(animation -> dispatchProgress(animation.getAnimatedFraction()));
                 fader.addListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
+                        // end() and cancel() both leave the next picture as the displayed one below. Consumers must
+                        // land on that same state instead of being left at an arbitrary frame of a cancelled animator.
+                        dispatchProgress(1f);
                         settle();   // its natural end, end() or cancel()
                     }
                 });
@@ -183,6 +195,15 @@ final class WallpaperPlayer {
         onChange = listener;
     }
 
+    /**
+     * Observes the displayed wallpaper's real progress. Registering while the first wallpaper is already on screen
+     * reports 1 immediately, so listeners have a settled initial state without guessing from a duration.
+     */
+    void setOnProgress(OnProgress listener) {
+        onProgress = listener;
+        if (listener != null) listener.onWallpaperProgress(1f);
+    }
+
     void update() {
         if (!active || closed || loading || files.isEmpty()) return;
         String previous = preferences.getString("image", "");
@@ -215,37 +236,48 @@ final class WallpaperPlayer {
                     update();
                     return;
                 }
-                long fade = show(bitmap);
                 displayed = next.getName();
                 if (!displayed.equals(previous) || changed == 0) {
                     preferences.edit().putString("image", displayed).putLong("changed", now).apply();
                 }
+                // The recipient resolves names (for the tray, header and coin) before progress can expose the new
+                // picture. In particular, ObjectAnimator may issue its first frame synchronously from start().
+                long fade = canFade() ? fadeMs : 0;
                 if (onChange != null) onChange.onWallpaperChanged(fade);
+                show(bitmap, fade > 0);
             });
         });
     }
 
     /**
      * Puts a rotated picture on screen: faded in over the one there, or cut in when nothing can fade or nothing is
-     * shown yet. Returns the fade's length, 0 for a cut.
+     * shown yet. The caller has already announced the next filename before this can emit progress.
      */
-    private long show(Bitmap bitmap) {
-        land();
+    private boolean canFade() {
         // areAnimatorsEnabled: the TV's animator duration scale is 0, so a fade would end the moment it starts anyway.
-        if (incoming == null || image.getDrawable() == null || !ValueAnimator.areAnimatorsEnabled()) {
+        return incoming != null && image.getDrawable() != null && ValueAnimator.areAnimatorsEnabled();
+    }
+
+    private void show(Bitmap bitmap, boolean fade) {
+        if (!fade) {
             image.setImageBitmap(bitmap);
-            return 0;
+            dispatchProgress(1f);
+            return;
         }
         incoming.setAlpha(0f);
         incoming.setImageBitmap(bitmap);
         incoming.setVisibility(View.VISIBLE);
+        dispatchProgress(0f);
         fader.start();
-        return fadeMs;
     }
 
-    /** Ends a fade in progress at once (its listener then settles it); nothing when none runs. */
+    /** Ends a fade in progress at once (its listener then settles it), or reports the already-settled state. */
     private void land() {
-        if (fader != null && fader.isStarted()) fader.end();
+        if (fader != null && fader.isStarted()) {
+            fader.end();
+        } else {
+            dispatchProgress(1f);
+        }
     }
 
     /**
@@ -262,6 +294,10 @@ final class WallpaperPlayer {
         if (picture != null) image.setImageBitmap(picture);
         incoming.setImageDrawable(null);
         incoming.setVisibility(View.INVISIBLE);
+    }
+
+    private void dispatchProgress(float progress) {
+        if (onProgress != null) onProgress.onWallpaperProgress(Math.max(0f, Math.min(1f, progress)));
     }
 
     /** Names plus sizes: enough to notice a different collection without hashing every image. */

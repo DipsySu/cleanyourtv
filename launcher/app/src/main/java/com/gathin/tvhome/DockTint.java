@@ -66,6 +66,39 @@ final class DockTint {
         return EDGE_BOTTOM_ALPHA << 24 | edge(base);
     }
 
+    static int darkBandTop(boolean translucent) {
+        return translucent ? 0xA8252B35 : 0xE6252B35;
+    }
+
+    static int darkBandBottom(boolean translucent) {
+        return translucent ? 0xB813171F : 0xF013171F;
+    }
+
+    static int darkEdgeTop() {
+        return 0x38E2EAF6;
+    }
+
+    static int darkEdgeBottom() {
+        return 0x12D2DEEE;
+    }
+
+    static int darkShadeBottom() {
+        return 0x28000000;
+    }
+
+    /** One source-over layer interpolates every ARGB component, so its opacity never falls below that interpolation. */
+    static int interpolate(int from, int to, float progress) {
+        float t = progress < 0f ? 0f : Math.min(progress, 1f);
+        return channel(from, to, 24, t) << 24 | channel(from, to, 16, t) << 16
+                | channel(from, to, 8, t) << 8 | channel(from, to, 0, t);
+    }
+
+    private static int channel(int from, int to, int shift, float progress) {
+        int first = from >> shift & 0xFF;
+        int last = to >> shift & 0xFF;
+        return Math.round(first + (last - first) * progress);
+    }
+
     /** B mixed 72% towards white: c + (255 - c) * 0.72 for each of its red, green and blue. */
     private static int edge(int base) {
         int rgb = 0;

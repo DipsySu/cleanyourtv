@@ -101,6 +101,13 @@
     <string name="greeting_with_name">%1$s, %2$s</string>
     <string name="rows_below_dock_label">שורות מתחת לעגינה</string>
     <string name="wallpaper_label">טפט</string>
+    <string name="wallpaper_theme_rotation">לפי ערכת הנושא (החלפה אוטומטית)</string>
+    <string name="wallpaper_theme_rotation_hint">שימוש בטפט ובתזמון ההחלפה של ערכת הנושא</string>
+    <string name="wallpaper_off_hint">שימוש בצבע הרקע של ערכת הנושא, ללא טפט</string>
+    <string name="wallpaper_fixed_hint">שימוש קבוע בטפט הזה</string>
+    <string name="wallpaper_current">נבחר כעת</string>
+    <string name="wallpaper_not_current">לא נבחר</string>
+    <string name="wallpaper_option_description">%1$s, %2$s</string>
     <string name="wallpaper_state">טפט: %1$s</string>
     <string name="wallpaper_none">ללא</string>
     <string name="wallpaper_applied">הטפט שונה</string>

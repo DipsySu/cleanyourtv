@@ -37,6 +37,13 @@
     <string name="wallpaper_none">None</string>
     <string name="wallpaper_applied">Wallpaper changed</string>
     <string name="wallpaper_theme_default">Theme default</string>
+    <string name="wallpaper_theme_rotation">Follow theme (automatic rotation)</string>
+    <string name="wallpaper_theme_rotation_hint">Use the theme wallpaper and its rotation schedule</string>
+    <string name="wallpaper_off_hint">Use the theme colour without a wallpaper</string>
+    <string name="wallpaper_fixed_hint">Keep this wallpaper selected</string>
+    <string name="wallpaper_current">currently selected</string>
+    <string name="wallpaper_not_current">not selected</string>
+    <string name="wallpaper_option_description">%1$s, %2$s</string>
     <string name="animations_state">Animations: %1$s</string>
     <string name="advanced_effects">Advanced effects</string>
     <string name="advanced_effects_state">Advanced effects: %1$s</string>
