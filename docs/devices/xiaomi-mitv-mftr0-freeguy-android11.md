@@ -105,8 +105,10 @@ adb -s "$TV_HOST:5555" shell am force-stop com.ts.launcher
 adb -s "$TV_HOST:5555" shell am start -n com.ts.launcher/com.gathin.tvhome.MainActivity
 ```
 
-原 `launcher/build-and-install.sh` 与 `tools/theme.sh` 固定使用标准包名，
-不应直接用于此兼容包。本分支的构建帮助脚本不会改 Home 或停用原桌面。
+原 `launcher/build-and-install.sh` 固定使用标准包名，不应直接用于此兼容包。
+`tools/theme.sh` 须指定包名：`LAUNCHER_PKG=com.ts.launcher TV_HOST=... tools/theme.sh themes/xiaomi-freeguy-odyssey`
+（还原时同样加 `LAUNCHER_PKG`，`tools/theme.ps1` 用 `-Package com.ts.launcher`）；
+不指定时会写到标准包名的目录，脚本仍显示成功。本分支的构建帮助脚本不会改 Home 或停用原桌面。
 
 ## 已验证与恢复
 

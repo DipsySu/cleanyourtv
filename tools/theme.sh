@@ -5,6 +5,8 @@
 #
 # Usage: TV_HOST=192.168.1.50 tools/theme.sh themes/aurora
 #        TV_HOST=192.168.1.50 tools/theme.sh --reset        # remove the overlay, back to config.xml
+#        LAUNCHER_PKG=com.ts.launcher TV_HOST=192.168.1.50 tools/theme.sh themes/aurora
+#            # a launcher built with -PlauncherApplicationId=com.ts.launcher (default com.gathin.tvhome)
 set -euo pipefail
 # Resolve the theme folder against the caller's directory before moving into tools/.
 # Git Bash's pwd says /c/Users/..., which the Windows Python cannot open; pwd -W gives C:/Users/... (as in disable.sh).
@@ -16,7 +18,12 @@ PY=venv/bin/python
 [ -x "$PY" ] || PY=venv/Scripts/python.exe
 [ -x "$PY" ] || { echo "run: python3 -m venv tools/venv && tools/venv/bin/pip install -r tools/requirements.txt" >&2; exit 1; }
 export MSYS_NO_PATHCONV=1
-PKG=com.gathin.tvhome
+PKG="${LAUNCHER_PKG:-com.gathin.tvhome}"
+# PKG goes into every command below unquoted, so only a plain package name may reach the TV's shell.
+[[ "$PKG" =~ ^[A-Za-z][A-Za-z0-9_]*([.][A-Za-z][A-Za-z0-9_]*)+$ ]] \
+  || { echo "LAUNCHER_PKG is not an Android package name: $PKG" >&2; exit 1; }
+# The applicationId can change (-PlauncherApplicationId); the Java namespace stays com.gathin.tvhome.
+HOME_ACTIVITY=$PKG/com.gathin.tvhome.MainActivity
 DIR=/sdcard/Android/data/$PKG/files
 # A unique marker lets the launcher clear on-TV layout/motion choices after every theme push,
 # including a push of identical config.json bytes and --reset.
@@ -30,7 +37,9 @@ tv() { "$PY" -I tv.py "$@"; }
 # back and switch accessibility on again as build-and-install does. Some TVs (TCL Smart TV Pro G03, Android 11)
 # also keep the service in their "crashed" list after the force-stop and leave it unbound until accessibility
 # itself goes off and on again, so switch it off with the list cleared and wait a second before writing back.
-RESTART="a=\$(settings get secure enabled_accessibility_services); am force-stop $PKG; am start -n $PKG/.MainActivity >/dev/null; case \"\$a\" in *$PKG*) sleep 1; settings put secure enabled_accessibility_services ''; settings put secure accessibility_enabled 0; sleep 1; settings put secure enabled_accessibility_services \"\$a\"; settings put secure accessibility_enabled 1 ;; esac"
+# The list holds package/class entries, and another applicationId's classes still say com.gathin.tvhome,
+# so match the package with its slash.
+RESTART="a=\$(settings get secure enabled_accessibility_services); am force-stop $PKG; am start -n $HOME_ACTIVITY >/dev/null; case \"\$a\" in *$PKG/*) sleep 1; settings put secure enabled_accessibility_services ''; settings put secure accessibility_enabled 0; sleep 1; settings put secure enabled_accessibility_services \"\$a\"; settings put secure accessibility_enabled 1 ;; esac"
 
 # Some firmware (TCL G07, Android 11) locks the shell out of Android/data. Files are staged in
 # /data/local/tmp and copied in, or written through the launcher's ThemeProvider when that is refused.
@@ -74,4 +83,6 @@ if [ -d "$THEME/wallpapers" ]; then
 fi
 tv "printf '%s' '$REVISION' > $TMP-theme_revision; $(put theme_revision)" >/dev/null
 tv "$RESTART; echo applied" | tail -n 1
-echo "Theme $(basename "$THEME") is on the TV. Undo with: tools/theme.sh --reset"
+UNDO="tools/theme.sh --reset"
+[ "$PKG" = com.gathin.tvhome ] || UNDO="LAUNCHER_PKG=$PKG $UNDO"
+echo "Theme $(basename "$THEME") is on the TV. Undo with: $UNDO"
