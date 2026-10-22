@@ -1,0 +1,297 @@
+{
+  "coins": 8,
+  "canvas": [
+    128,
+    128
+  ],
+  "margin": 2,
+  "scaler": "ffmpeg premultiplied lanczos+accurate_rnd+full_chroma_int",
+  "encoder": "cwebp 1.6.0",
+  "flags": [
+    "-q",
+    "90",
+    "-alpha_q",
+    "100",
+    "-alpha_filter",
+    "best",
+    "-m",
+    "6",
+    "-sharp_yuv",
+    "-exact"
+  ],
+  "totalBytes": 46586,
+  "items": [
+    {
+      "id": "cap",
+      "kingdom": "Cap Kingdom",
+      "wallpaper": "01-cap.jpg",
+      "resource": "coin_odyssey_cap.webp",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 5672,
+      "sha256": "a204c0c27682aa1c73190fd2a86a2ae0291f09b492ab4b7e06457966643a5d95",
+      "source": "originals/cap.png",
+      "sourceSize": [
+        860,
+        824
+      ],
+      "trim": [
+        0,
+        0,
+        860,
+        824
+      ],
+      "coinSize": [
+        124,
+        119
+      ],
+      "content": [
+        2,
+        4,
+        126,
+        123
+      ],
+      "rgbMeanError": 2.29
+    },
+    {
+      "id": "metro",
+      "kingdom": "Metro Kingdom",
+      "wallpaper": "02-metro.jpg",
+      "resource": "coin_odyssey_metro.webp",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 5762,
+      "sha256": "5b3a1cb1d3eb0d5b84cc562e6772211fb73618a8698a91f2d7972f8539468775",
+      "source": "originals/metro.png",
+      "sourceSize": [
+        849,
+        852
+      ],
+      "trim": [
+        0,
+        0,
+        849,
+        852
+      ],
+      "coinSize": [
+        124,
+        124
+      ],
+      "content": [
+        2,
+        2,
+        126,
+        126
+      ],
+      "rgbMeanError": 2.16
+    },
+    {
+      "id": "sand",
+      "kingdom": "Sand Kingdom",
+      "wallpaper": "03-sand.jpg",
+      "resource": "coin_odyssey_sand.webp",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 4558,
+      "sha256": "aa5892bfc7245ae2be0591fbfeb56d0a0e40a745a4192f81be78fb867be205ae",
+      "source": "originals/sand.png",
+      "sourceSize": [
+        1014,
+        844
+      ],
+      "trim": [
+        0,
+        0,
+        1014,
+        844
+      ],
+      "coinSize": [
+        124,
+        103
+      ],
+      "content": [
+        2,
+        12,
+        126,
+        115
+      ],
+      "rgbMeanError": 2.13
+    },
+    {
+      "id": "seaside",
+      "kingdom": "Seaside Kingdom",
+      "wallpaper": "04-seaside.jpg",
+      "resource": "coin_odyssey_seaside.webp",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 7450,
+      "sha256": "00a5121e39361b81f95abdee2c4d96ef44b5ac951500cfdb4fb709e9e740993b",
+      "source": "originals/seaside.png",
+      "sourceSize": [
+        814,
+        850
+      ],
+      "trim": [
+        0,
+        0,
+        814,
+        850
+      ],
+      "coinSize": [
+        119,
+        124
+      ],
+      "content": [
+        4,
+        2,
+        123,
+        126
+      ],
+      "rgbMeanError": 3.12
+    },
+    {
+      "id": "wooded",
+      "kingdom": "Wooded Kingdom",
+      "wallpaper": "05-wooded.jpg",
+      "resource": "coin_odyssey_wooded.webp",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 6114,
+      "sha256": "25b4cd74fffac44457512c56d76b229dba640e8311c4c1315dfc21f73dfb61a1",
+      "source": "originals/wooded.png",
+      "sourceSize": [
+        732,
+        845
+      ],
+      "trim": [
+        0,
+        0,
+        732,
+        845
+      ],
+      "coinSize": [
+        107,
+        124
+      ],
+      "content": [
+        10,
+        2,
+        117,
+        126
+      ],
+      "rgbMeanError": 2.77
+    },
+    {
+      "id": "lost",
+      "kingdom": "Lost Kingdom",
+      "wallpaper": "06-lost.jpg",
+      "resource": "coin_odyssey_lost.webp",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 5820,
+      "sha256": "5b9dc2a1c47811d601eb9fb5ca7decd8caf2c6c213f645e25a79a9d7b16beb69",
+      "source": "originals/lost.png",
+      "sourceSize": [
+        674,
+        826
+      ],
+      "trim": [
+        0,
+        0,
+        674,
+        826
+      ],
+      "coinSize": [
+        101,
+        124
+      ],
+      "content": [
+        13,
+        2,
+        114,
+        126
+      ],
+      "rgbMeanError": 2.65
+    },
+    {
+      "id": "luncheon",
+      "kingdom": "Luncheon Kingdom",
+      "wallpaper": "07-luncheon.jpg",
+      "resource": "coin_odyssey_luncheon.webp",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 5280,
+      "sha256": "e2496d5682a1be85b97b6a4bdcf4f6a8e3b35ada10885d46974346d331689f2f",
+      "source": "originals/luncheon.png",
+      "sourceSize": [
+        913,
+        833
+      ],
+      "trim": [
+        0,
+        0,
+        913,
+        833
+      ],
+      "coinSize": [
+        124,
+        113
+      ],
+      "content": [
+        2,
+        7,
+        126,
+        120
+      ],
+      "rgbMeanError": 1.93
+    },
+    {
+      "id": "moon",
+      "kingdom": "Moon Kingdom",
+      "wallpaper": "08-moon.jpg",
+      "resource": "coin_odyssey_moon.webp",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 5930,
+      "sha256": "b8a23a42f47f9cd105f4627900659762a8f3930b60ae0e979577a9519dcc1ce2",
+      "source": "originals/moon.png",
+      "sourceSize": [
+        966,
+        839
+      ],
+      "trim": [
+        0,
+        0,
+        966,
+        839
+      ],
+      "coinSize": [
+        124,
+        108
+      ],
+      "content": [
+        2,
+        10,
+        126,
+        118
+      ],
+      "rgbMeanError": 2.07
+    }
+  ]
+}

@@ -19,7 +19,7 @@ powershell -ExecutionPolicy Bypass -File tools\theme.ps1 -TvHost 192.168.1.50 th
 |---|---|
 | `default/` | The built-in look written out as JSON, as a starting point for your own |
 | `xiaomi-freeguy-soft/` | This fork's Android 11 Xiaomi preset: 16 soft vector tiles and Emby in dock slot 4. Requires the bundled artwork and compatibility application ID; see [device notes](../docs/devices/xiaomi-mitv-mftr0-freeguy-android11.md). |
-| `xiaomi-freeguy-odyssey/` | This fork's Mario Odyssey preset: six dock entries, an independent six-column app grid with a four-column setting, one grid row visible below the dock, eight kingdom wallpapers and the game HUD header (`header_style: odyssey`). Requires the bundled artwork and Xiaomi-compatible package; see [device notes](../docs/devices/xiaomi-mitv-mftr0-freeguy-android11.md). |
+| `xiaomi-freeguy-odyssey/` | This fork's Mario Odyssey preset: six dock entries, an independent six-column app grid with a four-column setting, one grid row visible below the dock, eight kingdom wallpapers that change every minute in filename order with a crossfade, each with its own dock tint and its kingdom's coin before the clock (Metro keeps the gold coin, as its own shows Pauline), and the game HUD header (`header_style: odyssey`). Requires the bundled artwork and Xiaomi-compatible package; see [device notes](../docs/devices/xiaomi-mitv-mftr0-freeguy-android11.md). |
 | `aurora/` | A dark aurora wallpaper (teal and violet on navy, darker at the bottom) with a matching background colour |
 | `dussehra/` | Festive skin for Dussehra (ends 21 Oct 2026): a marigold toran, a faint gold rangoli, a diya for Wi-Fi, a bell for Inputs, a marigold for Settings and a petal shower |
 | `scenes/` | 14 dark illustrated landscapes in `wallpapers/`, a new one every hour; drawn from code by `tools/scenes_wallpapers.py` |
@@ -66,7 +66,7 @@ is ignored, and a file that doesn't parse is ignored as a whole, so a theme can 
 | `background_color` | `#RRGGBB` | Colour behind everything; black by default |
 | `sky_intensity` | 0 to 100 | Time-of-day backdrop: a dark gradient that follows the clock, 0 hides it (default) |
 | `wallpaper` | bool | Show `wallpaper.jpg` from the theme folder (`true`), or ignore it (`false`) |
-| `wallpaper_rotation_minutes` | 0 to 1440 | Rotate images in the theme's `wallpapers/` folder at this interval; 0 keeps the single-image behaviour. A negative or non-numeric value is ignored, and 0 means "no rotation", not "every minute" |
+| `wallpaper_rotation_minutes` | 0 to 1440 | Rotate images in the theme's `wallpapers/` folder: Home moves to the next one once at least this many minutes have passed since the last change, checked when Home comes to the front and then once a minute while it stays there (see [Wallpapers](#wallpapers)); 0 keeps the single-image behaviour. A negative or non-numeric value is ignored, and 0 means "no rotation", not "every minute" |
 | `wallpaper_order` | `shuffle` or `sequential` | How a collection advances. `shuffle` (the default, and what launchers did before this key existed) avoids repeating the current picture; `sequential` walks the folder in filename order and wraps at the end. An unknown value falls back to `shuffle` |
 | `wallpaper_dim` | 0 to 90 | Black overlay over wallpaper images, in percent; 0 by default and no shade view at all |
 | `festival` | string | Turns on a festive skin: the network pill becomes a diya whose flame follows the connection, Inputs a temple bell, Settings a marigold, and the first Home of the day gets a petal shower. `dussehra` and `diwali` have built-in greetings |
@@ -83,6 +83,8 @@ is ignored, and a file that doesn't parse is ignored as a whole, so a theme can 
 | `ambient_glow` | bool | The glow behind the dock in the focused app's colour (`true` by default); `false` keeps only `background_color` or the wallpaper, e.g. for a calm photo background |
 | `header_style` | `default` or `odyssey` | The header's look. `odyssey` is a game HUD for the Mario Odyssey preset: a Power Moon before the greeting, a gold coin before a heavy rounded clock (Fredoka) with a dark outline and a hard shadow, the date in a purple pill, and cream pills with a hard dark edge whose icons sit in coloured badges, turning gold when focused. A festival's icons replace the badges while it is on. Only the styling changes, so the pills and the dock keep their places. An unknown value falls back to `default`; this fork's built-in `config.xml` sets `odyssey` |
 | `wallpaper_names` | list of `"filename=Name"` | With `header_style: odyssey`, the kingdom named before the greeting while that wallpaper is on screen (`"01-cap.jpg=帽子之国"` shows 帽子之国 · 下午好); it follows the rotation. A picture without a name, a plain colour or a wallpaper switched off on the TV shows the greeting alone |
+| `wallpaper_coins` | list of `"filename=drawable"` | With `header_style: odyssey`, the coin before the clock while that wallpaper is on screen, instead of the gold one; it follows the rotation. The drawable is bundled with the launcher: a `coin_*` WebP (`"01-cap.jpg=coin_odyssey_cap"`, the Cap Kingdom's purple coin), drawn the gold coin's size, or `ic_odyssey_coin`, the gold coin itself. A picture without an entry, a name the launcher doesn't have, a plain colour or a wallpaper switched off on the TV shows the gold coin |
+| `wallpaper_tints` | list of `"filename=#RRGGBB"` | The dock tray's tint while that wallpaper is on screen (`"01-cap.jpg=#454C87"`): a soft translucent tray in that colour, deepening towards the bottom, with a light edge mixed from it, instead of the near-opaque dark one; it follows the rotation. Needs `dock_row`; works with any `header_style`. A picture without an entry or with a value that is not `#RRGGBB`, a plain colour or a wallpaper switched off on the TV keeps the dark tray |
 
 ## Wallpapers
 
@@ -112,9 +114,18 @@ An empty collection falls back to `wallpaper.jpg`, or the background colour if n
 `"wallpaper": false` disables both single-image and collection backgrounds.
 
 Selection is random without an immediate repeat when alternatives exist. The current image and its
-change time survive app/process restarts. Rotation runs only while Home is visible; on return from
-another app, an overdue background changes then. Images are decoded on a worker thread and bounded
-to the screen size. There is no download service, Internet permission or computer-side scheduler.
+change time survive app/process restarts. Rotation runs only while Home is in front: Home checks when
+it comes to the front and then once a minute, and moves on when at least `wallpaper_rotation_minutes`
+have passed since the last change, so with 1 it changes every minute while you stay on Home. Nothing
+changes while an app or the TV's own screensaver covers Home, and nothing is caught up later: coming
+back after a long time moves on one picture. Images are decoded on a worker thread and bounded
+to the screen size.
+
+A rotated picture fades in over the previous one in 1.2 seconds, quickly at first and settling at the
+end; then the old picture is let go, so only one stays in memory between changes. The `odyssey`
+header switches its kingdom and coin when the new picture is half in (about 0.35 seconds), and a
+`wallpaper_tints` dock tray fades to its new colour over the same time. The picture Home opens with, a
+picture picked on the TV, and Home with `animations` off or `reduced_motion` on are cut in directly. There is no download service, Internet permission or computer-side scheduler.
 The original system idle screensaver is left unchanged.
 
 On the TV, Launcher settings has a Wallpaper row: pick one picture from the collection (or the theme's

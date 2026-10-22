@@ -53,4 +53,42 @@ public class HeaderStyleTest {
         assertEquals("Happy Diwali", HeaderStyle.greeting(null, "Happy Diwali"));
         assertEquals("下午好", HeaderStyle.greeting(HeaderStyle.kingdom(NAMES, "05-wooded.jpg"), "下午好"));
     }
+
+    private static final Map<String, String> COINS = Config.packageMap(Arrays.asList(
+            "01-cap.jpg=coin_odyssey_cap", " 08-moon.jpg = coin_odyssey_moon ", "02-metro.jpg=ic_odyssey_coin",
+            "03-sand.jpg=banner_odyssey_live", "04-seaside.jpg=Coin_Odyssey_Seaside", "05-wooded.jpg=COIN_ODYSSEY_WOODED",
+            "06-lost.jpg=coin_odyssey_lost=x", "07-luncheon.jpg=coin_", "a.jpg=coin_odyssey cap",
+            "b.jpg=coin_x:drawable/banner_odyssey_live", "c.jpg=coin_../banner", "d.jpg=", "=coin_odyssey_cap",
+            "e.jpg=coin_odyssey_unknown"));
+
+    @Test public void theCoinFollowsTheWallpaperOnScreen() {
+        assertEquals("coin_odyssey_cap", HeaderStyle.coin(COINS, "01-cap.jpg"));
+        assertEquals("coin_odyssey_moon", HeaderStyle.coin(COINS, "08-moon.jpg"));
+        // Only a resource name is checked here: whether the APK has it is MainActivity's lookup (the vector if not).
+        assertEquals("coin_odyssey_unknown", HeaderStyle.coin(COINS, "e.jpg"));
+    }
+
+    @Test public void theVectorCoinOrANameThatIsNotACoinGivesTheVectorCoin() {
+        assertEquals("", HeaderStyle.coin(COINS, "02-metro.jpg"));   // ic_odyssey_coin: the vector, by name
+        assertEquals("", HeaderStyle.coin(COINS, "03-sand.jpg"));    // a banner is not a coin
+        // Resource names are lower case: no case folding.
+        assertEquals("", HeaderStyle.coin(COINS, "04-seaside.jpg"));
+        assertEquals("", HeaderStyle.coin(COINS, "05-wooded.jpg"));
+        // The value keeps an '=' (package-map rules), which no resource name has.
+        assertEquals("", HeaderStyle.coin(COINS, "06-lost.jpg"));
+        assertEquals("", HeaderStyle.coin(COINS, "07-luncheon.jpg"));   // the prefix alone
+        assertEquals("", HeaderStyle.coin(COINS, "a.jpg"));
+        // Nothing getIdentifier would read as another package or type.
+        assertEquals("", HeaderStyle.coin(COINS, "b.jpg"));
+        assertEquals("", HeaderStyle.coin(COINS, "c.jpg"));
+    }
+
+    @Test public void noPictureOrAnUnlistedOneHasTheVectorCoin() {
+        assertEquals("", HeaderStyle.coin(COINS, ""));
+        assertEquals("", HeaderStyle.coin(COINS, null));
+        assertEquals("", HeaderStyle.coin(COINS, "d.jpg"));
+        assertEquals("", HeaderStyle.coin(COINS, "wallpaper.jpg"));
+        assertEquals("", HeaderStyle.coin(COINS, "01-CAP.JPG"));
+        assertEquals("", HeaderStyle.coin(Collections.emptyMap(), "01-cap.jpg"));
+    }
 }

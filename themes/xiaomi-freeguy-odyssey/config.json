@@ -44,7 +44,7 @@
   "module_cards": false,
   "background_color": "#060B18",
   "wallpaper": true,
-  "wallpaper_rotation_minutes": 60,
+  "wallpaper_rotation_minutes": 1,
   "wallpaper_order": "sequential",
   "wallpaper_dim": 8,
   "wallpaper_names": [
@@ -56,6 +56,26 @@
     "06-lost.jpg=失落之国",
     "07-luncheon.jpg=料理之国",
     "08-moon.jpg=月之国"
+  ],
+  "wallpaper_coins": [
+    "01-cap.jpg=coin_odyssey_cap",
+    "02-metro.jpg=ic_odyssey_coin",
+    "03-sand.jpg=coin_odyssey_sand",
+    "04-seaside.jpg=coin_odyssey_seaside",
+    "05-wooded.jpg=coin_odyssey_wooded",
+    "06-lost.jpg=coin_odyssey_lost",
+    "07-luncheon.jpg=coin_odyssey_luncheon",
+    "08-moon.jpg=coin_odyssey_moon"
+  ],
+  "wallpaper_tints": [
+    "01-cap.jpg=#454C87",
+    "02-metro.jpg=#743A82",
+    "03-sand.jpg=#9E5F2E",
+    "04-seaside.jpg=#2A7B7E",
+    "05-wooded.jpg=#367254",
+    "06-lost.jpg=#86376C",
+    "07-luncheon.jpg=#8A2E40",
+    "08-moon.jpg=#306691"
   ],
   "header_style": "odyssey"
 }

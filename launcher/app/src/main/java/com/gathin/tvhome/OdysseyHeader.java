@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
@@ -22,12 +23,15 @@ import android.widget.TextView;
 
 /**
  * The "game HUD" header, header_style odyssey: a Power Moon before the greeting (with the wallpaper's kingdom, see
- * HeaderStyle), a gold coin before a heavy rounded clock with a dark outline and a hard shadow, the date in a purple
- * pill, and cream pills whose icons sit in coloured badges and that turn gold when focused. It restyles the views
- * activity_main.xml inflated, the default layout or the Hebrew one alike, so neither layout needs an Odyssey copy.
+ * HeaderStyle), a coin before a heavy rounded clock with a dark outline and a hard shadow, the date in a purple pill,
+ * and cream pills whose icons sit in coloured badges and that turn gold when focused. The coin is the gold vector one,
+ * or the kingdom's purple coin wallpaper_coins gives the picture on screen. It restyles the views activity_main.xml
+ * inflated, the default layout or the Hebrew one alike, so neither layout needs an Odyssey copy.
  *
- * Everything here runs once from onCreate, or when the network pill's icon changes; the icons are vector and shape
- * drawables, no bitmaps, and the outline is drawn by OutlineTextClock without allocating per frame.
+ * Everything here runs once from onCreate, when the network pill's icon changes or when the wallpaper changes (with
+ * the wallpaper's crossfade, once the new picture is half in: WallpaperFade.halfway); the icons are vector and shape
+ * drawables, the kingdoms' coins small bitmaps that MainActivity keeps once decoded, and the outline is drawn by
+ * OutlineTextClock without allocating per frame.
  */
 final class OdysseyHeader {
     /** Outlines, borders and hard edges: the deep purple ink of the mockup. */
@@ -41,6 +45,8 @@ final class OdysseyHeader {
      */
     private static final int GOLD_ON_GOLD = 0xFFE89A00;
     private static final float CLOCK_SP = 58;
+    /** The coin before the clock: ic_odyssey_coin's size, which a kingdom's coin takes too. */
+    private static final float COIN_DP = 46;
     private static final float BADGE_DP = 29, GLYPH_DP = 17, EYES_DP = 20;
     /** The hard edge under a pill's face, inside its 42dp (odyssey_pill_bg): the content centres on the face above. */
     private static final float EDGE_DP = 3.5f;
@@ -48,11 +54,12 @@ final class OdysseyHeader {
     private OdysseyHeader() {}
 
     /**
-     * Restyles the greeting, clock, AM/PM and date. Call it with the greeting's real text already set: the header
-     * block is measured before and after, and grows upwards by the difference, so the pills (aligned to its bottom)
-     * and the grid under it stay exactly where the default header has them.
+     * Restyles the greeting, clock, AM/PM and date, with {@code coin} (from {@link #coin}) before the clock. Call it
+     * with the greeting's real text already set: the header block is measured before and after, and grows upwards by
+     * the difference, so the pills (aligned to its bottom) and the grid under it stay exactly where the default header
+     * has them.
      */
-    static void applyHeader(Activity activity) {
+    static void applyHeader(Activity activity, Drawable coin) {
         Resources res = activity.getResources();
         float dp = res.getDisplayMetrics().density;
         View block = activity.findViewById(R.id.leftBlock);
@@ -88,7 +95,7 @@ final class OdysseyHeader {
         clock.setLetterSpacing(0.03f);
         clock.setTextColor(Color.WHITE);
         clock.setOutline(3.5f * dp, 3 * dp, INK);
-        clock.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_odyssey_coin, 0, 0, 0);
+        clock.setCompoundDrawablesRelative(coin, null, null, null);
         clock.setCompoundDrawablePadding(Math.round(8 * dp));
         // Room after the last digit for its outline; the descent below the digits already holds outline and shadow.
         clock.setPaddingRelative(0, 0, Math.round(2 * dp), 0);
@@ -137,6 +144,31 @@ final class OdysseyHeader {
         ViewGroup.MarginLayoutParams blockParams = (ViewGroup.MarginLayoutParams) block.getLayoutParams();
         blockParams.topMargin -= naturalHeight(block) - before;
         block.setLayoutParams(blockParams);
+    }
+
+    /**
+     * The coin before the clock for {@code name}, a value {@link HeaderStyle#coin} accepted: that coin_* drawable,
+     * {@link #COIN_DP} square; or the gold vector coin for "" or a name the APK does not have. A coin is a 128 px WebP
+     * from drawable-nodpi, drawn filtered at 46dp (92 px on a 320 dpi TV). It is decoded here, so MainActivity keeps
+     * each coin it asked for and never calls this per frame.
+     */
+    static Drawable coin(Context context, String name) {
+        Resources res = context.getResources();
+        int id = name.isEmpty() ? 0 : res.getIdentifier(name, "drawable", context.getPackageName());
+        Drawable coin = context.getDrawable(id != 0 ? id : R.drawable.ic_odyssey_coin);
+        if (coin instanceof BitmapDrawable) ((BitmapDrawable) coin).setFilterBitmap(true);
+        int size = Math.round(COIN_DP * res.getDisplayMetrics().density);
+        coin.setBounds(0, 0, size, size);
+        return coin;
+    }
+
+    /**
+     * Puts {@code coin} (from {@link #coin}) before the clock after a change of wallpaper, halfway through its fade or at
+     * once with the cut; the same one is left. A hard switch, like the kingdom's name: no alpha animates per frame.
+     */
+    static void setCoin(Activity activity, Drawable coin) {
+        TextView clock = activity.findViewById(R.id.clock);
+        if (clock.getCompoundDrawablesRelative()[0] != coin) clock.setCompoundDrawablesRelative(coin, null, null, null);
     }
 
     /**

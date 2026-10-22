@@ -138,6 +138,22 @@
          greeting alone. Empty here; the Odyssey theme names its eight kingdoms in its config.json. -->
     <string-array name="wallpaper_names" translatable="false">
     </string-array>
+    <!-- With header_style odyssey: the coin before the clock for each wallpaper, "filename=drawable", as in
+         wallpaper_names: "01-cap.jpg=coin_odyssey_cap" shows Cap Kingdom's purple coin while that picture is on screen,
+         and the coin follows the rotation. The drawable is one bundled with the launcher: a coin_* WebP from
+         drawable-nodpi, drawn 46dp square like the gold coin, or ic_odyssey_coin, the gold coin itself. A picture
+         without an entry, a name the launcher doesn't have, a plain colour or a wallpaper switched off on the TV
+         shows the gold coin. Empty here; the Odyssey theme gives its kingdoms their coins in its config.json (Metro the gold one). -->
+    <string-array name="wallpaper_coins" translatable="false">
+    </string-array>
+    <!-- The dock tray's tint for each wallpaper, "filename=#RRGGBB", as in wallpaper_names: a soft translucent tray in
+         that colour (42% at the top, darkening to 45% of it at 56% at the bottom, with a light edge mixed from it)
+         instead of the near-opaque dark one, and the tint follows the rotation. Needs dock_row; works with any
+         header_style. A picture without an entry or with a value that is not #RRGGBB, a plain colour or a wallpaper
+         switched off on the TV keeps the dark tray. Empty here; the Odyssey theme tints its eight kingdoms in its
+         config.json. -->
+    <string-array name="wallpaper_tints" translatable="false">
+    </string-array>
     <!-- Optional VPN app the network pill opens (hold the pill for Wi-Fi settings), e.g. the package of the
          VPN you use. Empty: the pill opens Wi-Fi settings. The green VPN badge shows for any VPN either way;
          with an app set here, a red "VPN off" badge also shows while no VPN is up. -->

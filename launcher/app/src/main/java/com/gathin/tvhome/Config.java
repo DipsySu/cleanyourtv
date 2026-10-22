@@ -134,6 +134,10 @@ final class Config {
     final String headerStyle;
     /** Wallpaper filename to the kingdom the Odyssey header names before the greeting (config.xml wallpaper_names). */
     final Map<String, String> wallpaperNames;
+    /** Wallpaper filename to the coin_* drawable before the Odyssey clock (config.xml wallpaper_coins). */
+    final Map<String, String> wallpaperCoins;
+    /** Wallpaper filename to the "#RRGGBB" the dock tray is tinted with (config.xml wallpaper_tints); see DockTint. */
+    final Map<String, String> wallpaperTints;
 
     private Config(List<String> dockApps, boolean fillDock, List<String> hiddenApps, String liveTvPackage,
                    String liveTvAction, Map<String, String> launchActions, Map<String, String> appLabels,
@@ -145,7 +149,8 @@ final class Config {
                    int wallpaperRotationMinutes, int wallpaperDim, String wallpaperOrder, boolean overlayApplied,
                    Festival festival, int[] inputKeycodes, List<String> appKeys,
                    List<RaceWeekend.Race> raceCalendar, boolean cinematicHome, boolean ambientGlow, int homeIdleClockMinutes,
-                   String headerStyle, Map<String, String> wallpaperNames) {
+                   String headerStyle, Map<String, String> wallpaperNames, Map<String, String> wallpaperCoins,
+                   Map<String, String> wallpaperTints) {
         this.inputKeycodes = inputKeycodes;
         this.appKeys = Collections.unmodifiableList(appKeys);
         this.dockApps = Collections.unmodifiableList(dockApps);
@@ -199,6 +204,8 @@ final class Config {
         this.homeIdleClockMinutes = homeIdleClockMinutes;
         this.headerStyle = headerStyle;
         this.wallpaperNames = Collections.unmodifiableMap(wallpaperNames);
+        this.wallpaperCoins = Collections.unmodifiableMap(wallpaperCoins);
+        this.wallpaperTints = Collections.unmodifiableMap(wallpaperTints);
     }
 
     /** The folder the theme tools push into; null when external storage is unavailable. */
@@ -252,6 +259,8 @@ final class Config {
         int idleClockMinutes = res.getInteger(R.integer.home_idle_clock_minutes);
         String headerStyle = res.getString(R.string.header_style).trim();
         List<String> wallpaperNames = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.wallpaper_names)));
+        List<String> wallpaperCoins = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.wallpaper_coins)));
+        List<String> wallpaperTints = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.wallpaper_tints)));
         boolean applied = false;
 
         File dir = dir(ctx);
@@ -304,6 +313,8 @@ final class Config {
             idleClockMinutes = integer(json, "home_idle_clock_minutes", idleClockMinutes, 0, 1440);
             headerStyle = string(json, "header_style", headerStyle);
             wallpaperNames = stringList(json, "wallpaper_names", wallpaperNames);
+            wallpaperCoins = stringList(json, "wallpaper_coins", wallpaperCoins);
+            wallpaperTints = stringList(json, "wallpaper_tints", wallpaperTints);
         }
         // A theme push or reset invalidates choices made on the TV. On first use, remember the
         // current theme without clearing choices from an older launcher version.
@@ -366,7 +377,9 @@ final class Config {
                 festival, inputKeycodes, appKeys, json == null ? Collections.emptyList() : raceCalendar(json), cinematic, ambientGlow,
                 Math.max(0, idleClockMinutes),
                 // An unknown style is the default one, whichever layer named it.
-                HeaderStyle.parse(headerStyle), packageMap(wallpaperNames));
+                HeaderStyle.parse(headerStyle), packageMap(wallpaperNames),
+                // Checked where they are looked up (HeaderStyle.coin, DockTint.of): a bad entry is no coin or tint.
+                packageMap(wallpaperCoins), packageMap(wallpaperTints));
     }
 
     /**

@@ -163,6 +163,23 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private boolean odysseyHeader;
     /** wallpaper_names: wallpaper filename to the kingdom the Odyssey header names. */
     private Map<String, String> wallpaperNames = Collections.emptyMap();
+    /** wallpaper_coins: wallpaper filename to the coin before the Odyssey clock (HeaderStyle.coin). */
+    private Map<String, String> wallpaperCoins = Collections.emptyMap();
+    /**
+     * The coins shown so far by name, "" for the gold vector coin: each kingdom's WebP is decoded once (128 px, 64 KB)
+     * and reused when the rotation comes back to it, never per frame.
+     */
+    private final Map<String, Drawable> coins = new HashMap<>();
+    /** wallpaper_tints: wallpaper filename to the dock tray's tint (DockTint.of). */
+    private Map<String, String> wallpaperTints = Collections.emptyMap();
+    /** The tray behind the dock row; null without dock_row. */
+    private DockDecoration dockDecoration;
+    /**
+     * The Odyssey header's kingdom and coin, switched when a fading wallpaper is half in (WallpaperFade.halfway); one
+     * Runnable for every change. kingdomPending while it waits, so onPause can switch them at once instead.
+     */
+    private final Runnable kingdomSwitch = this::switchKingdom;
+    private boolean kingdomPending;
     /** Optional time-of-day backdrop (config.xml, sky_intensity); 0 keeps it hidden. */
     private SkyView sky;
     private String vpnApp;
@@ -393,15 +410,19 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             date.setPadding(0, (int) (4 * density), 0, 0);
         }
         // header_style odyssey: the game HUD header, styled over this layout. The greeting gets its real text first,
-        // as the header is measured with it (OdysseyHeader.applyHeader), and follows the wallpaper rotation from then on.
+        // as the header is measured with it (OdysseyHeader.applyHeader); the kingdom and the coin follow the wallpaper
+        // rotation from then on, and so does the dock's tint (wallpaper_tints, whichever the header). An on-TV
+        // wallpaper choice recreates Home, so this picks up the new picture too.
         odysseyHeader = HeaderStyle.ODYSSEY.equals(cfg.headerStyle);
         wallpaperNames = cfg.wallpaperNames;
+        wallpaperCoins = cfg.wallpaperCoins;
+        wallpaperTints = cfg.wallpaperTints;
         if (odysseyHeader) {
             updateGreeting();
-            OdysseyHeader.applyHeader(this);
+            OdysseyHeader.applyHeader(this, currentCoin());
             greetingColor = greeting.getCurrentTextColor();
-            wallpaperPlayer.setOnChange(this::updateGreeting);
         }
+        wallpaperPlayer.setOnChange(this::onWallpaperChanged);
         vpnApp = cfg.vpnApp;
         moduleCards = cfg.moduleCards;
         hiddenApps = new HashSet<>(cfg.hiddenApps);
@@ -465,7 +486,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             public void onChildViewDetachedFromWindow(@NonNull View v) {
             }
         });
-        if (dockRow) grid.addItemDecoration(new DockDecoration(DOCK_COLUMNS, density, cinematic, cfg.alwaysShowNames));
+        if (dockRow) {
+            dockDecoration = new DockDecoration(DOCK_COLUMNS, density, cinematic, cfg.alwaysShowNames);
+            dockDecoration.setTint(DockTint.of(wallpaperTints, wallpaperPlayer.displayed()));
+            grid.addItemDecoration(dockDecoration);
+        }
         if (animations) {
             int enterAnim = reducedMotion ? R.anim.tile_enter_reduced : R.anim.tile_enter;
             float enterDelay = reducedMotion ? 0f : 0.06f;
@@ -860,7 +885,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         super.onPause();
         root.removeCallbacks(showIdleClock);
         endReorder();   // Home or another app while reordering keeps the order so far
+        // A wallpaper fade lands at once, the new picture fully in, and the header and the dock's tray land with it.
         wallpaperPlayer.stop();
+        if (kingdomPending) {
+            handler.removeCallbacks(kingdomSwitch);
+            switchKingdom();
+        }
+        if (dockDecoration != null) dockDecoration.endFade();
         stopAmbientAnimation();
         hero.animate().cancel();
         ambient.animate().cancel();
@@ -906,6 +937,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         grid.getRecycledViewPool().clear();
         heroArtCache.clear();
         heroArtKey = null;
+        coins.clear();   // the clock keeps the one it shows; the others decode again if the rotation comes to them
         rebuildOnResume = true;
     }
 
@@ -925,6 +957,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         springX.cancel();
         springY.cancel();
         wallpaperPlayer.close();
+        handler.removeCallbacks(kingdomSwitch);
+        if (dockDecoration != null) dockDecoration.endFade();
         ConnectivityManager cm = getSystemService(ConnectivityManager.class);
         TvInputManager tim = (TvInputManager) getSystemService(TV_INPUT_SERVICE);
         if (tim != null) tim.unregisterCallback(inputCallback);
@@ -2218,6 +2252,49 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private String withKingdom(String greetingText) {
         if (!odysseyHeader) return greetingText;
         return HeaderStyle.greeting(HeaderStyle.kingdom(wallpaperNames, wallpaperPlayer.displayed()), greetingText);
+    }
+
+    /** The coin wallpaper_coins gives the picture on screen (the gold one without), resolved once per name. */
+    private Drawable currentCoin() {
+        String name = HeaderStyle.coin(wallpaperCoins, wallpaperPlayer.displayed());
+        Drawable coin = coins.get(name);
+        if (coin == null) {
+            coin = OdysseyHeader.coin(this, name);
+            coins.put(name, coin);
+        }
+        return coin;
+    }
+
+    /**
+     * As a rotation starts putting another picture on screen, fading it in over {@code fadeMs} (0: cut in): the Odyssey
+     * header's kingdom and coin switch when it is half in, and the dock's tray fades to its tint alongside it. A picture
+     * without a tint gives the tray back its dark look; a tray already in the right colour isn't redrawn.
+     */
+    private void onWallpaperChanged(long fadeMs) {
+        if (odysseyHeader) {
+            handler.removeCallbacks(kingdomSwitch);
+            if (fadeMs > 0) {
+                kingdomPending = true;
+                handler.postDelayed(kingdomSwitch, WallpaperFade.halfway(fadeMs));
+            } else {
+                switchKingdom();
+            }
+        }
+        if (dockDecoration != null) {
+            int tint = DockTint.of(wallpaperTints, wallpaperPlayer.displayed());
+            if (fadeMs > 0) {
+                dockDecoration.fadeTint(tint, fadeMs, grid);   // redraws the grid itself, each frame of the fade
+            } else if (dockDecoration.setTint(tint)) {
+                grid.invalidate();   // the tray is drawn in the grid's onDraw; the dock's offsets stay, so no layout
+            }
+        }
+    }
+
+    /** The Odyssey header's kingdom and coin for the picture on screen. */
+    private void switchKingdom() {
+        kingdomPending = false;
+        updateGreeting();
+        OdysseyHeader.setCoin(this, currentCoin());
     }
 
     // ---- race-weekend panel (a theme's race_calendar) -----------------------------------------------

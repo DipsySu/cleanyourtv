@@ -103,6 +103,21 @@ public class WallpaperRotationTest {
         assertTrue(WallpaperRotation.due(20 * minute, 10 * minute, 5 * minute));   // clock went back
     }
 
+    @Test
+    public void aOneMinuteRotationIsDueOnEveryMinuteTick() {
+        // WallpaperPlayer counts a change from the check that chose it. MainActivity posts the next tick a minute
+        // after that check returns, so each check comes a minute and a few ms after the one before.
+        long minute = 60_000L, changed = 1_000_000L;
+        for (int tick = 1; tick <= 5; tick++) {
+            long now = changed + minute + 4;
+            assertTrue("tick " + tick, WallpaperRotation.due(changed, now, minute));
+            changed = now;
+        }
+        // Counted from when the decoded picture showed, 300 ms after its check, the next tick fell 296 ms short and
+        // the picture only moved on every other minute.
+        assertFalse(WallpaperRotation.due(1_000_300L, 1_060_004L, minute));
+    }
+
     private static List<String> names(List<File> files) {
         String[] out = new String[files.size()];
         for (int i = 0; i < out.length; i++) out[i] = files.get(i).getName();
