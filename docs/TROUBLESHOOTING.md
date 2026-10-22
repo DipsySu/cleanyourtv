@@ -145,6 +145,18 @@ Things that bit us or contributors, so they don't bite you. Commands use `tools/
   nothing else on the TV answers HOME, it skips that entry and says so (`FORCE_HOME=1` overrides),
   so applying a list before the handover no longer leaves the TV without a launcher. Apply the list
   again after the install script has made the new launcher Home to disable the old one.
+- **The TV no longer boots after a list that disabled Android's core packages** (original Mi TV
+  Stick, [#884](https://github.com/Gathin23/cleanyourtv/issues/884)). An agent's list took
+  `com.google.android.permissioncontroller`, `com.google.android.packageinstaller`,
+  `com.google.android.ext.services`, `com.google.android.ext.shared`,
+  `com.google.android.modulemetadata` and the `com.google.android.overlay.modules.*` overlays, plus
+  the stock launcher and setupwraith, and the stick never came back. Those are part of Android
+  itself, not bloat. `tools/disable.sh`, `disable.ps1` and `check.py --fix` now refuse any list that
+  names them (or `com.android.providers.*` other than calendar, contacts, user dictionary and
+  blocked numbers, `com.android.systemui`, `com.android.shell`, `com.android.phone`,
+  `com.android.settings`, `com.android.tv.settings` or `android`), with no switch to override it.
+  If a set is already stuck and still answers ADB, `pm enable` each of those packages and reboot;
+  if ADB is gone too, a factory reset from the recovery menu is usually the only way back.
 - **China-market Xiaomi rejects a default Home despite `set-home-activity` reporting success**,
   verified on MiTV-AETP0 (dofus), Android 9, firmware 22.9.2.851: the framework filters third-party
   HOME candidates by a package-name allowlist. Disabling the stock launcher then selects

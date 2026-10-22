@@ -75,8 +75,7 @@ public final class LauncherSettingsActivity extends Activity {
             columnChoices[i].setOnClickListener(v -> {
                 if (columns == value) return;
                 columns = value;
-                choices.edit().putInt("columns", value).apply();
-                setResult(RESULT_OK);
+                saveChoice(choices.edit().putInt("columns", value));
                 refresh();
             });
         }
@@ -87,8 +86,7 @@ public final class LauncherSettingsActivity extends Activity {
             rowChoices[i].setOnClickListener(v -> {
                 if (rowsBelowDock == value) return;
                 rowsBelowDock = value;
-                choices.edit().putInt(Config.ROWS_BELOW_DOCK_KEY, value).apply();
-                setResult(RESULT_OK);
+                saveChoice(choices.edit().putInt(Config.ROWS_BELOW_DOCK_KEY, value));
                 refresh();
             });
         }
@@ -104,9 +102,8 @@ public final class LauncherSettingsActivity extends Activity {
         animationsChoice.setOnClickListener(v -> {
             animations = !animations;
             if (!animations) advancedEffects = false;
-            choices.edit().putBoolean("animations", animations)
-                    .putBoolean("advanced_effects", advancedEffects).apply();
-            setResult(RESULT_OK);
+            saveChoice(choices.edit().putBoolean("animations", animations)
+                    .putBoolean("advanced_effects", advancedEffects));
             refresh();
         });
         advancedChoice = findViewById(R.id.advancedChoice);
@@ -125,14 +122,13 @@ public final class LauncherSettingsActivity extends Activity {
         followThemeChoice = findViewById(R.id.followThemeChoice);
         followThemeChoice.setOnClickListener(v -> {
             if (!hasOnTvChoices()) return;
-            choices.edit().remove("columns").remove(Config.ROWS_BELOW_DOCK_KEY).remove("animations")
-                    .remove("advanced_effects").remove(Config.WALLPAPER_CHOICE_KEY).commit();
+            saveChoice(choices.edit().remove("columns").remove(Config.ROWS_BELOW_DOCK_KEY).remove("animations")
+                    .remove("advanced_effects").remove(Config.WALLPAPER_CHOICE_KEY));
             Config current = Config.load(this);
             columns = current.columns;
             rowsBelowDock = current.rowsBelowDock;
             animations = current.animations;
             advancedEffects = current.animations && current.advancedEffects;
-            setResult(RESULT_OK);
             refresh();
         });
         findViewById(R.id.defaultHomeChoice).setOnClickListener(v -> {
@@ -191,10 +187,16 @@ public final class LauncherSettingsActivity extends Activity {
         dialog.show();
     }
 
+    /** Save the value and its revision together, so Home notices Back, Home and other return paths alike. */
+    private void saveChoice(SharedPreferences.Editor editor) {
+        editor.putLong(Config.SETTINGS_REVISION_KEY,
+                choices.getLong(Config.SETTINGS_REVISION_KEY, 0) + 1).apply();
+        setResult(RESULT_OK);
+    }
+
     private void setAdvanced(boolean enabled) {
         advancedEffects = enabled;
-        choices.edit().putBoolean("advanced_effects", enabled).apply();
-        setResult(RESULT_OK);
+        saveChoice(choices.edit().putBoolean("advanced_effects", enabled));
         refresh();
     }
 
@@ -368,9 +370,10 @@ public final class LauncherSettingsActivity extends Activity {
             holder.itemView.setOnFocusChangeListener((view, focused) -> applyPickerFocus(holder, focused, current));
             applyPickerFocus(holder, holder.itemView.hasFocus(), current);
             holder.itemView.setOnClickListener(v -> {
-                if (value == null) choices.edit().remove(Config.WALLPAPER_CHOICE_KEY).apply();
-                else choices.edit().putString(Config.WALLPAPER_CHOICE_KEY, value).apply();
-                setResult(RESULT_OK);
+                SharedPreferences.Editor editor = choices.edit();
+                if (value == null) editor.remove(Config.WALLPAPER_CHOICE_KEY);
+                else editor.putString(Config.WALLPAPER_CHOICE_KEY, value);
+                saveChoice(editor);
                 dialog.dismiss();
                 Toast.makeText(LauncherSettingsActivity.this, R.string.wallpaper_applied, Toast.LENGTH_SHORT).show();
                 refresh();

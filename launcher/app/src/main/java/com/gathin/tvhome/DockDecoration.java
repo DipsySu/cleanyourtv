@@ -87,21 +87,33 @@ public class DockDecoration extends RecyclerView.ItemDecoration {
 
     /** Extra band below the tiles for their names (always_show_names), in px. */
     private final float namesRoom;
+    private final boolean evenPadding;
 
     /**
      * @param translucent the cinematic shelf's band: the artwork and the glow show through it.
      * @param names       the dock tiles show their names, so the band reaches down over them.
      */
-    DockDecoration(int dockSize, float density, boolean translucent, boolean names) {
+    DockDecoration(int dockSize, float density, boolean translucent, boolean names, boolean evenPadding) {
         this.dockSize = dockSize;
         this.density = density;
         this.translucent = translucent;
         this.namesRoom = names ? 22 * density : 0;
+        this.evenPadding = evenPadding;
         edge = new Paint(Paint.ANTI_ALIAS_FLAG);
         edge.setStyle(Paint.Style.STROKE);
         edge.setStrokeWidth(density);
         shown.set(DockTint.NONE, translucent);
         target.copyFrom(shown);
+    }
+
+    /** The tray and tile curves share a centre when the outer radius includes the intervening padding. */
+    static float radiusPx(float tileRadiusPx, float paddingPx) {
+        return tileRadiusPx + paddingPx;
+    }
+
+    static float evenPaddingPx(int innerWidthPx, int columns, int tileWidthPx, float roomPx) {
+        float gap = columns > 0 ? innerWidthPx / (float) columns - tileWidthPx : 0f;
+        return Math.max(0f, Math.min(gap, roomPx));
     }
 
     @Override
@@ -117,6 +129,7 @@ public class DockDecoration extends RecyclerView.ItemDecoration {
     @Override
     public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         boolean any = false;
+        int cardWidth = 0;
         for (int i = 0; i < parent.getChildCount(); i++) {
             View child = parent.getChildAt(i);
             int pos = parent.getChildAdapterPosition(child);
@@ -128,6 +141,7 @@ public class DockDecoration extends RecyclerView.ItemDecoration {
             float t = child.getTop() + card.getTop() + child.getTranslationY();
             float r = l + card.getWidth();
             float b = t + card.getHeight();
+            cardWidth = card.getWidth();
             if (!any) {
                 rect.set(l, t, r, b);
                 any = true;
@@ -139,9 +153,18 @@ public class DockDecoration extends RecyclerView.ItemDecoration {
         float pad = 14 * density;
         // The band can only draw inside the grid, and the first and last dock tiles sit 12dp in from its edges.
         float side = Math.max(0f, Math.min(pad, Math.min(rect.left, parent.getWidth() - rect.right) - density));
-        rect.inset(-side, -pad);
+        float radius = AppAdapter.cornerRadius(cardWidth, density);
+        if (evenPadding) {
+            int inner = parent.getWidth() - parent.getPaddingLeft() - parent.getPaddingRight();
+            float room = Math.min(rect.top, Math.min(rect.left, parent.getWidth() - rect.right)) - density;
+            float even = evenPaddingPx(inner, dockSize, cardWidth, room);
+            rect.inset(-even, -even);
+            radius = radiusPx(radius, even);
+        } else {
+            rect.inset(-side, -pad);
+            radius = radiusPx(radius, Math.min(pad, side));
+        }
         rect.bottom += namesRoom;
-        float radius = 28 * density;
         updateShaders(rect.height());
         localRect.set(0, 0, rect.width(), rect.height());
         c.save();

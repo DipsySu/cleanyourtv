@@ -46,6 +46,7 @@ is ignored, and a file that doesn't parse is ignored as a whole, so a theme can 
 | `rows_below_dock` | 0 to 3 | Grid rows left visible under the dock; tiles shrink if the dock, its title and that many rows would not fit the screen height |
 | `dock_title` | bool | The focused dock app's name in large type above the dock (`true`); `false` keeps only the glow |
 | `dock_row` | bool | The dock as its own row with a band (`true`); `false` makes the dock apps the first tiles of one plain grid |
+| `dock_even_padding` | bool | Equal padding around the dock tiles, capped by the grid edges (`false` by default); the tray's corners follow the tiles' corners |
 | `reorder_button` | bool | A reorder button in the top bar (`false` by default); reordering is always in the Settings button's long-press menu |
 | `show_network_pill` | bool | The Wi-Fi/Ethernet pill in the top bar (`true` by default); `false` hides it |
 | `icon_only_buttons` | bool | Wi-Fi and Settings as round icon buttons; Inputs keeps its label (`false` by default) |

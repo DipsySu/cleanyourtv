@@ -37,6 +37,7 @@ final class Config {
     static final String FILE_NAME = "config.json";
     static final String WALLPAPER_NAME = "wallpaper.jpg";
     static final String SETTINGS_NAME = "launcher_settings";
+    static final String SETTINGS_REVISION_KEY = "settings_revision";
     static final String ROWS_BELOW_DOCK_KEY = "rows_below_dock";
     static final String WALLPAPER_CHOICE_KEY = "wallpaper_choice";
     private static final String THEME_REVISION_NAME = "theme_revision";
@@ -138,6 +139,8 @@ final class Config {
     final Map<String, String> wallpaperCoins;
     /** Wallpaper filename to the "#RRGGBB" the dock tray is tinted with (config.xml wallpaper_tints); see DockTint. */
     final Map<String, String> wallpaperTints;
+    /** Equal padding around dock tiles, opt-in so existing themes retain their spacing. */
+    final boolean dockEvenPadding;
 
     private Config(List<String> dockApps, boolean fillDock, List<String> hiddenApps, String liveTvPackage,
                    String liveTvAction, Map<String, String> launchActions, Map<String, String> appLabels,
@@ -150,7 +153,7 @@ final class Config {
                    Festival festival, int[] inputKeycodes, List<String> appKeys,
                    List<RaceWeekend.Race> raceCalendar, boolean cinematicHome, boolean ambientGlow, int homeIdleClockMinutes,
                    String headerStyle, Map<String, String> wallpaperNames, Map<String, String> wallpaperCoins,
-                   Map<String, String> wallpaperTints) {
+                   Map<String, String> wallpaperTints, boolean dockEvenPadding) {
         this.inputKeycodes = inputKeycodes;
         this.appKeys = Collections.unmodifiableList(appKeys);
         this.dockApps = Collections.unmodifiableList(dockApps);
@@ -206,6 +209,7 @@ final class Config {
         this.wallpaperNames = Collections.unmodifiableMap(wallpaperNames);
         this.wallpaperCoins = Collections.unmodifiableMap(wallpaperCoins);
         this.wallpaperTints = Collections.unmodifiableMap(wallpaperTints);
+        this.dockEvenPadding = dockEvenPadding;
     }
 
     /** The folder the theme tools push into; null when external storage is unavailable. */
@@ -255,6 +259,7 @@ final class Config {
         int[] inputKeycodes = res.getIntArray(R.array.input_key_keycodes);
         List<String> appKeys = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.app_keys)));
         boolean cinematic = res.getBoolean(R.bool.cinematic_home);
+        boolean dockEvenPadding = res.getBoolean(R.bool.dock_even_padding);
         boolean ambientGlow = res.getBoolean(R.bool.ambient_glow);
         int idleClockMinutes = res.getInteger(R.integer.home_idle_clock_minutes);
         String headerStyle = res.getString(R.string.header_style).trim();
@@ -309,6 +314,7 @@ final class Config {
             inputKeycodes = intArray(json, "input_key_keycodes", inputKeycodes);
             appKeys = stringList(json, "app_keys", appKeys);
             cinematic = bool(json, "cinematic_home", cinematic);
+            dockEvenPadding = bool(json, "dock_even_padding", dockEvenPadding);
             ambientGlow = bool(json, "ambient_glow", ambientGlow);
             idleClockMinutes = integer(json, "home_idle_clock_minutes", idleClockMinutes, 0, 1440);
             headerStyle = string(json, "header_style", headerStyle);
@@ -379,7 +385,7 @@ final class Config {
                 // An unknown style is the default one, whichever layer named it.
                 HeaderStyle.parse(headerStyle), packageMap(wallpaperNames),
                 // Checked where they are looked up (HeaderStyle.coin, DockTint.of): a bad entry is no coin or tint.
-                packageMap(wallpaperCoins), packageMap(wallpaperTints));
+                packageMap(wallpaperCoins), packageMap(wallpaperTints), dockEvenPadding);
     }
 
     /**

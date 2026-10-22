@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.ChangedPackages;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -220,8 +221,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private Dialog cardPrompt;
     /** Set when a decision could not be saved: no more prompts until the next resume, instead of asking in a loop. */
     private boolean promptsPaused;
-    /** Rebuild the tiles on resume: Home was fully hidden by an app, or Home was pressed. Not after a side panel such as Wi-Fi settings. */
-    private boolean rebuildOnResume = true;
+    /** Rebuild on return only when packages changed or their artwork was released for memory. */
+    private final TileRefresh tileRefresh = new TileRefresh();
+    private int packageSequence;
+    /** Launcher settings revision used to build this activity; checked regardless of how settings are left. */
+    private long settingsRevision;
     /** Between onStop and onStart: Home was fully covered by an app, not just by the translucent quick panel. */
     private boolean stopped;
     /** Between onStart and onStop: Home is (at least partly) on screen. */
@@ -300,6 +304,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             // Updates send REMOVED followed by ADDED; keep the tile until the new APK is ready.
             if (Intent.ACTION_PACKAGE_REMOVED.equals(intent.getAction())
                     && intent.getBooleanExtra(Intent.EXTRA_REPLACING, false)) return;
+            if (!tileRefresh.onPackagesChanged()) return;
             reloadApps(false);
             if (appLibrary != null) appLibrary.refresh();
         }
@@ -478,7 +483,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             }
         });
         if (dockRow) {
-            dockDecoration = new DockDecoration(DOCK_COLUMNS, density, cinematic, cfg.alwaysShowNames);
+            dockDecoration = new DockDecoration(DOCK_COLUMNS, density, cinematic, cfg.alwaysShowNames,
+                    cfg.dockEvenPadding);
             dockDecoration.setTint(DockTint.of(wallpaperTints, wallpaperPlayer.displayed()));
             grid.addItemDecoration(dockDecoration);
         }
@@ -644,6 +650,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         packageFilter.addAction(Intent.ACTION_PACKAGE_CHANGED);
         packageFilter.addDataScheme("package");
         timeFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
+        // Keep package events while stopped, so returning Home need not reload unchanged artwork.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(packageReceiver, packageFilter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(packageReceiver, packageFilter);
+        }
+        settingsRevision = settingsRevision();
 
         ConnectivityManager cm = getSystemService(ConnectivityManager.class);
         TvInputManager tim = (TvInputManager) getSystemService(TV_INPUT_SERVICE);
@@ -680,7 +693,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         lastFocused = 0;
         lastFocusedKey = adapter.getItemCount() > 0 ? adapter.keyAt(0) : null;
         if (stopped) {
-            rebuildOnResume = true;
+            tileRefresh.onHomeAgain();
         } else {
             // Still on screen (the quick panel was over it, or Home was already in front): the tiles are current,
             // so only go back to the first one; rebuilding would replay the entrance animation for nothing.
@@ -694,13 +707,12 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         stopped = false;
         started = true;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            registerReceiver(packageReceiver, packageFilter, Context.RECEIVER_NOT_EXPORTED);
             registerReceiver(timeReceiver, timeFilter, Context.RECEIVER_NOT_EXPORTED);
         } else {
-            registerReceiver(packageReceiver, packageFilter);
             registerReceiver(timeReceiver, timeFilter);
         }
         updateClockVisibility();
+        tileRefresh.onStart();
     }
 
     @Override
@@ -711,14 +723,25 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             recreate();
             return;
         }
+        if (settingsRevision != settingsRevision()) {
+            recreate();
+            return;
+        }
         restartIdleClock();
         promptsPaused = false;
         if (grid.getAdapter() == null) grid.setAdapter(adapter);   // dropped by onTrimMemory
-        if (rebuildOnResume) {
-            tilesReady = false;
-            reloadApps(true);
+        switch (tileRefresh.onResume(packagesChangedSinceRebuild())) {
+            case REBUILD:
+                tilesReady = false;
+                reloadApps(true);
+                break;
+            case REFOCUS:
+                tilesReady = false;
+                reloadApps(true, false);
+                break;
+            default:
+                break;
         }
-        rebuildOnResume = false;
         updateGreeting();
         updateRace();
         // The network and Inputs pills keep their state while Home is in the background, and callbacks update them
@@ -746,14 +769,18 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == LAUNCHER_SETTINGS_REQUEST && resultCode == RESULT_OK) recreate();
+    private long settingsRevision() {
+        return getSharedPreferences(Config.SETTINGS_NAME, MODE_PRIVATE)
+                .getLong(Config.SETTINGS_REVISION_KEY, 0);
     }
 
     /** Rebuilds the tiles (and the module cards), then puts focus back where it was. */
     private void reloadApps(boolean animate) {
+        reloadApps(animate, true);
+    }
+
+    /** An unchanged return restores focus without reloading artwork or replaying the entrance. */
+    private void reloadApps(boolean animate, boolean rebuild) {
         cancelPendingFocusScroll();
         RecyclerView.ViewHolder footer = grid.findViewHolderForAdapterPosition(adapter.appCount());
         final boolean restoreLibrary = adapter.isLibraryAt(adapter.appCount()) && footer != null
@@ -772,8 +799,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             heroArt.animate().cancel();
             heroArt.setAlpha(0f);
         }
-        reloadTiles();
-        if (animate && animations && !reducedMotion) grid.scheduleLayoutAnimation();
+        if (rebuild) reloadTiles();
+        if (rebuild && animate && animations && !reducedMotion) grid.scheduleLayoutAnimation();
 
         if (restoreFocus) {
             // Keep a focused footer at the end even when the app count changes.
@@ -789,6 +816,16 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             tilesReady = true;
             showCardPrompt();
         }
+    }
+
+    private boolean packagesChangedSinceRebuild() {
+        ChangedPackages changed = getPackageManager().getChangedPackages(packageSequence);
+        return changed != null && !changed.getPackageNames().isEmpty();
+    }
+
+    private int currentPackageSequence() {
+        ChangedPackages changed = getPackageManager().getChangedPackages(packageSequence);
+        return changed != null ? changed.getSequenceNumber() : packageSequence;
     }
 
     /**
@@ -814,6 +851,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         if (legacyOrder != null) keepLegacyDock();
         lastFocusedKey = returnKey;
         lastFocused = returnSlot;
+        packageSequence = currentPackageSequence();
     }
 
     /**
@@ -898,11 +936,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     protected void onStop() {
         super.onStop();
         started = false;
-        unregisterReceiver(packageReceiver);
         unregisterReceiver(timeReceiver);
         handler.removeCallbacks(clockCheck);
         stopped = true;
-        rebuildOnResume = true;
+        tileRefresh.onStop();
     }
 
     /**
@@ -926,7 +963,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         heroArtCache.clear();
         heroArtKey = null;
         coins.clear();   // the clock keeps the one it shows; the others decode again if the rotation comes to them
-        rebuildOnResume = true;
+        tileRefresh.invalidate();
     }
 
     @Override
@@ -941,6 +978,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unregisterReceiver(packageReceiver);
         glass.animate().cancel();
         springX.cancel();
         springY.cancel();
@@ -988,6 +1026,17 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (handleSettingsKey(event)) return true;
+        if (!reordering && openPopup == null && cardPrompt == null && appLibrary == null
+                && event.getKeyCode() == KeyEvent.KEYCODE_MENU) {
+            int position = focusedTilePosition();
+            if (position >= 0 && position < adapter.appCount() && adapter.packageAt(position) != null
+                    && !getPackageName().equals(adapter.packageAt(position))) {
+                if (event.getAction() == KeyEvent.ACTION_UP && !event.isCanceled()) {
+                    onTileMenu(position, getCurrentFocus());
+                }
+                return true;
+            }
+        }
         if (!reordering) return super.dispatchKeyEvent(event);
         if (dockEditing) return dispatchDockEdit(event);
         boolean down = event.getAction() == KeyEvent.ACTION_DOWN;
