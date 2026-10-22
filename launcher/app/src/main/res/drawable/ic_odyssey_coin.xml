@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Odyssey header (header_style odyssey): the gold coin before the clock. Drawn here, not taken from the game: a gold
+     body lit from the top left inside a dark outline, an inner ring, an upright slot and a highlight. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="46dp" android:height="46dp"
+    android:viewportWidth="64" android:viewportHeight="64">
+    <path android:pathData="M5,32a27,29 0,1 0,54 0a27,29 0,1 0,-54 0z"
+        android:strokeColor="#FF1B1035" android:strokeWidth="4">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="radial" android:centerX="25.5" android:centerY="21.6" android:gradientRadius="42">
+                <item android:offset="0" android:color="#FFFFF3A6" />
+                <item android:offset="0.45" android:color="#FFFFC928" />
+                <item android:offset="1" android:color="#FFC98600" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path android:pathData="M13,32a19,21 0,1 0,38 0a19,21 0,1 0,-38 0z"
+        android:fillColor="#00000000" android:strokeColor="#FFE2A100" android:strokeWidth="3" />
+    <path android:pathData="M27.5,21.5a4.5,4.5 0,0 1,9 0V42.5a4.5,4.5 0,0 1,-9 0z"
+        android:fillColor="#FFE9A400" android:strokeColor="#FF9A6300" android:strokeWidth="1.5" />
+    <group android:rotation="-35" android:pivotX="22" android:pivotY="20">
+        <path android:pathData="M17,20a5,3 0,1 0,10 0a5,3 0,1 0,-10 0z" android:fillColor="#B3FFFFFF" />
+    </group>
+</vector>

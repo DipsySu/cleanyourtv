@@ -195,7 +195,9 @@
                     android:orientation="horizontal"
                     android:baselineAligned="true">
 
-                    <TextClock
+                    <!-- OutlineTextClock draws exactly as TextClock until header_style odyssey gives it an outline
+                         (OdysseyHeader). -->
+                    <com.gathin.tvhome.OutlineTextClock
                         android:id="@+id/clock"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -207,7 +209,7 @@
                         android:letterSpacing="-0.04"
                         android:includeFontPadding="false" />
 
-                    <TextClock
+                    <com.gathin.tvhome.OutlineTextClock
                         android:id="@+id/ampm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -223,6 +225,7 @@
                         android:textAllCaps="true" />
 
                     <View
+                        android:id="@+id/clockDivider"
                         android:layout_width="1dp"
                         android:layout_height="26dp"
                         android:layout_gravity="bottom"

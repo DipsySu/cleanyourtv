@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Odyssey header (header_style odyssey): Cappy-style eyes in the Inputs pill's red badge. Drawn here, not taken from
+     the game: two white ovals in a dark outline with red-brown pupils. Keeps its own colours (no tint). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="20dp" android:height="15dp"
+    android:viewportWidth="40" android:viewportHeight="30">
+    <path android:pathData="M2,15a9,12 0,1 0,18 0a9,12 0,1 0,-18 0z"
+        android:fillColor="#FFFFFFFF" android:strokeColor="#FF1B1035" android:strokeWidth="2.5" />
+    <path android:pathData="M20,15a9,12 0,1 0,18 0a9,12 0,1 0,-18 0z"
+        android:fillColor="#FFFFFFFF" android:strokeColor="#FF1B1035" android:strokeWidth="2.5" />
+    <path android:pathData="M8,16a4,6 0,1 0,8 0a4,6 0,1 0,-8 0z" android:fillColor="#FFB3262B" />
+    <path android:pathData="M24,16a4,6 0,1 0,8 0a4,6 0,1 0,-8 0z" android:fillColor="#FFB3262B" />
+    <path android:pathData="M10,16a2,2 0,1 0,4 0a2,2 0,1 0,-4 0z" android:fillColor="#FF1B1035" />
+    <path android:pathData="M26,16a2,2 0,1 0,4 0a2,2 0,1 0,-4 0z" android:fillColor="#FF1B1035" />
+</vector>

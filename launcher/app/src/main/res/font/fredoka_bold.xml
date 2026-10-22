@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Fredoka at weight 700, the rounded heavy digits of the Odyssey header's clock (header_style odyssey), built once
+     per process like the Outfit weights. Variable font (wght 300 to 700, wdth 75 to 125), drawn at width 120: at the
+     default 100 the digits stand 2 to 5 px apart at 58sp, so the clock's 3.5dp outlines ran them into one dark blob;
+     at 120 (with OdysseyHeader's letter spacing) they stand 7 to 10 px apart, as wide as the mockup's clock. Android 8
+     ignores the axes here and draws the default instance, weight 300 and width 100. -->
+<font-family xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <font
+        android:font="@font/fredoka"
+        android:fontStyle="normal"
+        android:fontWeight="700"
+        android:fontVariationSettings="'wght' 700, 'wdth' 120"
+        tools:targetApi="28" />
+</font-family>

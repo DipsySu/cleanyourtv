@@ -55,7 +55,7 @@ Chrome不在`/Applications/Google Chrome.app`时，用`CHROME_PATH`指定路径�
 
 ## 接入主题
 
-Odyssey预设打开了壁纸：`wallpaper_rotation_minutes`为60，`wallpaper_order`为`sequential`。压暗已经画进图里，`wallpaper_dim`只设为8，加一层很轻的遮罩。`background_color`为#060B18，在第一张图解码前显示。用`tools/theme.sh`推送`themes/xiaomi-freeguy-odyssey`，具体的推送方式和包名见[设备记录](../../docs/devices/xiaomi-mitv-mftr0-freeguy-android11.md)。在电视的「简洁桌面设置 → 壁纸」里，可以固定其中一张，或选择「无」。
+Odyssey预设打开了壁纸：`wallpaper_rotation_minutes`为60，`wallpaper_order`为`sequential`。`wallpaper_names`按文件名给8张图配上王国名（与scenes.json的中文标题一致），预设的`header_style`为`odyssey`，问候语前会显示当前壁纸的王国，如「帽子之国 · 下午好」，换图时随之更新。压暗已经画进图里，`wallpaper_dim`只设为8，加一层很轻的遮罩。`background_color`为#060B18，在第一张图解码前显示。用`tools/theme.sh`推送`themes/xiaomi-freeguy-odyssey`，具体的推送方式和包名见[设备记录](../../docs/devices/xiaomi-mitv-mftr0-freeguy-android11.md)。在电视的「简洁桌面设置 → 壁纸」里，可以固定其中一张，或选择「无」。
 
 ## 授权
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Odyssey header (header_style odyssey): the purple pill behind the date. Bottom to top: the dark 1.5dp border, a
+     lighter purple showing as a thin highlight along the inside top edge, and the face, set 1.5dp lower than the
+     highlight. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FF1B1035" />
+            <corners android:radius="100dp" />
+        </shape>
+    </item>
+    <item android:left="1.5dp" android:top="1.5dp" android:right="1.5dp" android:bottom="1.5dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFB58BE3" />
+            <corners android:radius="100dp" />
+        </shape>
+    </item>
+    <item android:left="1.5dp" android:top="3dp" android:right="1.5dp" android:bottom="1.5dp">
+        <shape android:shape="rectangle">
+            <gradient android:angle="270" android:startColor="#FF8A4BD0" android:endColor="#FF5A2793" />
+            <corners android:radius="100dp" />
+        </shape>
+    </item>
+</layer-list>

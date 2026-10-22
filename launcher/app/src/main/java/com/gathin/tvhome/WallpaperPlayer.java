@@ -36,6 +36,8 @@ final class WallpaperPlayer {
     private boolean closed;
     private boolean loading;
     private String displayed = "";
+    /** Runs on the main thread after a rotation puts another picture on screen (the Odyssey header's kingdom). */
+    private Runnable onChange;
 
     WallpaperPlayer(Context context, FrameLayout root, Config config) {
         this.root = root;
@@ -112,6 +114,16 @@ final class WallpaperPlayer {
         decoder.shutdownNow();
     }
 
+    /** The filename of the picture on screen ("01-cap.jpg"), or "" when none is shown. */
+    String displayed() {
+        return displayed;
+    }
+
+    /** {@code listener} runs after each later change of picture; the one Home opens with is already {@link #displayed()}. */
+    void setOnChange(Runnable listener) {
+        onChange = listener;
+    }
+
     void update() {
         if (!active || closed || loading || files.isEmpty()) return;
         String previous = preferences.getString("image", "");
@@ -143,6 +155,7 @@ final class WallpaperPlayer {
                     preferences.edit().putString("image", displayed)
                             .putLong("changed", System.currentTimeMillis()).apply();
                 }
+                if (onChange != null) onChange.run();
             });
         });
     }

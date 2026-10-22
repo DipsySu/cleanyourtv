@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Odyssey header pill (header_style odyssey, see OdysseyHeader): a cream face in a 2dp dark border, a darker band at
+     the bottom of the face, and a hard 3.5dp dark edge under it, like a game's HUD button. All of it fits the 42dp of a
+     TopButton, so the row keeps its height; the pill's bottom padding (OdysseyHeader) centres the content on the face.
+     Focused, the face turns coin gold so it reads from across the room; pressed, it sinks onto its edge. An icon-only
+     pill (42dp wide) draws a dark 42dp circle with the face on top. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <layer-list>
+            <item android:top="1.5dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="#FF1B1035" />
+                    <corners android:radius="21dp" />
+                </shape>
+            </item>
+            <item android:left="2dp" android:top="3.5dp" android:right="2dp" android:bottom="4dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="#FFE0A800" />
+                    <corners android:radius="19dp" />
+                </shape>
+            </item>
+            <item android:left="2dp" android:top="3.5dp" android:right="2dp" android:bottom="6.5dp">
+                <shape android:shape="rectangle">
+                    <gradient android:angle="270" android:startColor="#FFFFD95A" android:endColor="#FFF2B800" />
+                    <corners android:radius="19dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item android:state_focused="true">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#FF1B1035" />
+                    <corners android:radius="21dp" />
+                </shape>
+            </item>
+            <item android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="5.5dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="#FFE0A800" />
+                    <corners android:radius="19dp" />
+                </shape>
+            </item>
+            <item android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="8dp">
+                <shape android:shape="rectangle">
+                    <gradient android:angle="270" android:startColor="#FFFFE680" android:endColor="#FFFFC928" />
+                    <corners android:radius="19dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <!-- Reorder button while reorder mode is on (focus is on the tiles then): sky blue. -->
+    <item android:state_activated="true">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#FF1B1035" />
+                    <corners android:radius="21dp" />
+                </shape>
+            </item>
+            <item android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="5.5dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="#FF6FB4E8" />
+                    <corners android:radius="19dp" />
+                </shape>
+            </item>
+            <item android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="8dp">
+                <shape android:shape="rectangle">
+                    <gradient android:angle="270" android:startColor="#FFD6EEFF" android:endColor="#FF9ED3FF" />
+                    <corners android:radius="19dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item android:state_enabled="false">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#991B1035" />
+                    <corners android:radius="21dp" />
+                </shape>
+            </item>
+            <item android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="5.5dp">
+                <shape android:shape="rectangle">
+                    <gradient android:angle="270" android:startColor="#FFE9E2D3" android:endColor="#FFD8CCB2" />
+                    <corners android:radius="19dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item>
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#FF1B1035" />
+                    <corners android:radius="21dp" />
+                </shape>
+            </item>
+            <item android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="5.5dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="#FFEBD7AE" />
+                    <corners android:radius="19dp" />
+                </shape>
+            </item>
+            <item android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="8dp">
+                <shape android:shape="rectangle">
+                    <gradient android:angle="270" android:startColor="#FFFFFDF6" android:endColor="#FFF6E7C6" />
+                    <corners android:radius="19dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

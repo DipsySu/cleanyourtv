@@ -130,6 +130,10 @@ final class Config {
     final boolean ambientGlow;
     /** Minutes Home may sit untouched before the clock screensaver (config.xml, home_idle_clock_minutes); 0 is off. */
     final int homeIdleClockMinutes;
+    /** The header's look (config.xml header_style): {@link HeaderStyle#DEFAULT} or {@link HeaderStyle#ODYSSEY}. */
+    final String headerStyle;
+    /** Wallpaper filename to the kingdom the Odyssey header names before the greeting (config.xml wallpaper_names). */
+    final Map<String, String> wallpaperNames;
 
     private Config(List<String> dockApps, boolean fillDock, List<String> hiddenApps, String liveTvPackage,
                    String liveTvAction, Map<String, String> launchActions, Map<String, String> appLabels,
@@ -140,7 +144,8 @@ final class Config {
                    int[] settingsKeycodes, boolean settingsKeyPanel, boolean wallpaperEnabled, File wallpaper, List<File> wallpapers,
                    int wallpaperRotationMinutes, int wallpaperDim, String wallpaperOrder, boolean overlayApplied,
                    Festival festival, int[] inputKeycodes, List<String> appKeys,
-                   List<RaceWeekend.Race> raceCalendar, boolean cinematicHome, boolean ambientGlow, int homeIdleClockMinutes) {
+                   List<RaceWeekend.Race> raceCalendar, boolean cinematicHome, boolean ambientGlow, int homeIdleClockMinutes,
+                   String headerStyle, Map<String, String> wallpaperNames) {
         this.inputKeycodes = inputKeycodes;
         this.appKeys = Collections.unmodifiableList(appKeys);
         this.dockApps = Collections.unmodifiableList(dockApps);
@@ -192,6 +197,8 @@ final class Config {
         this.cinematicHome = cinematicHome;
         this.ambientGlow = ambientGlow;
         this.homeIdleClockMinutes = homeIdleClockMinutes;
+        this.headerStyle = headerStyle;
+        this.wallpaperNames = Collections.unmodifiableMap(wallpaperNames);
     }
 
     /** The folder the theme tools push into; null when external storage is unavailable. */
@@ -243,6 +250,8 @@ final class Config {
         boolean cinematic = res.getBoolean(R.bool.cinematic_home);
         boolean ambientGlow = res.getBoolean(R.bool.ambient_glow);
         int idleClockMinutes = res.getInteger(R.integer.home_idle_clock_minutes);
+        String headerStyle = res.getString(R.string.header_style).trim();
+        List<String> wallpaperNames = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.wallpaper_names)));
         boolean applied = false;
 
         File dir = dir(ctx);
@@ -293,6 +302,8 @@ final class Config {
             cinematic = bool(json, "cinematic_home", cinematic);
             ambientGlow = bool(json, "ambient_glow", ambientGlow);
             idleClockMinutes = integer(json, "home_idle_clock_minutes", idleClockMinutes, 0, 1440);
+            headerStyle = string(json, "header_style", headerStyle);
+            wallpaperNames = stringList(json, "wallpaper_names", wallpaperNames);
         }
         // A theme push or reset invalidates choices made on the TV. On first use, remember the
         // current theme without clearing choices from an older launcher version.
@@ -353,7 +364,9 @@ final class Config {
                 Math.max(0, Math.min(100, skyIntensity)), settingsKeycodes, settingsKeyPanel, wallpaperEnabled, wallpaper,
                 wallpapers, rotationMinutes, wallpaperDim, wallpaperOrder, applied,
                 festival, inputKeycodes, appKeys, json == null ? Collections.emptyList() : raceCalendar(json), cinematic, ambientGlow,
-                Math.max(0, idleClockMinutes));
+                Math.max(0, idleClockMinutes),
+                // An unknown style is the default one, whichever layer named it.
+                HeaderStyle.parse(headerStyle), packageMap(wallpaperNames));
     }
 
     /**

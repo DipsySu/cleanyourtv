@@ -46,5 +46,16 @@
   "wallpaper": true,
   "wallpaper_rotation_minutes": 60,
   "wallpaper_order": "sequential",
-  "wallpaper_dim": 8
+  "wallpaper_dim": 8,
+  "wallpaper_names": [
+    "01-cap.jpg=帽子之国",
+    "02-metro.jpg=都市之国",
+    "03-sand.jpg=沙之国",
+    "04-seaside.jpg=海之国",
+    "05-wooded.jpg=森之国",
+    "06-lost.jpg=失落之国",
+    "07-luncheon.jpg=料理之国",
+    "08-moon.jpg=月之国"
+  ],
+  "header_style": "odyssey"
 }

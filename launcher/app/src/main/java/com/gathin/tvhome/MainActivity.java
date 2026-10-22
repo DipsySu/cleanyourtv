@@ -159,6 +159,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private boolean shamsi;
     /** greeting_name: said after the greeting, which is shown in capitals. */
     private String greetingName = "";
+    /** header_style odyssey: the game HUD header (OdysseyHeader), with the wallpaper's kingdom before the greeting. */
+    private boolean odysseyHeader;
+    /** wallpaper_names: wallpaper filename to the kingdom the Odyssey header names. */
+    private Map<String, String> wallpaperNames = Collections.emptyMap();
     /** Optional time-of-day backdrop (config.xml, sky_intensity); 0 keeps it hidden. */
     private SkyView sky;
     private String vpnApp;
@@ -388,6 +392,16 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             date.setTextSize(11f);
             date.setPadding(0, (int) (4 * density), 0, 0);
         }
+        // header_style odyssey: the game HUD header, styled over this layout. The greeting gets its real text first,
+        // as the header is measured with it (OdysseyHeader.applyHeader), and follows the wallpaper rotation from then on.
+        odysseyHeader = HeaderStyle.ODYSSEY.equals(cfg.headerStyle);
+        wallpaperNames = cfg.wallpaperNames;
+        if (odysseyHeader) {
+            updateGreeting();
+            OdysseyHeader.applyHeader(this);
+            greetingColor = greeting.getCurrentTextColor();
+            wallpaperPlayer.setOnChange(this::updateGreeting);
+        }
         vpnApp = cfg.vpnApp;
         moduleCards = cfg.moduleCards;
         hiddenApps = new HashSet<>(cfg.hiddenApps);
@@ -599,6 +613,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                         .setDuration(160).start());
             }
         }
+        // After makeIconOnly, so a round pill centres its badge; a festival's icons then take the badges' place.
+        if (odysseyHeader) OdysseyHeader.applyPills(this);
         if (festive) applyFestiveSkin((TextView) btnInputs, (TextView) btnSettings);
 
         // Hide the glass when focus leaves the tiles.
@@ -2188,14 +2204,20 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         else res = R.string.good_night;
         String festiveGreeting = festive ? festival.greetingText() : "";
         if (!festiveGreeting.isEmpty()) {
-            greeting.setText(festiveGreeting);
+            greeting.setText(withKingdom(festiveGreeting));
             greeting.setTextColor(liftTowardsWhite(festival.accentColor(), 0.25f));
         } else {
-            greeting.setText(greetingName.isEmpty() ? getString(res)
-                    : getString(R.string.greeting_with_name, getString(res), greetingName));
+            greeting.setText(withKingdom(greetingName.isEmpty() ? getString(res)
+                    : getString(R.string.greeting_with_name, getString(res), greetingName)));
             greeting.setTextColor(greetingColor);
         }
         if (shamsi) shamsiDate.setText(Shamsi.today());
+    }
+
+    /** The Odyssey header names the kingdom of the wallpaper on screen first, "帽子之国 · 下午好"; otherwise unchanged. */
+    private String withKingdom(String greetingText) {
+        if (!odysseyHeader) return greetingText;
+        return HeaderStyle.greeting(HeaderStyle.kingdom(wallpaperNames, wallpaperPlayer.displayed()), greetingText);
     }
 
     // ---- race-weekend panel (a theme's race_calendar) -----------------------------------------------
@@ -2349,7 +2371,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         } else {
             if (icon != wifiIcon) {
                 wifiIcon = icon;
-                btnWifi.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, 0, 0, 0);
+                // The Odyssey header keeps the glyph in its blue badge.
+                if (odysseyHeader) {
+                    btnWifi.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                            OdysseyHeader.networkBadge(this, icon), null, null, null);
+                } else {
+                    btnWifi.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, 0, 0, 0);
+                }
             }
         }
     }

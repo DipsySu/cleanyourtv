@@ -19,7 +19,7 @@ powershell -ExecutionPolicy Bypass -File tools\theme.ps1 -TvHost 192.168.1.50 th
 |---|---|
 | `default/` | The built-in look written out as JSON, as a starting point for your own |
 | `xiaomi-freeguy-soft/` | This fork's Android 11 Xiaomi preset: 16 soft vector tiles and Emby in dock slot 4. Requires the bundled artwork and compatibility application ID; see [device notes](../docs/devices/xiaomi-mitv-mftr0-freeguy-android11.md). |
-| `xiaomi-freeguy-odyssey/` | This fork's Mario Odyssey preset: six dock entries, an independent six-column app grid with a four-column setting, and one grid row visible below the dock. Requires the bundled artwork and Xiaomi-compatible package; see [device notes](../docs/devices/xiaomi-mitv-mftr0-freeguy-android11.md). |
+| `xiaomi-freeguy-odyssey/` | This fork's Mario Odyssey preset: six dock entries, an independent six-column app grid with a four-column setting, one grid row visible below the dock, eight kingdom wallpapers and the game HUD header (`header_style: odyssey`). Requires the bundled artwork and Xiaomi-compatible package; see [device notes](../docs/devices/xiaomi-mitv-mftr0-freeguy-android11.md). |
 | `aurora/` | A dark aurora wallpaper (teal and violet on navy, darker at the bottom) with a matching background colour |
 | `dussehra/` | Festive skin for Dussehra (ends 21 Oct 2026): a marigold toran, a faint gold rangoli, a diya for Wi-Fi, a bell for Inputs, a marigold for Settings and a petal shower |
 | `scenes/` | 14 dark illustrated landscapes in `wallpapers/`, a new one every hour; drawn from code by `tools/scenes_wallpapers.py` |
@@ -81,6 +81,8 @@ is ignored, and a file that doesn't parse is ignored as a whole, so a theme can 
 | `home_idle_clock_minutes` | 0 to 1440 | Minutes Home may sit untouched before it shows the clock screensaver (a thin clock and date drifting over a slow glow, as the system "Clock" screensaver does). Any key returns to Home. It starts only from Home, never over Live TV or an app; 0 is off (default) |
 | `cinematic_home` | bool | Cinematic top shelf: the focused dock app's artwork, softened, fills the top of the screen in its colour, with a larger name, "Last opened" (apps opened from Home), dock position dots, a focus glow in the app's colour and a translucent dock band; off by default |
 | `ambient_glow` | bool | The glow behind the dock in the focused app's colour (`true` by default); `false` keeps only `background_color` or the wallpaper, e.g. for a calm photo background |
+| `header_style` | `default` or `odyssey` | The header's look. `odyssey` is a game HUD for the Mario Odyssey preset: a Power Moon before the greeting, a gold coin before a heavy rounded clock (Fredoka) with a dark outline and a hard shadow, the date in a purple pill, and cream pills with a hard dark edge whose icons sit in coloured badges, turning gold when focused. A festival's icons replace the badges while it is on. Only the styling changes, so the pills and the dock keep their places. An unknown value falls back to `default`; this fork's built-in `config.xml` sets `odyssey` |
+| `wallpaper_names` | list of `"filename=Name"` | With `header_style: odyssey`, the kingdom named before the greeting while that wallpaper is on screen (`"01-cap.jpg=帽子之国"` shows 帽子之国 · 下午好); it follows the rotation. A picture without a name, a plain colour or a wallpaper switched off on the TV shows the greeting alone |
 
 ## Wallpapers
 

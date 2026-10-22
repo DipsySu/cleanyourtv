@@ -122,6 +122,22 @@
 
     <!-- A name after the greeting: "Mr. Trịnh" shows GOOD MORNING, MR. TRỊNH. Empty: the greeting alone. -->
     <string name="greeting_name" translatable="false"></string>
+
+    <!-- The header's look. "default": the thin greeting, clock and date and the frosted pills. "odyssey": a game HUD
+         for the Mario Odyssey preset: a Power Moon before the greeting, which starts with the kingdom of the
+         wallpaper on screen (wallpaper_names); a gold coin before a heavy rounded clock (Fredoka) with a dark outline
+         and a hard shadow; the date in a purple pill; and cream pills with a hard dark edge whose icons sit in
+         coloured badges (Cappy-style eyes for Inputs), turning coin gold when focused. Only the styling changes: the
+         layout, the Hebrew one included, the pills' size and the dock stay where they are, and a festival's icons
+         replace the badges while it is on. Any other value is "default". This fork's config.xml mirrors the Odyssey
+         theme, so it is odyssey here; a theme can set "header_style" either way. -->
+    <string name="header_style" translatable="false">odyssey</string>
+    <!-- With header_style odyssey: the kingdom named before the greeting for each wallpaper, "filename=Name", as in
+         app_labels: "01-cap.jpg=帽子之国" shows 帽子之国 · 下午好 while that picture is on screen, and the line follows
+         the rotation. A picture without a name, a plain colour or a wallpaper switched off on the TV shows the
+         greeting alone. Empty here; the Odyssey theme names its eight kingdoms in its config.json. -->
+    <string-array name="wallpaper_names" translatable="false">
+    </string-array>
     <!-- Optional VPN app the network pill opens (hold the pill for Wi-Fi settings), e.g. the package of the
          VPN you use. Empty: the pill opens Wi-Fi settings. The green VPN badge shows for any VPN either way;
          with an app set here, a red "VPN off" badge also shows while no VPN is up. -->

@@ -504,4 +504,5 @@ Security issues: report them privately through the [Security tab](https://github
 ## Licence
 
 MIT, see [`LICENSE`](LICENSE). The Outfit typeface is under the SIL Open Font License, see
-`launcher/FONT-LICENSE-OFL.txt`.
+`launcher/FONT-LICENSE-OFL.txt`, and so is the Fredoka typeface of the Odyssey header's clock, see
+`launcher/FONT-LICENSE-FREDOKA-OFL.txt`.

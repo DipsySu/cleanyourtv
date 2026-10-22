@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Odyssey header pill text (header_style odyssey): dark on the cream face and on the gold focused one alike. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false" android:color="#8024133F" />
+    <item android:color="#FF24133F" />
+</selector>
