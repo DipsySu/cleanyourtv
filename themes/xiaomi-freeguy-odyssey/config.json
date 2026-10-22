@@ -24,7 +24,7 @@
   "app_banners": [
     "com.xiaomi.mitv.smartshare=banner_odyssey_cast",
     "com.xiaodianshi.tv.yst=banner_odyssey_bili",
-    "com.zb.test=banner_odyssey_live",
+    "com.zb.test=banner_odyssey_iqiyi",
     "com.xiaomi.mitv.mediaexplorer=banner_odyssey_player",
     "com.yyw.box.androidclient=banner_odyssey_115",
     "com.mb.android=banner_odyssey_emby",
@@ -41,5 +41,10 @@
   ],
   "always_show_names": true,
   "app_library": true,
-  "module_cards": false
+  "module_cards": false,
+  "background_color": "#060B18",
+  "wallpaper": true,
+  "wallpaper_rotation_minutes": 60,
+  "wallpaper_order": "sequential",
+  "wallpaper_dim": 8
 }

@@ -1,0 +1,397 @@
+{
+  "canvas": {"width": 1920, "height": 1080},
+  "output": "../../themes/xiaomi-freeguy-odyssey/wallpapers",
+  "jpeg_quality": 85,
+  "character_zone": {"min_left": 1120, "max_right": 1880, "min_top": 225, "max_height": 756, "face_line": 472},
+  "legibility": {
+    "color": "#060B18",
+    "bottom": [[0.48, 0], [0.58, 0.3], [0.7, 0.56], [0.84, 0.76], [1, 0.86]],
+    "clock": {"cx": 250, "cy": 110, "rx": 1000, "ry": 560, "alpha": 0.62},
+    "top": {"height": 0.24, "alpha": 0.3}
+  },
+  "grain": {"strength": 0.15, "frequency": 0.85, "octaves": 1, "seed": 7},
+  "guides": [
+    {"label": "时钟与问候", "box": [112, 55, 680, 150]},
+    {"label": "输入源 · Wi-Fi · 设置", "box": [1070, 117, 738, 84]},
+    {"label": "应用标题（焦点在固定栏时）", "box": [136, 380, 600, 100]},
+    {"label": "四列时固定栏上移到这里", "box": [112, 486, 1696, 46]},
+    {"label": "固定栏六入口（六列）", "box": [112, 532, 1696, 236]},
+    {"label": "下方一行（六列）", "box": [112, 794, 1696, 226]}
+  ],
+  "scenes": [
+    {
+      "id": "01-cap",
+      "title": {"zh": "帽子之国", "en": "Cap Kingdom"},
+      "mood": "雾中石板灰夜色，礼帽形状的房屋与高塔",
+      "characters": [
+        {
+          "id": "emby",
+          "name": {"zh": "马里奥与凯皮", "en": "Mario & Cappy"},
+          "center_x": 1556,
+          "top": 225,
+          "height": 292,
+          "face": 0.84,
+          "flip": false,
+          "fade": 0.14,
+          "brightness": 0.9,
+          "saturate": 0.94,
+          "glow": "#AEB8E6",
+          "glow_alpha": 0.32,
+          "backlight": 0.22,
+          "tint": 0.3,
+          "shadow": false
+        }
+      ],
+      "palette": {
+        "sky": [[0, "#080B15"], [0.42, "#141A2B"], [0.62, "#252C44"], [0.74, "#2E3550"], [1, "#151A28"]],
+        "moon": "#D9DFEE",
+        "star": "#C9D2EE",
+        "mist": "#8C95B3",
+        "far": "#1D2336",
+        "far_band": "#272E46",
+        "near": "#0B0F1A",
+        "near_band": "#151A2A",
+        "window": "#F2C46B",
+        "tint": "#141A2B"
+      },
+      "motif": {
+        "type": "cap",
+        "seed": 101,
+        "moon": [1250, 300, 46],
+        "stars": 70,
+        "horizon": 580,
+        "lit_windows": 0.45,
+        "tower": [1010, 600, 150, 250]
+      }
+    },
+    {
+      "id": "02-metro",
+      "title": {"zh": "都市之国", "en": "Metro Kingdom"},
+      "mood": "新唐克市夜景，路易吉拉着气球飘过摩天楼窗灯",
+      "characters": [
+        {
+          "id": "tencent",
+          "name": {"zh": "路易吉", "en": "Luigi"},
+          "center_x": 1590,
+          "top": 225,
+          "height": 420,
+          "face": 0.58,
+          "flip": false,
+          "fade": 0.12,
+          "brightness": 0.9,
+          "saturate": 0.95,
+          "glow": "#FFC98A",
+          "glow_alpha": 0.26,
+          "backlight": 0.24,
+          "tint": 0.32,
+          "shadow": false
+        }
+      ],
+      "palette": {
+        "sky": [[0, "#05071A"], [0.4, "#10153A"], [0.62, "#221A44"], [0.74, "#3A2242"], [1, "#160E1E"]],
+        "city_glow": "#FF9A5A",
+        "beam": "#CFE0FF",
+        "star": "#D6DDFF",
+        "far": "#171A3A",
+        "near": "#080A18",
+        "window": "#FFC874",
+        "window_cool": "#9CC7FF",
+        "beacon": "#FF4A4A",
+        "tint": "#140F2A"
+      },
+      "motif": {
+        "type": "metro",
+        "seed": 202,
+        "stars": 45,
+        "beams": [[620, 980], [1060, 1220]],
+        "tower": [1040, 230, 120],
+        "far_tops": [330, 540],
+        "near_tops": [560, 800],
+        "lit_windows": 0.18,
+        "left_limit": [760, 470]
+      }
+    },
+    {
+      "id": "03-sand",
+      "title": {"zh": "沙之国", "en": "Sand Kingdom"},
+      "mood": "沙漠黄昏余晖，倒立金字塔悬在夜空",
+      "characters": [
+        {
+          "id": "cctv",
+          "name": {"zh": "贾克西", "en": "Jaxi"},
+          "center_x": 1560,
+          "top": 225,
+          "height": 396,
+          "face": 0.62,
+          "flip": false,
+          "fade": 0,
+          "brightness": 0.84,
+          "saturate": 0.95,
+          "glow": "#FF9A55",
+          "glow_alpha": 0.26,
+          "backlight": 0.2,
+          "tint": 0.4,
+          "shadow": true
+        }
+      ],
+      "palette": {
+        "sky": [[0, "#090A20"], [0.36, "#1A1636"], [0.52, "#33203F"], [0.6, "#6A2E3A"], [0.66, "#A04A30"], [1, "#24101A"]],
+        "sun": "#FF8A3D",
+        "star": "#FFE2C2",
+        "mesa": "#3A1B2C",
+        "pyramid": "#2E1B2B",
+        "pyramid_lit": "#A85A3A",
+        "pyramid_edge": "#F0A060",
+        "dunes": ["#3E1D2A", "#2C1420", "#1D0E16", "#120910"],
+        "crest": "#E8874A",
+        "tint": "#24101A"
+      },
+      "motif": {
+        "type": "sand",
+        "seed": 303,
+        "stars": 150,
+        "horizon": 600,
+        "pyramid": [975, 214, 330, 230],
+        "tiers": 7,
+        "dunes": [[596, 22], [650, 28], [730, 34], [840, 42]]
+      }
+    },
+    {
+      "id": "04-seaside",
+      "title": {"zh": "海之国", "en": "Seaside Kingdom"},
+      "mood": "深青色夜海，玻璃尖塔与上升的气泡",
+      "characters": [
+        {
+          "id": "jellyfin",
+          "name": {"zh": "喷水章鱼", "en": "Gushen"},
+          "center_x": 1540,
+          "top": 225,
+          "height": 410,
+          "face": 0.6,
+          "flip": false,
+          "fade": 0,
+          "brightness": 0.8,
+          "saturate": 0.92,
+          "glow": "#5FE3E8",
+          "glow_alpha": 0.3,
+          "backlight": 0.2,
+          "tint": 0.25,
+          "shadow": false
+        }
+      ],
+      "palette": {
+        "sky": [[0, "#020910"], [0.4, "#04202B"], [0.58, "#0A3946"], [0.6, "#0C3E4A"], [0.61, "#062A35"], [1, "#020F15"]],
+        "moon": "#CFF6F4",
+        "star": "#BFF2F2",
+        "glass": "#8FF0F0",
+        "glass_edge": "#C8FCFC",
+        "glow": "#3FD0D8",
+        "island": "#03141B",
+        "bubble": "#A8F5F5",
+        "tint": "#062A35"
+      },
+      "motif": {
+        "type": "seaside",
+        "seed": 404,
+        "stars": 90,
+        "horizon": 590,
+        "moon": [950, 165, 38],
+        "spires": [
+          [990, 240, 46],
+          [944, 312, 34],
+          [1040, 292, 36],
+          [904, 392, 26],
+          [1082, 362, 28],
+          [868, 452, 20],
+          [1120, 446, 22]
+        ],
+        "bubbles": 46
+      }
+    },
+    {
+      "id": "05-wooded",
+      "title": {"zh": "森之国", "en": "Wooded Kingdom"},
+      "mood": "蒸汽花园的暗林，铁管、蒸汽与发光花朵",
+      "characters": [
+        {
+          "id": "qqmusic",
+          "name": {"zh": "伸长根茎", "en": "Uproot"},
+          "center_x": 1540,
+          "top": 225,
+          "height": 404,
+          "face": 0.61,
+          "flip": false,
+          "fade": 0,
+          "brightness": 0.86,
+          "saturate": 0.95,
+          "glow": "#B7F07E",
+          "glow_alpha": 0.22,
+          "backlight": 0.18,
+          "tint": 0.35,
+          "shadow": true
+        }
+      ],
+      "palette": {
+        "sky": [[0, "#030806"], [0.3, "#08160F"], [0.5, "#10281D"], [0.56, "#163426"], [0.63, "#0C1D15"], [1, "#050C08"]],
+        "haze": "#4E8A66",
+        "shaft": "#C8F0D8",
+        "canopy": "#020604",
+        "far": "#11261C",
+        "mid": "#0A1610",
+        "near": "#040A07",
+        "metal": ["#4A5E54", "#1B2621", "#2F3E37"],
+        "flange": "#5C7166",
+        "steam": "#DDE8E4",
+        "lamp": "#FFC872",
+        "flowers": ["#FFC15A", "#FF8FB8", "#B6F27A", "#7FE6D6"],
+        "ledge": "#07110C",
+        "moss": "#24452D",
+        "tint": "#0A1A13"
+      },
+      "motif": {
+        "type": "wooded",
+        "seed": 505,
+        "far_trunks": [[60, 70], [330, 90], [610, 60], [770, 34], [1010, 80], [1190, 40], [1420, 70], [1700, 90], [1870, 60]],
+        "mid_trunks": [[220, 120], [880, 96], [1300, 72]],
+        "bridge": [640, 1250, 300],
+        "pipe": [1110, 360],
+        "ledge": [1540, 628],
+        "flowers": 34,
+        "spores": 46
+      }
+    },
+    {
+      "id": "06-lost",
+      "title": {"zh": "失落之国", "en": "Lost Kingdom"},
+      "mood": "紫色热带夜，棕榈叶影、毒沼微光与萤火",
+      "characters": [
+        {
+          "id": "mango",
+          "name": {"zh": "热带花毛毛", "en": "Tropical Wiggler"},
+          "center_x": 1540,
+          "top": 225,
+          "height": 316,
+          "face": 0.78,
+          "flip": false,
+          "fade": 0,
+          "brightness": 0.86,
+          "saturate": 0.95,
+          "glow": "#E07BD8",
+          "glow_alpha": 0.28,
+          "backlight": 0.2,
+          "tint": 0.35,
+          "shadow": true
+        }
+      ],
+      "palette": {
+        "sky": [[0, "#09040F"], [0.38, "#1B0B2C"], [0.56, "#33134A"], [0.64, "#4E1C5A"], [0.65, "#22092E"], [1, "#0F0418"]],
+        "moon": "#F3C6E8",
+        "star": "#F4D8FF",
+        "cloud": "#150823",
+        "island": "#1B0A28",
+        "palm": "#0A0412",
+        "swamp": "#B04FD0",
+        "flowers": ["#FF5FC8", "#4FE0D0", "#FFB45A"],
+        "firefly": "#E9FF9A",
+        "tint": "#1B0B2C"
+      },
+      "motif": {"type": "lost", "seed": 606, "stars": 110, "horizon": 600, "moon": [980, 230, 80], "fireflies": 44}
+    },
+    {
+      "id": "07-luncheon",
+      "title": {"zh": "料理之国", "en": "Luncheon Kingdom"},
+      "mood": "沃尔波诺火山的酒红夜色，熔岩、大汤锅与巨型餐叉",
+      "characters": [
+        {
+          "id": "netease",
+          "name": {"zh": "熔岩泡泡", "en": "Lava Bubble"},
+          "center_x": 1520,
+          "top": 225,
+          "height": 360,
+          "face": 0.57,
+          "flip": false,
+          "fade": 0,
+          "brightness": 0.82,
+          "saturate": 0.95,
+          "glow": "#FF7A33",
+          "glow_alpha": 0.4,
+          "backlight": 0.3,
+          "tint": 0.2,
+          "shadow": false
+        }
+      ],
+      "palette": {
+        "sky": [[0, "#0D0309"], [0.3, "#1F0611"], [0.46, "#3A0D1C"], [0.56, "#5E1822"], [0.66, "#2A0A13"], [1, "#12040B"]],
+        "smoke": "#140409",
+        "star": "#FFD2B0",
+        "mountain": "#12040A",
+        "mountain_lit": "#24080F",
+        "lava": "#FF6A1F",
+        "lava_core": "#FFC266",
+        "pot": "#140509",
+        "fork": "#1F0A14",
+        "fork_rim": "#7A2A2A",
+        "ember": "#FFB060",
+        "tint": "#220714"
+      },
+      "motif": {
+        "type": "luncheon",
+        "seed": 707,
+        "stars": 40,
+        "peak": [1000, 340],
+        "forks": [[250, 520, -11, 1.0], [1190, 470, 9, 0.62], [1874, 380, 13, 1.05]],
+        "embers": 70,
+        "pool": [1520, 630, 240, 36]
+      }
+    },
+    {
+      "id": "08-moon",
+      "title": {"zh": "月之国", "en": "Moon Kingdom"},
+      "mood": "月面陨坑与教堂剪影，远方蓝色星球的光晕",
+      "characters": [
+        {
+          "id": "manager",
+          "name": {"zh": "酷霸王", "en": "Bowser"},
+          "center_x": 1520,
+          "top": 225,
+          "height": 474,
+          "face": 0.52,
+          "flip": false,
+          "fade": 0,
+          "brightness": 0.88,
+          "saturate": 0.95,
+          "glow": "#9CC0FF",
+          "glow_alpha": 0.26,
+          "backlight": 0.16,
+          "tint": 0.35,
+          "shadow": true
+        }
+      ],
+      "palette": {
+        "sky": [[0, "#010208"], [0.45, "#050915"], [0.64, "#0B1224"], [1, "#0B0D16"]],
+        "star": "#E2E9FF",
+        "milky": "#8EA6D8",
+        "planet": "#0F2647",
+        "planet_lit": "#3B7BD0",
+        "land": "#2F7F4E",
+        "cloud": "#E8F0FF",
+        "atmosphere": "#6FA8FF",
+        "ground": ["#2A2D3A", "#171922"],
+        "crater": "#11131B",
+        "crater_rim": "#4A4E60",
+        "chapel": "#151826",
+        "window": "#FFD08A",
+        "tint": "#0B1224"
+      },
+      "motif": {
+        "type": "moon",
+        "seed": 808,
+        "stars": 520,
+        "planet": [960, 320, 140],
+        "horizon": 600,
+        "craters": 16,
+        "chapel": [760, 600]
+      }
+    }
+  ]
+}

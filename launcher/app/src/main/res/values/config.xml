@@ -50,7 +50,7 @@
     <string-array name="app_banners">
         <item>com.xiaomi.mitv.smartshare=banner_odyssey_cast</item>
         <item>com.xiaodianshi.tv.yst=banner_odyssey_bili</item>
-        <item>com.zb.test=banner_odyssey_live</item>
+        <item>com.zb.test=banner_odyssey_iqiyi</item>
         <item>com.xiaomi.mitv.mediaexplorer=banner_odyssey_player</item>
         <item>com.yyw.box.androidclient=banner_odyssey_115</item>
         <item>com.mb.android=banner_odyssey_emby</item>

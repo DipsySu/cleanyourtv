@@ -1,0 +1,402 @@
+{
+  "generated_by": "render_wallpapers.mjs",
+  "chrome": "155.0.8059.85",
+  "jpeg_quality": 85,
+  "grain": {
+    "strength": 0.15,
+    "frequency": 0.85,
+    "octaves": 1,
+    "seed": 7
+  },
+  "regions": {
+    "clock_area": [
+      0,
+      0,
+      640,
+      260
+    ],
+    "bottom_band": [
+      0,
+      594,
+      1920,
+      486
+    ],
+    "hero_band": [
+      100,
+      350,
+      700,
+      130
+    ]
+  },
+  "limits": {
+    "clock_area": 0.35,
+    "bottom_band": 0.3,
+    "hero_band": 0.35,
+    "min_bytes": 122880,
+    "max_bytes": 327680
+  },
+  "luminance": "mean sRGB luma (0.2126 R + 0.7152 G + 0.0722 B) / 255 of the decoded JPEG",
+  "wallpapers": [
+    {
+      "id": "01-cap",
+      "file": "themes/xiaomi-freeguy-odyssey/wallpapers/01-cap.jpg",
+      "title": {
+        "zh": "帽子之国",
+        "en": "Cap Kingdom"
+      },
+      "characters": [
+        {
+          "id": "emby",
+          "name": "Mario & Cappy",
+          "box": [
+            1447.3,
+            225,
+            217.4,
+            292
+          ],
+          "face_y": 470.3,
+          "native": [
+            2234,
+            3000
+          ],
+          "scale": 0.0973
+        }
+      ],
+      "width": 1920,
+      "height": 1080,
+      "bytes": 227834,
+      "kib": 222.5,
+      "sha256": "658e2bf5ceef8974d27d4a0c2c40d59deaa85f72cc2d9066f6eae0ea5945aba3",
+      "luminance": {
+        "clock_area": 0.0509,
+        "bottom_band": 0.09,
+        "hero_band": 0.0982,
+        "overall": 0.1018
+      },
+      "checks": {
+        "size": true,
+        "bytes": true,
+        "clock_area": true,
+        "bottom_band": true,
+        "hero_band": true
+      },
+      "pass": true
+    },
+    {
+      "id": "02-metro",
+      "file": "themes/xiaomi-freeguy-odyssey/wallpapers/02-metro.jpg",
+      "title": {
+        "zh": "都市之国",
+        "en": "Metro Kingdom"
+      },
+      "characters": [
+        {
+          "id": "tencent",
+          "name": "Luigi",
+          "box": [
+            1439.8,
+            225,
+            300.3,
+            420
+          ],
+          "face_y": 468.6,
+          "native": [
+            828,
+            1158
+          ],
+          "scale": 0.3627
+        }
+      ],
+      "width": 1920,
+      "height": 1080,
+      "bytes": 251625,
+      "kib": 245.7,
+      "sha256": "69c9bb4ae20168a0ede5fa18a801b26b2af9296cca39753c842480c6693b66be",
+      "luminance": {
+        "clock_area": 0.046,
+        "bottom_band": 0.0584,
+        "hero_band": 0.0785,
+        "overall": 0.0778
+      },
+      "checks": {
+        "size": true,
+        "bytes": true,
+        "clock_area": true,
+        "bottom_band": true,
+        "hero_band": true
+      },
+      "pass": true
+    },
+    {
+      "id": "03-sand",
+      "file": "themes/xiaomi-freeguy-odyssey/wallpapers/03-sand.jpg",
+      "title": {
+        "zh": "沙之国",
+        "en": "Sand Kingdom"
+      },
+      "characters": [
+        {
+          "id": "cctv",
+          "name": "Jaxi",
+          "box": [
+            1389.4,
+            225,
+            341.1,
+            396
+          ],
+          "face_y": 470.5,
+          "native": [
+            1673,
+            1942
+          ],
+          "scale": 0.2039
+        }
+      ],
+      "width": 1920,
+      "height": 1080,
+      "bytes": 236085,
+      "kib": 230.6,
+      "sha256": "c7b85ad07418d24b8520fafcc3e94d59ff778b99aeb78ec17eed63ca8141d385",
+      "luminance": {
+        "clock_area": 0.0529,
+        "bottom_band": 0.0593,
+        "hero_band": 0.1068,
+        "overall": 0.0941
+      },
+      "checks": {
+        "size": true,
+        "bytes": true,
+        "clock_area": true,
+        "bottom_band": true,
+        "hero_band": true
+      },
+      "pass": true
+    },
+    {
+      "id": "04-seaside",
+      "file": "themes/xiaomi-freeguy-odyssey/wallpapers/04-seaside.jpg",
+      "title": {
+        "zh": "海之国",
+        "en": "Seaside Kingdom"
+      },
+      "characters": [
+        {
+          "id": "jellyfin",
+          "name": "Gushen",
+          "box": [
+            1328,
+            225,
+            424,
+            410
+          ],
+          "face_y": 471,
+          "native": [
+            1640,
+            1586
+          ],
+          "scale": 0.2585
+        }
+      ],
+      "width": 1920,
+      "height": 1080,
+      "bytes": 237547,
+      "kib": 232,
+      "sha256": "c87bafaa2f2e98e7fc3b92c3d9d38ce07df83e8af01b6e05144a4c28ba810948",
+      "luminance": {
+        "clock_area": 0.0475,
+        "bottom_band": 0.0779,
+        "hero_band": 0.0958,
+        "overall": 0.1133
+      },
+      "checks": {
+        "size": true,
+        "bytes": true,
+        "clock_area": true,
+        "bottom_band": true,
+        "hero_band": true
+      },
+      "pass": true
+    },
+    {
+      "id": "05-wooded",
+      "file": "themes/xiaomi-freeguy-odyssey/wallpapers/05-wooded.jpg",
+      "title": {
+        "zh": "森之国",
+        "en": "Wooded Kingdom"
+      },
+      "characters": [
+        {
+          "id": "qqmusic",
+          "name": "Uproot",
+          "box": [
+            1304.5,
+            225,
+            471,
+            404
+          ],
+          "face_y": 471.4,
+          "native": [
+            1441,
+            1236
+          ],
+          "scale": 0.3269
+        }
+      ],
+      "width": 1920,
+      "height": 1080,
+      "bytes": 241055,
+      "kib": 235.4,
+      "sha256": "69864abc9ac3aea62a5c0bef04782817ee93e96aa1c7c1568cce4c36a580a966",
+      "luminance": {
+        "clock_area": 0.05,
+        "bottom_band": 0.0651,
+        "hero_band": 0.095,
+        "overall": 0.0937
+      },
+      "checks": {
+        "size": true,
+        "bytes": true,
+        "clock_area": true,
+        "bottom_band": true,
+        "hero_band": true
+      },
+      "pass": true
+    },
+    {
+      "id": "06-lost",
+      "file": "themes/xiaomi-freeguy-odyssey/wallpapers/06-lost.jpg",
+      "title": {
+        "zh": "失落之国",
+        "en": "Lost Kingdom"
+      },
+      "characters": [
+        {
+          "id": "mango",
+          "name": "Tropical Wiggler",
+          "box": [
+            1397,
+            225,
+            286,
+            316
+          ],
+          "face_y": 471.5,
+          "native": [
+            1276,
+            1410
+          ],
+          "scale": 0.2241
+        }
+      ],
+      "width": 1920,
+      "height": 1080,
+      "bytes": 231517,
+      "kib": 226.1,
+      "sha256": "b08acc772efe26665e242e70d18363057d4937c8e36f31630031f324ae8a5818",
+      "luminance": {
+        "clock_area": 0.039,
+        "bottom_band": 0.0618,
+        "hero_band": 0.0659,
+        "overall": 0.0751
+      },
+      "checks": {
+        "size": true,
+        "bytes": true,
+        "clock_area": true,
+        "bottom_band": true,
+        "hero_band": true
+      },
+      "pass": true
+    },
+    {
+      "id": "07-luncheon",
+      "file": "themes/xiaomi-freeguy-odyssey/wallpapers/07-luncheon.jpg",
+      "title": {
+        "zh": "料理之国",
+        "en": "Luncheon Kingdom"
+      },
+      "characters": [
+        {
+          "id": "netease",
+          "name": "Lava Bubble",
+          "box": [
+            1359.4,
+            225,
+            321.2,
+            360
+          ],
+          "face_y": 430.2,
+          "native": [
+            887,
+            994
+          ],
+          "scale": 0.3622
+        }
+      ],
+      "width": 1920,
+      "height": 1080,
+      "bytes": 233124,
+      "kib": 227.7,
+      "sha256": "e626e6ef459e99973f43cfa4bfad19759134a926a713f06c68bb308510121b7d",
+      "luminance": {
+        "clock_area": 0.0387,
+        "bottom_band": 0.0526,
+        "hero_band": 0.0822,
+        "overall": 0.081
+      },
+      "checks": {
+        "size": true,
+        "bytes": true,
+        "clock_area": true,
+        "bottom_band": true,
+        "hero_band": true
+      },
+      "pass": true
+    },
+    {
+      "id": "08-moon",
+      "file": "themes/xiaomi-freeguy-odyssey/wallpapers/08-moon.jpg",
+      "title": {
+        "zh": "月之国",
+        "en": "Moon Kingdom"
+      },
+      "characters": [
+        {
+          "id": "manager",
+          "name": "Bowser",
+          "box": [
+            1266.7,
+            225,
+            506.6,
+            474
+          ],
+          "face_y": 471.5,
+          "native": [
+            2500,
+            2339
+          ],
+          "scale": 0.2027
+        }
+      ],
+      "width": 1920,
+      "height": 1080,
+      "bytes": 245269,
+      "kib": 239.5,
+      "sha256": "d9c85218591309c4ba09999b5151ce6ef9b0f6faca5c40775cf44822f6018fdc",
+      "luminance": {
+        "clock_area": 0.03,
+        "bottom_band": 0.086,
+        "hero_band": 0.0367,
+        "overall": 0.0986
+      },
+      "checks": {
+        "size": true,
+        "bytes": true,
+        "clock_area": true,
+        "bottom_band": true,
+        "hero_band": true
+      },
+      "pass": true
+    }
+  ],
+  "pass": true
+}
