@@ -36,10 +36,13 @@ import java.util.concurrent.Executors;
 
 /** Remote-friendly settings owned by the launcher; system settings stay one row away. */
 public final class LauncherSettingsActivity extends Activity {
+    private static final int IMPORT_THEME_REQUEST = 401;
     private SharedPreferences choices;
     private final TextView[] columnChoices = new TextView[2];
     private final TextView[] rowChoices = new TextView[4];
     private TextView wallpaperChoice;
+    private TextView themeChoice;
+    private TextView importThemeChoice;
     private TextView animationsChoice;
     private TextView advancedChoice;
     private TextView followThemeChoice;
@@ -50,6 +53,7 @@ public final class LauncherSettingsActivity extends Activity {
     private boolean odyssey;
     private Map<String, String> wallpaperNames;
     private final ExecutorService thumbnailExecutor = Executors.newSingleThreadExecutor();
+    private final ExecutorService themeExecutor = Executors.newSingleThreadExecutor();
     /** Incremented when a picker closes, so stale thumbnail work cannot update its recycled rows. */
     private int pickerGeneration;
 
@@ -66,6 +70,11 @@ public final class LauncherSettingsActivity extends Activity {
         rowsBelowDock = config.rowsBelowDock;
         animations = config.animations;
         advancedEffects = config.animations && config.advancedEffects;
+
+        themeChoice = findViewById(R.id.themeChoice);
+        themeChoice.setOnClickListener(v -> showThemePicker());
+        importThemeChoice = findViewById(R.id.importThemeChoice);
+        importThemeChoice.setOnClickListener(v -> pickThemeZip());
 
         int[] ids = {R.id.columns4, R.id.columns6};
         int[] values = {4, 6};
@@ -138,7 +147,12 @@ public final class LauncherSettingsActivity extends Activity {
         findViewById(R.id.tvSettingsChoice).setOnClickListener(v ->
                 open(new Intent(Settings.ACTION_SETTINGS)));
         refresh();
-        columnChoices[columns == 6 ? 1 : 0].requestFocus();
+        if (getIntent().getBooleanExtra("focus_theme", false)) {
+            getIntent().removeExtra("focus_theme");
+            themeChoice.requestFocus();
+        } else {
+            columnChoices[columns == 6 ? 1 : 0].requestFocus();
+        }
     }
 
     private void reverseRow(TextView[] views) {
@@ -148,7 +162,7 @@ public final class LauncherSettingsActivity extends Activity {
     }
 
     private void showWallpaperPicker() {
-        File dir = Config.dir(this);
+        File dir = ThemeStore.activeDir(this);
         List<File> images = new java.util.ArrayList<>(WallpaperRotation.images(
                 dir == null ? null : new File(dir, "wallpapers")));
         // A theme with a single wallpaper.jpg offers that picture too (Config maps the choice back to it).
@@ -178,13 +192,122 @@ public final class LauncherSettingsActivity extends Activity {
                 RecyclerView.ViewHolder deferred = list.findViewHolderForAdapterPosition(target);
                 if (deferred != null) deferred.itemView.requestFocus();
             });
-            styleOdysseyDialog(dialog);
+            styleOdysseyDialog(dialog, R.string.wallpaper_label);
         });
         dialog.setOnDismissListener(ignored -> {
             if (pickerGeneration == generation) pickerGeneration++;
             adapter.clearVisibleThumbnails(list);
         });
         dialog.show();
+    }
+
+    private void showThemePicker() {
+        List<ThemeStore.Entry> entries = ThemeStore.list(this);
+        String activeId = ThemeStore.activeId(this);
+        RecyclerView list = new RecyclerView(this);
+        int inset = dp(12);
+        list.setPadding(inset, 0, inset, 0);
+        list.setClipToPadding(false);
+        list.setLayoutManager(new LinearLayoutManager(this));
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle(R.string.theme_label)
+                .setView(list)
+                .setNegativeButton(android.R.string.cancel, null)
+                .create();
+        ThemeChoicesAdapter adapter = new ThemeChoicesAdapter(entries, activeId, dialog);
+        list.setAdapter(adapter);
+        dialog.setOnShowListener(ignored -> {
+            int target = 0;
+            for (int i = 0; i < entries.size(); i++) {
+                if (activeId.equals(entries.get(i).id)) {
+                    target = i;
+                    break;
+                }
+            }
+            list.scrollToPosition(target);
+            final int position = target;
+            list.post(() -> {
+                RecyclerView.ViewHolder holder = list.findViewHolderForAdapterPosition(position);
+                if (holder != null) holder.itemView.requestFocus();
+            });
+            styleOdysseyDialog(dialog, R.string.theme_label);
+        });
+        dialog.show();
+    }
+
+    private void pickThemeZip() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("application/zip");
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, new String[] {
+                "application/zip", "application/x-zip-compressed", "application/x-zip"
+        });
+        try {
+            startActivityForResult(intent, IMPORT_THEME_REQUEST);
+        } catch (ActivityNotFoundException | SecurityException e) {
+            Toast.makeText(this, R.string.theme_chooser_unavailable, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode != IMPORT_THEME_REQUEST || resultCode != RESULT_OK || data == null
+                || data.getData() == null) return;
+        importThemeZip(data);
+    }
+
+    private void importThemeZip(Intent data) {
+        final android.net.Uri uri = data.getData();
+        if (uri == null) return;
+        importThemeChoice.setEnabled(false);
+        importThemeChoice.setAlpha(0.5f);
+        Toast.makeText(this, R.string.theme_importing, Toast.LENGTH_SHORT).show();
+        themeExecutor.execute(() -> {
+            ThemeStore.Entry entry = null;
+            Exception failure = null;
+            try (java.io.InputStream stream = getContentResolver().openInputStream(uri)) {
+                if (stream == null) throw new java.io.IOException("No input stream");
+                entry = ThemeStore.importZip(getApplicationContext(), stream);
+            } catch (Exception e) {
+                failure = e;
+            }
+            final ThemeStore.Entry imported = entry;
+            final Exception error = failure;
+            runOnUiThread(() -> {
+                if (isFinishing() || isDestroyed()) return;
+                importThemeChoice.setEnabled(true);
+                importThemeChoice.setAlpha(1f);
+                if (error == null && imported != null) {
+                    Toast.makeText(this, R.string.theme_imported, Toast.LENGTH_LONG).show();
+                    refresh();
+                } else {
+                    Toast.makeText(this, R.string.theme_import_failed, Toast.LENGTH_LONG).show();
+                }
+            });
+        });
+    }
+
+    private void activateTheme(String id, AlertDialog dialog) {
+        themeExecutor.execute(() -> {
+            Exception failure = null;
+            try {
+                ThemeStore.activate(getApplicationContext(), id);
+            } catch (Exception e) {
+                failure = e;
+            }
+            final Exception error = failure;
+            runOnUiThread(() -> {
+                if (isFinishing() || isDestroyed()) return;
+                if (error != null) {
+                    Toast.makeText(this, R.string.theme_activation_failed, Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (dialog.isShowing()) dialog.dismiss();
+                setResult(RESULT_OK);
+                getIntent().putExtra("focus_theme", true);
+                recreate();
+            });
+        });
     }
 
     /** Save the value and its revision together, so Home notices Back, Home and other return paths alike. */
@@ -201,6 +324,17 @@ public final class LauncherSettingsActivity extends Activity {
     }
 
     private void refresh() {
+        if (themeChoice != null) {
+            String activeId = ThemeStore.activeId(this);
+            String activeName = activeId;
+            for (ThemeStore.Entry entry : ThemeStore.list(this)) {
+                if (activeId.equals(entry.id)) {
+                    activeName = entry.name;
+                    break;
+                }
+            }
+            themeChoice.setText(getString(R.string.theme_state, activeName));
+        }
         for (int i = 0; i < columnChoices.length; i++) {
             columnChoices[i].setSelected(columns == (i == 0 ? 4 : 6));
         }
@@ -239,6 +373,7 @@ public final class LauncherSettingsActivity extends Activity {
 
     @Override protected void onDestroy() {
         thumbnailExecutor.shutdownNow();
+        themeExecutor.shutdownNow();
         super.onDestroy();
     }
 
@@ -253,7 +388,7 @@ public final class LauncherSettingsActivity extends Activity {
         ((TextView) findViewById(R.id.advancedHint)).setTextColor(0xFFD8C7B0);
         ((TextView) findViewById(R.id.followThemeHint)).setTextColor(0xFFD8C7B0);
         ((TextView) findViewById(R.id.homeSettingsHint)).setTextColor(0xFFD8C7B0);
-        int[] choices = {R.id.columns4, R.id.columns6, R.id.rows0, R.id.rows1, R.id.rows2, R.id.rows3,
+        int[] choices = {R.id.themeChoice, R.id.importThemeChoice, R.id.columns4, R.id.columns6, R.id.rows0, R.id.rows1, R.id.rows2, R.id.rows3,
                 R.id.wallpaperChoice, R.id.animationsChoice, R.id.advancedChoice, R.id.followThemeChoice,
                 R.id.defaultHomeChoice, R.id.tvSettingsChoice};
         for (int id : choices) {
@@ -268,11 +403,11 @@ public final class LauncherSettingsActivity extends Activity {
                 new int[] {0xFF34204A, normal});
     }
 
-    private void styleOdysseyDialog(AlertDialog dialog) {
+    private void styleOdysseyDialog(AlertDialog dialog, int titleResource) {
         if (!odyssey) return;
         Window window = dialog.getWindow();
         if (window != null) window.setBackgroundDrawableResource(R.drawable.settings_odyssey_dialog_bg);
-        SpannableString title = new SpannableString(getString(R.string.wallpaper_label));
+        SpannableString title = new SpannableString(getString(titleResource));
         title.setSpan(new ForegroundColorSpan(0xFFFFF2D1), 0, title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         dialog.setTitle(title);
         TextView cancel = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
@@ -281,6 +416,96 @@ public final class LauncherSettingsActivity extends Activity {
 
     private int dp(int value) {
         return Math.round(value * getResources().getDisplayMetrics().density);
+    }
+
+    private final class ThemeChoicesAdapter extends RecyclerView.Adapter<ThemeChoicesAdapter.Holder> {
+        private final List<ThemeStore.Entry> entries;
+        private final String activeId;
+        private final AlertDialog dialog;
+
+        ThemeChoicesAdapter(List<ThemeStore.Entry> entries, String activeId, AlertDialog dialog) {
+            this.entries = entries;
+            this.activeId = activeId;
+            this.dialog = dialog;
+        }
+
+        @NonNull @Override public Holder onCreateViewHolder(@NonNull ViewGroup parent, int type) {
+            LinearLayout row = new LinearLayout(LauncherSettingsActivity.this);
+            row.setGravity(Gravity.CENTER_VERTICAL);
+            row.setPadding(dp(12), dp(10), dp(8), dp(10));
+            row.setFocusable(true);
+            row.setClickable(true);
+            RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(-1, dp(66));
+            params.setMargins(0, dp(3), 0, dp(3));
+            row.setLayoutParams(params);
+            LinearLayout words = new LinearLayout(LauncherSettingsActivity.this);
+            words.setOrientation(LinearLayout.VERTICAL);
+            words.setGravity(Gravity.CENTER_VERTICAL);
+            row.addView(words, new LinearLayout.LayoutParams(0, -1, 1f));
+            TextView label = new TextView(LauncherSettingsActivity.this);
+            label.setTextSize(18);
+            label.setTextColor(odyssey ? 0xFFFFF2D1 : 0xFFFFFFFF);
+            label.setMaxLines(1);
+            label.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            words.addView(label, new LinearLayout.LayoutParams(-1, -2));
+            TextView status = new TextView(LauncherSettingsActivity.this);
+            status.setTextSize(13);
+            status.setTextColor(odyssey ? 0xFFD8C7B0 : 0xFFACB8C1);
+            status.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            words.addView(status, new LinearLayout.LayoutParams(-1, -2));
+            RadioButton checked = new RadioButton(LauncherSettingsActivity.this);
+            checked.setClickable(false);
+            checked.setFocusable(false);
+            checked.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            row.addView(checked, new LinearLayout.LayoutParams(-2, -2));
+            return new Holder(row, label, status, checked);
+        }
+
+        @Override public void onBindViewHolder(@NonNull Holder holder, int position) {
+            ThemeStore.Entry entry = entries.get(position);
+            boolean current = entry.id.equals(activeId);
+            String name = entry.name;
+            holder.label.setText(name);
+            holder.status.setText(current ? R.string.theme_current : R.string.theme_not_current);
+            holder.checked.setChecked(current);
+            holder.itemView.setSelected(current);
+            holder.itemView.setBackgroundResource(odyssey ? R.drawable.settings_odyssey_choice_bg
+                    : R.drawable.settings_choice_bg);
+            holder.itemView.setContentDescription(getString(R.string.theme_option_description, name,
+                    current ? getString(R.string.theme_current) : getString(R.string.theme_not_current)));
+            holder.itemView.setOnFocusChangeListener((view, focused) -> applyFocus(holder, focused, current));
+            applyFocus(holder, holder.itemView.hasFocus(), current);
+            holder.itemView.setOnClickListener(v -> {
+                if (current) {
+                    dialog.dismiss();
+                    return;
+                }
+                activateTheme(entry.id, dialog);
+            });
+        }
+
+        @Override public int getItemCount() { return entries.size(); }
+
+        private void applyFocus(Holder holder, boolean focused, boolean current) {
+            if (!odyssey) return;
+            holder.label.setTextColor(focused ? 0xFF34204A : 0xFFFFF2D1);
+            holder.status.setTextColor(focused ? 0xFF34204A : 0xFFD8C7B0);
+            holder.checked.setButtonTintList(ColorStateList.valueOf(focused ? 0xFF34204A
+                    : current ? 0xFFE1AB35 : 0xFFD8C7B0));
+        }
+
+        final class Holder extends RecyclerView.ViewHolder {
+            final TextView label;
+            final TextView status;
+            final RadioButton checked;
+
+            Holder(View view, TextView label, TextView status, RadioButton checked) {
+                super(view);
+                this.label = label;
+                this.status = status;
+                this.checked = checked;
+            }
+        }
     }
 
     private final class WallpaperChoicesAdapter extends RecyclerView.Adapter<WallpaperChoicesAdapter.Holder> {

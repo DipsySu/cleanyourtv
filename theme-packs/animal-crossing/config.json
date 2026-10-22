@@ -1,0 +1,43 @@
+{
+  "header_style": "animal_crossing",
+  "background_color": "#143F42",
+  "wallpaper": true,
+  "wallpaper_dim": 8,
+  "wallpaper_rotation_minutes": 0,
+  "wallpaper_order": "sequential",
+  "wallpaper_names": {
+    "wallpaper.jpg": "岛屿来信"
+  },
+  "wallpaper_coins": {},
+  "wallpaper_tints": {
+    "wallpaper.jpg": "#3D6852"
+  },
+  "app_banners": {
+    "com.xiaomi.mitv.smartshare": "banners/island.webp#954,29,279,314",
+    "com.xiaodianshi.tv.yst": "banners/island.webp#29,11,264,333",
+    "com.zb.test": "banners/island.webp#355,374,279,290",
+    "com.mb.android": "banners/island.webp#348,32,262,312",
+    "com.ktcp.video": "banners/island.webp#649,29,286,347",
+    "com.xiaomi.mitv.mediaexplorer": "banners/island.webp#26,359,315,310",
+    "com.yyw.box.androidclient": "banners/island.webp#364,676,237,260",
+    "com.xiaomi.tweather": "banners/island.webp#996,369,222,302",
+    "com.mitv.alarmcenter": "banners/island.webp#628,401,341,270",
+    "com.xiaomi.voicecontrol": "banners/island.webp#41,683,248,250",
+    "com.xiaomi.mitv.light": "banners/island.webp#26,978,261,223",
+    "com.xiaomi.mitv.calendar": "banners/island.webp#952,972,286,239",
+    "com.xiaomi.tv.gallery": "banners/island.webp#661,688,251,248",
+    "com.xiaomi.mitv.tvmanager": "banners/island.webp#306,959,327,251",
+    "com.xiaomi.mitv.settings": "banners/island.webp#629,943,312,268",
+    "com.duokan.videodaily": "banners/island.webp#950,672,273,272"
+  },
+  "columns": 6,
+  "dock_columns": 6,
+  "rows_below_dock": 1,
+  "always_show_names": true,
+  "dock_even_padding": false,
+  "dock_title": false,
+  "cinematic_home": false,
+  "ambient_glow": false,
+  "sky_intensity": 0,
+  "wallpaper_true_color": false
+}

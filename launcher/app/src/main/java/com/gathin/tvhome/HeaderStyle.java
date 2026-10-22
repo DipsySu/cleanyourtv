@@ -12,6 +12,10 @@ final class HeaderStyle {
     static final String DEFAULT = "default";
     /** The "game HUD" header for the Mario Odyssey preset (OdysseyHeader). */
     static final String ODYSSEY = "odyssey";
+    /** A warm island field guide header, with leaf-green controls. */
+    static final String ANIMAL_CROSSING = "animal_crossing";
+    /** A quiet Hyrule field header, with jade, slate and antique-gold controls. */
+    static final String ZELDA = "zelda";
     /** Between the kingdom and the greeting: "帽子之国 · 下午好". */
     static final String SEPARATOR = " · ";
     /** wallpaper_coins names a bundled coin_* drawable (the kingdoms' WebPs in drawable-nodpi)... */
@@ -23,7 +27,10 @@ final class HeaderStyle {
 
     /** A known style, or {@link #DEFAULT} for anything else: missing, misspelt or from a newer launcher. */
     static String parse(String value) {
-        return value != null && ODYSSEY.equals(value.trim()) ? ODYSSEY : DEFAULT;
+        if (value == null) return DEFAULT;
+        String style = value.trim();
+        if (ODYSSEY.equals(style) || ANIMAL_CROSSING.equals(style) || ZELDA.equals(style)) return style;
+        return DEFAULT;
     }
 
     /**

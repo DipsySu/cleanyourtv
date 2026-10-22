@@ -208,6 +208,8 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final Map<String, String> launchActions;
     /** Tile names and bundled banners that replace the app's own (config.xml, app_labels and app_banners). */
     private final Map<String, String> appLabels, appBanners;
+    private final java.io.File themeDirectory;
+    private final String headerStyle;
     private final List<Entry> items = new ArrayList<>();
     /** Set by RecyclerView before first attachment; holders may be bound before itemView has a parent. */
     private RecyclerView recyclerView;
@@ -233,6 +235,8 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.launchActions = cfg.launchActions;
         this.appLabels = cfg.appLabels;
         this.appBanners = cfg.appBanners;
+        this.themeDirectory = cfg.themeDirectory;
+        this.headerStyle = cfg.headerStyle;
         // Tiles keep their identity across reload(), so a focused tile stays on its app instead of
         // its view being rebound to whatever app now sits in that slot.
         setHasStableIds(true);
@@ -303,7 +307,8 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             String label = card != null ? card.label : Cards.cleanLabel(
                     appLabels.containsKey(pkg) ? appLabels.get(pkg) : String.valueOf(ri.loadLabel(pm)), pkg);
             if (!seen.add(pkg + '\n' + label)) continue;
-            Drawable banner = bundledBanner(appBanners.get(pkg));
+            Drawable banner = ThemeArtwork.load(ctx, themeDirectory, appBanners.get(pkg), headerStyle);
+            if (banner == null) banner = bundledBanner(appBanners.get(pkg));
             if (banner == null) banner = loadBanner(pm, ri);
             // The icon is only drawn (and sampled for the glow) when there is no banner, so a tile with a
             // banner skips loading and decoding it.

@@ -141,6 +141,10 @@ final class Config {
     final Map<String, String> wallpaperTints;
     /** Equal padding around dock tiles, opt-in so existing themes retain their spacing. */
     final boolean dockEvenPadding;
+    /** Resolved asset root; imported themes live outside the APK in the private theme library. */
+    final File themeDirectory;
+    final String themeIdentity;
+    final long themeRevision;
 
     private Config(List<String> dockApps, boolean fillDock, List<String> hiddenApps, String liveTvPackage,
                    String liveTvAction, Map<String, String> launchActions, Map<String, String> appLabels,
@@ -153,7 +157,8 @@ final class Config {
                    Festival festival, int[] inputKeycodes, List<String> appKeys,
                    List<RaceWeekend.Race> raceCalendar, boolean cinematicHome, boolean ambientGlow, int homeIdleClockMinutes,
                    String headerStyle, Map<String, String> wallpaperNames, Map<String, String> wallpaperCoins,
-                   Map<String, String> wallpaperTints, boolean dockEvenPadding) {
+                   Map<String, String> wallpaperTints, boolean dockEvenPadding, File themeDirectory,
+                   String themeIdentity, long themeRevision) {
         this.inputKeycodes = inputKeycodes;
         this.appKeys = Collections.unmodifiableList(appKeys);
         this.dockApps = Collections.unmodifiableList(dockApps);
@@ -210,6 +215,9 @@ final class Config {
         this.wallpaperCoins = Collections.unmodifiableMap(wallpaperCoins);
         this.wallpaperTints = Collections.unmodifiableMap(wallpaperTints);
         this.dockEvenPadding = dockEvenPadding;
+        this.themeDirectory = themeDirectory;
+        this.themeIdentity = themeIdentity;
+        this.themeRevision = themeRevision;
     }
 
     /** The folder the theme tools push into; null when external storage is unavailable. */
@@ -268,10 +276,18 @@ final class Config {
         List<String> wallpaperTints = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.wallpaper_tints)));
         boolean applied = false;
 
-        File dir = dir(ctx);
-        File file = dir != null ? new File(dir, FILE_NAME) : null;
+        File legacyDir = dir(ctx);
+        File legacyFile = legacyDir != null ? new File(legacyDir, FILE_NAME) : null;
         boolean mounted = Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
-        JSONObject json = readOverlay(ctx, file, mounted);
+        JSONObject json = readOverlay(ctx, legacyFile, mounted);
+        ThemeStore.Snapshot theme = ThemeStore.snapshot(ctx);
+        JSONObject packageOverlay = theme.overlay;
+        File dir = theme.directory;
+        File file = dir != null ? new File(dir, FILE_NAME) : null;
+        String themeIdentity = theme.identity;
+        // Device-specific launch actions, hidden apps and saved dock behavior remain in the legacy layer.
+        // ThemeStore validates that a portable pack can only override presentation fields.
+        if (packageOverlay != null) json = mergePresentation(json, packageOverlay);
         if (json != null) {
             applied = true;
             dock = stringList(json, "dock_apps", dock);
@@ -326,7 +342,7 @@ final class Config {
         // current theme without clearing choices from an older launcher version.
         SharedPreferences choices = ctx.getSharedPreferences(SETTINGS_NAME, Context.MODE_PRIVATE);
         // Unmounted storage looks like a theme reset; compare only once the file is readable.
-        if (mounted) syncThemeChoices(choices, dir, file);
+        if (mounted || packageOverlay != null) syncThemeChoices(choices, dir, file, themeIdentity);
         int chosenColumns = choices.getInt("columns", columns);
         if (chosenColumns >= 4 && chosenColumns <= 7) columns = chosenColumns;
         int chosenRows = choices.getInt(ROWS_BELOW_DOCK_KEY, rowsBelow);
@@ -385,7 +401,7 @@ final class Config {
                 // An unknown style is the default one, whichever layer named it.
                 HeaderStyle.parse(headerStyle), packageMap(wallpaperNames),
                 // Checked where they are looked up (HeaderStyle.coin, DockTint.of): a bad entry is no coin or tint.
-                packageMap(wallpaperCoins), packageMap(wallpaperTints), dockEvenPadding);
+                packageMap(wallpaperCoins), packageMap(wallpaperTints), dockEvenPadding, dir, themeIdentity, theme.revision);
     }
 
     /**
@@ -418,10 +434,11 @@ final class Config {
         return races;
     }
 
-    private static void syncThemeChoices(SharedPreferences choices, File dir, File config) {
+    private static void syncThemeChoices(SharedPreferences choices, File dir, File config, String identity) {
         File revision = dir == null ? null : new File(dir, THEME_REVISION_NAME);
         String token = revisionToken(revision);
-        String signature = fileStamp(config) + ":" + token;
+        String signature = ("legacy@0".equals(identity) ? "" : identity + ":")
+                + fileStamp(config) + ":" + token;
         String seen = choices.getString(THEME_SIGNATURE_KEY, null);
         if (seen == null) {
             // Existing preferences survive an app upgrade, unless the first launch follows an
@@ -439,6 +456,37 @@ final class Config {
 
     private static String fileStamp(File file) {
         return file != null && file.isFile() ? file.length() + "@" + file.lastModified() : "absent";
+    }
+
+    private static JSONObject mergePresentation(JSONObject base, JSONObject overlay) {
+        JSONObject merged = new JSONObject();
+        try {
+            if (base != null) for (java.util.Iterator<String> it = base.keys(); it.hasNext();) {
+                String key = it.next();
+                merged.put(key, base.get(key));
+            }
+            for (java.util.Iterator<String> it = overlay.keys(); it.hasNext();) {
+                String key = it.next();
+                Object value = overlay.get(key);
+                // Package maps are convenient JSON objects; legacy themes use package=value arrays.
+                if (value instanceof JSONObject && ("app_banners".equals(key)
+                        || "wallpaper_names".equals(key) || "wallpaper_coins".equals(key)
+                        || "wallpaper_tints".equals(key))) {
+                    JSONObject map = (JSONObject) value;
+                    JSONArray entries = new JSONArray();
+                    for (java.util.Iterator<String> names = map.keys(); names.hasNext();) {
+                        String name = names.next();
+                        entries.put(name + "=" + map.getString(name));
+                    }
+                    value = entries;
+                }
+                merged.put(key, value);
+            }
+        } catch (org.json.JSONException invalid) {
+            Log.w(TAG, "could not merge theme presentation", invalid);
+            return base;
+        }
+        return merged;
     }
 
     private static String revisionToken(File file) {

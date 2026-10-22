@@ -1,0 +1,43 @@
+{
+  "header_style": "zelda",
+  "background_color": "#142F38",
+  "wallpaper": true,
+  "wallpaper_dim": 8,
+  "wallpaper_rotation_minutes": 0,
+  "wallpaper_order": "sequential",
+  "wallpaper_names": {
+    "wallpaper.jpg": "海拉鲁"
+  },
+  "wallpaper_coins": {},
+  "wallpaper_tints": {
+    "wallpaper.jpg": "#215B56"
+  },
+  "app_banners": {
+    "com.xiaomi.mitv.smartshare": "banners/cast.png",
+    "com.xiaodianshi.tv.yst": "banners/bili.png",
+    "com.zb.test": "banners/live.png",
+    "com.mb.android": "banners/emby.png",
+    "com.ktcp.video": "banners/tencent.png",
+    "com.xiaomi.mitv.mediaexplorer": "banners/player.png",
+    "com.yyw.box.androidclient": "banners/disk.png",
+    "com.xiaomi.tweather": "banners/weather.png",
+    "com.mitv.alarmcenter": "banners/alarm.png",
+    "com.xiaomi.voicecontrol": "banners/voice.png",
+    "com.xiaomi.mitv.light": "banners/light.png",
+    "com.xiaomi.mitv.calendar": "banners/calendar.png",
+    "com.xiaomi.tv.gallery": "banners/gallery.png",
+    "com.xiaomi.mitv.tvmanager": "banners/manager.png",
+    "com.xiaomi.mitv.settings": "banners/settings.png",
+    "com.duokan.videodaily": "banners/video.png"
+  },
+  "columns": 6,
+  "dock_columns": 6,
+  "rows_below_dock": 1,
+  "always_show_names": true,
+  "dock_even_padding": false,
+  "dock_title": false,
+  "cinematic_home": false,
+  "ambient_glow": false,
+  "sky_intensity": 0,
+  "wallpaper_true_color": false
+}

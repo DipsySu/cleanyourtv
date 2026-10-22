@@ -82,7 +82,7 @@ final class WallpaperPlayer {
         preferences = context.getSharedPreferences("wallpaper_rotation", Context.MODE_PRIVATE);
         // Playback state belongs to one collection. Changing the collection starts from its first
         // picture instead of resuming a filename that belonged to the previous one.
-        String collection = collectionKey(files);
+        String collection = config.themeIdentity + ":" + collectionKey(files);
         if (!collection.equals(preferences.getString("collection", ""))) {
             preferences.edit().putString("collection", collection)
                     .remove("image").remove("changed").apply();

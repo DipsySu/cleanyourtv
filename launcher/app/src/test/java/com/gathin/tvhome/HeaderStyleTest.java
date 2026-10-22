@@ -12,9 +12,12 @@ public class HeaderStyleTest {
     private static final Map<String, String> NAMES = Config.packageMap(Arrays.asList(
             "01-cap.jpg=帽子之国", " 08-moon.jpg = 月之国 ", "02-metro.jpg=", "=沙之国", "04-seaside.jpg"));
 
-    @Test public void odysseyIsTheOnlyOtherStyle() {
+    @Test public void knownGameStylesParseWithoutChangingOdyssey() {
         assertEquals(HeaderStyle.ODYSSEY, HeaderStyle.parse("odyssey"));
         assertEquals(HeaderStyle.ODYSSEY, HeaderStyle.parse(" odyssey "));
+        assertEquals(HeaderStyle.ANIMAL_CROSSING, HeaderStyle.parse("animal_crossing"));
+        assertEquals(HeaderStyle.ANIMAL_CROSSING, HeaderStyle.parse(" animal_crossing "));
+        assertEquals(HeaderStyle.ZELDA, HeaderStyle.parse("zelda"));
         assertEquals(HeaderStyle.DEFAULT, HeaderStyle.parse("default"));
     }
 

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="288" viewBox="0 0 512 288">
+  <defs>
+    <linearGradient id="jade" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d0f1ce"/><stop offset=".38" stop-color="#54b89a"/><stop offset="1" stop-color="#1d6f75"/></linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff3bd"/><stop offset=".38" stop-color="#d6ad55"/><stop offset="1" stop-color="#8b532c"/></linearGradient>
+    <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f4fbf2"/><stop offset=".45" stop-color="#b7ccd1"/><stop offset="1" stop-color="#466373"/></linearGradient>
+    <linearGradient id="bronze" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e7bc6a"/><stop offset=".42" stop-color="#ad7440"/><stop offset="1" stop-color="#623a2a"/></linearGradient>
+    <linearGradient id="stone" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d3ddd0"/><stop offset=".48" stop-color="#819296"/><stop offset="1" stop-color="#45575e"/></linearGradient>
+    <linearGradient id="deep" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#407faf"/><stop offset=".45" stop-color="#204d7a"/><stop offset="1" stop-color="#112d52"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dy="6"/><feComponentTransfer><feFuncA type="linear" slope=".28"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs><g filter="url(#shadow)" stroke="#10202a" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"><path d="M111 173c55-19 130-25 252-6l39 40c-60 20-149 31-254 7l-37-41z" fill="url(#jade)"/><path d="M132 180c67 10 157 1 239-4l18 23c-75 20-153 23-230 7z" fill="#317d83"/><circle cx="181" cy="186" r="14" fill="url(#gold)"/><circle cx="238" cy="184" r="14" fill="url(#gold)"/><circle cx="295" cy="181" r="14" fill="url(#gold)"/><path d="M158 146l42-38 28 28 32-46 37 36 39-23" fill="none" stroke="url(#gold)" stroke-width="12"/><path d="M158 146l42-38 28 28 32-46 37 36 39-23" fill="none" stroke="#e8f4ca" stroke-width="3"/></g></svg>

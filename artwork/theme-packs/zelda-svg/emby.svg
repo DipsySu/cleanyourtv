@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="288" viewBox="0 0 512 288">
+  <defs>
+    <linearGradient id="jade" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d0f1ce"/><stop offset=".38" stop-color="#54b89a"/><stop offset="1" stop-color="#1d6f75"/></linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff3bd"/><stop offset=".38" stop-color="#d6ad55"/><stop offset="1" stop-color="#8b532c"/></linearGradient>
+    <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f4fbf2"/><stop offset=".45" stop-color="#b7ccd1"/><stop offset="1" stop-color="#466373"/></linearGradient>
+    <linearGradient id="bronze" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e7bc6a"/><stop offset=".42" stop-color="#ad7440"/><stop offset="1" stop-color="#623a2a"/></linearGradient>
+    <linearGradient id="stone" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d3ddd0"/><stop offset=".48" stop-color="#819296"/><stop offset="1" stop-color="#45575e"/></linearGradient>
+    <linearGradient id="deep" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#407faf"/><stop offset=".45" stop-color="#204d7a"/><stop offset="1" stop-color="#112d52"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dy="6"/><feComponentTransfer><feFuncA type="linear" slope=".28"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs><g filter="url(#shadow)" stroke="#10202a" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"><g transform="translate(30.72 17.28) scale(.88)"><path d="M256 37l22 47-12 106 62 43-25 20-47-25-47 25-25-20 62-43-12-106z" fill="url(#steel)"/><path d="M256 37v191m-22-144l22 16 22-16m-34 106l12 38 12-38" fill="none" stroke="#d9f2e6" stroke-width="4"/><path d="M183 231l73-30 73 30-17 37-56-18-56 18z" fill="url(#jade)"/><path d="M256 201v67" fill="none" stroke="url(#gold)" stroke-width="10"/><path d="M224 267l32-17 32 17-16 17h-32z" fill="url(#gold)"/></g></g></svg>

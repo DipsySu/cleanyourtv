@@ -162,6 +162,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private String greetingName = "";
     /** header_style odyssey: the game HUD header (OdysseyHeader), with the wallpaper's kingdom before the greeting. */
     private boolean odysseyHeader;
+    private String worldHeaderStyle = HeaderStyle.DEFAULT;
     /** wallpaper_names: wallpaper filename to the kingdom the Odyssey header names. */
     private Map<String, String> wallpaperNames = Collections.emptyMap();
     /** wallpaper_coins: wallpaper filename to the coin before the Odyssey clock (HeaderStyle.coin). */
@@ -226,6 +227,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private int packageSequence;
     /** Launcher settings revision used to build this activity; checked regardless of how settings are left. */
     private long settingsRevision;
+    private long themeRevision;
     /** Between onStop and onStart: Home was fully covered by an app, not just by the translucent quick panel. */
     private boolean stopped;
     /** Between onStart and onStop: Home is (at least partly) on screen. */
@@ -315,6 +317,12 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         @Override
         public void onReceive(Context context, Intent intent) {
             updateClockVisibility();
+        }
+    };
+    private final BroadcastReceiver themeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (themeRevision != ThemeStore.revision(context) && !isFinishing() && !isDestroyed()) recreate();
         }
     };
     private final Runnable minuteTick = new Runnable() {
@@ -409,12 +417,17 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         // rotation from then on, and so does the dock's tint (wallpaper_tints, whichever the header). An on-TV
         // wallpaper choice recreates Home, so this picks up the new picture too.
         odysseyHeader = HeaderStyle.ODYSSEY.equals(cfg.headerStyle);
+        worldHeaderStyle = cfg.headerStyle;
         wallpaperNames = cfg.wallpaperNames;
         wallpaperCoins = cfg.wallpaperCoins;
         wallpaperTints = cfg.wallpaperTints;
         if (odysseyHeader) {
             updateGreeting();
             OdysseyHeader.applyHeader(this, currentCoin());
+            greetingColor = greeting.getCurrentTextColor();
+        } else if (WorldHeader.matches(worldHeaderStyle)) {
+            updateGreeting();
+            WorldHeader.applyHeader(this, worldHeaderStyle);
             greetingColor = greeting.getCurrentTextColor();
         }
         wallpaperPlayer.setOnChange(this::onWallpaperChanged);
@@ -637,6 +650,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         }
         // After makeIconOnly, so a round pill centres its badge; a festival's icons then take the badges' place.
         if (odysseyHeader) OdysseyHeader.applyPills(this);
+        else if (WorldHeader.matches(worldHeaderStyle)) WorldHeader.applyPills(this, worldHeaderStyle);
         if (festive) applyFestiveSkin((TextView) btnInputs, (TextView) btnSettings);
 
         // Hide the glass when focus leaves the tiles.
@@ -657,6 +671,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             registerReceiver(packageReceiver, packageFilter);
         }
         settingsRevision = settingsRevision();
+        themeRevision = cfg.themeRevision;
 
         ConnectivityManager cm = getSystemService(ConnectivityManager.class);
         TvInputManager tim = (TvInputManager) getSystemService(TV_INPUT_SERVICE);
@@ -702,14 +717,18 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     }
 
     @Override
+    @android.annotation.SuppressLint("UnspecifiedRegisterReceiverFlag") // Flags are supplied on Android 13+ below.
     protected void onStart() {
         super.onStart();
         stopped = false;
         started = true;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             registerReceiver(timeReceiver, timeFilter, Context.RECEIVER_NOT_EXPORTED);
+            registerReceiver(themeReceiver, new IntentFilter("com.gathin.tvhome.THEME_CHANGED"), Context.RECEIVER_NOT_EXPORTED);
         } else {
             registerReceiver(timeReceiver, timeFilter);
+            // Older Android lacks NOT_EXPORTED; a broadcast can only refresh an already changed local revision.
+            registerReceiver(themeReceiver, new IntentFilter("com.gathin.tvhome.THEME_CHANGED"));
         }
         updateClockVisibility();
         tileRefresh.onStart();
@@ -723,7 +742,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             recreate();
             return;
         }
-        if (settingsRevision != settingsRevision()) {
+        if (settingsRevision != settingsRevision() || themeRevision != ThemeStore.revision(this)) {
             recreate();
             return;
         }
@@ -937,6 +956,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         super.onStop();
         started = false;
         unregisterReceiver(timeReceiver);
+        unregisterReceiver(themeReceiver);
         handler.removeCallbacks(clockCheck);
         stopped = true;
         tileRefresh.onStop();
@@ -2293,7 +2313,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     /** The Odyssey header names the kingdom of the wallpaper on screen first, "帽子之国 · 下午好"; otherwise unchanged. */
     private String withKingdom(String greetingText) {
-        if (!odysseyHeader) return greetingText;
+        if (!odysseyHeader && !WorldHeader.matches(worldHeaderStyle)) return greetingText;
         return HeaderStyle.greeting(HeaderStyle.kingdom(wallpaperNames, wallpaperPlayer.displayed()), greetingText);
     }
 
@@ -2314,7 +2334,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      * without a tint gives the tray back its dark look; a tray already in the right colour isn't redrawn.
      */
     private void onWallpaperChanged(long fadeMs) {
-        if (odysseyHeader) {
+        if (odysseyHeader || WorldHeader.matches(worldHeaderStyle)) {
             kingdomPending = fadeMs > 0;
             if (!kingdomPending) switchKingdom();
         }
@@ -2338,7 +2358,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private void switchKingdom() {
         kingdomPending = false;
         updateGreeting();
-        OdysseyHeader.setCoin(this, currentCoin());
+        if (odysseyHeader) OdysseyHeader.setCoin(this, currentCoin());
     }
 
     // ---- race-weekend panel (a theme's race_calendar) -----------------------------------------------
@@ -2498,6 +2518,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                             OdysseyHeader.networkBadge(this, icon), null, null, null);
                 } else {
                     btnWifi.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, 0, 0, 0);
+                    if (WorldHeader.matches(worldHeaderStyle)) WorldHeader.applyPills(this, worldHeaderStyle);
                 }
             }
         }
