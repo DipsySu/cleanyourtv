@@ -5,6 +5,9 @@ launcher's dock, layout and look on the TV without rebuilding the APK: the launc
 `config.json` as an overlay over its built-in `config.xml` the next time it starts.
 Choices made in Launcher settings take priority until you choose Follow theme. Pushing a theme or
 using `tools/theme.sh --reset` also clears those on-TV column and motion choices.
+A dock chosen on the TV (hold OK on a tile: Pin to dock, Remove from dock, Move left or right) is not
+cleared: it wins over `dock_apps` until you hold OK on Settings and choose Reset dock (恢复默认程序坞);
+see [docs/app-library.md](../docs/app-library.md#the-dock).
 
 ```bash
 TV_HOST=192.168.1.50 tools/theme.sh themes/aurora          # push a theme and restart Home
@@ -29,8 +32,8 @@ is ignored, and a file that doesn't parse is ignored as a whole, so a theme can 
 
 | Key | Type | Meaning |
 |---|---|---|
-| `dock_apps` | list of package names | The dock row, in order; missing apps are skipped |
-| `fill_dock` | bool | Fill the dock slots `dock_apps` leaves free with the first grid apps (true by default); false leaves them empty |
+| `dock_apps` | list of package names | The default dock row, in order; missing apps are skipped. A dock chosen on the TV (`dock.txt`) wins until Reset dock (恢复默认程序坞) |
+| `fill_dock` | bool | Fill the dock slots the dock apps leave free with the first grid apps (true by default); false leaves them empty |
 | `hidden_apps` | list of package names | Never shown as tiles |
 | `live_tv_package`, `live_tv_action` | string | The Live TV app and, if it has no leanback entry, the action to start it with |
 | `source_panel_service`, `source_panel_action` | string | The TV's own source panel, for sets with no TvInputManager: a service, or an activity (BYINTEK U4). Without a Live TV app, the Inputs pill opens it directly |

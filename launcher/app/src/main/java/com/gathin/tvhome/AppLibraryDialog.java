@@ -38,12 +38,17 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /** On-demand installed-app picker. Uses the launcher's glass resources; no backdrop capture or blur. */
 final class AppLibraryDialog {
     private final Activity activity;
     private final Predicate<String> onHome;
+    /** The app is in the dock (Home's dock apps); Pin to dock is left out for it. */
+    private final Predicate<String> inDock;
+    /** Pin to dock, run on Home after the library has closed (MainActivity). */
+    private final Consumer<String> pin;
     private final Runnable changed;
     private final LinearLayout panel;
     private final boolean reducedMotion;
@@ -108,12 +113,15 @@ final class AppLibraryDialog {
         if (popup.isShowing()) popup.update(width, height);
     }
 
-    AppLibraryDialog(Activity activity, boolean animations, boolean reducedMotion, Predicate<String> onHome, Runnable changed, Runnable dismissed) {
+    AppLibraryDialog(Activity activity, boolean animations, boolean reducedMotion, Predicate<String> onHome,
+                     Predicate<String> inDock, Consumer<String> pin, Runnable changed, Runnable dismissed) {
         this.activity = activity;
         this.animations = animations;
         this.rtl = activity.getResources().getBoolean(R.bool.rtl_app_grid);
         this.reducedMotion = reducedMotion;
         this.onHome = onHome;
+        this.inDock = inDock;
+        this.pin = pin;
         this.changed = changed;
         density = activity.getResources().getDisplayMetrics().density;
         panel = new LinearLayout(activity);
@@ -335,6 +343,20 @@ final class AppLibraryDialog {
         refresh();
     }
 
+    /**
+     * Pin to dock: an app not on Home (hidden by the theme, removed, or an ordinary Android app) is added to Home
+     * first, so it has a tile the dock can show. The library closes and Home pins it (MainActivity).
+     */
+    private void pinToDock(ResolveInfo app) {
+        String pkg = app.activityInfo.packageName;
+        if (!onHome.test(pkg) && !LibraryApps.save(activity, pkg, true)) {
+            Toast.makeText(activity, R.string.library_save_failed, Toast.LENGTH_LONG).show();
+            return;
+        }
+        close();
+        pin.accept(pkg);
+    }
+
     private void open(ResolveInfo app) {
         close();
         Intent intent = new Intent(Intent.ACTION_MAIN).setComponent(
@@ -369,6 +391,7 @@ final class AppLibraryDialog {
         boolean home = onHome.test(pkg);
         addAction(rows, home ? R.string.library_remove_shortcut : R.string.library_add_home,
                 () -> changeHome(app, !home));
+        if (!inDock.test(pkg)) addAction(rows, R.string.dock_pin, () -> pinToDock(app));
         addAction(rows, R.string.library_app_info, () -> {
             close();
             try {
@@ -394,12 +417,18 @@ final class AppLibraryDialog {
                 panelLocation[0] + panel.getWidth(), panelLocation[1] + panel.getHeight());
         int x = Math.max(screen.left + dp(12), Math.min(location[0] + anchor.getWidth() - dp(12), screen.right - menuWidth - dp(12)));
         int y = Math.max(screen.top + dp(12), Math.min(location[1] + dp(8), screen.bottom - menuPanel.getMeasuredHeight() - dp(12)));
-        menuPanel.setAlpha(0f);
-        menuPanel.setPivotY(0f);
-        menuPanel.setScaleY(0.92f);
-        menuPanel.setTranslationY(-dp(8));
+        // The same drop-in as Home's menus: a short fade with reduced motion, none with animations off.
+        if (animations) {
+            menuPanel.setAlpha(0f);
+            if (!reducedMotion) {
+                menuPanel.setPivotY(0f);
+                menuPanel.setScaleY(0.92f);
+                menuPanel.setTranslationY(-dp(8));
+            }
+        }
         menu.showAtLocation(activity.getWindow().getDecorView(), Gravity.TOP | Gravity.START, x, y);
-        menuPanel.animate().alpha(1f).scaleY(1f).translationY(0f).setDuration(220)
+        if (animations && reducedMotion) menuPanel.animate().alpha(1f).setDuration(100).start();
+        else if (animations) menuPanel.animate().alpha(1f).scaleY(1f).translationY(0f).setDuration(220)
                 .setInterpolator(new android.view.animation.DecelerateInterpolator(1.6f)).start();
         rows.getChildAt(0).requestFocus();
     }

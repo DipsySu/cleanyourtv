@@ -71,6 +71,17 @@
     <string name="reorder">סידור אפליקציות</string>
     <string name="reorder_hint">אישור מרים אפליקציה, החצים מזיזים אותה, חזרה מניחה אותה. חזרה שוב לסיום.</string>
     <string name="reorder_not_saved">לא ניתן לשמור את הסדר החדש</string>
+    <string name="dock_pin">הצמדה לשורת המועדפים</string>
+    <string name="dock_unpin">הסרה משורת המועדפים</string>
+    <string name="dock_move_left">הזזה שמאלה</string>
+    <string name="dock_move_right">הזזה ימינה</string>
+    <string name="dock_pinned">הוצמד לשורת המועדפים</string>
+    <string name="dock_unpinned">הוסר משורת המועדפים</string>
+    <string name="dock_moved">סדר שורת המועדפים השתנה</string>
+    <string name="dock_pick_slot">בחרו את המקום בשורת המועדפים שיוחלף ולחצו אישור. חזרה לביטול.</string>
+    <string name="dock_not_saved">לא ניתן לשמור את שורת המועדפים</string>
+    <string name="dock_reset">איפוס שורת המועדפים</string>
+    <string name="dock_reset_done">שורת המועדפים המקורית שוחזרה</string>
     <string name="app_library">ספריית אפליקציות</string>
     <string name="library_empty">לא נמצאו אפליקציות שניתן לפתוח</string>
     <string name="library_on_home">במסך הבית</string>

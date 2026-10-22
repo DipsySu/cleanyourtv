@@ -1,7 +1,6 @@
 package com.gathin.tvhome;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +14,6 @@ import android.graphics.Outline;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
@@ -42,9 +40,10 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * App tiles. The first dock-slot positions are the pinned dock (favourites, fixed order,
- * then empty slots up to a full row, see {@link DockSlots}), then the module cards the owner chose to show
- * (by label), the rest is alphabetical.
+ * App tiles. The first dock-slot positions are the pinned dock (the owner's dock or dock_apps, see
+ * {@link DockChoice}, in that order, then empty slots up to a full row, see {@link DockSlots}), then the grid:
+ * the owner's saved order ({@link Order}), the module cards the owner chose to show (by label), the rest
+ * alphabetical.
  */
 public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -57,6 +56,9 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         void onLibraryRequested();
         void onLibraryFocused();
         void onLibraryUp();
+
+        /** OK held on an app or card tile: its menu (dock and App info). */
+        void onTileMenu(int position, View card);
     }
 
     static final class Entry {
@@ -166,8 +168,15 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final Context ctx;
     private final int rowsBelowDock;
     private final boolean dockTitle;
-    /** The owner's saved order (reorder button, Order): key -> rank. Empty when there is none or it no longer applies. */
+    /** The owner's saved order of the grid (reorder button, Order): key -> rank. Empty when there is none. */
     private Map<String, Integer> savedRanks = Collections.emptyMap();
+    /**
+     * Ranks of a version 1 order.txt saved under today's dock_apps, until the next reload() has worked out the dock
+     * row it showed (the old rule ranked tiles before dock_apps); null otherwise.
+     */
+    private Map<String, Integer> legacyRanks;
+    /** The dock row the version 1 order showed, when it differs from the new rule's; MainActivity saves it once. */
+    private List<String> legacyDock;
     /** Reorder mode: no empty dock slots, so every position holds a tile that can move. */
     private boolean reordering;
     private final TileListener listener;
@@ -179,8 +188,8 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final float restNameAlpha;
     /** cinematic_home: only then does a launch record the last-opened app the shelf uses. */
     private final boolean cinematic;
-    /** Dock order (config.xml dock_apps, or a theme's config.json). */
-    private final List<String> favourites;
+    /** Dock order: the owner's dock (dock.txt), else dock_apps from a theme's config.json or config.xml. */
+    private List<String> dock;
     /** Grid apps fill the dock slots dock_apps leaves free (config.xml, fill_dock). */
     private final boolean fillDock;
     /** Dock apps found at the last reload, and the empty slots after them. */
@@ -208,7 +217,7 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.listener = listener;
         this.dockSize = dockSize;
         this.gridColumns = cfg.columns;
-        this.favourites = cfg.dockApps;
+        this.dock = cfg.dockApps;
         this.fillDock = cfg.fillDock;
         this.hidden = new HashSet<>(cfg.hiddenApps);
         this.animations = cfg.animations;
@@ -305,21 +314,23 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 fresh.add(new Entry(label, component, banner, icon));
             }
         }
-        Collections.sort(fresh, (a, b) -> {
-            // The owner's own order first; tiles it does not know (new installs) follow by the rule below.
-            int saved = Order.compare(savedRanks, a.component.flattenToShortString(), b.component.flattenToShortString());
-            if (saved != 0) return saved;
-            int fa = favourites.indexOf(a.pkg), fb = favourites.indexOf(b.pkg);
-            if (fa >= 0 || fb >= 0) {
-                if (fa < 0) return 1;
-                if (fb < 0) return -1;
-                return Integer.compare(fa, fb);
-            }
-            // Cards come right after the configured dock apps, before the alphabetical grid.
-            boolean ca = a.kind == Entry.CARD, cb = b.kind == Entry.CARD;
-            if (ca != cb) return ca ? -1 : 1;
-            return a.label.compareToIgnoreCase(b.label);
-        });
+        if (legacyRanks != null) {
+            // A version 1 order.txt ranked tiles before dock_apps, so it could put other apps in the dock row. Keep
+            // the row it showed, once, if the new rule (dock first) would show another one.
+            List<Entry> old = new ArrayList<>(fresh);
+            Map<String, Integer> oldRanks = legacyRanks;
+            Collections.sort(old, (a, b) -> {
+                int saved = Order.compare(oldRanks, key(a), key(b));
+                return saved != 0 ? saved : byDockThenRest(a, b, dock, Collections.emptyMap());
+            });
+            Collections.sort(fresh, (a, b) -> byDockThenRest(a, b, dock, savedRanks));
+            boolean fill = fillDock || !dockRow;
+            legacyDock = DockChoice.migrate(DockChoice.dockRow(packages(old), dock, dockSize, fill),
+                    DockChoice.dockRow(packages(fresh), dock, dockSize, fill), dock);
+            if (legacyDock != null) dock = legacyDock;
+            legacyRanks = null;
+        }
+        Collections.sort(fresh, (a, b) -> byDockThenRest(a, b, dock, savedRanks));
         // Retain the optional Default-home tile until dependent tile-ordering work is merged.
         if (showHomeSettings
                 && pm.resolveActivity(new Intent(Settings.ACTION_HOME_SETTINGS), 0) != null) {
@@ -328,7 +339,7 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     ctx.getDrawable(R.drawable.ic_home_settings), null, 0));
         }
         docked = 0;
-        while (docked < fresh.size() && favourites.contains(fresh.get(docked).pkg)) docked++;
+        while (docked < fresh.size() && dock.contains(fresh.get(docked).pkg)) docked++;
         emptySlots = dockRow && !reordering ? DockSlots.empty(docked, dockSize, fresh.size(), fillDock) : 0;
         for (int i = 0; i < emptySlots; i++) {
             fresh.add(docked + i, new Entry(Entry.EMPTY, "", new ComponentName(ctx, "empty-dock-slot-" + i),
@@ -337,6 +348,31 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         items.clear();
         items.addAll(fresh);
         notifyDataSetChanged();
+    }
+
+    /**
+     * The tile order: dock apps first, in dock order; then the owner's saved order; tiles it does not know (new
+     * installs) follow with cards first, then alphabetical.
+     */
+    private static int byDockThenRest(Entry a, Entry b, List<String> dock, Map<String, Integer> ranks) {
+        int docks = DockChoice.compare(dock, a.pkg, b.pkg);
+        if (docks != 0) return docks;
+        int saved = Order.compare(ranks, key(a), key(b));
+        if (saved != 0) return saved;
+        // Cards come right after the saved tiles, before the alphabetical grid.
+        boolean ca = a.kind == Entry.CARD, cb = b.kind == Entry.CARD;
+        if (ca != cb) return ca ? -1 : 1;
+        return a.label.compareToIgnoreCase(b.label);
+    }
+
+    private static String key(Entry e) {
+        return e.component.flattenToShortString();
+    }
+
+    private static List<String> packages(List<Entry> entries) {
+        List<String> pkgs = new ArrayList<>();
+        for (Entry e : entries) pkgs.add(e.pkg);
+        return pkgs;
     }
 
     /** A banner_* drawable bundled with the launcher, or null for none or a name that is not one. */
@@ -469,13 +505,16 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             h.label.setVisibility(View.VISIBLE);
         }
         h.card.setOnClickListener(v -> launch(e));
+        if (e.kind == Entry.HOME_SETTINGS) {
+            // No menu: holding OK opens it like a press, when OK is let go.
+            h.card.setOnLongClickListener(null);
+            h.card.setLongClickable(false);
+            return;
+        }
+        // Hold OK: the tile's menu (pin to or remove from the dock, move in the dock, App info).
         h.card.setOnLongClickListener(v -> {
-            Intent i = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + e.pkg));
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            try {
-                ctx.startActivity(i);
-            } catch (ActivityNotFoundException ignored) {
-            }
+            int pos = h.getBindingAdapterPosition();
+            if (listener != null && pos != RecyclerView.NO_POSITION) listener.onTileMenu(pos, v);
             return true;
         });
     }
@@ -594,6 +633,57 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     /** Uses this saved order from the next reload() (Order.ranks). */
     void setSavedOrder(Map<String, Integer> ranks) {
         savedRanks = ranks;
+    }
+
+    /** Uses this dock from the next reload() (DockChoice.effective). */
+    void setDock(List<String> packages) {
+        dock = packages;
+    }
+
+    /** The dock in use: the last setDock(), or the dock row a version 1 order showed once reload() kept it. */
+    List<String> dock() {
+        return dock;
+    }
+
+    /** A version 1 order.txt saved under today's dock_apps: the next reload() works out the dock row it showed. */
+    void setLegacyOrder(Map<String, Integer> ranks) {
+        legacyRanks = ranks;
+    }
+
+    /** The dock a version 1 order.txt showed, once, when the new rule would have shown another; else null. */
+    List<String> takeLegacyDock() {
+        List<String> kept = legacyDock;
+        legacyDock = null;
+        return kept;
+    }
+
+    /** Dock apps shown in the dock row (positions 0 to this - 1), not counting grid apps filling free slots. */
+    int pinnedCount() {
+        return Math.min(docked, dockSize);
+    }
+
+    /** The dock as shown, for an edit: the dock apps in the dock row, in order (DockChoice.of). */
+    List<String> pinnedPackages() {
+        return packagesBefore(pinnedCount());
+    }
+
+    /** Packages of the first count tiles (fewer when there are not that many), for DockChoice. */
+    List<String> packagesBefore(int count) {
+        List<String> pkgs = new ArrayList<>();
+        for (int i = 0; i < Math.min(count, movableCount()); i++) {
+            Entry e = items.get(i);
+            if (e.kind != Entry.EMPTY) pkgs.add(e.pkg);
+        }
+        return DockChoice.of(pkgs);
+    }
+
+    /** First position of a tile of this package, or -1. */
+    int positionOfPackage(String pkg) {
+        for (int i = 0; i < items.size(); i++) {
+            Entry e = items.get(i);
+            if (e.kind != Entry.EMPTY && e.pkg.equals(pkg)) return i;
+        }
+        return -1;
     }
 
     /** Reorder mode on or off; takes effect at the next reload() (empty dock slots are left out while on). */
