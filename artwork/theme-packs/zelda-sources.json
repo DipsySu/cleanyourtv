@@ -1,0 +1,185 @@
+{
+  "theme": "zelda-wilds",
+  "version": 2,
+  "retrieved": "2026-10-22",
+  "copyright": "Character artwork: Nintendo. Age of Calamity artwork: Nintendo / Koei Tecmo Games. Third-party artwork retains its original rights and is not covered by this repository's code license.",
+  "processing": "Original PNG/WebP files copied byte-for-byte. Alpha is preserved; the launcher fits the complete artwork into each card. No native app badges.",
+  "assets": [
+    {
+      "slot": "cast",
+      "character": "林克",
+      "file": "banners/cast.webp",
+      "source": "https://www.nintendo.com/jp/zelda/totk/assets/img/character/chara_link.webp",
+      "page": "https://www.nintendo.com/jp/zelda/totk/character/index.html",
+      "width": 3000,
+      "height": 2596,
+      "bytes": 869924,
+      "sha256": "11ded7669c7cff4fa1e5ad623c34bcd151530e1b2573e2044408eec9499b1733"
+    },
+    {
+      "slot": "bili",
+      "character": "塞尔达",
+      "file": "banners/bili.webp",
+      "source": "https://www.nintendo.com/jp/zelda/totk/assets/img/character/chara_zelda.webp",
+      "page": "https://www.nintendo.com/jp/zelda/totk/character/index.html",
+      "width": 1573,
+      "height": 2988,
+      "bytes": 407964,
+      "sha256": "ef91cc2dae20bdf8b816b1a6292067380af7e9961638ccf38053ad9312eeb89f"
+    },
+    {
+      "slot": "video",
+      "character": "盖侬多夫",
+      "file": "banners/video.webp",
+      "source": "https://www.nintendo.com/jp/zelda/totk/assets/img/character/chara_ganondorf.webp",
+      "page": "https://www.nintendo.com/jp/zelda/totk/character/index.html",
+      "width": 3000,
+      "height": 2895,
+      "bytes": 792776,
+      "sha256": "9d62568ab99e41f201d17da4ecd680fce118862f54d98ff991dc9bc0c51a7710"
+    },
+    {
+      "slot": "live",
+      "character": "米法",
+      "file": "banners/live.png",
+      "source": "https://www.nintendo.com/jp/character/zelda/img/yakusai/img-chara-main-04.png",
+      "page": "https://www.nintendo.com/jp/character/zelda/yakusai/index.html",
+      "width": 546,
+      "height": 546,
+      "bytes": 110182,
+      "sha256": "1cd9559059c5b92a33d27f969d16ce8e2ae5e4a38d23bff86421eb2201121094"
+    },
+    {
+      "slot": "emby",
+      "character": "力巴尔",
+      "file": "banners/emby.png",
+      "source": "https://www.nintendo.com/jp/character/zelda/img/yakusai/img-chara-41.png",
+      "page": "https://www.nintendo.com/jp/character/zelda/yakusai/index.html",
+      "width": 646,
+      "height": 644,
+      "bytes": 134026,
+      "sha256": "edef941d9226235270b99e598570f167068cecdfc24395620d2383ca3d04cad5"
+    },
+    {
+      "slot": "tencent",
+      "character": "乌尔波扎",
+      "file": "banners/tencent.png",
+      "source": "https://www.nintendo.com/jp/character/zelda/img/yakusai/img-chara-main-06.png",
+      "page": "https://www.nintendo.com/jp/character/zelda/yakusai/index.html",
+      "width": 744,
+      "height": 663,
+      "bytes": 126713,
+      "sha256": "0645665673e302caeae4a1ca9909b3ab841c15ae706f01429d31546d65b0d22b"
+    },
+    {
+      "slot": "player",
+      "character": "达尔克尔",
+      "file": "banners/player.png",
+      "source": "https://www.nintendo.com/jp/character/zelda/img/yakusai/img-chara-main-03.png",
+      "page": "https://www.nintendo.com/jp/character/zelda/yakusai/index.html",
+      "width": 615,
+      "height": 614,
+      "bytes": 172471,
+      "sha256": "c4533b99a1a7534a7904d388cbf82661a86c2d30d7e5f7c4d55a6bfb26f9f261"
+    },
+    {
+      "slot": "calendar",
+      "character": "瓦·露塔",
+      "file": "banners/calendar.png",
+      "source": "https://www.nintendo.com/jp/character/zelda/img/yakusai/img-chara-sub-04.png",
+      "page": "https://www.nintendo.com/jp/character/zelda/yakusai/index.html",
+      "width": 376,
+      "height": 445,
+      "bytes": 68004,
+      "sha256": "53e7c1440a80d4bcce7d0723205f21bc6bb6dfe211c7eabe9eedd89c89364288"
+    },
+    {
+      "slot": "gallery",
+      "character": "瓦·梅德",
+      "file": "banners/gallery.png",
+      "source": "https://www.nintendo.com/jp/character/zelda/img/yakusai/img-chara-42.png",
+      "page": "https://www.nintendo.com/jp/character/zelda/yakusai/index.html",
+      "width": 437,
+      "height": 346,
+      "bytes": 43315,
+      "sha256": "308202715b5776ab543af9bbc1afacfe41c64e5e8665eb583e49d8e7e83d3ac5"
+    },
+    {
+      "slot": "manager",
+      "character": "瓦·鲁达尼亚",
+      "file": "banners/manager.png",
+      "source": "https://www.nintendo.com/jp/character/zelda/img/yakusai/img-chara-sub-03.png",
+      "page": "https://www.nintendo.com/jp/character/zelda/yakusai/index.html",
+      "width": 592,
+      "height": 350,
+      "bytes": 50566,
+      "sha256": "817d025fcb1f662dc2a9a563decfc71ff27a4c5c4007f42ec4cb757b37748d63"
+    },
+    {
+      "slot": "settings",
+      "character": "瓦·娜波力斯",
+      "file": "banners/settings.png",
+      "source": "https://www.nintendo.com/jp/character/zelda/img/yakusai/img-chara-sub-06.png",
+      "page": "https://www.nintendo.com/jp/character/zelda/yakusai/index.html",
+      "width": 504,
+      "height": 480,
+      "bytes": 62253,
+      "sha256": "84d4169136f2aa3470538b6d3ddfe93a5da542a2c83b5f8c21b0396fe385524f"
+    },
+    {
+      "slot": "disk",
+      "character": "阿沅",
+      "file": "banners/disk.png",
+      "source": "https://www.nintendo.com/eu/media/images/08_content_images/games_6/nintendo_switch_7/nswitch_thelegendofzeldatearsofthekingdom/TheLegendOfZeldaTearsOfTheKingdom_Link_carousel_Yunobo.png",
+      "page": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/The-Legend-of-Zelda-Tears-of-the-Kingdom-1576884.html",
+      "width": 559,
+      "height": 595,
+      "bytes": 406741,
+      "sha256": "9b82fc3b98c2ed78d944a31dc2c5060ee8333f37f3dc27ec77f11ed417891c38"
+    },
+    {
+      "slot": "weather",
+      "character": "丘栗",
+      "file": "banners/weather.png",
+      "source": "https://www.nintendo.com/eu/media/images/08_content_images/games_6/nintendo_switch_7/nswitch_thelegendofzeldatearsofthekingdom/TheLegendOfZeldaTearsOfTheKingdom_Link_carousel_Tulin.png",
+      "page": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/The-Legend-of-Zelda-Tears-of-the-Kingdom-1576884.html",
+      "width": 559,
+      "height": 595,
+      "bytes": 254729,
+      "sha256": "420c10a39dae5c31f2c58102290cb62ae1f1a771bbcf0bccacd4ccb605971dd0"
+    },
+    {
+      "slot": "alarm",
+      "character": "露珠",
+      "file": "banners/alarm.png",
+      "source": "https://www.nintendo.com/eu/media/images/08_content_images/games_6/nintendo_switch_7/nswitch_thelegendofzeldatearsofthekingdom/TheLegendOfZeldaTearsOfTheKingdom_Link_carousel_Riju.png",
+      "page": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/The-Legend-of-Zelda-Tears-of-the-Kingdom-1576884.html",
+      "width": 559,
+      "height": 595,
+      "bytes": 282220,
+      "sha256": "3df24056a1377531cf09509bf3629078f464a2954591a701574dbe48220189bf"
+    },
+    {
+      "slot": "voice",
+      "character": "希多",
+      "file": "banners/voice.png",
+      "source": "https://www.nintendo.com/eu/media/images/08_content_images/games_6/nintendo_switch_7/nswitch_thelegendofzeldatearsofthekingdom/TheLegendOfZeldaTearsOfTheKingdom_Link_carousel_Sidon.png",
+      "page": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/The-Legend-of-Zelda-Tears-of-the-Kingdom-1576884.html",
+      "width": 559,
+      "height": 595,
+      "bytes": 239994,
+      "sha256": "0750220a3f0a379b41ae1b76ed7cee6b42725c0adb9224a5a6c156544b801f03"
+    },
+    {
+      "slot": "light",
+      "character": "劳鲁",
+      "file": "banners/light.png",
+      "source": "https://www.nintendo.com/eu/media/images/08_content_images/games_6/nintendo_switch_7/nswitch_thelegendofzeldatearsofthekingdom/TheLegendOfZeldaTearsOfTheKingdom_Link_carousel_Rauru.png",
+      "page": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/The-Legend-of-Zelda-Tears-of-the-Kingdom-1576884.html",
+      "width": 559,
+      "height": 595,
+      "bytes": 344533,
+      "sha256": "c54042868ef6e3bbd18787329ae413afeae9a0016078a15d1b86916127d69b85"
+    }
+  ]
+}

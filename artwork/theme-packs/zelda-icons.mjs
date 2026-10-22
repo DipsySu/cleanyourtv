@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Reproducible, code-native inventory art for the Zelda Wilds theme.
+ * Archived version 1 inventory art for the Zelda Wilds theme.
  * Outputs transparent 512 x 288 PNG banners and their inspectable SVG sources.
  */
 import { createRequire } from 'node:module';
@@ -12,7 +12,7 @@ const require = createRequire(import.meta.url);
 const sharp = require('sharp');
 const root = fileURLToPath(new URL('../..', import.meta.url));
 const svgDir = join(root, 'artwork/theme-packs/zelda-svg');
-const pngDir = join(root, 'theme-packs/zelda-wilds/banners');
+const pngDir = join(root, 'backup/zelda-vector-v1/banners');
 const W = 512, H = 288;
 const colors = { ink: '#10202a', deep: '#17395a', blue: '#2d6f9d', jade: '#51b99b', mint: '#bde6c9', gold: '#d5ad55', pale: '#f3e4b5', silver: '#bacbd1', bronze: '#a76f3c', stone: '#73868a', glow: '#d8f3ce' };
 const defs = `

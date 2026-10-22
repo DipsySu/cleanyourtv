@@ -13,8 +13,8 @@
     "wallpaper.jpg": "#215B56"
   },
   "app_banners": {
-    "com.xiaomi.mitv.smartshare": "banners/cast.png",
-    "com.xiaodianshi.tv.yst": "banners/bili.png",
+    "com.xiaomi.mitv.smartshare": "banners/cast.webp",
+    "com.xiaodianshi.tv.yst": "banners/bili.webp",
     "com.zb.test": "banners/live.png",
     "com.mb.android": "banners/emby.png",
     "com.ktcp.video": "banners/tencent.png",
@@ -28,7 +28,7 @@
     "com.xiaomi.tv.gallery": "banners/gallery.png",
     "com.xiaomi.mitv.tvmanager": "banners/manager.png",
     "com.xiaomi.mitv.settings": "banners/settings.png",
-    "com.duokan.videodaily": "banners/video.png"
+    "com.duokan.videodaily": "banners/video.webp"
   },
   "columns": 6,
   "dock_columns": 6,

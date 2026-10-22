@@ -18,17 +18,20 @@ Wallpaper brief: a calm 16:9 Hyrule-inspired twilight landscape with misty mount
 
 Generated with the built-in image tool. Selected source output: `exec-dc999b35-181c-4c2f-898e-9f9e426b6750.png`, encoded as JPEG at quality 88.
 
-The 16 dock objects are native vector artwork: Sheikah eye, Korok mask, paraglider, sword, shield, slate, chest, sun/cloud, hourglass, ocarina, shrine flame, calendar stone, landscape arch, gear, spiral and heart. Edit the source generator `zelda-icons.mjs` or the individual files in `zelda-svg/`; render transparent 512 × 288 PNGs with Node.js and sharp. No native app-icon badges are overlaid.
+Version 2 replaces all 16 simplified vector objects with official transparent character and Divine Beast artwork downloaded from Nintendo's public game pages. The main dock uses Link, Zelda, Mipha, Revali, Urbosa and Daruk. The other cards use Rauru, Tulin, Sidon, Riju, Yunobo, Ganondorf and the four Divine Beasts. The champion poses and Divine Beasts come from Nintendo's Age of Calamity page; the remaining characters come from its Tears of the Kingdom pages.
 
-Deliverable files: `theme-packs/zelda-wilds/wallpaper.jpg`, `theme-packs/zelda-wilds/banners/*.png` and `theme-packs/zelda-wilds/config.json`.
+Every source URL, page, character, dimension, byte count and SHA-256 is recorded in [zelda-sources.json](zelda-sources.json). Original PNG/WebP bytes and alpha are preserved. The launcher fits the complete artwork into the existing slate and gold card without native app-icon badges. No image generation was used for these replacement card assets. Third-party artwork retains its original rights and is not covered by the repository's code license.
+
+Deliverable files: `theme-packs/zelda-wilds/wallpaper.jpg`, `theme-packs/zelda-wilds/banners/*.{png,webp}` and `theme-packs/zelda-wilds/config.json`.
+
+The original version 1 vector sources remain in `zelda-icons.mjs` and `zelda-svg/`. Their generator writes PNGs into `backup/zelda-vector-v1/banners/` so running it cannot overwrite the version 2 artwork.
 
 ## Rebuild
 
 ```sh
-# sharp must be resolvable by Node; no image-generation API is required to rebuild these packages.
-node artwork/theme-packs/zelda-icons.mjs
+# The selected artwork is checked in; no network or image-generation API is needed.
 python3 tools/theme_pack.py pack theme-packs/animal-crossing dist/animal-crossing-v1.zip
-python3 tools/theme_pack.py pack theme-packs/zelda-wilds dist/zelda-wilds-v1.zip
+python3 tools/theme_pack.py pack theme-packs/zelda-wilds dist/zelda-wilds-v2.zip
 ```
 
 Keep prompt records and SVG sources outside each package directory. The portable ZIP protocol intentionally accepts only manifest/config JSON and raster presentation assets.
