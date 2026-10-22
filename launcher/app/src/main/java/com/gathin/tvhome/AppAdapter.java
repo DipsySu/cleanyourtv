@@ -42,7 +42,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * App tiles. The first {@link MainActivity#COLUMNS} positions are the pinned dock (favourites, fixed order,
+ * App tiles. The first dock-slot positions are the pinned dock (favourites, fixed order,
  * then empty slots up to a full row, see {@link DockSlots}), then the module cards the owner chose to show
  * (by label), the rest is alphabetical.
  */
@@ -89,7 +89,7 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    static final float FOCUS_SCALE = 1.10f;
+    static final float FOCUS_SCALE = 1.06f;
     /** Design size of a tile (dp); tiles shrink from here when the columns don't fit, see tileWidthPx. */
     static final float DESIGN_W_DP = 180f, DESIGN_H_DP = 101f;
 
@@ -172,6 +172,7 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private boolean reordering;
     private final TileListener listener;
     private final int dockSize;
+    private final int gridColumns;
     /** config dock_row: false makes the dock apps the first tiles of one plain grid (names shown, no empty slots). */
     private final boolean dockRow;
     /** config always_show_names: the alpha of an unfocused tile's name (0 hides it). */
@@ -199,11 +200,14 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     /** Tile names and bundled banners that replace the app's own (config.xml, app_labels and app_banners). */
     private final Map<String, String> appLabels, appBanners;
     private final List<Entry> items = new ArrayList<>();
+    /** Set by RecyclerView before first attachment; holders may be bound before itemView has a parent. */
+    private RecyclerView recyclerView;
 
     AppAdapter(Context ctx, TileListener listener, int dockSize, Config cfg) {
         this.ctx = ctx;
         this.listener = listener;
         this.dockSize = dockSize;
+        this.gridColumns = cfg.columns;
         this.favourites = cfg.dockApps;
         this.fillDock = cfg.fillDock;
         this.hidden = new HashSet<>(cfg.hiddenApps);
@@ -394,7 +398,7 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         float density = parent.getResources().getDisplayMetrics().density;
         int width = parent.getWidth() > 0 ? parent.getWidth() : parent.getMeasuredWidth();
         int inner = width - parent.getPaddingLeft() - parent.getPaddingRight();
-        int w = tileWidthPx(inner, parent.getHeight(), dockSize, rowsBelowDock, dockTitle, dockRow, density), h = tileHeightPx(w);
+        int w = tileWidthPx(inner, parent.getHeight(), gridColumns, rowsBelowDock, dockTitle, dockRow, density), h = tileHeightPx(w);
         View card = v.findViewById(R.id.card);
         ViewGroup.LayoutParams cardLp = card.getLayoutParams();
         cardLp.width = w;
@@ -418,6 +422,10 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (isLibraryAt(position)) return;
         Holder h = (Holder) holder;
+        h.card.animate().cancel();
+        h.banner.animate().cancel();
+        h.name.animate().cancel();
+        applyTileSize(h, recyclerView, position);
         Entry e = items.get(position);
         if (e.kind == Entry.EMPTY) {
             // A free dock slot keeps its place in the row and the band, but shows nothing and takes no focus.
@@ -437,12 +445,13 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         h.name.setVisibility(dockRow && position < dockSize && restNameAlpha == 0f ? View.INVISIBLE : View.VISIBLE);
         boolean focused = h.card.isFocused();   // a rebind after reload() can hit the focused tile
         h.name.setAlpha(focused ? 1f : restNameAlpha);
+        h.name.setTranslationY(0f);
         h.card.setScaleX(focused && animations ? focusScale() : 1f);
         h.card.setScaleY(focused && animations ? focusScale() : 1f);
-        h.card.setTranslationY(focused && advancedEffects ? -4f * ctx.getResources().getDisplayMetrics().density : 0f);
-        h.card.setTranslationZ(focused && advancedEffects ? 8f * ctx.getResources().getDisplayMetrics().density : 0f);
-        h.banner.setScaleX(focused && advancedEffects ? 1.035f : 1f);
-        h.banner.setScaleY(focused && advancedEffects ? 1.035f : 1f);
+        h.card.setTranslationY(0f);
+        h.card.setTranslationZ(0f);
+        h.banner.setScaleX(1f);
+        h.banner.setScaleY(1f);
         // A fully opaque banner covers the whole card (centerCrop), so the card's own fill under it is drawn for
         // nothing on every frame; keep it under banners with transparent parts and under icon tiles.
         h.card.setBackground(e.banner != null && e.banner.getOpacity() == PixelFormat.OPAQUE ? null : h.cardBackground);
@@ -469,6 +478,66 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
             return true;
         });
+    }
+
+    /** A recycled holder may cross the dock/grid boundary, so size it for every bind. */
+    private void applyTileSize(Holder h, RecyclerView parent, int position) {
+        if (parent == null) return;
+        float density = parent.getResources().getDisplayMetrics().density;
+        int columns = dockRow && position < dockSize ? dockSize : gridColumns;
+        int width = parent.getWidth() > 0 ? parent.getWidth() : parent.getMeasuredWidth();
+        int inner = width - parent.getPaddingLeft() - parent.getPaddingRight();
+        int parentHeight = parent.getHeight() > 0 ? parent.getHeight() : parent.getMeasuredHeight();
+        int w = tileWidthPx(inner, parentHeight, columns, rowsBelowDock, dockTitle, dockRow, density);
+        int height = tileHeightPx(w);
+        ViewGroup.LayoutParams cardLp = h.card.getLayoutParams();
+        if (cardLp.width != w || cardLp.height != height) {
+            cardLp.width = w;
+            cardLp.height = height;
+            h.card.setLayoutParams(cardLp);
+        }
+        ViewGroup.MarginLayoutParams nameLp = (ViewGroup.MarginLayoutParams) h.name.getLayoutParams();
+        int nameTop = height + Math.round((dockRow ? 7 : 4) * density);
+        int nameHeight = Math.round((dockRow ? 22 : 20) * density);
+        if (nameLp.width != w || nameLp.topMargin != nameTop || nameLp.height != nameHeight) {
+            nameLp.width = w;
+            nameLp.topMargin = nameTop;
+            nameLp.height = nameHeight;
+            h.name.setLayoutParams(nameLp);
+        }
+        h.name.setTextSize(dockRow && position < dockSize ? 13f : 14f);
+    }
+
+    @Override public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        this.recyclerView = recyclerView;
+    }
+
+    @Override public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        if (this.recyclerView == recyclerView) this.recyclerView = null;
+        super.onDetachedFromRecyclerView(recyclerView);
+    }
+
+    @Override public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        if (holder instanceof Holder) {
+            int position = holder.getBindingAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) applyTileSize((Holder) holder, recyclerView, position);
+        }
+    }
+
+    @Override public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
+        if (holder instanceof Holder) {
+            Holder h = (Holder) holder;
+            h.card.animate().cancel();
+            h.banner.animate().cancel();
+            h.name.animate().cancel();
+            h.card.setScaleX(1f); h.card.setScaleY(1f);
+            h.card.setTranslationY(0f); h.card.setTranslationZ(0f);
+            h.banner.setScaleX(1f); h.banner.setScaleY(1f);
+            h.name.setTranslationY(0f);
+        }
+        super.onViewRecycled(holder);
     }
 
     /** Opens the tile's activity by explicit component, with no extras: a card can name nothing else. */
@@ -604,7 +673,7 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     float focusScale() {
-        return !animations ? 1f : advancedEffects ? 1.12f : 1.10f;
+        return animations ? FOCUS_SCALE : 1f;
     }
 
     /** A vivid colour sampled from the app's banner (or icon), cached per entry; a card's accent when it set one. */
@@ -715,7 +784,7 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 view.animate().cancel();
                 banner.animate().cancel();
                 name.animate().cancel();
-                float scale = !animations ? 1f : advancedEffects ? 1.12f : 1.10f;
+                float scale = FOCUS_SCALE;
                 float s = focused ? scale : 1f;
                 if (!animations) {
                     view.setScaleX(1f);
@@ -727,31 +796,19 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     name.setAlpha(focused ? 1f : restNameAlpha);
                     name.setTranslationY(0f);
                 } else if (reducedMotion) {
-                    view.animate().scaleX(s).scaleY(s)
-                            .translationY(focused && advancedEffects ? -4f * density : 0f)
-                            .translationZ(focused && advancedEffects ? 8f * density : 0f)
+                    view.animate().scaleX(s).scaleY(s).translationY(0f).translationZ(0f)
                             .setDuration(focused ? 120 : 80)
                             .setInterpolator(new DecelerateInterpolator())
                             .withLayer().start();
                     name.animate().alpha(focused ? 1f : restNameAlpha).setDuration(100).start();
-                    // Same place as the full motion's slide ends: the layout's -6dp is only its starting point, and
-                    // left there the name overlaps the zoomed tile.
-                    // Only on focus: snapping it back to -6dp while it fades out would jump it up over the tile.
-                    if (focused) name.setTranslationY(density * 4f);
+                    name.setTranslationY(0f);
                 } else {
-                    view.animate().scaleX(s).scaleY(s)
-                            .translationY(focused && advancedEffects ? -4f * density : 0f)
-                            .translationZ(focused && advancedEffects ? 8f * density : 0f)
-                            .setDuration(advancedEffects ? (focused ? 220 : 170) : (focused ? 260 : 180))
-                            .setInterpolator(new OvershootInterpolator(focused ? (advancedEffects ? 0.7f : 1.6f) : 0f))
+                    view.animate().scaleX(s).scaleY(s).translationY(0f).translationZ(0f)
+                            .setDuration(focused ? 190 : 150)
+                            .setInterpolator(new DecelerateInterpolator())
                             .withLayer().start();
-                    if (advancedEffects) {
-                        banner.animate().scaleX(focused ? 1.035f : 1f).scaleY(focused ? 1.035f : 1f)
-                                .setDuration(280).start();
-                    }
                     name.animate().alpha(focused ? 1f : restNameAlpha)
-                            .translationY(focused ? density * 4f : -density * 6f)
-                            .setDuration(220).start();
+                            .translationY(0f).setDuration(focused ? 190 : 150).start();
                 }
                 int pos = getBindingAdapterPosition();
                 if (focused && listener != null && pos != RecyclerView.NO_POSITION) {

@@ -13,8 +13,10 @@
         <item>com.xiaodianshi.tv.yst</item>
         <item>com.zb.test</item>
         <item>com.mb.android</item>
+        <item>com.ktcp.video</item>
+        <item>com.xiaomi.mitv.mediaexplorer</item>
     </string-array>
-    <!-- With fewer dock_apps than columns (or a dock app that is not installed), the free dock slots take
+    <!-- With fewer dock_apps than dock_columns (or a dock app that is not installed), the free dock slots take
          the first grid apps, so the dock never shows a gap. false leaves them empty (#162); a theme can
          set "fill_dock": false. -->
     <bool name="fill_dock">true</bool>
@@ -152,15 +154,16 @@
 
     <!-- Grid rows left visible under the dock on the home screen. 0 = dock sits at the very bottom. Tiles shrink if
          the dock, its title and this many rows would not otherwise fit the screen height. -->
-    <integer name="rows_below_dock">0</integer>
+    <integer name="rows_below_dock">1</integer>
 
     <!-- The focused dock app's name in large type above the dock. false keeps only the glow, which leaves room
          for bigger tiles when rows_below_dock is 2 or 3. -->
     <bool name="dock_title">true</bool>
 
-    <!-- Tiles per row in the grid; the dock always has this many slots. Tiles are 180dp wide at 4 columns and
-         shrink to fit from 5 up (about 144dp at 5, 117dp at 6 on a 1080p TV). -->
-    <integer name="columns">4</integer>
+    <!-- App-grid tiles per row; Launcher settings offers 4 or 6. -->
+    <integer name="columns">6</integer>
+    <!-- Dock slots independent of grid columns. 0 follows columns; ignored for a plain grid. -->
+    <integer name="dock_columns">6</integer>
 
     <!-- Basic motion is on; advanced effects are opt-in in the launcher's own Settings screen. -->
     <bool name="animations">true</bool>

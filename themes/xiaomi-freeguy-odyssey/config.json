@@ -3,8 +3,13 @@
     "com.xiaomi.mitv.smartshare",
     "com.xiaodianshi.tv.yst",
     "com.zb.test",
-    "com.mb.android"
+    "com.mb.android",
+    "com.ktcp.video",
+    "com.xiaomi.mitv.mediaexplorer"
   ],
+  "dock_columns": 6,
+  "columns": 6,
+  "rows_below_dock": 1,
   "hidden_apps": [
     "com.mitv.gallery"
   ],

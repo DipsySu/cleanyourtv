@@ -93,8 +93,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private static final int LAUNCHER_SETTINGS_REQUEST = 42;
     /** Sent by QuickSettingsActivity: open Launcher settings from here so Home rebuilds when they close. */
     static final String ACTION_LAUNCHER_SETTINGS = "com.gathin.tvhome.action.LAUNCHER_SETTINGS";
-    /** Tiles per row and dock slots (res/values/config.xml, columns). Set in onCreate. */
-    static int COLUMNS = 4;
+    /** Independent dock slots and application columns (res/values/config.xml). */
+    static int DOCK_COLUMNS = 4, GRID_COLUMNS = 4;
     private boolean rtlAppGrid;
     private static final long MINUTE_MS = 60_000L;
     private static final long STATS_MS = 10_000L;
@@ -307,11 +307,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         Config cfg = Config.load(this);
         settingsKeycodes = cfg.settingsKeycodes;
         settingsKeyPanel = cfg.settingsKeyPanel;
-        COLUMNS = cfg.columns;
+        GRID_COLUMNS = cfg.columns;
         animations = cfg.animations;
         advancedEffects = cfg.animations && cfg.advancedEffects;
         reducedMotion = cfg.reducedMotion;
         dockRow = cfg.dockRow;
+        // A plain grid has no separate dock geometry, including when an old overlay carries dock_columns.
+        DOCK_COLUMNS = dockRow ? cfg.dockColumns : cfg.columns;
         festival = cfg.festival;
         festive = festival.active(LocalDate.now());
         liveTvPkg = cfg.liveTvPackage;
@@ -378,7 +380,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         grid = findViewById(R.id.grid);
         rtlAppGrid = getResources().getBoolean(R.bool.rtl_app_grid);
         // Mirror only the app grid; the header and other locales keep their own layouts.
-        grid.setLayoutManager(new GridLayoutManager(this, COLUMNS) {
+        grid.setLayoutManager(new GridLayoutManager(this, GridGeometry.spanCount(DOCK_COLUMNS, GRID_COLUMNS)) {
             @Override
             protected boolean isLayoutRTL() {
                 return rtlAppGrid;
@@ -397,7 +399,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             public boolean requestChildRectangleOnScreen(@NonNull RecyclerView parent, @NonNull View child,
                                                          @NonNull Rect rect, boolean immediate,
                                                          boolean focusedChildVisible) {
-                if (dockRow && getPosition(child) < COLUMNS) return false;
+                if (dockRow && getPosition(child) < DOCK_COLUMNS) return false;
                 int top = child.getTop() + rect.top;
                 int bottom = top + rect.height();
                 // A row already fully on screen stays put, even inside the bottom padding (the last row
@@ -415,7 +417,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             }
         });
         ((GridLayoutManager) grid.getLayoutManager()).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override public int getSpanSize(int position) { return adapter != null && adapter.isLibraryAt(position) ? COLUMNS : 1; }
+            @Override public int getSpanSize(int position) {
+                return adapter != null && adapter.isLibraryAt(position) ? GridGeometry.footerSpan(DOCK_COLUMNS, GRID_COLUMNS)
+                        : GridGeometry.spanAt(position, DOCK_COLUMNS, GRID_COLUMNS, dockRow);
+            }
         });
         grid.setHasFixedSize(true);
         grid.setItemAnimator(null);
@@ -431,14 +436,14 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             public void onChildViewDetachedFromWindow(@NonNull View v) {
             }
         });
-        if (dockRow) grid.addItemDecoration(new DockDecoration(COLUMNS, density, cinematic, cfg.alwaysShowNames));
+        if (dockRow) grid.addItemDecoration(new DockDecoration(DOCK_COLUMNS, density, cinematic, cfg.alwaysShowNames));
         if (animations) {
             int enterAnim = reducedMotion ? R.anim.tile_enter_reduced : R.anim.tile_enter;
             float enterDelay = reducedMotion ? 0f : 0.06f;
             grid.setLayoutAnimation(new LayoutAnimationController(
                     AnimationUtils.loadAnimation(this, enterAnim), enterDelay));
         }
-        adapter = new AppAdapter(this, this, COLUMNS, cfg);
+        adapter = new AppAdapter(this, this, DOCK_COLUMNS, cfg);
         dockApps = cfg.dockApps;
         fillDockLeavesSlots = !cfg.fillDock;
         adapter.setSavedOrder(Order.ranks(Order.load(Order.file(this)), dockApps));
@@ -451,10 +456,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             int h = b - t;
             // Item height follows the tile size, which follows the columns and the rows that must fit (AppAdapter.tileWidthPx).
             int inner = (r - l) - grid.getPaddingLeft() - grid.getPaddingRight();
-            int tileW = AppAdapter.tileWidthPx(inner, h, COLUMNS, rowsBelowDock, cfg.dockTitle, cfg.dockRow, density);
-            int itemH = AppAdapter.itemHeightPx(AppAdapter.tileHeightPx(tileW), density);
-            int dockRow = itemH + (int) (AppAdapter.DOCK_EXTRA_DP * density);   // item height plus DockDecoration offsets
-            int gridRows = itemH * rowsBelowDock;
+            int dockTileW = AppAdapter.tileWidthPx(inner, h, DOCK_COLUMNS, rowsBelowDock, cfg.dockTitle, cfg.dockRow, density);
+            int gridTileW = AppAdapter.tileWidthPx(inner, h, GRID_COLUMNS, rowsBelowDock, cfg.dockTitle, cfg.dockRow, density);
+            int dockRow = AppAdapter.itemHeightPx(AppAdapter.tileHeightPx(dockTileW), true, density) + (int) (AppAdapter.DOCK_EXTRA_DP * density);
+            int gridRows = AppAdapter.itemHeightPx(AppAdapter.tileHeightPx(gridTileW), cfg.dockRow, density) * rowsBelowDock;
             // Keep the hero below the header when the library is enabled on a short screen,
             // even when the theme requests an extra visible row below the dock.
             int shelfClearance = cfg.appLibrary ? hero.getMeasuredHeight() + (int) (40 * density) : 0;
@@ -503,8 +508,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 s.setSpring(new SpringForce().setStiffness(1400f).setDampingRatio(0.95f));
                 s.setMinimumVisibleChange(1.5f);
             } else {
-                s.setSpring(new SpringForce().setStiffness(advancedEffects ? 320f : 260f)
-                        .setDampingRatio(advancedEffects ? 0.76f : 0.58f));
+                s.setSpring(new SpringForce().setStiffness(380f).setDampingRatio(0.85f));
             }
         }
 
@@ -547,7 +551,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             if (keyCode == KeyEvent.KEYCODE_DPAD_UP) return true;
             if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
                 // Back to the dock tile Up came from, not wherever the focus finder lands.
-                focusTile(lastFocused % COLUMNS);
+                focusTile(lastFocused % Math.max(1, DOCK_COLUMNS));
                 return true;
             }
             int firstButton = btnInputs.getVisibility() == View.VISIBLE ? R.id.btnInputs : firstTopButton().getId();
@@ -847,6 +851,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        glass.animate().cancel();
+        springX.cancel();
+        springY.cancel();
         wallpaperPlayer.close();
         ConnectivityManager cm = getSystemService(ConnectivityManager.class);
         TvInputManager tim = (TvInputManager) getSystemService(TV_INPUT_SERVICE);
@@ -996,10 +1003,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             if (!down) {
                 int n = adapter.movableCount();
                 if (dockEditSlot < 0) {
-                    if (pos < Math.min(COLUMNS, n)) {
+                    if (pos < Math.min(DOCK_COLUMNS, n)) {
                         dockEditSlot = pos;
                         dimOthers();
-                        focusTile(Math.min(COLUMNS, n - 1));
+                        focusTile(Math.min(DOCK_COLUMNS, n - 1));
                         Toast.makeText(this, R.string.dock_edit_pick_app, Toast.LENGTH_LONG).show();
                     }
                 } else if (pos < n) {
@@ -1049,7 +1056,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         if (movingKey != null) {
             return pos != RecyclerView.NO_POSITION && movingKey.equals(adapter.keyAt(pos)) ? 1f : 0.45f;
         }
-        if (dockEditSlot >= 0 && pos >= 0 && pos < COLUMNS && pos != dockEditSlot) return 0.45f;
+        if (dockEditSlot >= 0 && pos >= 0 && pos < DOCK_COLUMNS && pos != dockEditSlot) return 0.45f;
         return 1f;
     }
 
@@ -1078,8 +1085,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     }
 
     /**
-     * Moves the carried tile one step. Left and Right wrap across rows, like a list; Up and Down move a whole row,
-     * and Down into a short last row lands on its last tile. Nothing moves past either end or up into the top bar.
+     * Moves the carried tile within its row or to the nearest visual centre in the adjacent row.
+     * Nothing wraps across a horizontal edge, moves past either end, or enters the top bar.
      */
     private void moveBy(int keyCode) {
         int from = adapter.positionOf(movingKey);
@@ -1090,11 +1097,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         }
         int to;
         // rtl_app_grid (Hebrew) mirrors the grid: position 0 is on the right, so Left moves towards the end.
-        if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) to = rtlAppGrid ? from + 1 : from - 1;
-        else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) to = rtlAppGrid ? from - 1 : from + 1;
-        else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) to = from - COLUMNS;
-        else if (from + COLUMNS < n) to = from + COLUMNS;
-        else to = from / COLUMNS < (n - 1) / COLUMNS ? n - 1 : from;
+        if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+            boolean left = keyCode == KeyEvent.KEYCODE_DPAD_LEFT;
+            if (GridGeometry.atHorizontalEdge(from, n, DOCK_COLUMNS, GRID_COLUMNS, dockRow, rtlAppGrid, left)) return;
+            to = left == rtlAppGrid ? from + 1 : from - 1;
+        }
+        else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) to = GridGeometry.verticalNearestCenter(from, n, DOCK_COLUMNS, GRID_COLUMNS, dockRow, true);
+        else to = GridGeometry.verticalNearestCenter(from, n, DOCK_COLUMNS, GRID_COLUMNS, dockRow, false);
         if (to < 0 || to >= n || to == from) return;
         keepScroll(() -> adapter.move(from, to));
         refocusAfterLayout(to);
@@ -1188,10 +1197,15 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         float w = card.getWidth() * scale + 2 * pad;
         float h = card.getHeight() * scale + 2 * pad;
         float x = r.exactCenterX() - w / 2f;
-        float y = r.exactCenterY() - h / 2f - (advancedEffects ? 4f * density : 0f);
+        float y = r.exactCenterY() - h / 2f;
 
         ViewGroup.LayoutParams lp = glass.getLayoutParams();
-        if (lp.width != (int) w || lp.height != (int) h || card.getWidth() != glassCardW) {
+        boolean geometryChanged = lp.width != (int) w || lp.height != (int) h || card.getWidth() != glassCardW;
+        // Cancel the old fade before changing its target. A size transition uses one short fade-in,
+        // with no deferred end-action that could bring an obsolete focus target back after a fast key.
+        glass.animate().cancel();
+        if (geometryChanged) {
+            if (animations && glassShown) glass.setAlpha(0f);
             lp.width = (int) w;
             lp.height = (int) h;
             glass.setLayoutParams(lp);
@@ -1202,17 +1216,17 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         glassTargetX = x;
         glassTargetY = y;
         // Cinematic shelf: the highlight glows in the dock app's colour, plain white in the grid.
-        int accent = cinematic && !festive && position < COLUMNS ? adapter.ambientColorAt(position) : 0;
+        int accent = cinematic && !festive && position < DOCK_COLUMNS ? adapter.ambientColorAt(position) : 0;
         if (cinematic && !festive && accent != glassAccent) {
             glassAccent = accent;
             glass.setAccent(accent);
         }
-        if (!glassShown) {
+        if (!glassShown || geometryChanged) {
             springX.cancel();
             springY.cancel();
             glass.setTranslationX(x);
             glass.setTranslationY(y);
-            if (animations) glass.animate().alpha(1f).setDuration(reducedMotion ? 100 : 180).start();
+            if (animations) glass.animate().alpha(1f).setDuration(reducedMotion ? 100 : 140).start();
             else glass.setAlpha(1f);
             glassShown = true;
         } else if (!animations) {
@@ -1220,12 +1234,14 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             springY.cancel();
             glass.setTranslationX(x);
             glass.setTranslationY(y);
+            glass.setAlpha(1f);
         } else {
+            if (glass.getAlpha() < 1f) glass.animate().alpha(1f).setDuration(110).start();
             springX.animateToFinalPosition(x);
             springY.animateToFinalPosition(y - glassScrollShift);
         }
         View item = (View) card.getParent();
-        if (dockRow && position < COLUMNS) {
+        if (dockRow && position < DOCK_COLUMNS) {
             // Dock: park it at the bottom of the screen and show the top shelf for this app.
             int decoratedTop = item.getTop() - (int) (6 * density);
             int dy = decoratedTop - grid.getPaddingTop();
@@ -1424,7 +1440,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     /** One dot per dock app, the focused one drawn long and white. Hebrew docks start on the right, so do the dots. */
     private void updateHeroDots(int position) {
-        int count = Math.min(adapter.dockFilled(), COLUMNS);
+        int count = Math.min(adapter.dockFilled(), DOCK_COLUMNS);
         heroDots.setVisibility(count > 1 ? View.VISIBLE : View.INVISIBLE);
         if (heroDots.getChildCount() != count) {
             heroDots.removeAllViews();
@@ -1567,6 +1583,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         if (!glassShown) return;
         glassShown = false;
         glass.animate().cancel();
+        springX.cancel();
+        springY.cancel();
         if (animations) glass.animate().alpha(0f).setDuration(160).start();
         else glass.setAlpha(0f);
     }
@@ -1767,21 +1785,21 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 return true;
             }
             // In the dock, the last app is the row's end: the empty slots after it take no focus.
-            int rowCount = position < COLUMNS ? Math.min(count, adapter.dockFilled()) : count;
-            return GridNavigation.atHorizontalEdge(position, rowCount, COLUMNS,
-                    rtlAppGrid, keyCode == KeyEvent.KEYCODE_DPAD_LEFT);
+            int rowCount = position < DOCK_COLUMNS ? Math.min(count, adapter.dockFilled()) : count;
+            return GridGeometry.atHorizontalEdge(position, rowCount, DOCK_COLUMNS, GRID_COLUMNS,
+                    dockRow, rtlAppGrid, keyCode == KeyEvent.KEYCODE_DPAD_LEFT);
         }
         if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
-            if (position < COLUMNS) return false;          // dock row: let focus move to the top bar
-            target = position - COLUMNS;
+            if (position < DOCK_COLUMNS) return false;          // dock row: let focus move to the top bar
+            target = GridGeometry.verticalNearestCenter(position, count, DOCK_COLUMNS, GRID_COLUMNS, dockRow, true);
         } else {
-            int lastRowStart = ((count - 1) / COLUMNS) * COLUMNS;
-            if (position >= lastRowStart) {
+            target = GridGeometry.verticalNearestCenter(position, count, DOCK_COLUMNS, GRID_COLUMNS, dockRow, false);
+            if (target < 0) {
                 if (adapter.isLibraryAt(count)) focusLibrary();
                 return true;
             }
-            target = Math.min(position + COLUMNS, count - 1);
         }
+        if (target < 0) return false;
         focusTile(target);
         // The default focus search clicks for Left/Right; Up/Down are handled here, so click for them too.
         grid.playSoundEffect(keyCode == KeyEvent.KEYCODE_DPAD_UP
@@ -1804,8 +1822,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     @Override public void onLibraryUp() {
         if (adapter.appCount() == 0) { firstTopButton().requestFocus(); return; }
-        int lastRow = ((adapter.appCount() - 1) / COLUMNS) * COLUMNS;
-        focusTile(Math.min(lastRow + lastFocused % COLUMNS, adapter.appCount() - 1));
+        int last = adapter.appCount() - 1;
+        int lastRow = GridGeometry.rowStart(last, DOCK_COLUMNS, GRID_COLUMNS, dockRow);
+        focusTile(GridGeometry.nearestInRow(lastFocused, lastRow, adapter.appCount(),
+                DOCK_COLUMNS, GRID_COLUMNS, dockRow));
     }
 
     private void focusLibrary() {

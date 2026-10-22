@@ -17,7 +17,7 @@ import java.util.List;
 /** Remote-friendly settings owned by the launcher; system settings stay one row away. */
 public final class LauncherSettingsActivity extends Activity {
     private SharedPreferences choices;
-    private final TextView[] columnChoices = new TextView[4];
+    private final TextView[] columnChoices = new TextView[2];
     private final TextView[] rowChoices = new TextView[4];
     private TextView wallpaperChoice;
     private TextView animationsChoice;
@@ -39,9 +39,10 @@ public final class LauncherSettingsActivity extends Activity {
         animations = config.animations;
         advancedEffects = config.animations && config.advancedEffects;
 
-        int[] ids = {R.id.columns4, R.id.columns5, R.id.columns6, R.id.columns7};
+        int[] ids = {R.id.columns4, R.id.columns6};
+        int[] values = {4, 6};
         for (int i = 0; i < ids.length; i++) {
-            final int value = i + 4;
+            final int value = values[i];
             columnChoices[i] = findViewById(ids[i]);
             columnChoices[i].setOnClickListener(v -> {
                 if (columns == value) return;
@@ -113,7 +114,7 @@ public final class LauncherSettingsActivity extends Activity {
         findViewById(R.id.tvSettingsChoice).setOnClickListener(v ->
                 open(new Intent(Settings.ACTION_SETTINGS)));
         refresh();
-        columnChoices[Math.max(0, Math.min(columns - 4, 3))].requestFocus();
+        columnChoices[columns == 6 ? 1 : 0].requestFocus();
     }
 
     private void reverseRow(TextView[] views) {
@@ -175,7 +176,7 @@ public final class LauncherSettingsActivity extends Activity {
 
     private void refresh() {
         for (int i = 0; i < columnChoices.length; i++) {
-            columnChoices[i].setSelected(columns == i + 4);
+            columnChoices[i].setSelected(columns == (i == 0 ? 4 : 6));
         }
         for (int i = 0; i < rowChoices.length; i++) {
             rowChoices[i].setSelected(rowsBelowDock == i);

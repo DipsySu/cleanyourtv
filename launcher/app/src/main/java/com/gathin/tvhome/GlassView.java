@@ -25,14 +25,14 @@ public class GlassView extends View {
     /** Glow colour as 0xRRGGBB: white normally, a festival's accent (diya gold) while a festive skin is on. */
     private int glowRgb = 0xFFFFFF;
     /** Glow strength: the white glow stays faint, a coloured one needs more alpha to read as warm light. */
-    private int glowAlpha = 0x30;
+    private int glowAlpha = 0x26;
 
     public GlassView(Context context, AttributeSet attrs) {
         super(context, attrs);
         density = getResources().getDisplayMetrics().density;
         radius = 20f * density;
         rim.setStyle(Paint.Style.STROKE);
-        rim.setStrokeWidth(1.5f * density);
+        rim.setStrokeWidth(density);
         rim.setColor(0xCCFFFFFF);
         glow.setStyle(Paint.Style.STROKE);
         // Cache the slab as a texture. The spring only changes translation, so the GPU can
@@ -45,15 +45,15 @@ public class GlassView extends View {
     void setAccent(int argb) {
         if (argb == 0) {
             glowRgb = 0xFFFFFF;
-            glowAlpha = 0x30;
+            glowAlpha = 0x26;
             rim.setColor(0xCCFFFFFF);
         } else {
             glowRgb = argb & 0xFFFFFF;
-            glowAlpha = 0x70;
+            glowAlpha = 0x48;
             // The rim is the accent lifted towards white, so the edge still reads as glass, not paint.
             int r = (((glowRgb >> 16) & 0xFF) + 255 * 2) / 3, g = (((glowRgb >> 8) & 0xFF) + 255 * 2) / 3,
                     b = ((glowRgb & 0xFF) + 255 * 2) / 3;
-            rim.setColor(0xE6000000 | (r << 16) | (g << 8) | b);
+            rim.setColor(0xD8000000 | (r << 16) | (g << 8) | b);
         }
         invalidate();
     }
@@ -66,8 +66,8 @@ public class GlassView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        fill.setShader(new LinearGradient(0, 0, 0, h, 0x3DFFFFFF, 0x12FFFFFF, Shader.TileMode.CLAMP));
-        specular.setShader(new LinearGradient(0, 0, 0, h * 0.45f, 0x66FFFFFF, 0x00FFFFFF, Shader.TileMode.CLAMP));
+        fill.setShader(new LinearGradient(0, 0, 0, h, 0x0AFFFFFF, 0x03FFFFFF, Shader.TileMode.CLAMP));
+        specular.setShader(new LinearGradient(0, 0, 0, h * 0.45f, 0x18FFFFFF, 0x00FFFFFF, Shader.TileMode.CLAMP));
     }
 
     @Override

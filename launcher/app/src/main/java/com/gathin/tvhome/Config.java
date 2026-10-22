@@ -58,6 +58,8 @@ final class Config {
     final String sourcePanelAction;
     final String inputAction;
     final int columns;
+    /** Independent dock slots; 0 in legacy overlays means follow {@link #columns}. */
+    final int dockColumns;
     final boolean animations;
     final boolean advancedEffects;
     final int rowsBelowDock;
@@ -132,7 +134,7 @@ final class Config {
     private Config(List<String> dockApps, boolean fillDock, List<String> hiddenApps, String liveTvPackage,
                    String liveTvAction, Map<String, String> launchActions, Map<String, String> appLabels,
                    Map<String, String> appBanners, String sourcePanelService, String sourcePanelAction, String inputAction,
-                   int columns, int rowsBelowDock, boolean animations, boolean advancedEffects,
+                   int columns, int dockColumns, int rowsBelowDock, boolean animations, boolean advancedEffects,
                    boolean shamsiDate, String greetingName, boolean moduleCards, boolean reducedMotion, boolean dockTitle, boolean dockRow, boolean reorderButton, boolean showNetworkPill, boolean iconOnlyButtons, boolean libraryButton, int wifiLabelWidth, boolean alwaysShowNames, boolean wallpaperTrueColor, String vpnApp,
                    boolean showHomeSettingsShortcut, boolean showStats, boolean appLibrary, int backgroundColor, int skyIntensity,
                    int[] settingsKeycodes, boolean settingsKeyPanel, boolean wallpaperEnabled, File wallpaper, List<File> wallpapers,
@@ -153,6 +155,7 @@ final class Config {
         this.sourcePanelAction = sourcePanelAction;
         this.inputAction = inputAction;
         this.columns = columns;
+        this.dockColumns = dockColumns;
         this.rowsBelowDock = rowsBelowDock;
         this.animations = animations;
         this.advancedEffects = advancedEffects;
@@ -210,6 +213,7 @@ final class Config {
         String panelAction = res.getString(R.string.source_panel_action).trim();
         String inputAction = res.getString(R.string.input_action).trim();
         int columns = res.getInteger(R.integer.columns);
+        int dockColumns = res.getInteger(R.integer.dock_columns);
         int rowsBelow = res.getInteger(R.integer.rows_below_dock);
         boolean animations = res.getBoolean(R.bool.animations);
         boolean advancedEffects = res.getBoolean(R.bool.advanced_effects);
@@ -259,6 +263,7 @@ final class Config {
             panelAction = string(json, "source_panel_action", panelAction);
             inputAction = string(json, "input_action", inputAction);
             columns = integer(json, "columns", columns, 1, 8);
+            dockColumns = integer(json, "dock_columns", dockColumns, 0, 8);
             rowsBelow = integer(json, "rows_below_dock", rowsBelow, 0, 3);
             animations = bool(json, "animations", animations);
             advancedEffects = bool(json, "advanced_effects", advancedEffects);
@@ -342,7 +347,8 @@ final class Config {
         return new Config(dock, fillDock, hidden, liveTv, liveTvAction, packageMap(launchActions), packageMap(appLabels),
                 packageMap(appBanners), panelService,
                 panelAction, inputAction,
-                Math.max(1, columns), Math.max(0, rowsBelow), animations, advancedEffects,
+                Math.max(1, columns), dockColumns == 0 ? Math.max(1, columns) : dockColumns,
+                Math.max(0, rowsBelow), animations, advancedEffects,
                 shamsi, greetingName, moduleCards, reducedMotion, dockTitle, dockRow, reorderButton, showNetworkPill, iconOnlyButtons, libraryButton, wifiLabelWidth, alwaysShowNames, wallpaperTrueColor, vpn, homeSettings, showStats, library, background,
                 Math.max(0, Math.min(100, skyIntensity)), settingsKeycodes, settingsKeyPanel, wallpaperEnabled, wallpaper,
                 wallpapers, rotationMinutes, wallpaperDim, wallpaperOrder, applied,

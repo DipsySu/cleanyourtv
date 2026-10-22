@@ -1,22 +1,28 @@
 package com.gathin.tvhome;
 
 import android.graphics.Canvas;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Shader;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-/** Draws the tvOS style lighter band behind the first (dock) row and adds a gap below it. */
+/** Draws a softly shaded tray behind the independent dock row and adds breathing room below it. */
 public class DockDecoration extends RecyclerView.ItemDecoration {
 
     private final int dockSize;
     private final float density;
     private final Paint band = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint edge = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint shade = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final RectF rect = new RectF();
+    private final RectF localRect = new RectF();
+    private final boolean translucent;
+    private float shaderHeight = -1;
 
     /** Extra band below the tiles for their names (always_show_names), in px. */
     private final float namesRoom;
@@ -28,11 +34,10 @@ public class DockDecoration extends RecyclerView.ItemDecoration {
     DockDecoration(int dockSize, float density, boolean translucent, boolean names) {
         this.dockSize = dockSize;
         this.density = density;
+        this.translucent = translucent;
         this.namesRoom = names ? 22 * density : 0;
-        band.setColor(translucent ? 0x8C121014 : 0xFF141416);
         edge.setStyle(Paint.Style.STROKE);
         edge.setStrokeWidth(density);
-        edge.setColor(translucent ? 0x26FFFFFF : 0x1FFFFFFF);
     }
 
     @Override
@@ -74,8 +79,27 @@ public class DockDecoration extends RecyclerView.ItemDecoration {
         float side = Math.max(0f, Math.min(pad, Math.min(rect.left, parent.getWidth() - rect.right) - density));
         rect.inset(-side, -pad);
         rect.bottom += namesRoom;
-        float radius = 26 * density;
-        c.drawRoundRect(rect, radius, radius, band);
-        c.drawRoundRect(rect, radius, radius, edge);
+        float radius = 28 * density;
+        // Local coordinates keep these shaders reusable while the entire row scrolls.
+        updateShaders(rect.height());
+        localRect.set(0, 0, rect.width(), rect.height());
+        c.save();
+        c.translate(rect.left, rect.top);
+        c.drawRoundRect(localRect, radius, radius, band);
+        c.drawRoundRect(localRect, radius, radius, shade);
+        c.drawRoundRect(localRect, radius, radius, edge);
+        c.restore();
+    }
+
+    private void updateShaders(float height) {
+        if (height == shaderHeight) return;
+        shaderHeight = height;
+        band.setShader(new LinearGradient(0, 0, 0, height,
+                translucent ? 0xA8252B35 : 0xE6252B35,
+                translucent ? 0xB813171F : 0xF013171F, Shader.TileMode.CLAMP));
+        edge.setShader(new LinearGradient(0, 0, 0, height,
+                0x38E2EAF6, 0x12D2DEEE, Shader.TileMode.CLAMP));
+        shade.setShader(new LinearGradient(0, height * 0.65f, 0, height,
+                0x00000000, 0x28000000, Shader.TileMode.CLAMP));
     }
 }

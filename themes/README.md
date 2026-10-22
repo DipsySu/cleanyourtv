@@ -16,6 +16,7 @@ powershell -ExecutionPolicy Bypass -File tools\theme.ps1 -TvHost 192.168.1.50 th
 |---|---|
 | `default/` | The built-in look written out as JSON, as a starting point for your own |
 | `xiaomi-freeguy-soft/` | This fork's Android 11 Xiaomi preset: 16 soft vector tiles and Emby in dock slot 4. Requires the bundled artwork and compatibility application ID; see [device notes](../docs/devices/xiaomi-mitv-mftr0-freeguy-android11.md). |
+| `xiaomi-freeguy-odyssey/` | This fork's Mario Odyssey preset: six dock entries, an independent six-column app grid with a four-column setting, and one grid row visible below the dock. Requires the bundled artwork and Xiaomi-compatible package; see [device notes](../docs/devices/xiaomi-mitv-mftr0-freeguy-android11.md). |
 | `aurora/` | A dark aurora wallpaper (teal and violet on navy, darker at the bottom) with a matching background colour |
 | `dussehra/` | Festive skin for Dussehra (ends 21 Oct 2026): a marigold toran, a faint gold rangoli, a diya for Wi-Fi, a bell for Inputs, a marigold for Settings and a petal shower |
 | `scenes/` | 14 dark illustrated landscapes in `wallpapers/`, a new one every hour; drawn from code by `tools/scenes_wallpapers.py` |
@@ -37,7 +38,8 @@ is ignored, and a file that doesn't parse is ignored as a whole, so a theme can 
 | `app_labels` | list of `"package=Name"` | A tile's name instead of the app's own (MagentaTV as `com.telekom.onetv.tv.pl=TV`) |
 | `app_banners` | list of `"package=banner_name"` | A tile's artwork from a `banner_*` drawable bundled with the launcher (`banner_tv`: magenta with the Live TV glyph) |
 | `input_action` | string | Action sent with an HDMI/AV row's channel URI when nothing handles the standard `VIEW` (XGIMI: `com.xgimi.action.hdmiPlayer`) |
-| `columns` | 1 to 8 | Tiles per row; tiles shrink to fit from 5 up |
+| `columns` | 1 to 8 | App-grid tiles per row; Launcher settings offers 4 or 6. Tiles shrink to fit from 5 up |
+| `dock_columns` | 0 to 8 | Dock slots, independent of app-grid columns; 0 follows `columns`. This fork defaults to 6. With `dock_row: false`, the entire grid uses `columns` |
 | `rows_below_dock` | 0 to 3 | Grid rows left visible under the dock; tiles shrink if the dock, its title and that many rows would not fit the screen height |
 | `dock_title` | bool | The focused dock app's name in large type above the dock (`true`); `false` keeps only the glow |
 | `dock_row` | bool | The dock as its own row with a band (`true`); `false` makes the dock apps the first tiles of one plain grid |
