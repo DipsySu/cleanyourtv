@@ -56,7 +56,7 @@
     <string name="advanced_effects_state">Efekty zaawansowane: %1$s</string>
     <string name="advanced_effects_warning">Unosi kafelki, powiększa ikony i wygładza przejścia kolorów. Może zwiększyć zużycie pamięci, zależnie od telewizora.</string>
     <string name="follow_theme">Użyj motywu (zresetuj wybór)</string>
-    <string name="follow_theme_hint">Używa układu i animacji bieżącego motywu lub ustawień wbudowanych. Wgranie lub zresetowanie motywu także usuwa wybór na telewizorze.</string>
+    <string name="follow_theme_hint">Używa układu i animacji bieżącego motywu lub ustawień wbudowanych. Wgranie, zmiana lub zresetowanie motywu zachowuje wybór na telewizorze, poza tapetą.</string>
     <string name="tv_settings">Ustawienia systemowe TV</string>
     <string name="on">Wł.</string>
     <string name="off">Wył.</string>

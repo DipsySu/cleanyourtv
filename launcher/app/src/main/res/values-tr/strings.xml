@@ -56,7 +56,7 @@
     <string name="advanced_effects_state">Gelişmiş efektler: %1$s</string>
     <string name="advanced_effects_warning">Kutucukları yükseltir, simgeleri büyütür ve renk geçişlerini yumuşatır. Bellek kullanımını artırabilir; etki TV’ye bağlıdır.</string>
     <string name="follow_theme">Temayı izle (TV seçimlerini sıfırla)</string>
-    <string name="follow_theme_hint">Geçerli temanın veya yerleşik ayarların düzenini ve hareketini kullanır. Tema uygulamak ya da sıfırlamak TV seçimlerini de temizler.</string>
+    <string name="follow_theme_hint">Geçerli temanın veya yerleşik ayarların düzenini ve hareketini kullanır. Tema uygulamak, değiştirmek ya da sıfırlamak duvar kâğıdı dışındaki TV seçimlerini korur.</string>
     <string name="tv_settings">TV sistem ayarları</string>
     <string name="on">Açık</string>
     <string name="off">Kapalı</string>

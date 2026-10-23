@@ -87,7 +87,7 @@
     <string name="advanced_effects_state">Efeitos avançados: %1$s</string>
     <string name="advanced_effects_warning">Adiciona elevação do bloco, zoom no ícone e transições de cor suaves. Pode usar mais memória; a diferença real depende da sua TV.</string>
     <string name="follow_theme">Seguir o tema (desfaz as escolhas feitas na TV)</string>
-    <string name="follow_theme_hint">Usa o tema atual ou o layout e o movimento padrão. Enviar ou redefinir um tema também apaga as escolhas feitas na TV.</string>
+    <string name="follow_theme_hint">Usa o tema atual ou o layout e o movimento padrão. Enviar, trocar ou redefinir um tema mantém as escolhas feitas na TV, exceto o papel de parede.</string>
     <string name="tv_settings">Configurações do sistema da TV</string>
     <string name="quick_picture">Imagem</string>
     <string name="quick_network">Rede</string>

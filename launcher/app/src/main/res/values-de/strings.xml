@@ -33,7 +33,7 @@
     <string name="advanced_effects_state">Erweiterte Effekte: %1$s</string>
     <string name="advanced_effects_warning">Hebt Kacheln an, vergrößert Symbole und glättet Farbübergänge. Kann den Speicherverbrauch erhöhen; die Wirkung hängt vom TV ab.</string>
     <string name="follow_theme">Design übernehmen (TV-Auswahl zurücksetzen)</string>
-    <string name="follow_theme_hint">Verwendet Layout und Bewegung des aktuellen Designs oder der integrierten Einstellungen. Ein neues oder zurückgesetztes Design löscht die TV-Auswahl ebenfalls.</string>
+    <string name="follow_theme_hint">Verwendet Layout und Bewegung des aktuellen Designs oder der integrierten Einstellungen. Ein neues, gewechseltes oder zurückgesetztes Design behält die TV-Auswahl, außer dem Hintergrund.</string>
     <string name="tv_settings">TV-Systemeinstellungen</string>
     <string name="on">Ein</string>
     <string name="off">Aus</string>
