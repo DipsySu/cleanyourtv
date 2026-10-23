@@ -32,7 +32,7 @@
   },
   "columns": 6,
   "dock_columns": 6,
-  "rows_below_dock": 1,
+  "rows_below_dock": 0,
   "always_show_names": true,
   "dock_even_padding": false,
   "dock_title": false,

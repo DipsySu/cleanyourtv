@@ -41,8 +41,8 @@ final class SettingsAppearance {
                     0xFF4C9A63, 0xFFFFF6D7, 0xFF234236, 14f);
         }
         if (HeaderStyle.ZELDA.equals(headerStyle)) {
-            return new SettingsAppearance(0xFF101F24, 0xFF172E32, 0xFFFFF6D7, 0xFFACC1B9,
-                    0xFFD9B968, 0xFFD9B968, 0xFF101F24, 3f);
+            return new SettingsAppearance(0xFF203128, 0xFF304238, 0xFFFFF6DD, 0xFFBDC8AC,
+                    0xFFD8C18A, 0xFFD8C18A, 0xFF203128, 12f);
         }
         return null;
     }

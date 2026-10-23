@@ -338,8 +338,8 @@ final class Config {
             wallpaperCoins = stringList(json, "wallpaper_coins", wallpaperCoins);
             wallpaperTints = stringList(json, "wallpaper_tints", wallpaperTints);
         }
-        // A theme push or reset invalidates choices made on the TV. On first use, remember the
-        // current theme without clearing choices from an older launcher version.
+        // Theme signatures only invalidate the wallpaper pick: layout and motion choices belong
+        // to the launcher until the user explicitly chooses Follow theme.
         SharedPreferences choices = ctx.getSharedPreferences(SETTINGS_NAME, Context.MODE_PRIVATE);
         // Unmounted storage looks like a theme reset; compare only once the file is readable.
         if (mounted || packageOverlay != null) syncThemeChoices(choices, dir, file, themeIdentity);
@@ -439,19 +439,15 @@ final class Config {
         String token = revisionToken(revision);
         String signature = ("legacy@0".equals(identity) ? "" : identity + ":")
                 + fileStamp(config) + ":" + token;
-        String seen = choices.getString(THEME_SIGNATURE_KEY, null);
-        if (seen == null) {
-            // Existing preferences survive an app upgrade, unless the first launch follows an
-            // explicit theme push or reset by the updated tools.
-            SharedPreferences.Editor editor = choices.edit();
-            if (!"absent".equals(token)) editor.remove("columns").remove("animations")
-                    .remove("advanced_effects").remove(ROWS_BELOW_DOCK_KEY).remove(WALLPAPER_CHOICE_KEY);
-            editor.putString(THEME_SIGNATURE_KEY, signature).commit();
-        } else if (!seen.equals(signature)) {
-            choices.edit().remove("columns").remove("animations").remove("advanced_effects")
-                    .remove(ROWS_BELOW_DOCK_KEY).remove(WALLPAPER_CHOICE_KEY)
-                    .putString(THEME_SIGNATURE_KEY, signature).commit();
-        }
+        ThemePreferenceSync.sync(new ThemePreferenceSync.Store() {
+            @Override public String getThemeSignature() { return choices.getString(THEME_SIGNATURE_KEY, null); }
+
+            @Override public void writeThemeSignature(String value, boolean clearWallpaperChoice) {
+                SharedPreferences.Editor editor = choices.edit();
+                if (clearWallpaperChoice) editor.remove(WALLPAPER_CHOICE_KEY);
+                editor.putString(THEME_SIGNATURE_KEY, value).commit();
+            }
+        }, signature, !"absent".equals(token));
     }
 
     private static String fileStamp(File file) {

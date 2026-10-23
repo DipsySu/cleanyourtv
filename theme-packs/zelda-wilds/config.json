@@ -1,16 +1,16 @@
 {
   "header_style": "zelda",
-  "background_color": "#142F38",
+  "background_color": "#283B32",
   "wallpaper": true,
   "wallpaper_dim": 8,
   "wallpaper_rotation_minutes": 0,
   "wallpaper_order": "sequential",
   "wallpaper_names": {
-    "wallpaper.jpg": "海拉鲁"
+    "wallpaper.jpg": "海拉鲁 · 暖风暮色"
   },
   "wallpaper_coins": {},
   "wallpaper_tints": {
-    "wallpaper.jpg": "#215B56"
+    "wallpaper.jpg": "#59684B"
   },
   "app_banners": {
     "com.xiaomi.mitv.smartshare": "banners/cast.webp",
@@ -32,7 +32,7 @@
   },
   "columns": 6,
   "dock_columns": 6,
-  "rows_below_dock": 1,
+  "rows_below_dock": 0,
   "always_show_names": true,
   "dock_even_padding": false,
   "dock_title": false,

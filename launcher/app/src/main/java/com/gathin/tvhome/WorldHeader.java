@@ -29,10 +29,11 @@ final class WorldHeader {
     private static final int LEAF_DARK = 0xFF1C4B31;
     private static final int CREAM = 0xFFFFF6D7;
     private static final int MINT = 0xFFD9F0D5;
-    private static final int JADE = 0xFF1D7869;
-    private static final int JADE_DARK = 0xFF102F31;
-    private static final int GOLD = 0xFFD9B968;
-    private static final int SLATE = 0xFF17282D;
+    private static final int ZELDA_DEEP_GREEN = 0xFF283B32;
+    private static final int ZELDA_NETWORK = 0xFF203128;
+    private static final int ZELDA_SAND = 0xFFD8C18A;
+    private static final int ZELDA_EDGE = 0x66D8C18A;
+    private static final int ZELDA_CREAM = 0xFFFFF6DD;
 
     private WorldHeader() {}
 
@@ -51,12 +52,12 @@ final class WorldHeader {
         greeting.setTypeface(animal ? android.graphics.Typeface.create("sans-serif-medium", android.graphics.Typeface.NORMAL)
                 : android.graphics.Typeface.create(android.graphics.Typeface.SERIF, android.graphics.Typeface.NORMAL));
         greeting.setTextSize(TypedValue.COMPLEX_UNIT_SP, animal ? 13.5f : 13f);
-        greeting.setLetterSpacing(animal ? .025f : .09f);
-        greeting.setTextColor(animal ? CREAM : GOLD);
+        greeting.setLetterSpacing(animal ? .025f : .06f);
+        greeting.setTextColor(animal ? CREAM : ZELDA_SAND);
         greeting.setShadowLayer(2 * dp, 0, dp, 0x99000000);
         greeting.setCompoundDrawablePadding(Math.round(7 * dp));
         Drawable greetingMark = new MarkDrawable(animal ? MarkDrawable.LEAF : MarkDrawable.TRIFORCE,
-                animal ? LEAF : GOLD);
+                animal ? LEAF : ZELDA_SAND);
         greetingMark.setBounds(0, 0, Math.round((animal ? 18 : 15) * dp), Math.round((animal ? 18 : 15) * dp));
         greeting.setCompoundDrawablesRelative(greetingMark, null, null, null);
 
@@ -66,10 +67,10 @@ final class WorldHeader {
                 : android.graphics.Typeface.create(android.graphics.Typeface.SERIF, android.graphics.Typeface.NORMAL));
         clock.setTextSize(TypedValue.COMPLEX_UNIT_SP, animal ? 50 : 48);
         clock.setLetterSpacing(animal ? -.025f : .015f);
-        clock.setTextColor(animal ? LEAF_DARK : CREAM);
+        clock.setTextColor(animal ? LEAF_DARK : ZELDA_CREAM);
         clock.setShadowLayer(animal ? 0 : 2 * dp, 0, dp, 0x99000000);
-        clock.setBackground(panel(animal ? CREAM : SLATE, animal ? LEAF : GOLD, animal ? 16 * dp : 3 * dp,
-                animal ? 1 * dp : 1.5f * dp));
+        clock.setBackground(panel(animal ? CREAM : ZELDA_DEEP_GREEN, animal ? LEAF : ZELDA_EDGE, animal ? 16 * dp : 10 * dp,
+                dp));
         clock.setPaddingRelative(Math.round((animal ? 11 : 10) * dp), 0, Math.round((animal ? 11 : 10) * dp), 0);
 
         OutlineTextClock ampm = activity.findViewById(R.id.ampm);
@@ -77,13 +78,13 @@ final class WorldHeader {
         ampm.setTypeface(animal ? android.graphics.Typeface.create("sans-serif-medium", android.graphics.Typeface.NORMAL)
                 : android.graphics.Typeface.create(android.graphics.Typeface.SERIF, android.graphics.Typeface.BOLD));
         ampm.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-        ampm.setLetterSpacing(animal ? .03f : .07f);
-        ampm.setTextColor(animal ? CREAM : GOLD);
-        ampm.setShadowLayer(2 * dp, 0, dp, 0x99000000);
+        ampm.setTextColor(animal ? CREAM : ZELDA_SAND);
+        ampm.setLetterSpacing(animal ? .03f : .035f);
+        ampm.setShadowLayer(animal ? 2 * dp : 1 * dp, 0, dp, 0x99000000);
 
         View divider = activity.findViewById(R.id.clockDivider);
         divider.setVisibility(View.VISIBLE);
-        divider.setBackgroundColor(animal ? 0x6639764A : GOLD);
+        divider.setBackgroundColor(animal ? 0x6639764A : ZELDA_EDGE);
         TextView date = activity.findViewById(R.id.date);
         android.view.ViewGroup.LayoutParams dateParams = date.getLayoutParams();
         dateParams.width = android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -91,10 +92,10 @@ final class WorldHeader {
         date.setTypeface(animal ? android.graphics.Typeface.create("sans-serif-medium", android.graphics.Typeface.NORMAL)
                 : android.graphics.Typeface.create(android.graphics.Typeface.SERIF, android.graphics.Typeface.NORMAL));
         date.setTextSize(TypedValue.COMPLEX_UNIT_SP, animal ? 13.5f : 13);
-        date.setLetterSpacing(animal ? .025f : .06f);
-        date.setTextColor(animal ? LEAF_DARK : CREAM);
-        date.setBackground(panel(animal ? MINT : JADE_DARK, animal ? LEAF : GOLD, animal ? 14 * dp : 2 * dp,
-                animal ? 1 * dp : 1 * dp));
+        date.setTextColor(animal ? LEAF_DARK : ZELDA_CREAM);
+        date.setLetterSpacing(animal ? .025f : .035f);
+        date.setBackground(panel(animal ? MINT : 0xFF304238, animal ? LEAF : ZELDA_EDGE, animal ? 14 * dp : 10 * dp,
+                dp));
         date.setPaddingRelative(Math.round(9 * dp), Math.round(2 * dp), Math.round(9 * dp), Math.round(2 * dp));
     }
 
@@ -117,16 +118,16 @@ final class WorldHeader {
 
     private static void stylePill(TextView pill, boolean animal, int mark, Drawable network) {
         float dp = pill.getResources().getDisplayMetrics().density;
-        int face = animal ? CREAM : SLATE;
-        int text = animal ? LEAF_DARK : CREAM;
-        int accent = animal ? LEAF : GOLD;
-        int focusFace = animal ? LEAF_DARK : GOLD;
-        int focusInk = animal ? CREAM : SLATE;
-        pill.setBackground(selector(face, accent, focusFace, focusInk, animal ? 18 * dp : 3 * dp,
-                animal ? 1 * dp : 1.5f * dp));
+        int face = animal ? CREAM : ZELDA_DEEP_GREEN;
+        int text = animal ? LEAF_DARK : ZELDA_CREAM;
+        int accent = animal ? LEAF : ZELDA_SAND;
+        int focusFace = animal ? LEAF_DARK : ZELDA_SAND;
+        int focusInk = animal ? CREAM : ZELDA_DEEP_GREEN;
+        pill.setBackground(selector(face, animal ? accent : ZELDA_EDGE, focusFace, focusInk,
+                animal ? 18 * dp : 12 * dp, dp));
         pill.setTextColor(textSelector(text, focusInk));
-        pill.setTypeface(animal ? android.graphics.Typeface.create("sans-serif-medium", android.graphics.Typeface.NORMAL)
-                : android.graphics.Typeface.create(android.graphics.Typeface.SERIF, android.graphics.Typeface.BOLD));
+        pill.setTypeface(android.graphics.Typeface.create("sans-serif-medium", android.graphics.Typeface.NORMAL));
+        if (!animal) pill.setLetterSpacing(.01f);
         pill.setCompoundDrawableTintList(null);
         Drawable emblem = emblem(pill, mark, accent, focusInk, animal, network);
         pill.setCompoundDrawablesRelativeWithIntrinsicBounds(emblem, null, null, null);
@@ -160,11 +161,11 @@ final class WorldHeader {
     }
 
     private static Drawable emblem(TextView owner, int mark, int accent, int focusInk, boolean animal, Drawable network) {
-        int normalDisc = network == null ? 0x00000000 : (animal ? LEAF : JADE_DARK);
+        int normalDisc = network == null ? 0x00000000 : (animal ? LEAF : ZELDA_NETWORK);
         Drawable normal = emblemLayer(owner, mark, accent, normalDisc, network);
-        // A white network glyph stays legible on leaf green or dark slate while focused. Non-network marks use
+        // A white network glyph stays legible on leaf green or deep green while focused. Non-network marks use
         // the same ink as the focused label and border.
-        int focusDisc = network == null ? 0x00000000 : (animal ? LEAF : SLATE);
+        int focusDisc = network == null ? 0x00000000 : (animal ? LEAF : ZELDA_DEEP_GREEN);
         Drawable focused = emblemLayer(owner, mark, focusInk, focusDisc, network);
         return new PillEmblemDrawable(normal, focused, network);
     }

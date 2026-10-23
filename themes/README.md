@@ -3,8 +3,9 @@
 A theme is a folder with a `config.json` and, optionally, a `wallpaper.jpg`. Pushing one changes the
 launcher's dock, layout and look on the TV without rebuilding the APK: the launcher reads
 `config.json` as an overlay over its built-in `config.xml` the next time it starts.
-Choices made in Launcher settings take priority until you choose Follow theme. Pushing a theme or
-using `tools/theme.sh --reset` also clears those on-TV column and motion choices.
+Choices made in Launcher settings take priority across theme switches, theme updates and
+`tools/theme.sh --reset` until you choose Follow theme. The wallpaper selection is theme-specific:
+applying or resetting a theme returns it to that theme's default wallpaper.
 A dock chosen on the TV (hold OK on a tile: Pin to dock, Remove from dock, Move left or right) is not
 cleared: it wins over `dock_apps` until you hold OK on Settings and choose Reset dock (恢复默认程序坞);
 see [docs/app-library.md](../docs/app-library.md#the-dock).

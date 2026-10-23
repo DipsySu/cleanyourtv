@@ -20,18 +20,24 @@ Generated with the built-in image tool. Selected source output: `exec-dc999b35-1
 
 Version 2 replaces all 16 simplified vector objects with official transparent character and Divine Beast artwork downloaded from Nintendo's public game pages. The main dock uses Link, Zelda, Mipha, Revali, Urbosa and Daruk. The other cards use Rauru, Tulin, Sidon, Riju, Yunobo, Ganondorf and the four Divine Beasts. The champion poses and Divine Beasts come from Nintendo's Age of Calamity page; the remaining characters come from its Tears of the Kingdom pages.
 
-Every source URL, page, character, dimension, byte count and SHA-256 is recorded in [zelda-sources.json](zelda-sources.json). Original PNG/WebP bytes and alpha are preserved. The launcher fits the complete artwork into the existing slate and gold card without native app-icon badges. No image generation was used for these replacement card assets. Third-party artwork retains its original rights and is not covered by the repository's code license.
+Every source URL, page, character, dimension, byte count and SHA-256 is recorded in [zelda-sources.json](zelda-sources.json). Original PNG/WebP bytes and alpha are preserved. The launcher fits the complete artwork into a themed card without native app-icon badges. No image generation was used for these replacement card assets. Third-party artwork retains its original rights and is not covered by the repository's code license.
 
 Deliverable files: `theme-packs/zelda-wilds/wallpaper.jpg`, `theme-packs/zelda-wilds/banners/*.{png,webp}` and `theme-packs/zelda-wilds/config.json`.
 
 The original version 1 vector sources remain in `zelda-icons.mjs` and `zelda-svg/`. Their generator writes PNGs into `backup/zelda-vector-v1/banners/` so running it cannot overwrite the version 2 artwork.
 
+## Zelda v3 — 暖风暮色
+
+The built-in image tool edited the previous wallpaper; selected output: `exec-d2f5f907-cbb8-4627-bd72-caa4cbe118a5.png`. Its 1672 × 941 composition is preserved and encoded as JPEG at quality 88 (412,515 bytes), without a separate color filter. The full edit prompt is saved in [zelda-warm-v3-prompt.txt](zelda-warm-v3-prompt.txt).
+
+The warmer lighting keeps the castle, sky islands, shrine, waterfalls, stone arch and small Link in place. Warm grey-green gradients and quiet sand-colored edges replace the hard slate / jade card borders in the launcher. All 16 official character files remain byte-for-byte identical to v2. Animal v2 and Zelda v3 set `rows_below_dock` to 0; explicit on-TV preferences take precedence.
+
 ## Rebuild
 
 ```sh
 # The selected artwork is checked in; no network or image-generation API is needed.
-python3 tools/theme_pack.py pack theme-packs/animal-crossing dist/animal-crossing-v1.zip
-python3 tools/theme_pack.py pack theme-packs/zelda-wilds dist/zelda-wilds-v2.zip
+python3 tools/theme_pack.py pack theme-packs/animal-crossing dist/animal-crossing-v2.zip
+python3 tools/theme_pack.py pack theme-packs/zelda-wilds dist/zelda-wilds-v3.zip
 ```
 
 Keep prompt records and SVG sources outside each package directory. The portable ZIP protocol intentionally accepts only manifest/config JSON and raster presentation assets.

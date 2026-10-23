@@ -25,8 +25,9 @@ PKG="${LAUNCHER_PKG:-com.gathin.tvhome}"
 # The applicationId can change (-PlauncherApplicationId); the Java namespace stays com.gathin.tvhome.
 HOME_ACTIVITY=$PKG/com.gathin.tvhome.MainActivity
 DIR=/sdcard/Android/data/$PKG/files
-# A unique marker lets the launcher clear on-TV layout/motion choices after every theme push,
-# including a push of identical config.json bytes and --reset.
+# A unique marker refreshes the active theme resource identity after every push, including a push
+# of identical config.json bytes and --reset. It resets only a theme-specific wallpaper pick;
+# Launcher settings for layout and motion remain the user's choices.
 REVISION="$("$PY" -I -c 'import uuid; print(uuid.uuid4().hex)')"
 tv() { "$PY" -I tv.py "$@"; }
 # Restart Home so it rereads the theme. Android drops a force-stopped app's accessibility services from the
