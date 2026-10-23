@@ -1,0 +1,79 @@
+[
+  {
+    "id": "01-matrix",
+    "image": "matrix-hospitality.jpg",
+    "logo": "matrix-logo.png",
+    "brand": "MATRIX",
+    "category": "专业健身",
+    "position": "center",
+    "side": "left",
+    "logo_width": 348,
+    "tint": "#5A675E"
+  },
+  {
+    "id": "02-vision",
+    "image": "vision-stanley-a-white.webp",
+    "logo": "vision-logo.png",
+    "brand": "VISION",
+    "category": "专业训练",
+    "position": "right center",
+    "side": "left",
+    "logo_width": 348,
+    "tint": "#687975"
+  },
+  {
+    "id": "03-horizon",
+    "image": "horizon-product.jpg",
+    "logo": "horizon-logo.png",
+    "brand": "HORIZON",
+    "category": "家庭健身",
+    "position": "right center",
+    "side": "left",
+    "logo_width": 300,
+    "tint": "#8C7967"
+  },
+  {
+    "id": "04-bowflex",
+    "image": "bowflex-product.jpg",
+    "logo": "bowflex-logo.png",
+    "brand": "BowFlex",
+    "category": "居家力量",
+    "position": "right center",
+    "side": "left",
+    "logo_width": 348,
+    "tint": "#8D7370"
+  },
+  {
+    "id": "05-schwinn",
+    "image": "schwinn-product.jpg",
+    "logo": "schwinn-logo.png",
+    "brand": "Schwinn",
+    "category": "室内骑行",
+    "position": "left center",
+    "side": "left",
+    "logo_width": 348,
+    "tint": "#637B7A"
+  },
+  {
+    "id": "06-synca",
+    "image": "synca-product.jpg",
+    "logo": "synca-logo.png",
+    "brand": "SYNCA",
+    "category": "舒压生活",
+    "position": "left center",
+    "side": "right",
+    "logo_width": 165,
+    "tint": "#7B7B88"
+  },
+  {
+    "id": "07-fujiiryoki",
+    "image": "fujiiryoki-dcore-ambient-room.jpg",
+    "logo": "fujiiryoki-logo.png",
+    "brand": "FUJIIRYOKI",
+    "category": "日式按摩",
+    "position": "center 50%",
+    "side": "left",
+    "logo_width": 348,
+    "tint": "#8A755F"
+  }
+]

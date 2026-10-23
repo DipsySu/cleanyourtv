@@ -1,6 +1,6 @@
 # 主题包
 
-为 `xiaomi-freeguy-home` 分支制作的四套外置主题。每套带 16 个应用卡片和配套的时钟 / 顶栏样式，有壁纸的主题同时带壁纸。应用名称、启动动作、隐藏列表和程序坞顺序沿用电视原有配置。
+外置主题包含个人电视主题和公司展厅主题。每套带 16 个应用卡片和配套的时钟 / 顶栏样式，有壁纸的主题同时带壁纸。应用名称、启动动作、隐藏列表和程序坞顺序沿用电视原有配置。
 
 | 主题 | 目录 / ID | 视觉 |
 | --- | --- | --- |
@@ -8,6 +8,9 @@
 | 塞尔达 · 旷野与天空 | `zelda-wilds` | 海拉鲁暖色夕照、暖灰绿卡片与沙金焦点、12 位角色与四神兽的官方透明素材 |
 | 奥德赛 · 王国之旅 | `mario-odyssey` | 8 张王国壁纸每分钟按顺序淡入，王国名、王国硬币和程序坞托盘色随壁纸切换；游戏 HUD 顶栏，Fredoka 圆体时钟；16 张角色卡片 |
 | 柔光 · 电视卡片 | `soft-glow` | 黑色背景、默认顶栏、无壁纸；16 张柔和渐变卡片，即原来的 soft 预设 |
+| 乔山 · 品牌展厅 | `johnson-health-tech` | 七张官方全屏实景：MATRIX Hospitality、VISION Stanley A. White、四个品牌官网场景和 FUJIIRYOKI D.Core STRATUS-JP 日式环境图，每两分钟顺序轮换；白色官方标识、低饱和柔光卡片，6 列 / 下方 0 行 |
+
+乔山主题用于公司展厅和接待区。16 张卡片中 15 张复用柔光 glyph 几何，`disk` 使用通用文件夹 glyph；25 个包名映射包含 YouTube。它不修改 APK、字体、应用顺序、名称或启动动作，设备保存的列数、下方行数和动画偏好仍优先。官方素材出处、离线重建与公司真机尚未验证的状态见 [主题说明](../artwork/johnson-health-tech/README.md)。
 
 在电视首页打开 **设置 → 简洁桌面设置 → 主题**，用方向键选择并确认。按 Back 或 Home 返回即可应用。列表第一项「原版主题」是 APK 内置的原始外观：默认细字顶栏、应用自带的横幅或图标、没有壁纸，可随时选回。奥德赛和柔光已移出 APK，只能通过主题包使用。主题切换不会改动已经保存的应用顺序、列数、程序坞下方行数和动画偏好。主动选择“跟随主题”才恢复主题默认值；固定壁纸选择仍随主题重置。
 
@@ -23,11 +26,13 @@ python3 tools/theme_pack.py pack theme-packs/animal-crossing dist/animal-crossin
 python3 tools/theme_pack.py pack theme-packs/zelda-wilds dist/zelda-wilds-v3.zip
 python3 tools/theme_pack.py pack theme-packs/mario-odyssey dist/mario-odyssey-v1.zip
 python3 tools/theme_pack.py pack theme-packs/soft-glow dist/soft-glow-v1.zip
+python3 tools/theme_pack.py pack theme-packs/johnson-health-tech dist/johnson-health-tech-v1.zip
 
 TV_HOST=TV_IP tools/venv/bin/python tools/theme_pack.py install dist/animal-crossing-v2.zip --package com.ts.launcher
 TV_HOST=TV_IP tools/venv/bin/python tools/theme_pack.py install dist/zelda-wilds-v3.zip --package com.ts.launcher
 TV_HOST=TV_IP tools/venv/bin/python tools/theme_pack.py install dist/mario-odyssey-v1.zip --package com.ts.launcher
 TV_HOST=TV_IP tools/venv/bin/python tools/theme_pack.py install dist/soft-glow-v1.zip --package com.ts.launcher
+TV_HOST=TV_IP tools/venv/bin/python tools/theme_pack.py install dist/johnson-health-tech-v1.zip --package com.ts.launcher
 TV_HOST=TV_IP tools/venv/bin/python tools/theme_pack.py list --package com.ts.launcher
 TV_HOST=TV_IP tools/venv/bin/python tools/theme_pack.py activate mario-odyssey --package com.ts.launcher
 ```

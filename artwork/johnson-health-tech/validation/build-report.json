@@ -1,0 +1,273 @@
+{
+  "command": "python3 artwork/johnson-health-tech/build_theme.py",
+  "renderer": {
+    "chrome": "Google Chrome 155.0.8059.85",
+    "cwebp": "1.6.0\nlibsharpyuv: 0.4.2"
+  },
+  "style": "fullscreen-soft-glow",
+  "wallpapers": 7,
+  "banners": 16,
+  "items": [
+    {
+      "file": "theme-packs/johnson-health-tech/wallpapers/01-matrix.webp",
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 202304,
+      "sha256": "fd74f314d654d66c2f9c53e78a38797b992e977ac3bbd16cffb83b7a3c6e65ee",
+      "opaque": true,
+      "chunk": "VP8 "
+    },
+    {
+      "file": "theme-packs/johnson-health-tech/wallpapers/02-vision.webp",
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 140366,
+      "sha256": "179ee321664bf4cc6cabebbcf60708f768bf006e9adea531060c74ff68eec267",
+      "opaque": true,
+      "chunk": "VP8 "
+    },
+    {
+      "file": "theme-packs/johnson-health-tech/wallpapers/03-horizon.webp",
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 131014,
+      "sha256": "f15ae4a7dfcd77dfbb828c299b27345295918619a64ee41c5587575a1fecfb42",
+      "opaque": true,
+      "chunk": "VP8 "
+    },
+    {
+      "file": "theme-packs/johnson-health-tech/wallpapers/04-bowflex.webp",
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 93276,
+      "sha256": "0749f3ac4e1c05733a7c5aecb26f6f25fde87e3aad5b02a19e63bbfc5724b058",
+      "opaque": true,
+      "chunk": "VP8 "
+    },
+    {
+      "file": "theme-packs/johnson-health-tech/wallpapers/05-schwinn.webp",
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 93168,
+      "sha256": "641aa2462749c67bd2f02f252783b963ccb3b9903cc4622c9334c5c249d9768c",
+      "opaque": true,
+      "chunk": "VP8 "
+    },
+    {
+      "file": "theme-packs/johnson-health-tech/wallpapers/06-synca.webp",
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 114416,
+      "sha256": "4ded3c7661b61e1403432c8cda802cbde0bfed03823e7e7a5ba1778484fbd0f8",
+      "opaque": true,
+      "chunk": "VP8 "
+    },
+    {
+      "file": "theme-packs/johnson-health-tech/wallpapers/07-fujiiryoki.webp",
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 66830,
+      "sha256": "c40566f9093f3b553970d7fdd902bf2012404b968a0e9812f61f49bfb14836c4",
+      "opaque": true,
+      "chunk": "VP8 "
+    },
+    {
+      "file": "theme-packs/johnson-health-tech/banners/cast.webp",
+      "size": [
+        384,
+        216
+      ],
+      "bytes": 2240,
+      "sha256": "e24bc4fafeb3a2698cc2d6c123d76a1c5a427cc7a6f8a9c4313221505aebafbb",
+      "opaque": true,
+      "chunk": "VP8 "
+    },
+    {
+      "file": "theme-packs/johnson-health-tech/banners/bili.webp",
+      "size": [
+        384,
+        216
+      ],
+      "bytes": 2768,
+      "sha256": "8b1dcc1725e478e2e2cb3d686f1b63ddf494cb7d3b169f5d57104871afd38b06",
+      "opaque": true,
+      "chunk": "VP8 "
+    },
+    {
+      "file": "theme-packs/johnson-health-tech/banners/live.webp",
+      "size": [
+        384,
+        216
+      ],
+      "bytes": 2224,
+      "sha256": "2bed80c76ffe7b2a8685fcb11c8579711608b6b75a4585f9ad3d81a670409e8a",
+      "opaque": true,
+      "chunk": "VP8 "
+    },
+    {
+      "file": "theme-packs/johnson-health-tech/banners/emby.webp",
+      "size": [
+        384,
+        216
+      ],
+      "bytes": 2238,
+      "sha256": "02820fcced3636ec19803140150d37bb1031ca7eb1a181c2452ed14d6af407cb",
+      "opaque": true,
+      "chunk": "VP8 "
+    },
+    {
+      "file": "theme-packs/johnson-health-tech/banners/tencent.webp",
+      "size": [
+        384,
+        216
+      ],
+      "bytes": 3008,
+      "sha256": "01a8d8f36a78450087a1d99702c6916f64c01307757a6c9c8e84d89ece780d1e",
+      "opaque": true,
+      "chunk": "VP8 "
+    },
+    {
+      "file": "theme-packs/johnson-health-tech/banners/player.webp",
+      "size": [
+        384,
+        216
+      ],
+      "bytes": 2462,
+      "sha256": "5d6a47e86915d76ed9477b3c534835b637927fd1ae7b716e8dcaf41b5b185385",
+      "opaque": true,
+      "chunk": "VP8 "
+    },
+    {
+      "file": "theme-packs/johnson-health-tech/banners/disk.webp",
+      "size": [
+        384,
+        216
+      ],
+      "bytes": 1586,
+      "sha256": "589a51e68f8380a4b4cf9e50c185ecd42f8c214dcf5cd235d58dcdc76a8bdd6b",
+      "opaque": true,
+      "chunk": "VP8 "
+    },
+    {
+      "file": "theme-packs/johnson-health-tech/banners/weather.webp",
+      "size": [
+        384,
+        216
+      ],
+      "bytes": 2128,
+      "sha256": "e2e976c21cbbb57105f7fc2c95ae35188abeb53588b209ba88ef6020f1d3069c",
+      "opaque": true,
+      "chunk": "VP8 "
+    },
+    {
+      "file": "theme-packs/johnson-health-tech/banners/alarm.webp",
+      "size": [
+        384,
+        216
+      ],
+      "bytes": 2778,
+      "sha256": "b4864f146df50bfa056992aa0417c03b06527ecb428b4924e21b6928ae3cba91",
+      "opaque": true,
+      "chunk": "VP8 "
+    },
+    {
+      "file": "theme-packs/johnson-health-tech/banners/voice.webp",
+      "size": [
+        384,
+        216
+      ],
+      "bytes": 2064,
+      "sha256": "627b527bb11fa70fb5e9209f2defd820fe8ef07296b70a48a2ab8c1ec1056751",
+      "opaque": true,
+      "chunk": "VP8 "
+    },
+    {
+      "file": "theme-packs/johnson-health-tech/banners/light.webp",
+      "size": [
+        384,
+        216
+      ],
+      "bytes": 2014,
+      "sha256": "7cee6bd990526a8533c024fe2aa035fb4ad5e77fda451a0826ad6e90876555c6",
+      "opaque": true,
+      "chunk": "VP8 "
+    },
+    {
+      "file": "theme-packs/johnson-health-tech/banners/calendar.webp",
+      "size": [
+        384,
+        216
+      ],
+      "bytes": 2602,
+      "sha256": "e56a9221d286a29eca32d3e2679ab6f1cc5a5e0b74913769cb43d63ad50c9841",
+      "opaque": true,
+      "chunk": "VP8 "
+    },
+    {
+      "file": "theme-packs/johnson-health-tech/banners/gallery.webp",
+      "size": [
+        384,
+        216
+      ],
+      "bytes": 2202,
+      "sha256": "d654f3c158821c84c093bd46825b3ef76505616ffdf6c37bc28cfad353961c4f",
+      "opaque": true,
+      "chunk": "VP8 "
+    },
+    {
+      "file": "theme-packs/johnson-health-tech/banners/manager.webp",
+      "size": [
+        384,
+        216
+      ],
+      "bytes": 2658,
+      "sha256": "595c63125a47702f76568daae6a6bdafe666da6c2101349ecad62473755129ba",
+      "opaque": true,
+      "chunk": "VP8 "
+    },
+    {
+      "file": "theme-packs/johnson-health-tech/banners/settings.webp",
+      "size": [
+        384,
+        216
+      ],
+      "bytes": 2714,
+      "sha256": "377dd7609b6499642662f74117e6d933b05734a9f3d92e79b4c3a4f1de36651c",
+      "opaque": true,
+      "chunk": "VP8 "
+    },
+    {
+      "file": "theme-packs/johnson-health-tech/banners/video.webp",
+      "size": [
+        384,
+        216
+      ],
+      "bytes": 2094,
+      "sha256": "7e19e40311a51867ccbe9645b056ea991bad40bc020be656e7478b2ed8cb5265",
+      "opaque": true,
+      "chunk": "VP8 "
+    }
+  ],
+  "preview": {
+    "file": "theme-packs/johnson-health-tech/preview.jpg",
+    "size": [
+      960,
+      540
+    ],
+    "sha256": "3cb4fd4d4663ec1c385e88a6f480d3d0aacefcf4101fe8f339ee22a0bfa73e95"
+  }
+}

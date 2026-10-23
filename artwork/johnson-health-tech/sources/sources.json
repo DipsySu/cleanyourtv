@@ -1,0 +1,122 @@
+[
+  {
+    "file": "logo-white.png",
+    "url": "https://assets.johnsonhealthtech.com/transform/64021e0a-482e-404a-a2c9-f1a9b6a38b21/optimized-logo-white2x-png?io=transform:fill,width:310,height:144",
+    "source_page": "https://www.johnsonhealthtech.com/cn/zhs/about-us",
+    "sha256": "66b5ad1179312a8b7c68ff2cc9a680a2b724d5c27708137fdb8cc9b18a985dac",
+    "bytes": 10317,
+    "retrieved": "2026-10-23"
+  },
+  {
+    "file": "horizon-product.jpg",
+    "url": "https://assets.johnsonhealthtech.com/transform/3d1a07c6-88df-468d-8dfd-07ea1e1557a7/optimized-horizon-jpg?io=transform:fill,width:2784,height:1200",
+    "source_page": "https://www.johnsonhealthtech.com/tw/zht/our-brands",
+    "sha256": "2e092eb7effb70772866271a8072626f292336a2faab87e594e5b821db87cc05",
+    "bytes": 273258,
+    "retrieved": "2026-10-23"
+  },
+  {
+    "file": "synca-product.jpg",
+    "url": "https://assets.johnsonhealthtech.com/transform/cc7dd2f5-8f34-4bdc-b364-a0742c2889fa/optimized-synca-image2x_1-jpg?io=transform:fill,width:3760,height:1200",
+    "source_page": "https://www.johnsonhealthtech.com/tw/zht/our-brands",
+    "sha256": "e82f819cbacbc6f8eeb13cd0bf37b0e3e6368e667b91bdde165e8d9ed91da6ea",
+    "bytes": 269090,
+    "retrieved": "2026-10-23"
+  },
+  {
+    "file": "bowflex-product.jpg",
+    "url": "https://assets.johnsonhealthtech.com/transform/4ddf7ae1-45ba-40d7-91a6-e40e7cb3511a/optimized-bowflex-jpg?io=transform:fill,width:2784,height:1200",
+    "source_page": "https://www.johnsonhealthtech.com/tw/zht/our-brands",
+    "sha256": "1e90a681e3127f48d8b76fb9d9feea7c64c258ad59d219a67c7b646cf0b86d33",
+    "bytes": 186678,
+    "retrieved": "2026-10-23"
+  },
+  {
+    "file": "schwinn-product.jpg",
+    "url": "https://assets.johnsonhealthtech.com/transform/f77261fa-2d37-4400-a463-04ea7c863a83/optimized-schwinn-jpg?io=transform:fill,width:2784,height:1200",
+    "source_page": "https://www.johnsonhealthtech.com/tw/zht/our-brands",
+    "sha256": "4c9fb814648aba1f71818fa6f827488c077ced7901b40e5d5915c1e30f20613f",
+    "bytes": 220443,
+    "retrieved": "2026-10-23"
+  },
+  {
+    "url": "https://assets.johnsonhealthtech.com/transform/43e6d99d-d0ab-42d7-be58-45549ce79702/Hospitality-Showcase1-jpg?io=transform:fill,width:2500,height:1269",
+    "source_page": "https://world.matrixfitness.com/eng/hospitality",
+    "sha256": "48ea10a996064b8bf1f13c61d6872afa43b25153fc3afc6d5c499798493f810b",
+    "file": "matrix-hospitality.jpg",
+    "bytes": 398787,
+    "retrieved": "2026-10-23"
+  },
+  {
+    "url": "https://assets.johnsonhealthtech.com/transform/4af18eaf-b2cf-40fc-850a-701601b2409d/optimized-matrix_logo-png?io=transform:fill,width:399,height:35",
+    "source_page": "https://www.johnsonhealthtech.com/tw/zht/our-brands",
+    "sha256": "e17fc7c61be7db161904afb0bf6fec77bb598e743321d3036ab761db607062b8",
+    "file": "matrix-logo.png",
+    "bytes": 4439,
+    "retrieved": "2026-10-23"
+  },
+  {
+    "url": "https://assets.johnsonhealthtech.com/transform/a29555f5-097b-4a0a-9065-0b75c698d4dc/optimized-vision_logo-svg",
+    "source_page": "https://www.johnsonhealthtech.com/tw/zht/our-brands",
+    "sha256": "e6bb8c723e87c6df649ca887571169f9a231c52fd1feb99115985b39ee976e0a",
+    "file": "vision-logo.png",
+    "bytes": 25788,
+    "retrieved": "2026-10-23"
+  },
+  {
+    "url": "https://assets.johnsonhealthtech.com/transform/6d09b2b2-8364-44a8-a9a4-429a74ec481c/optimized-horizon_logo-png",
+    "source_page": "https://www.johnsonhealthtech.com/tw/zht/our-brands",
+    "sha256": "f8c2e5c0eaad80f995edbc1c8fb6ed8166e7cbe795c23664c3dcb247c880de21",
+    "file": "horizon-logo.png",
+    "bytes": 9387,
+    "retrieved": "2026-10-23"
+  },
+  {
+    "url": "https://assets.johnsonhealthtech.com/transform/b6b59c82-9290-413a-89d3-29fe7fd3b67c/optimized-bowflex-svg",
+    "source_page": "https://www.johnsonhealthtech.com/tw/zht/our-brands",
+    "sha256": "b86fff59d47b27addb93beb0a4091ef71d8d28e53776800660f4f52cd6751db1",
+    "file": "bowflex-logo.png",
+    "bytes": 33807,
+    "retrieved": "2026-10-23"
+  },
+  {
+    "url": "https://assets.johnsonhealthtech.com/transform/df4f253d-f926-4cfb-8b9e-1745d31f5fb9/optimized-schwinn-svg",
+    "source_page": "https://www.johnsonhealthtech.com/tw/zht/our-brands",
+    "sha256": "3e509e901d7a91dd1e85bb998e27ef03801c4fd5ac7880be9317b7d2dd105540",
+    "file": "schwinn-logo.png",
+    "bytes": 45293,
+    "retrieved": "2026-10-23"
+  },
+  {
+    "url": "https://assets.johnsonhealthtech.com/transform/3cf6ec1f-66d2-4b38-958a-8be235547376/optimized-synca_logo-png",
+    "source_page": "https://www.johnsonhealthtech.com/tw/zht/our-brands",
+    "sha256": "d009463522f0268484251ed68dc7b8c4278a744f9f2d46e4f2913090a7a696da",
+    "file": "synca-logo.png",
+    "bytes": 3752,
+    "retrieved": "2026-10-23"
+  },
+  {
+    "url": "https://assets.johnsonhealthtech.com/transform/c8dd034b-6f77-41aa-8510-1dd42a6089dc/optimized-fujiiryoki_logo_cmyk_blue-png",
+    "source_page": "https://www.johnsonhealthtech.com/tw/zht/our-brands",
+    "sha256": "260f315d8d036700b0421382cabc28e093ff359cd077a10652c4fcdb2bc6e12b",
+    "file": "fujiiryoki-logo.png",
+    "bytes": 11723,
+    "retrieved": "2026-10-23"
+  },
+  {
+    "url": "https://store.fujiiryoki.com/cdn/shop/files/dcore-stratus-cream-leather-chair-ambient-japanese-room.jpg?v=1784929367&width=1946",
+    "source_page": "https://store.fujiiryoki.com/products/stratus-jp",
+    "sha256": "0468c6d3a88330450a024a54396e4a0241c508ce9d5c87d92b9c814ebb3d9869",
+    "file": "fujiiryoki-dcore-ambient-room.jpg",
+    "bytes": 235738,
+    "retrieved": "2026-10-23"
+  },
+  {
+    "file": "vision-stanley-a-white.webp",
+    "url": "https://assets.johnsonhealthtech.com/transform/97f0af32-cb5d-4be7-817f-28c6c33e81ae/stanley_a_white_showcase-webp?io=transform:fill,width:2500,height:825",
+    "source_page": "https://www.visionfitness.com/eng/",
+    "sha256": "be17ec44c78e670518d5dc32f6ab656108654527e9558d7b53df1fd33b5f5f4d",
+    "bytes": 244588,
+    "retrieved": "2026-10-23"
+  }
+]
