@@ -6,6 +6,8 @@
 
 > **Portable theme library:** [Animal Crossing, Zelda, Mario Odyssey and soft-glow themes](theme-packs/README.md), with on-TV switching, validated external ZIP imports and matching character / inventory artwork.
 
+> **Personal theme gallery:** [four on-TV screenshots and compatibility notes](docs/personal-themes.md) for Soft Glow v1, Mario Odyssey v1, Animal Crossing v2, and Zelda v3.
+
 <p align="center">
   <a href="https://cleanyour.tv"><img src="https://raw.githubusercontent.com/Gathin23/cleanyourtv/main/docs/banner.png" alt="CleanYourTV. Your TV, minus the ads. Strip the bloatware from any Android TV or Google TV over Wi-Fi and replace the ad-filled home screen with a clean launcher that looks like an Apple TV. No root, no cable, nothing uninstalled, and a one-line restore." width="800"></a>
 </p>
