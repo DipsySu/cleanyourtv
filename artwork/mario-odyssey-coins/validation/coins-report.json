@@ -1,5 +1,5 @@
 {
-  "coins": 8,
+  "coins": 7,
   "canvas": [
     128,
     128
@@ -19,13 +19,13 @@
     "-sharp_yuv",
     "-exact"
   ],
-  "totalBytes": 46586,
+  "totalBytes": 40824,
   "items": [
     {
       "id": "cap",
       "kingdom": "Cap Kingdom",
       "wallpaper": "01-cap.jpg",
-      "resource": "coin_odyssey_cap.webp",
+      "file": "coin-cap.webp",
       "size": [
         128,
         128
@@ -56,44 +56,10 @@
       "rgbMeanError": 2.29
     },
     {
-      "id": "metro",
-      "kingdom": "Metro Kingdom",
-      "wallpaper": "02-metro.jpg",
-      "resource": "coin_odyssey_metro.webp",
-      "size": [
-        128,
-        128
-      ],
-      "bytes": 5762,
-      "sha256": "5b3a1cb1d3eb0d5b84cc562e6772211fb73618a8698a91f2d7972f8539468775",
-      "source": "originals/metro.png",
-      "sourceSize": [
-        849,
-        852
-      ],
-      "trim": [
-        0,
-        0,
-        849,
-        852
-      ],
-      "coinSize": [
-        124,
-        124
-      ],
-      "content": [
-        2,
-        2,
-        126,
-        126
-      ],
-      "rgbMeanError": 2.16
-    },
-    {
       "id": "sand",
       "kingdom": "Sand Kingdom",
       "wallpaper": "03-sand.jpg",
-      "resource": "coin_odyssey_sand.webp",
+      "file": "coin-sand.webp",
       "size": [
         128,
         128
@@ -127,7 +93,7 @@
       "id": "seaside",
       "kingdom": "Seaside Kingdom",
       "wallpaper": "04-seaside.jpg",
-      "resource": "coin_odyssey_seaside.webp",
+      "file": "coin-seaside.webp",
       "size": [
         128,
         128
@@ -161,7 +127,7 @@
       "id": "wooded",
       "kingdom": "Wooded Kingdom",
       "wallpaper": "05-wooded.jpg",
-      "resource": "coin_odyssey_wooded.webp",
+      "file": "coin-wooded.webp",
       "size": [
         128,
         128
@@ -195,7 +161,7 @@
       "id": "lost",
       "kingdom": "Lost Kingdom",
       "wallpaper": "06-lost.jpg",
-      "resource": "coin_odyssey_lost.webp",
+      "file": "coin-lost.webp",
       "size": [
         128,
         128
@@ -229,7 +195,7 @@
       "id": "luncheon",
       "kingdom": "Luncheon Kingdom",
       "wallpaper": "07-luncheon.jpg",
-      "resource": "coin_odyssey_luncheon.webp",
+      "file": "coin-luncheon.webp",
       "size": [
         128,
         128
@@ -263,7 +229,7 @@
       "id": "moon",
       "kingdom": "Moon Kingdom",
       "wallpaper": "08-moon.jpg",
-      "resource": "coin_odyssey_moon.webp",
+      "file": "coin-moon.webp",
       "size": [
         128,
         128

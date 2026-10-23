@@ -1,6 +1,6 @@
 # 奥德赛王国电视壁纸
 
-8张1920×1080桌面背景。每张按《超级马里奥 奥德赛》一个王国的配色和地标用代码绘制，再配一位角色原画。[Odyssey 预设](../../themes/xiaomi-freeguy-odyssey/config.json)在桌面停留时每分钟按文件名顺序换一张，新图约1.2秒淡入。
+8张1920×1080桌面背景。每张按《超级马里奥 奥德赛》一个王国的配色和地标用代码绘制，再配一位角色原画。它们是[奥德赛主题包](../../theme-packs/mario-odyssey/)的壁纸，主题在桌面停留时每分钟按文件名顺序换一张，新图约1.2秒淡入。
 
 ![8张王国壁纸](contact-sheet.jpg)
 
@@ -45,21 +45,21 @@ Python脚本只使用标准库。导出时使用本机安装的Chrome，不下�
 ```sh
 python3 -I make_wallpapers.py
 PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install --no-package-lock
-npm run render    # 写入 ../../themes/xiaomi-freeguy-odyssey/wallpapers/*.jpg、校验报告和contact-sheet.jpg
+npm run render    # 写入 ../../theme-packs/mario-odyssey/wallpapers/*.jpg、校验报告和contact-sheet.jpg
 npm run verify    # 不重新渲染，只校验现有JPEG并更新报告
 ```
 
 Chrome不在`/Applications/Google Chrome.app`时，用`CHROME_PATH`指定路径。校验要求每张图为1920×1080、120–320 KiB，时钟区（左上640×260）平均亮度低于0.35，底部45%低于0.30，标题区低于0.35；任何一项不满足，脚本都会以失败退出。亮度取解码后JPEG的sRGB亮度（0.2126 R + 0.7152 G + 0.0722 B），0为黑，1为白。
 
-固定种子保证同一份scenes.json生成的HTML逐字节一致；用同一版本的Chrome重复渲染，JPEG也逐字节一致。JPEG由Chrome渲染和编码，换Chrome版本后，画面不变，但SHA-256可能不同；报告里记录了生成时的Chrome版本。
+固定种子保证同一份scenes.json生成的HTML逐字节一致。JPEG由Chrome渲染和编码，同一版本的Chrome重复渲染时画面相同，但角色原画缩放偶尔有细微差别，SHA-256不一定一致：2026-10-23用生成时的同一版Chrome（报告中记录）重渲，8张中6张逐字节一致，都市与月之国只在角色区域有少量像素差（最大39/255）。仓库里的JPEG保持原样，没有用重渲结果替换。换Chrome版本后同理。
 
 ## 接入主题
 
-Odyssey预设打开了壁纸：`wallpaper_rotation_minutes`为1，`wallpaper_order`为`sequential`。`wallpaper_names`按文件名给8张图配上王国名（与scenes.json的中文标题一致），预设的`header_style`为`odyssey`，问候语前会显示当前壁纸的王国，如「帽子之国 · 下午好」，换图时随之更新。压暗已经画进图里，`wallpaper_dim`只设为8，加一层很轻的遮罩。`background_color`为#060B18，在第一张图解码前显示。用`tools/theme.sh`推送`themes/xiaomi-freeguy-odyssey`，具体的推送方式和包名见[设备记录](../../docs/devices/xiaomi-mitv-mftr0-freeguy-android11.md)。在电视的「简洁桌面设置 → 壁纸」里，可以固定其中一张，或选择「无」。
+奥德赛主题包打开了壁纸：`wallpaper_rotation_minutes`为1，`wallpaper_order`为`sequential`。`wallpaper_names`按文件名给8张图配上王国名（与scenes.json的中文标题一致），主题的`header_style`为`odyssey`，问候语前会显示当前壁纸的王国，如「帽子之国 · 下午好」，换图时随之更新。压暗已经画进图里，`wallpaper_dim`只设为8，加一层很轻的遮罩。`background_color`为#060B18，在第一张图解码前显示。用`tools/theme_pack.py`把`theme-packs/mario-odyssey`打包成ZIP并导入电视，具体命令见[主题包说明](../../theme-packs/README.md)。在电视的「简洁桌面设置 → 壁纸」里，可以固定其中一张，或选择「无」。
 
 换图的确切规则：距上次换图满1分钟才换下一张，而且只在桌面位于前台时检查——回到桌面时检查一次，之后每分钟检查一次，所以一直停在桌面上就每分钟换一张。打开应用或小米屏保盖住桌面时不换图，也不补换；隔了很久再回到桌面，只前进一张。新图在1.2秒内淡入到旧图上（先快后慢），淡入一半时（约0.35秒）王国名和金币一起切换，固定栏托盘的色调随同一过渡渐变；淡入结束后只保留新图一张位图。打开桌面时的第一张图、在电视上固定某一张，以及关闭动态效果或打开`reduced_motion`时，都直接切换，不淡入。
 
-`wallpaper_coins`把时钟前的金币换成当前王国的紫色本地硬币（`coin_odyssey_*`，见[王国金币](../mario-odyssey-coins/README.md)），`wallpaper_tints`给固定栏托盘换上与王国同色调的半透明底色（如帽子之国#454C87），两者都随换图更新；没有对应条目、选了「无」或只有纯色背景时，退回金色矢量金币和原来的深色托盘。都市之国的硬币是Pauline侧像，与都市壁纸换掉Pauline一致，预设写的是`02-metro.jpg=ic_odyssey_coin`，显示金色矢量金币；改回`coin_odyssey_metro`即可换成都市硬币。
+`wallpaper_coins`把时钟前的金币换成当前王国的紫色本地硬币（主题包里的`icons/coin-<王国>.webp`，见[王国金币](../mario-odyssey-coins/README.md)），`wallpaper_tints`给固定栏托盘换上与王国同色调的半透明底色（如帽子之国#454C87），两者都随换图更新；没有对应条目、选了「无」或只有纯色背景时，退回金色矢量金币和原来的深色托盘。都市之国的硬币是Pauline侧像，与都市壁纸换掉Pauline一致，主题包不带这枚硬币，`wallpaper_coins`里也没有`02-metro.jpg`，都市之国显示金色矢量金币。
 
 ## 授权
 

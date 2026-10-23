@@ -26,6 +26,8 @@ The Outfit typeface in launcher/app/src/main/res/font/outfit.ttf is copyright
 The Outfit Project Authors and licensed under the SIL Open Font License 1.1,
 see launcher/FONT-LICENSE-OFL.txt.
 
-The Fredoka typeface in launcher/app/src/main/res/font/fredoka.ttf is copyright
+The Fredoka typeface in theme-packs/mario-odyssey/fonts/fredoka.ttf (the Mario
+Odyssey theme pack's clock font, not part of the launcher APK) is copyright
 The Fredoka Project Authors and licensed under the SIL Open Font License 1.1,
-see launcher/FONT-LICENSE-FREDOKA-OFL.txt.
+see theme-packs/FONT-LICENSE-FREDOKA-OFL.txt. The font file is unmodified and
+carries the same copyright and license notice in its own name table.

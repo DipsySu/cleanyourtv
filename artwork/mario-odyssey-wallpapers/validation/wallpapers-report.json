@@ -39,7 +39,7 @@
   "wallpapers": [
     {
       "id": "01-cap",
-      "file": "themes/xiaomi-freeguy-odyssey/wallpapers/01-cap.jpg",
+      "file": "theme-packs/mario-odyssey/wallpapers/01-cap.jpg",
       "title": {
         "zh": "帽子之国",
         "en": "Cap Kingdom"
@@ -84,7 +84,7 @@
     },
     {
       "id": "02-metro",
-      "file": "themes/xiaomi-freeguy-odyssey/wallpapers/02-metro.jpg",
+      "file": "theme-packs/mario-odyssey/wallpapers/02-metro.jpg",
       "title": {
         "zh": "都市之国",
         "en": "Metro Kingdom"
@@ -129,7 +129,7 @@
     },
     {
       "id": "03-sand",
-      "file": "themes/xiaomi-freeguy-odyssey/wallpapers/03-sand.jpg",
+      "file": "theme-packs/mario-odyssey/wallpapers/03-sand.jpg",
       "title": {
         "zh": "沙之国",
         "en": "Sand Kingdom"
@@ -174,7 +174,7 @@
     },
     {
       "id": "04-seaside",
-      "file": "themes/xiaomi-freeguy-odyssey/wallpapers/04-seaside.jpg",
+      "file": "theme-packs/mario-odyssey/wallpapers/04-seaside.jpg",
       "title": {
         "zh": "海之国",
         "en": "Seaside Kingdom"
@@ -219,7 +219,7 @@
     },
     {
       "id": "05-wooded",
-      "file": "themes/xiaomi-freeguy-odyssey/wallpapers/05-wooded.jpg",
+      "file": "theme-packs/mario-odyssey/wallpapers/05-wooded.jpg",
       "title": {
         "zh": "森之国",
         "en": "Wooded Kingdom"
@@ -264,7 +264,7 @@
     },
     {
       "id": "06-lost",
-      "file": "themes/xiaomi-freeguy-odyssey/wallpapers/06-lost.jpg",
+      "file": "theme-packs/mario-odyssey/wallpapers/06-lost.jpg",
       "title": {
         "zh": "失落之国",
         "en": "Lost Kingdom"
@@ -309,7 +309,7 @@
     },
     {
       "id": "07-luncheon",
-      "file": "themes/xiaomi-freeguy-odyssey/wallpapers/07-luncheon.jpg",
+      "file": "theme-packs/mario-odyssey/wallpapers/07-luncheon.jpg",
       "title": {
         "zh": "料理之国",
         "en": "Luncheon Kingdom"
@@ -354,7 +354,7 @@
     },
     {
       "id": "08-moon",
-      "file": "themes/xiaomi-freeguy-odyssey/wallpapers/08-moon.jpg",
+      "file": "theme-packs/mario-odyssey/wallpapers/08-moon.jpg",
       "title": {
         "zh": "月之国",
         "en": "Moon Kingdom"

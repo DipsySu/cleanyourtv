@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class HeaderStyleTest {
     private static final Map<String, String> NAMES = Config.packageMap(Arrays.asList(
@@ -58,40 +60,62 @@ public class HeaderStyleTest {
     }
 
     private static final Map<String, String> COINS = Config.packageMap(Arrays.asList(
-            "01-cap.jpg=coin_odyssey_cap", " 08-moon.jpg = coin_odyssey_moon ", "02-metro.jpg=ic_odyssey_coin",
-            "03-sand.jpg=banner_odyssey_live", "04-seaside.jpg=Coin_Odyssey_Seaside", "05-wooded.jpg=COIN_ODYSSEY_WOODED",
-            "06-lost.jpg=coin_odyssey_lost=x", "07-luncheon.jpg=coin_", "a.jpg=coin_odyssey cap",
-            "b.jpg=coin_x:drawable/banner_odyssey_live", "c.jpg=coin_../banner", "d.jpg=", "=coin_odyssey_cap",
-            "e.jpg=coin_odyssey_unknown"));
+            "01-cap.jpg=icons/coin-cap.webp", " 08-moon.jpg = icons/coin-moon.webp ", "03-sand.jpg=icons/Coin_Sand.WEBP",
+            "04-seaside.jpg=icons/coin.seaside.png", "05-wooded.jpg=icons/coin-wooded.jpeg",
+            // The resource names configs used while the coins were in the APK.
+            "02-metro.jpg=ic_odyssey_coin", "06-lost.jpg=coin_odyssey_lost", "07-luncheon.jpg=banner_odyssey_live",
+            // Traversal, suffixes, nesting, other folders and other files.
+            "a.jpg=icons/../banners/cast.webp", "b.jpg=icons/..coin.webp", "c.jpg=icons/coin-cap.webp#3",
+            "d.jpg=icons/coin-cap.webp#0,0,64,64", "e.jpg=icons/kingdoms/coin-cap.webp", "f.jpg=banners/coin-cap.webp",
+            "g.jpg=Icons/coin-cap.webp", "h.jpg=/icons/coin-cap.webp", "i.jpg=icons\\coin-cap.webp",
+            "j.jpg=icons/coin-cap.gif", "k.jpg=icons/", "l.jpg=icons/.coin.webp", "m.jpg=icons/coin cap.webp",
+            "n.jpg=fonts/fredoka.ttf", "o.jpg=icons/coin-cap.webp=x", "p.jpg=", "=icons/coin-cap.webp"));
 
     @Test public void theCoinFollowsTheWallpaperOnScreen() {
-        assertEquals("coin_odyssey_cap", HeaderStyle.coin(COINS, "01-cap.jpg"));
-        assertEquals("coin_odyssey_moon", HeaderStyle.coin(COINS, "08-moon.jpg"));
-        // Only a resource name is checked here: whether the APK has it is MainActivity's lookup (the vector if not).
-        assertEquals("coin_odyssey_unknown", HeaderStyle.coin(COINS, "e.jpg"));
+        assertEquals("icons/coin-cap.webp", HeaderStyle.coin(COINS, "01-cap.jpg"));
+        assertEquals("icons/coin-moon.webp", HeaderStyle.coin(COINS, "08-moon.jpg"));
+        // Only the path is checked here: whether the file is there and decodes is OdysseyHeader.coin's (the vector if not).
+        assertEquals("icons/coin.seaside.png", HeaderStyle.coin(COINS, "04-seaside.jpg"));
+        assertEquals("icons/coin-wooded.jpeg", HeaderStyle.coin(COINS, "05-wooded.jpg"));
     }
 
-    @Test public void theVectorCoinOrANameThatIsNotACoinGivesTheVectorCoin() {
-        assertEquals("", HeaderStyle.coin(COINS, "02-metro.jpg"));   // ic_odyssey_coin: the vector, by name
-        assertEquals("", HeaderStyle.coin(COINS, "03-sand.jpg"));    // a banner is not a coin
-        // Resource names are lower case: no case folding.
-        assertEquals("", HeaderStyle.coin(COINS, "04-seaside.jpg"));
-        assertEquals("", HeaderStyle.coin(COINS, "05-wooded.jpg"));
-        // The value keeps an '=' (package-map rules), which no resource name has.
-        assertEquals("", HeaderStyle.coin(COINS, "06-lost.jpg"));
-        assertEquals("", HeaderStyle.coin(COINS, "07-luncheon.jpg"));   // the prefix alone
-        assertEquals("", HeaderStyle.coin(COINS, "a.jpg"));
-        // Nothing getIdentifier would read as another package or type.
-        assertEquals("", HeaderStyle.coin(COINS, "b.jpg"));
-        assertEquals("", HeaderStyle.coin(COINS, "c.jpg"));
+    @Test public void theExtensionIsAnyCaseAsInTheZipRules() {
+        assertEquals("icons/Coin_Sand.WEBP", HeaderStyle.coin(COINS, "03-sand.jpg"));
+        assertTrue(HeaderStyle.coinPath("icons/COIN.PNG"));
+    }
+
+    @Test public void theOldResourceNamesGiveTheVectorCoin() {
+        assertEquals("", HeaderStyle.coin(COINS, "02-metro.jpg"));      // ic_odyssey_coin: the vector, by name
+        assertEquals("", HeaderStyle.coin(COINS, "06-lost.jpg"));       // no coin_* drawable ships any more
+        assertEquals("", HeaderStyle.coin(COINS, "07-luncheon.jpg"));   // a banner is not a coin either
+    }
+
+    @Test public void onlyAnImageDirectlyInIconsIsACoin() {
+        assertEquals("", HeaderStyle.coin(COINS, "a.jpg"));   // traversal
+        assertEquals("", HeaderStyle.coin(COINS, "b.jpg"));   // '..' anywhere, as the ZIP rules refuse it
+        assertEquals("", HeaderStyle.coin(COINS, "c.jpg"));   // a banner's atlas cell suffix
+        assertEquals("", HeaderStyle.coin(COINS, "d.jpg"));   // a banner's region suffix
+        assertEquals("", HeaderStyle.coin(COINS, "e.jpg"));   // nested
+        assertEquals("", HeaderStyle.coin(COINS, "f.jpg"));   // another folder
+        assertEquals("", HeaderStyle.coin(COINS, "g.jpg"));   // the folder's name is exact
+        assertEquals("", HeaderStyle.coin(COINS, "h.jpg"));   // absolute
+        assertEquals("", HeaderStyle.coin(COINS, "i.jpg"));   // a backslash
+        assertEquals("", HeaderStyle.coin(COINS, "j.jpg"));   // not an image the pack may hold
+        assertEquals("", HeaderStyle.coin(COINS, "k.jpg"));   // the folder alone
+        assertEquals("", HeaderStyle.coin(COINS, "l.jpg"));   // a name must start with a letter or digit
+        assertEquals("", HeaderStyle.coin(COINS, "m.jpg"));   // a space
+        assertEquals("", HeaderStyle.coin(COINS, "n.jpg"));   // a font
+        // The value keeps an '=' (package-map rules), which no file name has.
+        assertEquals("", HeaderStyle.coin(COINS, "o.jpg"));
     }
 
     @Test public void noPictureOrAnUnlistedOneHasTheVectorCoin() {
         assertEquals("", HeaderStyle.coin(COINS, ""));
         assertEquals("", HeaderStyle.coin(COINS, null));
-        assertEquals("", HeaderStyle.coin(COINS, "d.jpg"));
+        assertEquals("", HeaderStyle.coin(COINS, "p.jpg"));
         assertEquals("", HeaderStyle.coin(COINS, "wallpaper.jpg"));
         assertEquals("", HeaderStyle.coin(COINS, "01-CAP.JPG"));
         assertEquals("", HeaderStyle.coin(Collections.emptyMap(), "01-cap.jpg"));
+        assertFalse(HeaderStyle.coinPath(null));
     }
 }

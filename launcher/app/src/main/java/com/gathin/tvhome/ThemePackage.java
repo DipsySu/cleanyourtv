@@ -23,6 +23,12 @@ final class ThemePackage {
     static final long MAX_COMPRESSED = 16L * 1024 * 1024;
     static final long MAX_EXTRACTED = 48L * 1024 * 1024;
     static final long MAX_FILE = 8L * 1024 * 1024;
+    /** A font in fonts/: a whole variable font is about 160 KB, so 2 MiB leaves room without inviting a giant. */
+    static final long MAX_FONT = 2L * 1024 * 1024;
+    /** An icon in icons/ that config names (wallpaper_coins): small art drawn at about 46dp. */
+    static final long MAX_ICON = 1024L * 1024;
+    /** The largest side such an icon may have; it is decoded down to at most 256 px anyway. */
+    static final int MAX_ICON_SIDE = 1024;
     static final int MAX_ENTRIES = 128;
     static final int MAX_JSON = 64 * 1024;
     private static final Pattern ID = Pattern.compile("[a-z0-9][a-z0-9-]{0,47}");
@@ -54,21 +60,29 @@ final class ThemePackage {
                 if (!allowed(path, entry.isDirectory()) || !names.add(path)) throw fail("unsafe ZIP entry");
                 if (entry.isDirectory()) continue;
                 long declared = entry.getSize();
-                if (declared > MAX_FILE || (isJson(path) && declared > MAX_JSON)) throw fail("ZIP entry too large");
+                boolean font = path.startsWith(ThemeFont.DIRECTORY + "/");
+                if (declared > MAX_FILE || (isJson(path) && declared > MAX_JSON) || (font && declared > MAX_FONT))
+                    throw fail("ZIP entry too large");
                 File out = new File(staging, path);
                 File parent = out.getParentFile();
                 if (parent != null && !parent.isDirectory() && !parent.mkdirs()) throw fail("cannot create theme directory");
                 long written = 0;
                 byte[] buffer = new byte[8192];
+                // A font's first bytes, kept as they stream past: the file must start like one (ThemeFont.sfnt).
+                byte[] head = new byte[4];
+                int headLength = 0;
                 try (InputStream input = zip.getInputStream(entry); FileOutputStream fos = new FileOutputStream(out)) {
                     int n;
                     while ((n = input.read(buffer)) != -1) {
                         written += n; total += n;
-                        if (written > MAX_FILE || total > MAX_EXTRACTED || (isJson(path) && written > MAX_JSON))
+                        if (written > MAX_FILE || total > MAX_EXTRACTED || (isJson(path) && written > MAX_JSON)
+                                || (font && written > MAX_FONT))
                             throw fail("theme payload too large");
+                        for (int i = 0; i < n && headLength < head.length; i++) head[headLength++] = buffer[i];
                         fos.write(buffer, 0, n);
                     }
                 }
+                if (font && !ThemeFont.sfnt(head, headLength)) throw fail("unsupported font file");
             }
             File manifest = new File(staging, "manifest.json"), config = new File(staging, "config.json");
             if (!manifest.isFile() || manifest.length() == 0 || !config.isFile() || config.length() == 0)
@@ -91,14 +105,42 @@ final class ThemePackage {
         }
     }
 
+    /**
+     * The only names a pack may hold: manifest.json, config.json, wallpaper.jpg and preview.jpg at the top, images
+     * one level down in wallpapers/, banners/ and icons/, and .ttf or .otf fonts one level down in fonts/ (see
+     * ThemeFont). Directory entries are allowed for those four folders only.
+     */
     private static boolean allowed(String path, boolean directory) {
         if (path == null || path.isEmpty() || path.startsWith("/") || path.indexOf('\\') >= 0 || path.contains("..")) return false;
-        if (directory) return "wallpapers/".equals(path) || "banners/".equals(path);
+        if (directory) return "wallpapers/".equals(path) || "banners/".equals(path) || "icons/".equals(path)
+                || (ThemeFont.DIRECTORY + "/").equals(path);
         if ("manifest.json".equals(path) || "config.json".equals(path) || "wallpaper.jpg".equals(path) || "preview.jpg".equals(path)) return true;
         int slash = path.indexOf('/');
         if (slash <= 0 || slash != path.lastIndexOf('/')) return false;
         String dir = path.substring(0, slash), leaf = path.substring(slash + 1);
-        return ("wallpapers".equals(dir) || "banners".equals(dir)) && IMAGE.matcher(leaf).matches();
+        if (ThemeFont.DIRECTORY.equals(dir)) return ThemeFont.leaf(leaf);
+        return ("wallpapers".equals(dir) || "banners".equals(dir) || "icons".equals(dir)) && image(leaf);
+    }
+
+    /** A file name the image folders may hold: a letter or digit first, then .jpg, .jpeg, .png or .webp in any case. */
+    static boolean image(String leaf) {
+        return leaf != null && IMAGE.matcher(leaf).matches();
+    }
+
+    /**
+     * The file {@code relative} ("icons/coin-cap.webp") names in the theme {@code directory}, or null unless it is a
+     * regular file whose real path lies under {@code directory/folder}. The import never writes a link or a '..', but
+     * the files are read again long after it, so a reader resolves the path once more rather than trust the name.
+     */
+    static File inside(File directory, String folder, String relative) {
+        if (directory == null || folder == null || relative == null) return null;
+        try {
+            File file = new File(directory, relative).getCanonicalFile();
+            String root = new File(directory, folder).getCanonicalPath() + File.separator;
+            return file.getPath().startsWith(root) && file.isFile() ? file : null;
+        } catch (IOException | SecurityException e) {
+            return null;
+        }
     }
 
     private static boolean isJson(String path) { return "manifest.json".equals(path) || "config.json".equals(path); }

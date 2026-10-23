@@ -1,0 +1,27 @@
+{
+  "dock_apps": [
+    "com.xiaomi.mitv.smartshare",
+    "com.xiaodianshi.tv.yst",
+    "com.zb.test",
+    "com.mb.android",
+    "com.ktcp.video",
+    "com.xiaomi.mitv.mediaexplorer"
+  ],
+  "dock_columns": 6,
+  "columns": 6,
+  "rows_below_dock": 1,
+  "hidden_apps": [
+    "com.mitv.gallery"
+  ],
+  "live_tv_package": "com.xiaomi.mitv.tvplayer",
+  "live_tv_action": "com.xiaomi.mitv.tvplayer.ATV_PLAY",
+  "launch_actions": [
+    "com.xiaomi.mitv.mediaexplorer=duokan.mediaexplorer.intent.action.BROWSE_DEVICE_LIST"
+  ],
+  "app_labels": [
+    "com.xiaomi.mitv.mediaexplorer=高清播放器"
+  ],
+  "always_show_names": true,
+  "app_library": true,
+  "module_cards": false
+}

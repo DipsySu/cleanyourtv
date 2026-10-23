@@ -1,0 +1,248 @@
+{
+  "banners": 16,
+  "source": "soft-glow/*.xml (Android VectorDrawable, viewport 320x180)",
+  "masterSize": [
+    768,
+    432
+  ],
+  "renderer": "Google Chrome 155.0.8059.85",
+  "encoder": "cwebp 1.6.0",
+  "flags": [
+    "-resize",
+    "384",
+    "216",
+    "-q",
+    "90",
+    "-sharp_yuv",
+    "-m",
+    "6",
+    "-noalpha"
+  ],
+  "totalBytes": 41452,
+  "items": [
+    {
+      "id": "115",
+      "source": "soft-glow/banner_soft_115.xml",
+      "svgSha256": "bc6a5eeb3144f779f3ce66f5eed6ea32add8ad2a12f5918675dd415985e76b06",
+      "file": "115.webp",
+      "size": [
+        384,
+        216
+      ],
+      "chunk": "VP8 ",
+      "bytes": 2764,
+      "sha256": "c1c33d0958cc21976439728f43c9e48092e42fec4f1ab5230f071fff54393543",
+      "opaque": true
+    },
+    {
+      "id": "alarm",
+      "source": "soft-glow/banner_soft_alarm.xml",
+      "svgSha256": "f624d18cb12827b4d9f3b25fc9eb50a95f6b02cb2d33ef81fb4dafcf70448ee4",
+      "file": "alarm.webp",
+      "size": [
+        384,
+        216
+      ],
+      "chunk": "VP8 ",
+      "bytes": 2744,
+      "sha256": "85e08c5e2cd820a6e94c6ecd5448d89bf8005aa8a8c49bb65a4025357863a03e",
+      "opaque": true
+    },
+    {
+      "id": "bili",
+      "source": "soft-glow/banner_soft_bili.xml",
+      "svgSha256": "d20a9d3642a7d6d160d5dd6b56dd46d93e84936ada3dfcccde193a87c7d821fd",
+      "file": "bili.webp",
+      "size": [
+        384,
+        216
+      ],
+      "chunk": "VP8 ",
+      "bytes": 2910,
+      "sha256": "424efe62c370bd2a96dd1617ead6e26a1a43a099e3052ae5c1ccdae82210cd2d",
+      "opaque": true
+    },
+    {
+      "id": "calendar",
+      "source": "soft-glow/banner_soft_calendar.xml",
+      "svgSha256": "df51a97aa09cd16d0799eb3dab3ddaf142b5b41de08df52f5d170413fe7f700d",
+      "file": "calendar.webp",
+      "size": [
+        384,
+        216
+      ],
+      "chunk": "VP8 ",
+      "bytes": 2636,
+      "sha256": "7ebb23da026acc41d629777d0f4729f0c28b8f711652c4f3acf164bb28a081b5",
+      "opaque": true
+    },
+    {
+      "id": "cast",
+      "source": "soft-glow/banner_soft_cast.xml",
+      "svgSha256": "491bf33ccdc52a24d80510fe9f317603fadd66801fdb024f492fba51909e0818",
+      "file": "cast.webp",
+      "size": [
+        384,
+        216
+      ],
+      "chunk": "VP8 ",
+      "bytes": 2872,
+      "sha256": "17dd03db42140c2af1ea4b172564a82f3b3b3c4fdb5783f7a9de0bf3268699cf",
+      "opaque": true
+    },
+    {
+      "id": "emby",
+      "source": "soft-glow/banner_soft_emby.xml",
+      "svgSha256": "f996d3bcf85de3502aa86d53a6809c4239c5397476febe7d692445b59f4ed7eb",
+      "file": "emby.webp",
+      "size": [
+        384,
+        216
+      ],
+      "chunk": "VP8 ",
+      "bytes": 2608,
+      "sha256": "6985c9600a401d1c4f1ce7765fbad41a954c45ca7c42e91d0e7fa314343e67a5",
+      "opaque": true
+    },
+    {
+      "id": "gallery",
+      "source": "soft-glow/banner_soft_gallery.xml",
+      "svgSha256": "ea9861024a3decbbd6302188676af2d3e0acf6fe430044dce71da0e9c3f4f48d",
+      "file": "gallery.webp",
+      "size": [
+        384,
+        216
+      ],
+      "chunk": "VP8 ",
+      "bytes": 2434,
+      "sha256": "a3624c94d42b7d970672f750e8df9a21ac8794e33a235ac1e37416152c5375ea",
+      "opaque": true
+    },
+    {
+      "id": "light",
+      "source": "soft-glow/banner_soft_light.xml",
+      "svgSha256": "e5229bc20314709563d6fb019b2a699776110fc6215fced92720ae490d72ec2a",
+      "file": "light.webp",
+      "size": [
+        384,
+        216
+      ],
+      "chunk": "VP8 ",
+      "bytes": 2194,
+      "sha256": "f95c19c9bc0773c4dcb9ae9e590739ff2a152594aacfe052b45ec659f6b1e9d8",
+      "opaque": true
+    },
+    {
+      "id": "live",
+      "source": "soft-glow/banner_soft_live.xml",
+      "svgSha256": "68ad9724bf34316ec0313eeea904ef17013f4582a4a21ce449afb251455bb91a",
+      "file": "live.webp",
+      "size": [
+        384,
+        216
+      ],
+      "chunk": "VP8 ",
+      "bytes": 2520,
+      "sha256": "a3462d6f975d634aeef9126e32d49264de951eb89de6d40928bcab8d6056f21c",
+      "opaque": true
+    },
+    {
+      "id": "manager",
+      "source": "soft-glow/banner_soft_manager.xml",
+      "svgSha256": "f809e5e42e539a464ba1cbeb5c0ec06d1e6eea297d9a9a1b2938f66e7a010437",
+      "file": "manager.webp",
+      "size": [
+        384,
+        216
+      ],
+      "chunk": "VP8 ",
+      "bytes": 2734,
+      "sha256": "52bd4fb53c73c090e52e062463d212e97d1f8d23ff0b12405bdedf88a7d75556",
+      "opaque": true
+    },
+    {
+      "id": "player",
+      "source": "soft-glow/banner_soft_player.xml",
+      "svgSha256": "84ad357b28c8e5252218b0ac52a5842f9efce774c0454e58f30e45ad44269c51",
+      "file": "player.webp",
+      "size": [
+        384,
+        216
+      ],
+      "chunk": "VP8 ",
+      "bytes": 2754,
+      "sha256": "0cc845c0307a22f75617c3af842d484ce16a006bda2cd2cf3c444119d48e787e",
+      "opaque": true
+    },
+    {
+      "id": "settings",
+      "source": "soft-glow/banner_soft_settings.xml",
+      "svgSha256": "ef9d728d17c0cbccbf24b34686a6613a248ca68d8e3d1a087918a345a0b61dea",
+      "file": "settings.webp",
+      "size": [
+        384,
+        216
+      ],
+      "chunk": "VP8 ",
+      "bytes": 2460,
+      "sha256": "7d88dd7204972f813679de04cb91a472afe032d1130de625203457b152b8b46c",
+      "opaque": true
+    },
+    {
+      "id": "tencent",
+      "source": "soft-glow/banner_soft_tencent.xml",
+      "svgSha256": "061f0f791c11f29913ad6fca8ab597bc3c218f1d2eb7d3285d9260e278295391",
+      "file": "tencent.webp",
+      "size": [
+        384,
+        216
+      ],
+      "chunk": "VP8 ",
+      "bytes": 2990,
+      "sha256": "3311e43ce1cddf9ecc608b4924e681f98140e3b4ebdf4d4d6c15fffcfa7b16e8",
+      "opaque": true
+    },
+    {
+      "id": "video",
+      "source": "soft-glow/banner_soft_video.xml",
+      "svgSha256": "189b4ceea3c85d86f8fcf06fcf6a54891dafa89bb5d2317ae64ef487dd75da07",
+      "file": "video.webp",
+      "size": [
+        384,
+        216
+      ],
+      "chunk": "VP8 ",
+      "bytes": 2328,
+      "sha256": "8c19972e3a00f96cb3d2ac6163ac3c3003f398056aa16b6b918b36c64720f061",
+      "opaque": true
+    },
+    {
+      "id": "voice",
+      "source": "soft-glow/banner_soft_voice.xml",
+      "svgSha256": "d55c5a80af0081a35e29b0d75c27603f6497105ff12b0563ebfeddfeac4ca4e0",
+      "file": "voice.webp",
+      "size": [
+        384,
+        216
+      ],
+      "chunk": "VP8 ",
+      "bytes": 2148,
+      "sha256": "2ce15ea1c1bf674cc89abbbf6fbe1873b2005ef60726a0ae08729c956c47e586",
+      "opaque": true
+    },
+    {
+      "id": "weather",
+      "source": "soft-glow/banner_soft_weather.xml",
+      "svgSha256": "29cd3d87b9514b1596b2d67244b4523748ab0fe3bf3a220d6926b3eac371ddf6",
+      "file": "weather.webp",
+      "size": [
+        384,
+        216
+      ],
+      "chunk": "VP8 ",
+      "bytes": 2356,
+      "sha256": "98597cfdc0cf55d78b944b3b17c325aad42a8068612d056095d575f86604e595",
+      "opaque": true
+    }
+  ]
+}

@@ -35,7 +35,7 @@ final class ThemeStore {
             "wallpaper_dim", "wallpaper_names", "wallpaper_coins", "wallpaper_tints", "app_banners", "columns",
             "dock_columns", "rows_below_dock", "dock_opacity", "dock_glass", "dock_title", "dock_row",
             "dock_even_padding", "ambient_glow", "app_glow", "cinematic_home", "sky_intensity", "focus_overshoot",
-            "always_show_names", "reduced_motion", "wallpaper_true_color")));
+            "always_show_names", "reduced_motion", "wallpaper_true_color", "clock_font", "clock_font_axes")));
 
     static final class Entry {
         final String id, name;
@@ -241,7 +241,10 @@ final class ThemeStore {
             while (names.hasNext()) { String app = names.next(); Object path = map.opt(app); if (!validPackage(app) || !(path instanceof String) || !validBanner((String) path, directory)) return false; }
             return true;
         }
-        if ("wallpaper_names".equals(key) || "wallpaper_coins".equals(key) || "wallpaper_tints".equals(key)) return value instanceof JSONArray || value instanceof JSONObject;
+        if ("wallpaper_coins".equals(key)) return validCoins(value, directory);
+        if ("clock_font".equals(key)) return value instanceof String && validFont((String) value, directory);
+        if ("clock_font_axes".equals(key)) return validAxes(value);
+        if ("wallpaper_names".equals(key) || "wallpaper_tints".equals(key)) return value instanceof JSONArray || value instanceof JSONObject;
         if ("background_color".equals(key) || "header_style".equals(key) || "wallpaper_order".equals(key)) return value instanceof String;
         if ("wallpaper".equals(key) || "dock_glass".equals(key) || "dock_title".equals(key) || "dock_row".equals(key)
                 || "dock_even_padding".equals(key) || "ambient_glow".equals(key) || "app_glow".equals(key)
@@ -261,6 +264,86 @@ final class ThemeStore {
             BitmapFactory.decodeFile(asset.getPath(), options);
             return ThemeArtReference.safeBounds(options.outWidth, options.outHeight) && ref.fits(options.outWidth, options.outHeight);
         } catch (Exception e) { return false; }
+    }
+
+    /**
+     * wallpaper_coins: wallpaper file name to an icon in the pack, {"01-cap.jpg": "icons/coin-cap.webp"} or
+     * ["01-cap.jpg=icons/coin-cap.webp"]. Every value must name a real, small icon (validIcon); a picture without an
+     * entry shows the vector coin, so an empty map is fine. The keys are not checked: a name no wallpaper has is unused.
+     */
+    private static boolean validCoins(Object value, File directory) {
+        if (value instanceof JSONArray) {
+            JSONArray values = (JSONArray) value;
+            for (int i = 0; i < values.length(); i++) {
+                Object entry = values.opt(i);
+                if (!(entry instanceof String)) return false;
+                String text = (String) entry;
+                int equals = text.indexOf('=');
+                if (equals < 0 || equals != text.lastIndexOf('=') || !validIcon(text.substring(equals + 1), directory)) return false;
+            }
+            return true;
+        }
+        if (!(value instanceof JSONObject)) return false;
+        JSONObject map = (JSONObject) value;
+        for (java.util.Iterator<String> names = map.keys(); names.hasNext();) {
+            Object path = map.opt(names.next());
+            if (!(path instanceof String) || !validIcon((String) path, directory)) return false;
+        }
+        return true;
+    }
+
+    /**
+     * An icon HeaderStyle.coin accepts that is a file in the pack's icons/ folder, at most ThemePackage.MAX_ICON bytes
+     * and at most MAX_ICON_SIDE px a side (a bounds-only decode, as for banners). OdysseyHeader.coin checks the same
+     * again before it decodes, as the snapshot is read long after the import.
+     */
+    private static boolean validIcon(String path, File directory) {
+        if (!HeaderStyle.coinPath(path)) return false;
+        File icon = ThemePackage.inside(directory, "icons", path);
+        if (icon == null || icon.length() <= 0 || icon.length() > ThemePackage.MAX_ICON) return false;
+        try {
+            BitmapFactory.Options options = new BitmapFactory.Options(); options.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile(icon.getPath(), options);
+            return options.outWidth > 0 && options.outHeight > 0
+                    && options.outWidth <= ThemePackage.MAX_ICON_SIDE && options.outHeight <= ThemePackage.MAX_ICON_SIDE;
+        } catch (RuntimeException e) { return false; }
+    }
+
+    /**
+     * clock_font: "fonts/<name>.ttf" (or .otf) naming a file in the pack's fonts/ folder, no larger than
+     * ThemePackage.MAX_FONT, that starts like a single font (ThemeFont.sfnt). The ZIP reader already checked every
+     * font's size and first bytes; this ties the setting to one of them.
+     */
+    private static boolean validFont(String path, File directory) {
+        if (ThemeFont.path(path).isEmpty()) return false;
+        File font = ThemePackage.inside(directory, ThemeFont.DIRECTORY, path);
+        return font != null && font.length() <= ThemePackage.MAX_FONT && ThemeFont.sfnt(font);
+    }
+
+    /**
+     * clock_font_axes: {"wght": 700, "wdth": 120} or ["wght=700", "wdth=120"]. In the object form every value must be
+     * a JSON integer (not true, not 700.0); either way ThemeFont.axes decides the rest (tags, range, count, repeats).
+     */
+    private static boolean validAxes(Object value) {
+        List<String> entries = new ArrayList<>();
+        if (value instanceof JSONArray) {
+            JSONArray values = (JSONArray) value;
+            for (int i = 0; i < values.length(); i++) {
+                Object entry = values.opt(i);
+                if (!(entry instanceof String)) return false;
+                entries.add((String) entry);
+            }
+        } else if (value instanceof JSONObject) {
+            JSONObject map = (JSONObject) value;
+            for (java.util.Iterator<String> tags = map.keys(); tags.hasNext();) {
+                String tag = tags.next(); Object number = map.opt(tag);
+                if (!(number instanceof Integer || number instanceof Long)) return false;
+                entries.add(tag + "=" + number);
+            }
+        } else {
+            return false;
+        }
+        return ThemeFont.axes(entries) != null;
     }
 
     private static boolean validBannerEntry(String entry, File directory) {

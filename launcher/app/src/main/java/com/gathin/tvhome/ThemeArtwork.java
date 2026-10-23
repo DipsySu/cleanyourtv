@@ -60,11 +60,29 @@ final class ThemeArtwork {
             if (bitmap == null || bitmap.getWidth() <= 0 || bitmap.getHeight() <= 0) return null;
             boolean animal = HeaderStyle.ANIMAL_CROSSING.equals(headerStyle);
             boolean zelda = HeaderStyle.ZELDA.equals(headerStyle);
-            boolean fit = value.cell >= 0 || value.hasRegion() || bitmap.hasAlpha();
+            boolean fit = !ThemeArtReference.fullBleed(value, bitmap.hasAlpha());
             return new CardArtwork(bitmap, fit, animal, zelda);
         } catch (IOException | RuntimeException | OutOfMemoryError ignored) {
             return null;
         }
+    }
+
+    /**
+     * The decoded picture behind a full-bleed theme banner, or null for any other drawable. The card shows only its
+     * centre, so AppAdapter samples this whole picture for the ambient glow, as it did the banners the APK bundled.
+     */
+    static Bitmap fullBleedBitmap(Drawable drawable) {
+        if (!(drawable instanceof CardArtwork)) return null;
+        CardArtwork card = (CardArtwork) drawable;
+        return card.fit ? null : card.bitmap;
+    }
+
+    /**
+     * A card's PixelFormat: a full-bleed card at full alpha is covered by its opaque picture, so AppAdapter drops the
+     * tile background under it, as for an opaque bundled banner. A fitted card shows its ground and is translucent.
+     */
+    static int opacity(boolean fit, int alpha) {
+        return !fit && alpha == 255 ? PixelFormat.OPAQUE : PixelFormat.TRANSLUCENT;
     }
 
     private static BitmapFactory.Options sampled(int longest, int cap) {
@@ -110,13 +128,16 @@ final class ThemeArtwork {
 
         @Override public void draw(Canvas canvas) {
             Rect b = getBounds();
-            drawGround(canvas, b);
+            // A full-bleed picture covers the whole card, so its ground would only be painted over on every frame.
+            if (fit) drawGround(canvas, b);
             float width = b.width(), height = b.height();
             if (width <= 0 || height <= 0) return;
             float scale = fit ? Math.min(width * .9f / source.width(), height * .9f / source.height())
                     : Math.max(width / source.width(), height / source.height());
             float w = source.width() * scale, h = source.height() * scale;
             destination.set(b.centerX() - w / 2, b.centerY() - h / 2, b.centerX() + w / 2, b.centerY() + h / 2);
+            // A card that reports itself opaque must not leave a float-rounding sliver of its bounds uncovered.
+            if (!fit) destination.union(b.left, b.top, b.right, b.bottom);
             canvas.drawBitmap(bitmap, source, destination, art);
         }
 
@@ -160,7 +181,7 @@ final class ThemeArtwork {
         private void setAlpha(Paint paint, int sourceColor) { paint.setAlpha(((sourceColor >>> 24) & 0xff) * alpha / 255); }
         @Override public void setAlpha(int alpha) { this.alpha = alpha; ground.setAlpha(alpha); grain.setAlpha(alpha); art.setAlpha(alpha); invalidateSelf(); }
         @Override public void setColorFilter(ColorFilter filter) { ground.setColorFilter(filter); grain.setColorFilter(filter); art.setColorFilter(filter); invalidateSelf(); }
-        @Override public int getOpacity() { return PixelFormat.TRANSLUCENT; }
+        @Override public int getOpacity() { return opacity(fit, alpha); }
         @Override public int getIntrinsicWidth() { return CARD_W; }
         @Override public int getIntrinsicHeight() { return CARD_H; }
     }

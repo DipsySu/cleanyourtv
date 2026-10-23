@@ -40,6 +40,15 @@ public class ThemeArtReferenceTest {
         assertNull(ThemeArtReference.parse("banners/card.png#1,2,4097,5"));
     }
 
+    @Test public void onlyAWholeOpaqueImageFillsTheCardEdgeToEdge() {
+        // The Odyssey and soft-glow packs' banners: whole 384x216 WebPs with no alpha, drawn like bundled banners.
+        assertTrue(ThemeArtReference.fullBleed(ThemeArtReference.parse("banners/iqiyi.webp"), false));
+        // A transparent sprite, an atlas cell and a rectangle are fitted onto the theme's card ground instead.
+        assertFalse(ThemeArtReference.fullBleed(ThemeArtReference.parse("banners/iqiyi.webp"), true));
+        assertFalse(ThemeArtReference.fullBleed(ThemeArtReference.parse("banners/hyrule.webp#3"), false));
+        assertFalse(ThemeArtReference.fullBleed(ThemeArtReference.parse("banners/island.webp#26,359,315,310"), false));
+    }
+
     @Test public void boundsLimitsProtectDecoding() {
         assertTrue(ThemeArtReference.safeBounds(4096, 4096));
         assertFalse(ThemeArtReference.safeBounds(4097, 1));

@@ -1,8 +1,10 @@
-> **本 fork 的定制分支：** `xiaomi-freeguy-home` 包含小米 Android 11 兼容适配、奥德赛角色图标和 Emby 固定栏。改动与验证见[设备记录](docs/devices/xiaomi-mitv-mftr0-freeguy-android11.md)，使用 `./launcher/build-freeguy.sh` 构建。下文保留上游通用说明。
+> **本 fork 的定制分支：** `xiaomi-freeguy-home` 包含小米 Android 11 兼容适配、Emby 固定栏和 ZIP 主题库。APK 内置的是原版外观，奥德赛和柔光两套外观改为主题包提供。改动与验证见[设备记录](docs/devices/xiaomi-mitv-mftr0-freeguy-android11.md)，使用 `./launcher/build-freeguy.sh` 构建。下文保留上游通用说明。
 
-> **新图标设计包：** [40 枚柔光电视图标](artwork/soft-tv-icons/README.md)，包含横幅/方形 SVG、Android 矢量资源及离线预览。本套件已完成设计验收，尚未替换电视当前主题。
+> **新图标设计包：** [40 枚柔光电视图标](artwork/soft-tv-icons/README.md)，包含横幅/方形 SVG、Android 矢量资源及离线预览。本套件尚未替换电视主题；`soft-glow` 主题包用的是此前 APK 内置的那组柔光卡片，栅格化为 WebP。
 
-> **奥德赛角色主题：** [40 个应用的角色图标](artwork/mario-odyssey-icons/README.md)，包含横幅/方形 PNG、Android 资源、素材来源与离线预览。2026-10-22 已部署到小米电视，启用 16 个已核实应用映射，横幅保持纯角色图案，固定栏为「无线投屏 → 云视听小电视 → 直播电视 → Emby → 云视听极光 → 高清播放器」。
+> **奥德赛角色主题：** [40 个应用的角色图标](artwork/mario-odyssey-icons/README.md)，包含横幅/方形 PNG、素材来源与离线预览。2026-10-22 首次部署到小米电视，启用 16 个已核实应用映射，横幅保持纯角色图案，固定栏为「无线投屏 → 云视听小电视 → 直播电视 → Emby → 云视听极光 → 高清播放器」。现在它是 `mario-odyssey` 主题包，包含这 16 张横幅、8 张王国壁纸、7 枚王国硬币和 Fredoka 时钟字体，这些都不再放在 APK 里。
+
+> **主题库：** [动森、塞尔达、奥德赛和柔光主题包](theme-packs/README.md)，可在电视上切换，外部 ZIP 导入时先验证。
 
 <p align="center">
   <a href="https://cleanyour.tv"><img src="docs/banner.png" alt="CleanYourTV：让电视桌面回归简洁" width="800"></a>
@@ -72,7 +74,7 @@
 | 每行应用数量 | 选择 4、5、6 或 7 个，列数增加时卡片相应缩小。 |
 | 动态效果 | 开启或关闭桌面动画。 |
 | 高级动态效果 | 增加卡片上浮、图标缩放和背景颜色平滑过渡。可能增加内存占用，实际影响取决于电视。 |
-| 跟随主题（重置电视端设置） | 清除电视端的布局与动效选择，恢复当前主题或内置配置。推送或重置主题也会清除这些选择。 |
+| 跟随主题（重置电视端设置） | 清除电视端的布局与动效选择，恢复当前主题或内置配置。推送、切换或重置主题都会保留这些选择，只有壁纸选择恢复为主题默认。 |
 | 默认桌面入口 | 打开 Android 的默认桌面选择页，切换到原始桌面或 CleanYourTV。 |
 
 默认桌面入口不负责重新启用已停用的原始桌面。如果原始桌面已被安装脚本停用，需要先按下文恢复。部分电视不提供系统桌面选择页。还可以通过 `show_home_settings_shortcut` 配置单独显示该入口。
@@ -281,4 +283,4 @@ TV_HOST=192.168.1.50 tools/restore.sh "examples/你的机型/debloat.txt" com.go
 
 ## 许可证
 
-项目采用 [MIT 许可证](LICENSE)。Outfit 字体采用 [SIL Open Font License](launcher/FONT-LICENSE-OFL.txt)，Odyssey 顶栏时钟所用的 Fredoka 字体同样采用 [SIL Open Font License](launcher/FONT-LICENSE-FREDOKA-OFL.txt)。
+项目采用 [MIT 许可证](LICENSE)。Outfit 字体采用 [SIL Open Font License](launcher/FONT-LICENSE-OFL.txt)，奥德赛主题包随包携带的 Fredoka 时钟字体同样采用 [SIL Open Font License](theme-packs/FONT-LICENSE-FREDOKA-OFL.txt)。

@@ -14,6 +14,7 @@ import java.util.zip.ZipOutputStream;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -55,6 +56,94 @@ public class ThemePackageTest {
         assertReject(truncated);
     }
 
+    @Test public void extractsFontsAndIconsWithTheirFolders() throws Exception {
+        Map<String, byte[]> files = basic();
+        files.put("fonts/", new byte[0]);
+        files.put("icons/", new byte[0]);
+        files.put("fonts/fredoka.ttf", font(0, 1, 0, 0));
+        files.put("fonts/Digits.OTF", font('O', 'T', 'T', 'O'));
+        files.put("fonts/apple.ttf", font('t', 'r', 'u', 'e'));
+        files.put("icons/coin-cap.webp", new byte[] {1, 2, 3});
+        files.put("icons/Coin_Moon.PNG", new byte[] {4});
+        File dir = Files.createTempDirectory("theme-package-fonts").toFile();
+        try {
+            ThemePackage.extract(new ByteArrayInputStream(zip(files)), dir);
+            assertTrue(new File(dir, "fonts/fredoka.ttf").isFile());
+            assertTrue(new File(dir, "fonts/Digits.OTF").isFile());
+            assertTrue(new File(dir, "fonts/apple.ttf").isFile());
+            assertTrue(new File(dir, "icons/coin-cap.webp").isFile());
+            assertTrue(new File(dir, "icons/Coin_Moon.PNG").isFile());
+        } finally {
+            delete(dir);
+        }
+    }
+
+    @Test public void refusesFontsThatDoNotStartLikeOneFont() throws Exception {
+        assertRejectFont(font('t', 't', 'c', 'f'));   // a collection
+        assertRejectFont(font('w', 'O', 'F', 'F'));
+        assertRejectFont(font('w', 'O', 'F', '2'));
+        assertRejectFont("not a font at all".getBytes(StandardCharsets.UTF_8));
+        assertRejectFont(new byte[] {0, 1, 0});
+        assertRejectFont(new byte[0]);
+    }
+
+    @Test public void refusesAFontBeyondItsOwnLimit() throws Exception {
+        byte[] large = new byte[(int) ThemePackage.MAX_FONT + 1];
+        large[1] = 1;   // 00 01 00 00: a TrueType tag, so only the size is wrong
+        assertRejectFont(large);
+        byte[] limit = java.util.Arrays.copyOf(large, (int) ThemePackage.MAX_FONT);
+        Map<String, byte[]> files = basic(); files.put("fonts/limit.ttf", limit);
+        File dir = Files.createTempDirectory("theme-package-font-limit").toFile();
+        try {
+            ThemePackage.extract(new ByteArrayInputStream(zip(files)), dir);
+            assertEquals(ThemePackage.MAX_FONT, new File(dir, "fonts/limit.ttf").length());
+        } finally {
+            delete(dir);
+        }
+    }
+
+    @Test public void refusesFilesInTheWrongFolder() throws Exception {
+        assertReject(with("fonts/clock.woff2", font(0, 1, 0, 0)));
+        assertReject(with("fonts/clock.ttc", font(0, 1, 0, 0)));
+        assertReject(with("fonts/coin.png", new byte[] {1}));
+        assertReject(with("icons/clock.ttf", font(0, 1, 0, 0)));
+        assertReject(with("banners/clock.ttf", font(0, 1, 0, 0)));
+        assertReject(with("clock.ttf", font(0, 1, 0, 0)));
+        assertReject(with("fonts/nested/clock.ttf", font(0, 1, 0, 0)));
+        assertReject(with("icons/nested/coin.png", new byte[] {1}));
+        assertReject(with("Fonts/clock.ttf", font(0, 1, 0, 0)));
+        assertReject(with("icons/.coin.png", new byte[] {1}));
+        assertReject(with("fonts/nested/", new byte[0]));
+        assertReject(with("glyphs/", new byte[0]));
+    }
+
+    @Test public void insideResolvesOnlyRealFilesUnderTheFolder() throws Exception {
+        File dir = Files.createTempDirectory("theme-package-inside").toFile();
+        try {
+            File icons = new File(dir, "icons"); icons.mkdirs();
+            File coin = new File(icons, "coin.webp"); Files.write(coin.toPath(), new byte[] {1});
+            File secret = new File(dir, "config.json"); Files.write(secret.toPath(), new byte[] {'{', '}'});
+            assertEquals(coin.getCanonicalFile(), ThemePackage.inside(dir, "icons", "icons/coin.webp"));
+            assertNull(ThemePackage.inside(dir, "icons", "icons/../config.json"));
+            assertNull(ThemePackage.inside(dir, "fonts", "icons/coin.webp"));
+            assertNull(ThemePackage.inside(dir, "icons", "icons/missing.webp"));
+            assertNull(ThemePackage.inside(dir, "icons", "icons"));
+            assertNull(ThemePackage.inside(dir, "icons", "icons/"));
+            assertNull(ThemePackage.inside(null, "icons", "icons/coin.webp"));
+            assertNull(ThemePackage.inside(dir, "icons", null));
+            // A link that leads out of the folder is refused even though its own name looks right.
+            File link = new File(icons, "link.webp");
+            Files.createSymbolicLink(link.toPath(), secret.toPath());
+            assertNull(ThemePackage.inside(dir, "icons", "icons/link.webp"));
+        } finally {
+            delete(dir);
+        }
+    }
+
+    private static Map<String, byte[]> with(String name, byte[] bytes) { Map<String, byte[]> files = basic(); files.put(name, bytes); return files; }
+    private static void assertRejectFont(byte[] bytes) throws Exception { assertReject(with("fonts/clock.ttf", bytes)); }
+    /** Four tag bytes, then a little more, as a font's table directory follows its tag. */
+    private static byte[] font(int a, int b, int c, int d) { return new byte[] {(byte) a, (byte) b, (byte) c, (byte) d, 0, 9, 0, -128}; }
     private static Map<String, byte[]> basic() { return map("manifest.json", manifest(), "config.json", "{\"header_style\":\"animal_crossing\"}"); }
     private static String manifest() { return "{\"schema\":1,\"id\":\"animal-crossing\",\"name\":\"岛屿黄昏\",\"version\":2}"; }
     private static Map<String, byte[]> map(String... pairs) {

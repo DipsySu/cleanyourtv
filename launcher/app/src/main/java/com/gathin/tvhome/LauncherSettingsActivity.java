@@ -569,7 +569,8 @@ public final class LauncherSettingsActivity extends Activity {
             row.setLayoutParams(params);
             ImageView thumbnail = new ImageView(LauncherSettingsActivity.this);
             thumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            thumbnail.setBackgroundColor(appearance != null ? appearance.row : 0xFF34204A);
+            // Behind a thumbnail still decoding: the theme's row colour, the Odyssey purple, or the plain rows' slate.
+            thumbnail.setBackgroundColor(appearance != null ? appearance.row : odyssey ? 0xFF34204A : 0xFF242B34);
             thumbnail.setContentDescription(null);
             thumbnail.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
             row.addView(thumbnail, new LinearLayout.LayoutParams(dp(112), dp(64)));

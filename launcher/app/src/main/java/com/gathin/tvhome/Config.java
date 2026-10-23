@@ -53,7 +53,10 @@ final class Config {
     final Map<String, String> launchActions;
     /** Package to the name its tile shows instead of the app's label (config.xml, app_labels). */
     final Map<String, String> appLabels;
-    /** Package to a bundled banner_* drawable its tile shows instead of the app's art (config.xml, app_banners). */
+    /**
+     * Package to the banner its tile shows instead of the app's art (config.xml, app_banners): a theme pack's
+     * banners/ image, or a banner_* drawable the APK has. The APK's own list is empty; the themes bring the art.
+     */
     final Map<String, String> appBanners;
     final String sourcePanelService;
     final String sourcePanelAction;
@@ -131,11 +134,17 @@ final class Config {
     final boolean ambientGlow;
     /** Minutes Home may sit untouched before the clock screensaver (config.xml, home_idle_clock_minutes); 0 is off. */
     final int homeIdleClockMinutes;
-    /** The header's look (config.xml header_style): {@link HeaderStyle#DEFAULT} or {@link HeaderStyle#ODYSSEY}. */
+    /**
+     * The header's look (config.xml header_style): {@link HeaderStyle#DEFAULT}, the one the APK starts with, or a
+     * theme's {@link HeaderStyle#ODYSSEY}, {@link HeaderStyle#ANIMAL_CROSSING} or {@link HeaderStyle#ZELDA}.
+     */
     final String headerStyle;
     /** Wallpaper filename to the kingdom the Odyssey header names before the greeting (config.xml wallpaper_names). */
     final Map<String, String> wallpaperNames;
-    /** Wallpaper filename to the coin_* drawable before the Odyssey clock (config.xml wallpaper_coins). */
+    /**
+     * Wallpaper filename to the icon before the Odyssey clock, "icons/coin-cap.webp" in the theme pack (config.xml
+     * wallpaper_coins); HeaderStyle.coin reads it, and a picture without one shows the gold vector coin.
+     */
     final Map<String, String> wallpaperCoins;
     /** Wallpaper filename to the "#RRGGBB" the dock tray is tinted with (config.xml wallpaper_tints); see DockTint. */
     final Map<String, String> wallpaperTints;
@@ -143,6 +152,16 @@ final class Config {
     final boolean dockEvenPadding;
     /** Resolved asset root; imported themes live outside the APK in the private theme library. */
     final File themeDirectory;
+    /**
+     * The Home clock's typeface, "fonts/fredoka.ttf" in {@link #themeDirectory} (config clock_font), whatever the
+     * header style; "" (none, or not a fonts/ path ThemeFont accepts) leaves the header's own typeface.
+     */
+    final String clockFont;
+    /**
+     * {@link #clockFont}'s variation, "'wght' 700, 'wdth' 120" (config clock_font_axes, see ThemeFont.axes); "" for
+     * the font's default instance, also when the axes are wrong.
+     */
+    final String clockFontAxes;
     final String themeIdentity;
     final long themeRevision;
 
@@ -158,7 +177,7 @@ final class Config {
                    List<RaceWeekend.Race> raceCalendar, boolean cinematicHome, boolean ambientGlow, int homeIdleClockMinutes,
                    String headerStyle, Map<String, String> wallpaperNames, Map<String, String> wallpaperCoins,
                    Map<String, String> wallpaperTints, boolean dockEvenPadding, File themeDirectory,
-                   String themeIdentity, long themeRevision) {
+                   String themeIdentity, long themeRevision, String clockFont, String clockFontAxes) {
         this.inputKeycodes = inputKeycodes;
         this.appKeys = Collections.unmodifiableList(appKeys);
         this.dockApps = Collections.unmodifiableList(dockApps);
@@ -218,6 +237,8 @@ final class Config {
         this.themeDirectory = themeDirectory;
         this.themeIdentity = themeIdentity;
         this.themeRevision = themeRevision;
+        this.clockFont = clockFont;
+        this.clockFontAxes = clockFontAxes;
     }
 
     /** The folder the theme tools push into; null when external storage is unavailable. */
@@ -274,6 +295,9 @@ final class Config {
         List<String> wallpaperNames = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.wallpaper_names)));
         List<String> wallpaperCoins = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.wallpaper_coins)));
         List<String> wallpaperTints = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.wallpaper_tints)));
+        // The APK has no font of its own for the clock: only a theme names one, so the default is none.
+        String clockFont = "";
+        List<String> clockFontAxes = new ArrayList<>();
         boolean applied = false;
 
         File legacyDir = dir(ctx);
@@ -337,6 +361,12 @@ final class Config {
             wallpaperNames = stringList(json, "wallpaper_names", wallpaperNames);
             wallpaperCoins = stringList(json, "wallpaper_coins", wallpaperCoins);
             wallpaperTints = stringList(json, "wallpaper_tints", wallpaperTints);
+            // A clock font lives in a pack's fonts/ folder, so only the active pack names one: the legacy layer sits
+            // on external storage, where theme.sh puts no fonts, and must not leak its keys into a pack without them.
+            if (packageOverlay != null && packageOverlay.has("clock_font"))
+                clockFont = string(json, "clock_font", clockFont);
+            if (packageOverlay != null && packageOverlay.has("clock_font_axes"))
+                clockFontAxes = stringList(json, "clock_font_axes", clockFontAxes);
         }
         // Theme signatures only invalidate the wallpaper pick: layout and motion choices belong
         // to the launcher until the user explicitly chooses Follow theme.
@@ -401,7 +431,9 @@ final class Config {
                 // An unknown style is the default one, whichever layer named it.
                 HeaderStyle.parse(headerStyle), packageMap(wallpaperNames),
                 // Checked where they are looked up (HeaderStyle.coin, DockTint.of): a bad entry is no coin or tint.
-                packageMap(wallpaperCoins), packageMap(wallpaperTints), dockEvenPadding, dir, themeIdentity, theme.revision);
+                packageMap(wallpaperCoins), packageMap(wallpaperTints), dockEvenPadding, dir, themeIdentity, theme.revision,
+                // Checked again where the file is opened (ThemeTypeface.load): a bad path or file is no font.
+                ThemeFont.path(clockFont), axesOrDefault(clockFontAxes));
     }
 
     /**
@@ -467,7 +499,7 @@ final class Config {
                 // Package maps are convenient JSON objects; legacy themes use package=value arrays.
                 if (value instanceof JSONObject && ("app_banners".equals(key)
                         || "wallpaper_names".equals(key) || "wallpaper_coins".equals(key)
-                        || "wallpaper_tints".equals(key))) {
+                        || "wallpaper_tints".equals(key) || "clock_font_axes".equals(key))) {
                     JSONObject map = (JSONObject) value;
                     JSONArray entries = new JSONArray();
                     for (java.util.Iterator<String> names = map.keys(); names.hasNext();) {
@@ -483,6 +515,12 @@ final class Config {
             return base;
         }
         return merged;
+    }
+
+    /** The variation string for clock_font_axes, or "" (the default instance) when they are missing or wrong. */
+    private static String axesOrDefault(List<String> entries) {
+        String axes = ThemeFont.axes(entries);
+        return axes == null ? "" : axes;
     }
 
     private static String revisionToken(File file) {

@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
-"""Encode the launcher masters as the APK's opaque 384x216 lossy WebP banners.
+"""Encode the launcher masters as the Mario Odyssey theme pack's opaque 384x216 lossy WebP banners.
 
 Usage: python3 build_launcher.py [out_dir]
 
-Reads launcher/<id>.png (768x432, from render_launcher.mjs) and writes banner_odyssey_<id>.webp to out_dir,
-by default the launcher's res/drawable-nodpi. All 40 are encoded and checked in a temporary directory first,
-then each is staged as a dot file (which the resource merger ignores) and renamed over its predecessor; a
-same-named PNG goes first so aapt2 never sees both.
+Reads launcher/<id>.png (768x432, from render_launcher.mjs) and writes <id>.webp to out_dir, by default the pack's
+theme-packs/mario-odyssey/banners. Only the banners the pack's config.json names in app_banners are encoded: 16 of
+the 40 masters, the apps with a verified package; the other 24 stay design-kit art and never reach the TV. All 16
+are encoded and checked in a temporary directory first, then each is staged as a dot file and renamed over its
+predecessor, so the pack never holds a half-written banner.
 Writes validation/launcher-report.json. Needs cwebp and dwebp (libwebp) on PATH.
 """
 from pathlib import Path
 import hashlib,json,os,shutil,struct,subprocess,sys,tempfile
 ROOT=Path(__file__).resolve().parent
-RES=ROOT.parents[1]/'launcher/app/src/main/res/drawable-nodpi'
+PACK=ROOT.parents[1]/'theme-packs/mario-odyssey'
 MASTER,SIZE=(768,432),(384,216)
 FLAGS=['-resize',*map(str,SIZE),'-q','88','-sharp_yuv','-m','6','-noalpha']
 
@@ -31,9 +32,15 @@ def opaque(path,tmp):
  pam.unlink();return (w,h),pixels[3::4].count(255)==w*h
 
 def main():
- out=Path(sys.argv[1]).resolve() if len(sys.argv)>1 else RES
+ out=Path(sys.argv[1]).resolve() if len(sys.argv)>1 else PACK/'banners'
  if len(sys.argv)>2:raise SystemExit('Usage: python3 build_launcher.py [out_dir]')
- ids=[x['id'] for x in json.loads((ROOT/'manifest.json').read_text())];assert len(ids)==len(set(ids))==40
+ known=[x['id'] for x in json.loads((ROOT/'manifest.json').read_text())];assert len(known)==len(set(known))==40
+ # The pack's own mapping decides what ships. It differs from manifest.json for one app: com.zb.test shows the iqiyi
+ # card there, not live, because Pauline is out of the theme.
+ named=json.loads((PACK/'config.json').read_text(encoding='utf-8'))['app_banners'].values()
+ ids=sorted({v[len('banners/'):-len('.webp')] for v in named})
+ assert all(v.startswith('banners/') and v.endswith('.webp') for v in named),'pack banners must be banners/<id>.webp'
+ assert len(ids)==16 and set(ids)<=set(known),ids
  version=subprocess.run(['cwebp','-version'],check=True,capture_output=True,text=True).stdout.split()[0]
  out.mkdir(parents=True,exist_ok=True);rows=[]
  with tempfile.TemporaryDirectory() as t:
@@ -41,12 +48,11 @@ def main():
   for id in ids:
    source=ROOT/'launcher'/f'{id}.png';data=source.read_bytes();assert data[:8]==b'\x89PNG\r\n\x1a\n',id
    assert struct.unpack('>II',data[16:24])==MASTER,(id,'run render_launcher.mjs first')
-   target=tmp/f'banner_odyssey_{id}.webp';subprocess.run(['cwebp','-quiet',*FLAGS,str(source),'-o',str(target)],check=True)
+   target=tmp/f'{id}.webp';subprocess.run(['cwebp','-quiet',*FLAGS,str(source),'-o',str(target)],check=True)
    webp=target.read_bytes();size,solid=opaque(target,tmp);assert webp_size(webp)==size==SIZE and solid,id
-   rows.append({'id':id,'resource':target.name,'size':list(size),'bytes':len(webp),'sha256':hashlib.sha256(webp).hexdigest(),'opaque':solid})
+   rows.append({'id':id,'file':target.name,'size':list(size),'bytes':len(webp),'sha256':hashlib.sha256(webp).hexdigest(),'opaque':solid})
   for row in rows:
-   part=out/f".{row['resource']}.part";shutil.copyfile(tmp/row['resource'],part)
-   (out/row['resource']).with_suffix('.png').unlink(missing_ok=True);os.replace(part,out/row['resource'])
+   part=out/f".{row['file']}.part";shutil.copyfile(tmp/row['file'],part);os.replace(part,out/row['file'])
  report={'icons':len(rows),'source':'render_launcher.mjs','masterSize':list(MASTER),
   'encoder':f'cwebp {version}','flags':FLAGS,'totalBytes':sum(r['bytes'] for r in rows),'banners':rows}
  (ROOT/'validation/launcher-report.json').write_text(json.dumps(report,indent=2)+'\n')

@@ -4,6 +4,7 @@
 `3e996739ce0b470b51c1c438bf5d0559d1c9e7eb`。实机为 Android 11 / API 30，
 固件 `OS2.0.5.0.RFTMATV`，应用 ABI 为 `armeabi-v7a`。设备信息于 2026-10-21 核对，
 2026-10-22 覆盖更新奥德赛角色主题，并将固定栏扩展为六个入口。
+2026-10-23 起奥德赛和柔光两套外观移出 APK，改为 ZIP 主题包；APK 内置主题恢复为原版外观。
 
 同型号 Android 14 的社区记录见 [原设备说明](xiaomi-mitv-mftr0-freeguy.txt)；
 两版固件的 Home 行为不同。本文件记录这个分支实际采用的配置与验证范围。
@@ -26,18 +27,30 @@ Emby 使用包名 `com.mb.android`；腾讯视频使用 `com.ktcp.video`，电�
 - 合并 `LEANBACK_LAUNCHER` 和普通 `LAUNCHER` 入口，优先电视入口，并按包去重。
 - 将配置中明确指定、能解析且导出的 action 入口加入桌面，解决高清播放器无常规入口的问题。
 - 保留应用库，关闭模块卡片发现弹窗。
-- 16 个应用使用本地奥德赛角色横幅；名称保持卡片下方的原生文字。
-- 顶栏为游戏 HUD 风格（`header_style: odyssey`）：问候语前有力量之月图标和当前壁纸的王国名（主题的 `wallpaper_names`，如「帽子之国 · 下午好」），时钟前有金币，数字为带深色描边和硬投影的 Fredoka 粗圆体，日期放在紫色胶囊里，右上角为奶油色按钮配彩色圆形徽章，选中时变为金色。按钮和固定栏的位置不变。
-- 时钟前的金币和固定栏托盘随壁纸切换：主题的 `wallpaper_coins` 换成当前王国的紫色本地硬币（APK 内置 8 张 128×128 `coin_odyssey_*` WebP，共 46,586 字节），`wallpaper_tints` 把托盘换成该王国色调的半透明渐变，去掉黑色底部阴影；无壁纸或无对应条目时仍为金色矢量金币和上述深蓝灰托盘。都市之国的官方硬币是 Pauline 侧像，主题里该条目设为 `02-metro.jpg=ic_odyssey_coin`，显示金色矢量金币；`coin_odyssey_metro` 仍在 APK 内，改回 `=coin_odyssey_metro` 即可启用。
-- 8 张王国壁纸每 1 分钟按文件名顺序换一张（`wallpaper_rotation_minutes: 1`，`wallpaper_order: sequential`）：距上次换图满 1 分钟才换，且只在桌面位于前台时检查，回到桌面时检查一次，之后每分钟一次；打开应用或小米屏保盖住桌面时不换图，隔很久回到桌面只前进一张。新图使用基准 1.2 秒的淡入动画，实际时长遵守系统动画倍率；王国名和硬币在新图实际透明度达到一半时切换，托盘颜色消费同一动画进度。托盘对单层渐变颜色插值，保持王国切换中的不透明度。首次打开桌面、电视上固定某张壁纸、关闭动态效果或开启 `reduced_motion` 时直接切换。
-- APK 内置 40 张 384×216 不透明 WebP 横幅（`drawable-nodpi`，共 290,632 字节），仅加载实际应用对应图片；方形图标与高分辨率原图不进入 APK。
 - 长按应用的 OK 键弹出程序坞菜单（固定 / 移除 / 左移 / 右移 / 应用信息），电视上的选择存在 `dock.txt`。
 - 不增加动态壁纸、后台服务或网络图标下载。
 
-对应主题配置见 [xiaomi-freeguy-odyssey](../../themes/xiaomi-freeguy-odyssey/config.json)。
-本分支已经把该配置作为内置默认值。8 张王国壁纸和王国名只能通过推送主题送到电视，
-2026-10-22 起电视上已推送该主题（推送会把电视上自选的列数、动画和壁纸恢复为主题默认值）。
-原 [soft 预设](../../themes/xiaomi-freeguy-soft/config.json)及矢量资源继续保留。
+以上设备配置见 [xiaomi-freeguy](../../themes/xiaomi-freeguy/config.json)：固定栏、隐藏应用、直播电视、
+高清播放器的入口与名称、应用库、模块卡片，以及 6 列、固定栏下方 1 行和始终显示应用名称。它不含任何外观设置。
+APK 内置的「原版主题」只保留原始外观：默认细字顶栏和磨砂按钮、应用自带的横幅或图标、黑色背景、没有壁纸。
+
+### 奥德赛与柔光主题包
+
+奥德赛和柔光两套外观与动森、塞尔达一样，以 ZIP 主题包导入，在「设置 → 简洁桌面设置 → 主题」中切换，
+构建和导入方法见[主题包说明](../../theme-packs/README.md)。主题包只改外观，设备配置仍来自上面的 `xiaomi-freeguy`。
+
+奥德赛 · 王国之旅（[mario-odyssey](../../theme-packs/mario-odyssey/config.json)）沿用此前内置奥德赛的外观：
+
+- 16 个应用使用奥德赛角色横幅（包内 `banners/`，16 张 384×216 不透明 WebP，共 113,194 字节）；名称保持卡片下方的原生文字。另外 24 张没有对应应用的横幅不进主题包，PNG 原稿仍在 `artwork/mario-odyssey-icons`。
+- 顶栏为游戏 HUD 风格（`header_style: odyssey`）：问候语前有力量之月图标和当前壁纸的王国名（主题的 `wallpaper_names`，如「帽子之国 · 下午好」），时钟前有金币，数字为带深色描边和硬投影的 Fredoka 粗圆体，日期放在紫色胶囊里，右上角为奶油色按钮配彩色圆形徽章，选中时变为金色。按钮和固定栏的位置不变。Fredoka 字体随主题包携带（`clock_font: fonts/fredoka.ttf`，`clock_font_axes` 为 wght 700 / wdth 120）；APK 只保留绘制顶栏的代码和小型矢量资源。
+- 时钟前的金币和固定栏托盘随壁纸切换：主题的 `wallpaper_coins` 换成当前王国的紫色本地硬币（包内 `icons/`，7 张 128×128 `coin-<王国>.webp`，共 40,824 字节），`wallpaper_tints` 把托盘换成该王国色调的半透明渐变，去掉黑色底部阴影；无壁纸或无对应条目时仍为金色矢量金币和上述深蓝灰托盘。都市之国的官方硬币是 Pauline 侧像，主题包不写该条目，显示金色矢量金币；原 `coin_odyssey_metro` 已不再发布。
+- 8 张王国壁纸（包内 `wallpapers/`）每 1 分钟按文件名顺序换一张（`wallpaper_rotation_minutes: 1`，`wallpaper_order: sequential`）：距上次换图满 1 分钟才换，且只在桌面位于前台时检查，回到桌面时检查一次，之后每分钟一次；打开应用或小米屏保盖住桌面时不换图，隔很久回到桌面只前进一张。新图使用基准 1.2 秒的淡入动画，实际时长遵守系统动画倍率；王国名和硬币在新图实际透明度达到一半时切换，托盘颜色消费同一动画进度。托盘对单层渐变颜色插值，保持王国切换中的不透明度。首次打开桌面、电视上固定某张壁纸、关闭动态效果或开启 `reduced_motion` 时直接切换。
+- 壁纸、横幅、硬币和字体都保存在应用私有的主题库里，不再依赖外部存储。
+
+柔光 · 电视卡片（[soft-glow](../../theme-packs/soft-glow/config.json)）还原原来 soft 预设的外观：默认顶栏、黑色背景、
+没有壁纸，16 张卡片由柔光矢量图案栅格化为 384×216 不透明 WebP，导出方法见
+[柔光电视图标](../../artwork/soft-tv-icons/README.md)。原 soft 预设只有四个固定栏入口；主题包不能改固定栏，
+所以仍是设备配置里的六个入口。
 
 ## 小米固件适配
 
@@ -95,10 +108,13 @@ NAS 地址、私人片库截图和设备备份不进入代码仓库。
 ./launcher/build-freeguy.sh
 ```
 
-脚本运行现有单元测试、lint 和 release 构建，仅生成 APK。奥德赛版本的 APK
+脚本运行现有单元测试、lint 和 release 构建，仅生成 APK。内置奥德赛时 APK
 预算为 8 MiB；2026-10-22 六入口版本为 5,757,461 字节（约 5.49 MiB），包含 40 张 PNG 横幅；
 横幅改为 WebP 后为 781,408 字节，加入 HUD 顶栏和 Fredoka 字体后为 891,389 字节。
-原 soft 版本约 465 KiB。GitHub Actions 工作流保留上游配置，
+原 soft 版本约 465 KiB。奥德赛横幅、硬币、Fredoka 字体和柔光矢量横幅移入主题包前为 969,837 字节，
+移入后为 488,864 字节（约 477.4 KiB），低于上游 CI 当前的 491,520 字节门槛 2,656 字节，余量很小。
+APK 中最大的三项是 `classes.dex`（压缩后 224,114 字节）、不压缩的 `resources.arsc`（156,216 字节）
+和 Outfit 字体（56,074 字节）；全部 drawable 合计 17,903 字节。GitHub Actions 工作流保留上游配置，
 本分支的兼容包构建和体积检查通过该本地脚本执行，尚未配置分支自动构建。
 
 已完成适配的电视可按下列方式覆盖更新（将 `TV_HOST` 设为自己的电视地址）：
@@ -111,9 +127,38 @@ adb -s "$TV_HOST:5555" shell am start -n com.ts.launcher/com.gathin.tvhome.MainA
 ```
 
 原 `launcher/build-and-install.sh` 固定使用标准包名，不应直接用于此兼容包。
-`tools/theme.sh` 须指定包名：`LAUNCHER_PKG=com.ts.launcher TV_HOST=... tools/theme.sh themes/xiaomi-freeguy-odyssey`
+`tools/theme.sh` 须指定包名：`LAUNCHER_PKG=com.ts.launcher TV_HOST=... tools/theme.sh themes/xiaomi-freeguy`
 （还原时同样加 `LAUNCHER_PKG`，`tools/theme.ps1` 用 `-Package com.ts.launcher`）；
-不指定时会写到标准包名的目录，脚本仍显示成功。本分支的构建帮助脚本不会改 Home 或停用原桌面。
+不指定时会写到标准包名的目录，脚本仍显示成功。`tools/theme_pack.py` 同样要加 `--package com.ts.launcher`。
+本分支的构建帮助脚本不会改 Home 或停用原桌面。
+
+### 从内置奥德赛迁移
+
+旧 APK 把奥德赛作为内置主题，外观配置写在外部存储 `/sdcard/Android/data/com.ts.launcher/files/config.json` 里，
+8 张王国壁纸放在同目录的 `wallpapers/`。已经装过旧版的电视按下面的顺序更新：
+
+1. 用上面的 `adb install -r` 覆盖安装新 APK。新奥德赛包使用 `fonts/` 和 `icons/` 目录，旧 APK 会拒绝整个包，
+   所以 APK 必须先升级。设置里的第一项改名为「原版主题」；如果电视当时正用它，第 3 步之前仍显示奥德赛顶栏，
+   但角色卡片变回应用自带横幅，硬币变回金色矢量金币，时钟改用系统粗体。
+2. 打包并导入两个主题包，激活奥德赛：
+
+   ```bash
+   python3 tools/theme_pack.py pack theme-packs/mario-odyssey dist/mario-odyssey-v1.zip
+   python3 tools/theme_pack.py pack theme-packs/soft-glow dist/soft-glow-v1.zip
+   TV_HOST=TV_IP tools/venv/bin/python tools/theme_pack.py install dist/mario-odyssey-v1.zip --package com.ts.launcher --activate
+   TV_HOST=TV_IP tools/venv/bin/python tools/theme_pack.py install dist/soft-glow-v1.zip --package com.ts.launcher
+   ```
+
+   切换主题会把固定壁纸恢复为主题默认轮换；列数、行数、动画和高级效果保持电视上的选择。
+3. 推送只含设备配置的旧配置目录：
+
+   ```bash
+   LAUNCHER_PKG=com.ts.launcher TV_HOST=TV_IP tools/theme.sh themes/xiaomi-freeguy
+   ```
+
+   新的 `config.json` 只有设备 key。目录里没有 `wallpapers/`，推送时会清掉外部存储里旧的 8 张奥德赛壁纸，
+   之后「原版主题」就是原始外观。`dock.txt`、应用排序、隐藏应用、应用库的选择和手动设置的列数 / 行数都不受影响。
+   `theme.sh --reset` 不会清理 `wallpapers/`，不要用它代替这一步。
 
 ## 已验证与恢复
 
@@ -156,6 +201,12 @@ HUD 顶栏版本（891,389 字节）通过 179 项 Android 单元测试、lint�
 
 HDMI 2/3 外接画面、实际手机投屏传输、语音识别、RF/AV 信号接收和长期待机没有完整测试。
 
+奥德赛与柔光移出 APK 的版本（488,864 字节）在本机通过 250 项 Android 单元测试（兼容包名与标准包名各跑一次）、
+lint（0 错误、63 条警告，新增和改动的代码没有警告）和 release 构建，Python 250 项测试在普通模式（1 项跳过）
+和严格模式下都通过。四个主题包都能打包并通过 `inspect`：奥德赛 34 个条目、2,158,415 字节，柔光 18 个条目、
+44,107 字节。奥德赛横幅、硬币和柔光横幅的生成脚本重新运行后与仓库里的文件逐字节一致。
+此版本尚未安装到电视：Fredoka 经 `Typeface.Builder` 加载后的显示、包内硬币的解码、无字体时的系统粗体回退和迁移步骤都还没有实机验证。
+
 ### 启动器审查修复（2026-10-22）
 
 - 壁纸、王国名、硬币和托盘共用实际动画进度，去掉标题的固定延时和托盘的独立动画；系统动画倍率为 0.5 时也以新图的实际半入点切换信息。托盘改为单层 ARGB 插值，避免半透明叠画导致的中间帧变透。
@@ -188,7 +239,8 @@ Python 210 项检查通过（1 项跳过）。实机 0.5× 动画倍率录像中
 
 验证后恢复原来的主题默认、六列、一行、动画开启与高级动画关闭，电视端覆盖项已清空。主题文件、默认 HOME、辅助功能、停用清单、UID 与首次安装时间均与安装前一致，电视上的 APK SHA-256 与本机构建一致。最终通过 `KEYCODE_SLEEP` 休眠，并确认 `mWakefulness=Asleep`、显示电源为 `OFF`；备份、日志和截图仅保留在本机。
 
-回退外观可覆盖安装本机保留的同签名旧 APK，应用数据保持原样。
+回退外观可覆盖安装本机保留的同签名旧 APK，应用数据保持原样。旧 APK 不认识 `clock_font` 等新 key，
+激活中的奥德赛包会退回旧 APK 的内置外观；迁移第 3 步之后外部存储里已没有王国壁纸。
 如需恢复小米桌面，先启用 `com.mitv.tvhome` 并确认原桌面可打开，再停用
 `com.ts.launcher`；其他四个包按个人需要恢复原启用状态。不要在没有可用 Home 的情况下
 同时停用两个桌面。原安装包、停用前状态及恢复脚本留在本机备份中。

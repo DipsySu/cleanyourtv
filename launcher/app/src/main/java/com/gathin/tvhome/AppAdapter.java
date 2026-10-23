@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Outline;
+import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -206,7 +207,10 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final boolean reducedMotion;
     /** Package to the action its tile sends instead of the start screen (config.xml, launch_actions). */
     private final Map<String, String> launchActions;
-    /** Tile names and bundled banners that replace the app's own (config.xml, app_labels and app_banners). */
+    /**
+     * Tile names and banners that replace the app's own (config.xml, app_labels and app_banners): a banner is a theme
+     * pack's banners/ image or a banner_* drawable the launcher has (banner_tv).
+     */
     private final Map<String, String> appLabels, appBanners;
     private final java.io.File themeDirectory;
     private final String headerStyle;
@@ -798,15 +802,22 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static int vividColor(Drawable live) {
         if (live == null) return 0xFF444444;
-        // Draw a private copy: changing the bounds of the drawable an ImageView shows would blank the tile.
-        Drawable d = live.getConstantState() != null ? live.getConstantState().newDrawable().mutate() : live;
-        Rect saved = new Rect(d.getBounds());
         int n = 12;
         Bitmap bmp = Bitmap.createBitmap(n, n, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(bmp);
-        d.setBounds(0, 0, n, n);
-        d.draw(c);
-        d.setBounds(saved);
+        Bitmap whole = ThemeArtwork.fullBleedBitmap(live);
+        if (whole != null) {
+            // A full-bleed theme banner is sampled whole and stretched, as a bundled BitmapDrawable draws itself;
+            // the card's own centre crop would leave its sides out and change the glow's colour.
+            c.drawBitmap(whole, null, new Rect(0, 0, n, n), new Paint(Paint.FILTER_BITMAP_FLAG | Paint.DITHER_FLAG));
+        } else {
+            // Draw a private copy: changing the bounds of the drawable an ImageView shows would blank the tile.
+            Drawable d = live.getConstantState() != null ? live.getConstantState().newDrawable().mutate() : live;
+            Rect saved = new Rect(d.getBounds());
+            d.setBounds(0, 0, n, n);
+            d.draw(c);
+            d.setBounds(saved);
+        }
         int[] px = new int[n * n];
         bmp.getPixels(px, 0, n, 0, 0, n, n);
         bmp.recycle();

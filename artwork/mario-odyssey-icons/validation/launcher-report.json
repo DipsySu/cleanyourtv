@@ -1,5 +1,5 @@
 {
-  "icons": 40,
+  "icons": 16,
   "source": "render_launcher.mjs",
   "masterSize": [
     768,
@@ -17,55 +17,11 @@
     "6",
     "-noalpha"
   ],
-  "totalBytes": 290632,
+  "totalBytes": 113194,
   "banners": [
     {
-      "id": "cast",
-      "resource": "banner_odyssey_cast.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 7026,
-      "sha256": "9a72673cb710d31a21db0ade19a25daa0d539e445e3ac4aa10a9cf902073ede4",
-      "opaque": true
-    },
-    {
-      "id": "bili",
-      "resource": "banner_odyssey_bili.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 5808,
-      "sha256": "d1320e3a70e04f525678bb20f01ed7cfdc9f20ef21cd9ad4b5a75b96a4a6d9a5",
-      "opaque": true
-    },
-    {
-      "id": "live",
-      "resource": "banner_odyssey_live.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 6172,
-      "sha256": "902fda7093822cba3e8d9b1b700a1b5f102fd7d84657e21f717e693e3d3702b9",
-      "opaque": true
-    },
-    {
-      "id": "player",
-      "resource": "banner_odyssey_player.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 6778,
-      "sha256": "a5bc650fb694c95438aba9344b48510eff6ce26b0cd9d0bbca4ca1f8ff98182f",
-      "opaque": true
-    },
-    {
       "id": "115",
-      "resource": "banner_odyssey_115.webp",
+      "file": "115.webp",
       "size": [
         384,
         216
@@ -75,41 +31,8 @@
       "opaque": true
     },
     {
-      "id": "emby",
-      "resource": "banner_odyssey_emby.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 7734,
-      "sha256": "55530d68fbc9949f9ee07ea3e68ff2006e2eb0ce2098554f6d1cb0661a9d673b",
-      "opaque": true
-    },
-    {
-      "id": "tencent",
-      "resource": "banner_odyssey_tencent.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 6876,
-      "sha256": "fafafe24c2d8b5e6decfa69679a7608d690c71e0827d1b4d2feb8bc2c6269404",
-      "opaque": true
-    },
-    {
-      "id": "weather",
-      "resource": "banner_odyssey_weather.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 5002,
-      "sha256": "a0396337110a061e1efec07347f4a6a80996f5ff7d84fea356dd530799182ff2",
-      "opaque": true
-    },
-    {
       "id": "alarm",
-      "resource": "banner_odyssey_alarm.webp",
+      "file": "alarm.webp",
       "size": [
         384,
         216
@@ -119,30 +42,19 @@
       "opaque": true
     },
     {
-      "id": "voice",
-      "resource": "banner_odyssey_voice.webp",
+      "id": "bili",
+      "file": "bili.webp",
       "size": [
         384,
         216
       ],
-      "bytes": 8180,
-      "sha256": "19877c1a6d86f2a9bc2e410d5ce450a9b59f49eba8df0f3204624c4828190b77",
-      "opaque": true
-    },
-    {
-      "id": "light",
-      "resource": "banner_odyssey_light.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 5780,
-      "sha256": "483fa0e813cc47bc671a8f4921dfca98dcbc4df7b9d10b2f655ddc60dca1662c",
+      "bytes": 5808,
+      "sha256": "d1320e3a70e04f525678bb20f01ed7cfdc9f20ef21cd9ad4b5a75b96a4a6d9a5",
       "opaque": true
     },
     {
       "id": "calendar",
-      "resource": "banner_odyssey_calendar.webp",
+      "file": "calendar.webp",
       "size": [
         384,
         216
@@ -152,8 +64,30 @@
       "opaque": true
     },
     {
+      "id": "cast",
+      "file": "cast.webp",
+      "size": [
+        384,
+        216
+      ],
+      "bytes": 7026,
+      "sha256": "9a72673cb710d31a21db0ade19a25daa0d539e445e3ac4aa10a9cf902073ede4",
+      "opaque": true
+    },
+    {
+      "id": "emby",
+      "file": "emby.webp",
+      "size": [
+        384,
+        216
+      ],
+      "bytes": 7734,
+      "sha256": "55530d68fbc9949f9ee07ea3e68ff2006e2eb0ce2098554f6d1cb0661a9d673b",
+      "opaque": true
+    },
+    {
       "id": "gallery",
-      "resource": "banner_odyssey_gallery.webp",
+      "file": "gallery.webp",
       "size": [
         384,
         216
@@ -163,107 +97,8 @@
       "opaque": true
     },
     {
-      "id": "manager",
-      "resource": "banner_odyssey_manager.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 11272,
-      "sha256": "7ee05a65cb3922d8a1b14125541652eca5a556b7e7f98da7983c66baddb432de",
-      "opaque": true
-    },
-    {
-      "id": "settings",
-      "resource": "banner_odyssey_settings.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 11008,
-      "sha256": "b45ae39392c78aa0212990aba08101158f5756c66197397a055e4cd76d265829",
-      "opaque": true
-    },
-    {
-      "id": "video",
-      "resource": "banner_odyssey_video.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 5746,
-      "sha256": "25851af3a02b3472c0b6151373224e95c067dba189cf18ba1127edc1b75a5c91",
-      "opaque": true
-    },
-    {
-      "id": "jellyfin",
-      "resource": "banner_odyssey_jellyfin.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 7904,
-      "sha256": "91cc7beaaca9865e226fe41080954a8653b98aa81da49d149d366b101df9eb64",
-      "opaque": true
-    },
-    {
-      "id": "plex",
-      "resource": "banner_odyssey_plex.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 7960,
-      "sha256": "8197fbd9c482a53a0974f44b8cf16824e9d3294972094a831116d52c9cd02112",
-      "opaque": true
-    },
-    {
-      "id": "kodi",
-      "resource": "banner_odyssey_kodi.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 9408,
-      "sha256": "baf49ba662cb1ab556b3e1c211cbbcf411fb5357c91561fa2950ba05cb230fa3",
-      "opaque": true
-    },
-    {
-      "id": "vlc",
-      "resource": "banner_odyssey_vlc.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 7006,
-      "sha256": "7c96448f9b0ce7dc8f520a9f6afa950252b69a9fefe7c296c965778ba925c363",
-      "opaque": true
-    },
-    {
-      "id": "nova",
-      "resource": "banner_odyssey_nova.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 5830,
-      "sha256": "9f9a9aae985295227d07ccf79195ee79cebc6c97f9a02c784ecceb9b0a39e6ff",
-      "opaque": true
-    },
-    {
-      "id": "mxplayer",
-      "resource": "banner_odyssey_mxplayer.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 7198,
-      "sha256": "d8d63f8a10e71332ca00726aa16713a36b4dbef31d3ff30179887c081455312f",
-      "opaque": true
-    },
-    {
       "id": "iqiyi",
-      "resource": "banner_odyssey_iqiyi.webp",
+      "file": "iqiyi.webp",
       "size": [
         384,
         216
@@ -273,190 +108,91 @@
       "opaque": true
     },
     {
-      "id": "youku",
-      "resource": "banner_odyssey_youku.webp",
+      "id": "light",
+      "file": "light.webp",
       "size": [
         384,
         216
       ],
-      "bytes": 8234,
-      "sha256": "2c692585d39c18d717fc9e67e3ac1a3212437aef9f778e9748d2c6a633062cea",
+      "bytes": 5780,
+      "sha256": "483fa0e813cc47bc671a8f4921dfca98dcbc4df7b9d10b2f655ddc60dca1662c",
       "opaque": true
     },
     {
-      "id": "mango",
-      "resource": "banner_odyssey_mango.webp",
+      "id": "manager",
+      "file": "manager.webp",
       "size": [
         384,
         216
       ],
-      "bytes": 8184,
-      "sha256": "ca85788a5ee79ec8fa3ee3bab2157b469ad9c9f6d71635d9e74b954ae4b3423c",
+      "bytes": 11272,
+      "sha256": "7ee05a65cb3922d8a1b14125541652eca5a556b7e7f98da7983c66baddb432de",
       "opaque": true
     },
     {
-      "id": "cctv",
-      "resource": "banner_odyssey_cctv.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 10670,
-      "sha256": "dc35fa5568ba6fdeea65308fe8382f18f8cefa0d5a1ef723526050971916e4a1",
-      "opaque": true
-    },
-    {
-      "id": "dangbei",
-      "resource": "banner_odyssey_dangbei.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 7568,
-      "sha256": "4bff524eb01e558f4176d6e9c696c416201a22f01c38b28cf74df6547ab1ea98",
-      "opaque": true
-    },
-    {
-      "id": "youtube",
-      "resource": "banner_odyssey_youtube.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 6918,
-      "sha256": "e23d1df1874c84c2e09823c9a08ea6d032b47fd8aeac07101e691295e9e1037d",
-      "opaque": true
-    },
-    {
-      "id": "netflix",
-      "resource": "banner_odyssey_netflix.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 8160,
-      "sha256": "fcf81a1f1e2b5f169f9c410b50e9992f2edd6259d35b985d4c469630f0eed012",
-      "opaque": true
-    },
-    {
-      "id": "primevideo",
-      "resource": "banner_odyssey_primevideo.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 6254,
-      "sha256": "0e1e1a7853e02e428cd71ae2a487eac3480e502cdc9cbbdf7100b7e1fa618f08",
-      "opaque": true
-    },
-    {
-      "id": "disneyplus",
-      "resource": "banner_odyssey_disneyplus.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 8430,
-      "sha256": "4d4295d5849d9a175f0ea148ff1f1166303c1147c34c857a12e1bb636a317e79",
-      "opaque": true
-    },
-    {
-      "id": "appletv",
-      "resource": "banner_odyssey_appletv.webp",
+      "id": "player",
+      "file": "player.webp",
       "size": [
         384,
         216
       ],
       "bytes": 6778,
-      "sha256": "d9e767dca563e1a06455bbe3783bf41bf6fce77a09f531e7ac3d6d07638b0d15",
+      "sha256": "a5bc650fb694c95438aba9344b48510eff6ce26b0cd9d0bbca4ca1f8ff98182f",
       "opaque": true
     },
     {
-      "id": "twitch",
-      "resource": "banner_odyssey_twitch.webp",
+      "id": "settings",
+      "file": "settings.webp",
       "size": [
         384,
         216
       ],
-      "bytes": 5714,
-      "sha256": "2ff432c0380856b73b1bb95f4c4b6cf555fae34845f2ee956d3ceb9393cb4089",
+      "bytes": 11008,
+      "sha256": "b45ae39392c78aa0212990aba08101158f5756c66197397a055e4cd76d265829",
       "opaque": true
     },
     {
-      "id": "spotify",
-      "resource": "banner_odyssey_spotify.webp",
+      "id": "tencent",
+      "file": "tencent.webp",
       "size": [
         384,
         216
       ],
-      "bytes": 3598,
-      "sha256": "74e9b420b90c189b1cef62b55ed4fdca32023b7705df722f0d7d7a91e9531682",
+      "bytes": 6876,
+      "sha256": "fafafe24c2d8b5e6decfa69679a7608d690c71e0827d1b4d2feb8bc2c6269404",
       "opaque": true
     },
     {
-      "id": "qqmusic",
-      "resource": "banner_odyssey_qqmusic.webp",
+      "id": "video",
+      "file": "video.webp",
       "size": [
         384,
         216
       ],
-      "bytes": 8438,
-      "sha256": "01d7790e316cf5103c4f5c9119372d29bc5bf388c639e151e976e3f4047906ea",
+      "bytes": 5746,
+      "sha256": "25851af3a02b3472c0b6151373224e95c067dba189cf18ba1127edc1b75a5c91",
       "opaque": true
     },
     {
-      "id": "netease",
-      "resource": "banner_odyssey_netease.webp",
+      "id": "voice",
+      "file": "voice.webp",
       "size": [
         384,
         216
       ],
-      "bytes": 5612,
-      "sha256": "ec70b0c0b1b6da28571a42d99a073043128c5376c791b04ab4c855139e8bda54",
+      "bytes": 8180,
+      "sha256": "19877c1a6d86f2a9bc2e410d5ce450a9b59f49eba8df0f3204624c4828190b77",
       "opaque": true
     },
     {
-      "id": "douyin",
-      "resource": "banner_odyssey_douyin.webp",
+      "id": "weather",
+      "file": "weather.webp",
       "size": [
         384,
         216
       ],
-      "bytes": 7910,
-      "sha256": "926f6e063bf561801863ad7abf07c982627df1dded1bdcaf0a916739e6883cac",
-      "opaque": true
-    },
-    {
-      "id": "aliyundrive",
-      "resource": "banner_odyssey_aliyundrive.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 4258,
-      "sha256": "bb9a7988ca75793ae9ea19c1d12cc4242953b3ef2ae98c4fe76aa1cbda368b53",
-      "opaque": true
-    },
-    {
-      "id": "baidunetdisk",
-      "resource": "banner_odyssey_baidunetdisk.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 7052,
-      "sha256": "9e002576095da8fd2e9296a240472b8bb683b58f669460a7da76775bfee7c97e",
-      "opaque": true
-    },
-    {
-      "id": "quark",
-      "resource": "banner_odyssey_quark.webp",
-      "size": [
-        384,
-        216
-      ],
-      "bytes": 12182,
-      "sha256": "a5724c6c1708116ee0b62fe950ee553c55c49095d2fd7837731778fd473e6e3a",
+      "bytes": 5002,
+      "sha256": "a0396337110a061e1efec07347f4a6a80996f5ff7d84fea356dd530799182ff2",
       "opaque": true
     }
   ]

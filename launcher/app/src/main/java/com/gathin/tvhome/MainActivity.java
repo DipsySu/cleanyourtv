@@ -21,6 +21,7 @@ import android.graphics.Paint;
 import android.graphics.RadialGradient;
 import android.graphics.Rect;
 import android.graphics.Shader;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -167,9 +168,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private Map<String, String> wallpaperNames = Collections.emptyMap();
     /** wallpaper_coins: wallpaper filename to the coin before the Odyssey clock (HeaderStyle.coin). */
     private Map<String, String> wallpaperCoins = Collections.emptyMap();
+    /** The theme's folder (Config.themeDirectory), which the coins' icons/ paths are read from. */
+    private File themeDirectory;
     /**
-     * The coins shown so far by name, "" for the gold vector coin: each kingdom's WebP is decoded once (128 px, 64 KB)
-     * and reused when the rotation comes back to it, never per frame.
+     * The coins shown so far by path, "" for the gold vector coin: each kingdom's icon from the theme pack is decoded
+     * once (a 128 px WebP, 64 KB) and reused when the rotation comes back to it, never per frame.
      */
     private final Map<String, Drawable> coins = new HashMap<>();
     /** wallpaper_tints: wallpaper filename to the dock tray's tint (DockTint.of). */
@@ -421,15 +424,21 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         wallpaperNames = cfg.wallpaperNames;
         wallpaperCoins = cfg.wallpaperCoins;
         wallpaperTints = cfg.wallpaperTints;
+        themeDirectory = cfg.themeDirectory;
+        // A theme's clock_font (from its pack, kept across recreations by ThemeTypeface): the Odyssey header sets it
+        // with the rest of its clock, any other header gets it after its own styling. Without one nothing changes.
+        Typeface clockFont = cfg.clockFont.isEmpty() ? null
+                : ThemeTypeface.load(cfg.themeDirectory, cfg.clockFont, cfg.clockFontAxes);
         if (odysseyHeader) {
             updateGreeting();
-            OdysseyHeader.applyHeader(this, currentCoin());
+            OdysseyHeader.applyHeader(this, currentCoin(), clockFont);
             greetingColor = greeting.getCurrentTextColor();
         } else if (WorldHeader.matches(worldHeaderStyle)) {
             updateGreeting();
             WorldHeader.applyHeader(this, worldHeaderStyle);
             greetingColor = greeting.getCurrentTextColor();
         }
+        if (!odysseyHeader && clockFont != null) ((TextView) findViewById(R.id.clock)).setTypeface(clockFont);
         wallpaperPlayer.setOnChange(this::onWallpaperChanged);
         wallpaperPlayer.setOnProgress(this::onWallpaperProgress);
         vpnApp = cfg.vpnApp;
@@ -2317,13 +2326,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         return HeaderStyle.greeting(HeaderStyle.kingdom(wallpaperNames, wallpaperPlayer.displayed()), greetingText);
     }
 
-    /** The coin wallpaper_coins gives the picture on screen (the gold one without), resolved once per name. */
+    /** The coin wallpaper_coins gives the picture on screen (the gold one without), resolved once per path. */
     private Drawable currentCoin() {
-        String name = HeaderStyle.coin(wallpaperCoins, wallpaperPlayer.displayed());
-        Drawable coin = coins.get(name);
+        String path = HeaderStyle.coin(wallpaperCoins, wallpaperPlayer.displayed());
+        Drawable coin = coins.get(path);
         if (coin == null) {
-            coin = OdysseyHeader.coin(this, name);
-            coins.put(name, coin);
+            coin = OdysseyHeader.coin(this, themeDirectory, path);
+            coins.put(path, coin);
         }
         return coin;
     }

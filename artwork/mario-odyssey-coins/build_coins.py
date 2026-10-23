@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fit the Super Mario Odyssey regional coin models into the launcher's 128x128 alpha WebP coins.
+"""Fit the Super Mario Odyssey regional coin models into the Odyssey theme pack's 128x128 alpha WebP coins.
 
 Usage: python3 -I build_coins.py [out_dir]
 
@@ -7,17 +7,20 @@ Reads originals/<id>.png, checked against sources.json (PNG signature, size and 
 margins, scales the coin with premultiplied alpha so the grey under the transparent background cannot bleed into
 its edge, and centres it in a transparent 128x128 square with a 2 px margin (aspect kept). Fully transparent pixels
 then take the colour of the nearest visible ones: lossy WebP keeps colour at half resolution, so without that the
-edge of the coin would be averaged towards black. Writes coin_odyssey_<id>.webp to out_dir, by default the
-launcher's res/drawable-nodpi. All 8 are encoded and decoded again with dwebp in a temporary directory first (size,
-lossless alpha, centring), then each is staged as a dot file (which the resource merger ignores) and renamed into
-place. Writes validation/coins-report.json.
+edge of the coin would be averaged towards black. Writes coin-<id>.webp to out_dir, by default the pack's
+theme-packs/mario-odyssey/icons, for the seven kingdoms the pack gives a coin (PACKED). All of them are encoded and
+decoded again with dwebp in a temporary directory first (size, lossless alpha, centring), then each is staged as a
+dot file and renamed into place, so the pack never holds a half-written coin. Writes validation/coins-report.json.
 Needs ffmpeg/ffprobe and cwebp/dwebp (libwebp); /opt/homebrew/bin is preferred, then PATH.
 """
 from pathlib import Path
 import hashlib,json,os,shutil,struct,subprocess,sys,tempfile,zlib
 ROOT=Path(__file__).resolve().parent
-RES=ROOT.parents[1]/'launcher/app/src/main/res/drawable-nodpi'
+ICONS=ROOT.parents[1]/'theme-packs/mario-odyssey/icons'
 IDS=['cap','metro','sand','seaside','wooded','lost','luncheon','moon']
+# Metro's regional coin is Mayor Pauline's portrait, and Pauline is out of the theme, so the pack has no Metro coin:
+# with no wallpaper_coins entry the launcher draws its gold vector coin there. Its original stays in originals/.
+PACKED=[id for id in IDS if id!='metro']
 SIZE,MARGIN=128,2
 SCALE='lanczos+accurate_rnd+full_chroma_int'
 FLAGS=['-q','90','-alpha_q','100','-alpha_filter','best','-m','6','-sharp_yuv','-exact']
@@ -106,7 +109,7 @@ def build(src,tmp):
  px=bytearray(SIZE*SIZE*4);ox,oy=(SIZE-tw)//2,(SIZE-th)//2
  for y in range(th):i=((oy+y)*SIZE+ox)*4;px[i:i+tw*4]=coin[y*tw*4:(y+1)*tw*4]
  master=tmp/f'{id}.png';write_png(master,bleed(px),SIZE,SIZE)
- target=tmp/f'coin_odyssey_{id}.webp';subprocess.run([CWEBP,'-quiet',*FLAGS,str(master),'-o',str(target)],check=True)
+ target=tmp/f'coin-{id}.webp';subprocess.run([CWEBP,'-quiet',*FLAGS,str(master),'-o',str(target)],check=True)
  webp=target.read_bytes();size,out=decode(target,tmp);assert webp_size(webp)==size==(SIZE,SIZE),id
  assert out[3::4]==bytes(px[3::4]),(id,'alpha must survive lossless')
  cx0,cy0,cx1,cy1=content=bbox(out[3::4],SIZE,SIZE)
@@ -115,22 +118,22 @@ def build(src,tmp):
  assert max(cx1-cx0,cy1-cy0)>=SIZE-2*MARGIN-2,(id,'coin too small',content)
  seen=[i for i in range(SIZE*SIZE) if px[i*4+3]>=128]
  error=sum(abs(out[i*4+c]-px[i*4+c]) for i in seen for c in range(3))/(3*len(seen))
- return {'id':id,'kingdom':src['kingdom'],'wallpaper':src['wallpaper'],'resource':target.name,'size':list(size),
+ return {'id':id,'kingdom':src['kingdom'],'wallpaper':src['wallpaper'],'file':target.name,'size':list(size),
   'bytes':len(webp),'sha256':hashlib.sha256(webp).hexdigest(),'source':src['file'],'sourceSize':[w,h],'trim':list(box),
   'coinSize':[tw,th],'content':list(content),'rgbMeanError':round(error,2)}
 
 def main():
- out=Path(sys.argv[1]).resolve() if len(sys.argv)>1 else RES
+ out=Path(sys.argv[1]).resolve() if len(sys.argv)>1 else ICONS
  if len(sys.argv)>2:raise SystemExit('Usage: python3 -I build_coins.py [out_dir]')
  sources=json.loads((ROOT/'sources.json').read_text());assert [s['id'] for s in sources]==IDS,'sources.json order'
  version=run(CWEBP,'-version').decode().split()[0]
  out.mkdir(parents=True,exist_ok=True);rows=[]
  with tempfile.TemporaryDirectory() as t:
   tmp=Path(t)
-  for src in sources:rows.append(build(src,tmp))
+  for src in sources:
+   if src['id'] in PACKED:rows.append(build(src,tmp))
   for row in rows:
-   part=out/f".{row['resource']}.part";shutil.copyfile(tmp/row['resource'],part)
-   (out/row['resource']).with_suffix('.png').unlink(missing_ok=True);os.replace(part,out/row['resource'])
+   part=out/f".{row['file']}.part";shutil.copyfile(tmp/row['file'],part);os.replace(part,out/row['file'])
  report={'coins':len(rows),'canvas':[SIZE,SIZE],'margin':MARGIN,'scaler':f'ffmpeg premultiplied {SCALE}',
   'encoder':f'cwebp {version}','flags':FLAGS,'totalBytes':sum(r['bytes'] for r in rows),'items':rows}
  (ROOT/'validation').mkdir(exist_ok=True)

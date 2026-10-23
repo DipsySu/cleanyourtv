@@ -62,6 +62,14 @@ final class ThemeArtReference {
         } catch (NumberFormatException ignored) { return -1; }
     }
 
+    /**
+     * Whether a decoded banner fills its card edge to edge, centre-cropped like a banner the APK bundles, rather than
+     * being fitted onto the theme's card ground: a whole image, with no #cell or rectangle, and no alpha channel.
+     */
+    static boolean fullBleed(Value value, boolean hasAlpha) {
+        return value.cell < 0 && !value.hasRegion() && !hasAlpha;
+    }
+
     static boolean safeBounds(int width, int height) {
         return width > 0 && height > 0 && width <= MAX_SIDE && height <= MAX_SIDE && (long) width * height <= MAX_PIXELS;
     }

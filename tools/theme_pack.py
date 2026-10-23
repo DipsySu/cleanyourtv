@@ -20,25 +20,41 @@ import zipfile
 MAX_COMPRESSED = 16 * 1024 * 1024
 MAX_EXTRACTED = 48 * 1024 * 1024
 MAX_FILE = 8 * 1024 * 1024
+MAX_FONT = 2 * 1024 * 1024
+MAX_ICON = 1024 * 1024
 MAX_ENTRIES = 128
 MAX_JSON = 64 * 1024
+MAX_AXES = 8
+MAX_AXIS_VALUE = 10000
 ID_RE = re.compile(r"[a-z0-9][a-z0-9-]{0,47}\Z")
 PACKAGE_RE = re.compile(r"[A-Za-z][A-Za-z0-9_]*(?:\.[A-Za-z][A-Za-z0-9_]*)+\Z")
-IMAGE_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.-]*\.(?:jpg|jpeg|png|webp)\Z", re.I)
+# re.ASCII keeps IGNORECASE to ASCII like Java's CASE_INSENSITIVE; without it the Kelvin sign
+# U+212A folds to "k" and a name Android rejects would pass here.
+IMAGE_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.-]*\.(?:jpg|jpeg|png|webp)\Z", re.I | re.A)
+FONT_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.-]*\.(?:ttf|otf)\Z", re.I | re.A)
+AXIS_TAG_RE = re.compile(r"[A-Za-z]{4}\Z")
+AXIS_VALUE_RE = re.compile(r"-?[0-9]+\Z")
 ATLAS_CELL_RE = re.compile(r"(?:[0-9]|1[0-5])\Z")
 ATLAS_RECT_RE = re.compile(r"([0-9]+),([0-9]+),([0-9]+),([0-9]+)\Z")
+# The first four bytes of a single TrueType face (00 01 00 00 or Apple's "true") or a CFF OpenType
+# face ("OTTO"). Collections ("ttcf") and web fonts ("wOFF", "wOF2") are refused: the launcher hands
+# the file to Typeface.Builder, which expects one plain face.
+SFNT_MAGIC = {b"\x00\x01\x00\x00", b"OTTO", b"true"}
+ASSET_DIRS = {"wallpapers", "banners", "icons", "fonts"}
+# Finder writes this into any folder it has shown; it is never packed and never fails a pack.
+IGNORED_SOURCE_FILES = {".DS_Store"}
 ALLOWED_CONFIG = {
     "header_style", "background_color", "wallpaper", "wallpaper_rotation_minutes", "wallpaper_order",
     "wallpaper_dim", "wallpaper_names", "wallpaper_coins", "wallpaper_tints", "app_banners", "columns",
     "dock_columns", "rows_below_dock", "dock_opacity", "dock_glass", "dock_title", "dock_row",
     "dock_even_padding", "ambient_glow", "app_glow", "cinematic_home", "sky_intensity", "focus_overshoot",
-    "always_show_names", "reduced_motion", "wallpaper_true_color",
+    "always_show_names", "reduced_motion", "wallpaper_true_color", "clock_font", "clock_font_axes",
 }
 STRING_CONFIG = {"header_style", "background_color", "wallpaper_order"}
 BOOL_CONFIG = {"wallpaper", "dock_glass", "dock_title", "dock_row", "dock_even_padding", "ambient_glow",
                "app_glow", "cinematic_home", "always_show_names", "reduced_motion", "wallpaper_true_color",
                "focus_overshoot"}
-MAP_OR_ARRAY = {"wallpaper_names", "wallpaper_coins", "wallpaper_tints"}
+MAP_OR_ARRAY = {"wallpaper_names", "wallpaper_tints"}
 ROOT = Path(__file__).resolve().parent
 DEFAULT_PACKAGE = "com.gathin.tvhome"
 
@@ -70,7 +86,7 @@ def allowed_path(name, is_dir=False):
     if not name or name.startswith("/") or "\\" in name or ".." in name:
         return False
     if is_dir:
-        return name in {"wallpapers/", "banners/"}
+        return name.endswith("/") and name[:-1] in ASSET_DIRS
     if name in {"manifest.json", "config.json", "wallpaper.jpg", "preview.jpg"}:
         return True
     # PurePosixPath normalises `banners//a.png` and `banners/./a.png`; Android rejects
@@ -78,7 +94,26 @@ def allowed_path(name, is_dir=False):
     if name.count("/") != 1:
         return False
     path = PurePosixPath(name)
-    return len(path.parts) == 2 and path.parts[0] in {"wallpapers", "banners"} and bool(IMAGE_RE.fullmatch(path.parts[1]))
+    if len(path.parts) != 2 or path.parts[0] not in ASSET_DIRS:
+        return False
+    return bool((FONT_RE if path.parts[0] == "fonts" else IMAGE_RE).fullmatch(path.parts[1]))
+
+
+def file_limit(name):
+    """Largest size Android extracts for an asset; a font is parsed by the system, so it gets less room."""
+    return MAX_FONT if name.startswith("fonts/") else MAX_FILE
+
+
+def valid_font_bytes(data):
+    return 4 <= len(data) <= MAX_FONT and data[:4] in SFNT_MAGIC
+
+
+def check_fonts(payloads):
+    # Android only opens the font that clock_font names, but checking every font here means a stray
+    # web font or collection fails on the computer instead of travelling to the TV unused.
+    for name in sorted(payloads):
+        if name.startswith("fonts/") and not valid_font_bytes(payloads[name]):
+            raise ThemeError("not a single TrueType or OpenType font: " + name)
 
 
 def validate_manifest(manifest):
@@ -115,7 +150,8 @@ def valid_banner(value, names):
     return path in names and path.startswith("banners/") and bool(IMAGE_RE.fullmatch(path[len("banners/"):]))
 
 
-def banner_pairs(value):
+def mapping_pairs(value):
+    """Reads an object or a `key=value` string array, the two shapes Config merges for maps."""
     if isinstance(value, dict):
         return list(value.items())
     if isinstance(value, list):
@@ -129,7 +165,7 @@ def banner_pairs(value):
 
 
 def valid_banners(value, names):
-    pairs = banner_pairs(value)
+    pairs = mapping_pairs(value)
     if pairs is None:
         return False
     seen = set()
@@ -141,7 +177,70 @@ def valid_banners(value, names):
     return True
 
 
-def validate_config(config, names):
+def single_folder_path(value, folder, pattern):
+    """Matches `<folder>/<leaf>` exactly: one slash, no traversal and no `#` atlas suffix."""
+    if not isinstance(value, str) or "#" in value or ".." in value or value.count("/") != 1:
+        return False
+    parent, leaf = value.split("/")
+    return parent == folder and bool(pattern.fullmatch(leaf))
+
+
+def valid_icon(value, payloads):
+    # Android also decodes the bounds (at most 1024 px per side); that needs an image decoder, so
+    # it happens on import rather than here.
+    return single_folder_path(value, "icons", IMAGE_RE) and value in payloads \
+        and 0 < len(payloads[value]) <= MAX_ICON
+
+
+def valid_coins(value, payloads):
+    """A pack's wallpaper coins are its own icon files; a wallpaper without one keeps the vector coin.
+
+    Like ThemeStore, only the values are checked: a key that names no wallpaper is simply never shown.
+    """
+    pairs = mapping_pairs(value)
+    return pairs is not None and all(valid_icon(path, payloads) for _, path in pairs)
+
+
+def valid_clock_font(value, payloads):
+    return single_folder_path(value, "fonts", FONT_RE) and value in payloads and valid_font_bytes(payloads[value])
+
+
+def axis_settings(value):
+    """Returns the Android font variation string for clock_font_axes, or None when it is invalid.
+
+    Objects carry JSON integers, `{"wght": 700}`; arrays carry `tag=value` strings, `["wght=700"]`.
+    An empty object or array is valid and means the font's default instance.
+    """
+    if isinstance(value, dict):
+        pairs = list(value.items())
+        if any(not isinstance(number, int) or isinstance(number, bool) for _, number in pairs):
+            return None
+    elif isinstance(value, list):
+        pairs = []
+        for item in value:
+            if not isinstance(item, str) or item.count("=") != 1:
+                return None
+            tag, text = item.split("=")
+            # Leading zeros are fine, as for Java's BigInteger; a digit run longer than any in-range
+            # value is refused before int(), which caps very long strings.
+            if not AXIS_VALUE_RE.fullmatch(text) or len(text.lstrip("-").lstrip("0")) > 5:
+                return None
+            pairs.append((tag, int(text)))
+    else:
+        return None
+    if len(pairs) > MAX_AXES:
+        return None
+    seen = set()
+    for tag, number in pairs:
+        if not isinstance(tag, str) or not AXIS_TAG_RE.fullmatch(tag) or tag in seen \
+                or not -MAX_AXIS_VALUE <= number <= MAX_AXIS_VALUE:
+            return None
+        seen.add(tag)
+    return ", ".join(f"'{tag}' {number}" for tag, number in pairs)
+
+
+def validate_config(config, payloads):
+    """Checks config.json against the pack; `payloads` maps every entry name to its bytes."""
     if not isinstance(config, dict):
         raise ThemeError("config.json must be an object")
     unknown = set(config) - ALLOWED_CONFIG
@@ -155,11 +254,29 @@ def validate_config(config, names):
         elif key in MAP_OR_ARRAY:
             good = isinstance(value, (dict, list))
         elif key == "app_banners":
-            good = valid_banners(value, names)
+            good = valid_banners(value, payloads)
+        elif key == "wallpaper_coins":
+            good = valid_coins(value, payloads)
+        elif key == "clock_font":
+            good = valid_clock_font(value, payloads)
+        elif key == "clock_font_axes":
+            good = axis_settings(value) is not None
         else:
             good = isinstance(value, (int, float)) and not isinstance(value, bool)
         if not good:
             raise ThemeError("invalid value for config key: " + key)
+
+
+def validate_payloads(payloads):
+    """Validates a complete pack, from a ZIP or a source folder, and returns its manifest."""
+    if {"manifest.json", "config.json"} - set(payloads):
+        raise ThemeError("manifest.json and config.json are required")
+    manifest = load_json_bytes(payloads["manifest.json"], "manifest.json")
+    config = load_json_bytes(payloads["config.json"], "config.json")
+    validate_manifest(manifest)
+    check_fonts(payloads)
+    validate_config(config, payloads)
+    return manifest
 
 
 def inspect_zip(path):
@@ -188,20 +305,19 @@ def inspect_zip(path):
                 if not allowed_path(name) or name in names:
                     raise ThemeError("unsafe ZIP entry: " + name)
                 names.add(name)
-                if info.file_size > MAX_FILE or (name in {"manifest.json", "config.json"} and info.file_size > MAX_JSON):
+                limit = MAX_JSON if name in {"manifest.json", "config.json"} else file_limit(name)
+                if info.file_size > limit:
                     raise ThemeError("ZIP entry too large: " + name)
                 total += info.file_size
                 if total > MAX_EXTRACTED:
                     raise ThemeError("ZIP payload exceeds extracted size limit")
                 payloads[name] = archive.read(info)
+                # Android counts the streamed bytes as well as the declared size.
+                if len(payloads[name]) > limit:
+                    raise ThemeError("ZIP entry too large: " + name)
     except zipfile.BadZipFile as error:
         raise ThemeError("invalid ZIP file") from error
-    if {"manifest.json", "config.json"} - names:
-        raise ThemeError("manifest.json and config.json are required")
-    manifest = load_json_bytes(payloads["manifest.json"], "manifest.json")
-    config = load_json_bytes(payloads["config.json"], "config.json")
-    validate_manifest(manifest)
-    validate_config(config, names)
+    manifest = validate_payloads(payloads)
     return {"manifest": manifest, "entries": sorted(names), "sha256": digest, "bytes": path.stat().st_size}
 
 
@@ -213,17 +329,19 @@ def files_from_folder(folder):
     for current, dirs, files in os.walk(folder, followlinks=False):
         current_path = Path(current)
         relative_dir = current_path.relative_to(folder).as_posix()
-        if relative_dir != "." and relative_dir not in {"wallpapers", "banners"}:
+        if relative_dir != "." and relative_dir not in ASSET_DIRS:
             raise ThemeError("unsupported source directory: " + relative_dir)
         for child in dirs + files:
             if (current_path / child).is_symlink():
                 raise ThemeError("symbolic links are not allowed: " + str(current_path / child))
         for filename in files:
+            if filename in IGNORED_SOURCE_FILES:
+                continue
             source = current_path / filename
             relative = source.relative_to(folder).as_posix()
             if not allowed_path(relative):
                 raise ThemeError("unsupported source file: " + relative)
-            if source.stat().st_size > MAX_FILE:
+            if source.stat().st_size > file_limit(relative):
                 raise ThemeError("source file too large: " + relative)
             found.append((relative, source))
     return sorted(found)
@@ -231,14 +349,8 @@ def files_from_folder(folder):
 
 def pack(folder, output):
     files = files_from_folder(folder)
-    names = {name for name, _ in files}
-    if {"manifest.json", "config.json"} - names:
-        raise ThemeError("manifest.json and config.json are required")
     payloads = {name: source.read_bytes() for name, source in files}
-    manifest = load_json_bytes(payloads["manifest.json"], "manifest.json")
-    config = load_json_bytes(payloads["config.json"], "config.json")
-    validate_manifest(manifest)
-    validate_config(config, names)
+    validate_payloads(payloads)
     total = sum(len(data) for data in payloads.values())
     if total > MAX_EXTRACTED:
         raise ThemeError("theme payload exceeds extracted size limit")

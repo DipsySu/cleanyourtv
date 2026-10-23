@@ -1,6 +1,6 @@
 {
   "canvas": {"width": 1920, "height": 1080},
-  "output": "../../themes/xiaomi-freeguy-odyssey/wallpapers",
+  "output": "../../theme-packs/mario-odyssey/wallpapers",
   "jpeg_quality": 85,
   "character_zone": {"min_left": 1120, "max_right": 1880, "min_top": 225, "max_height": 756, "face_line": 472},
   "legibility": {

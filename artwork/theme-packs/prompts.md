@@ -40,4 +40,4 @@ python3 tools/theme_pack.py pack theme-packs/animal-crossing dist/animal-crossin
 python3 tools/theme_pack.py pack theme-packs/zelda-wilds dist/zelda-wilds-v3.zip
 ```
 
-Keep prompt records and SVG sources outside each package directory. The portable ZIP protocol intentionally accepts only manifest/config JSON and raster presentation assets.
+Keep prompt records and SVG sources outside each package directory. The portable ZIP protocol intentionally accepts only manifest/config JSON, raster presentation assets and TrueType/OpenType clock fonts (`fonts/`); license texts and other files stay beside the package folder.

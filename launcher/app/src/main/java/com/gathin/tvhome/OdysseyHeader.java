@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -21,12 +23,17 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.File;
+
 /**
  * The "game HUD" header, header_style odyssey: a Power Moon before the greeting (with the wallpaper's kingdom, see
  * HeaderStyle), a coin before a heavy rounded clock with a dark outline and a hard shadow, the date in a purple pill,
  * and cream pills whose icons sit in coloured badges and that turn gold when focused. The coin is the gold vector one,
- * or the kingdom's purple coin wallpaper_coins gives the picture on screen. It restyles the views activity_main.xml
- * inflated, the default layout or the Hebrew one alike, so neither layout needs an Odyssey copy.
+ * or the kingdom's coin wallpaper_coins gives the picture on screen, an icon from the theme pack; the clock's rounded
+ * face (Fredoka) comes from the pack too (clock_font). It restyles the views activity_main.xml inflated, the default
+ * layout or the Hebrew one alike, so neither layout needs an Odyssey copy. Only this code and the small vector and
+ * shape drawables stay in the APK; a theme without the pack's art still draws the HUD, with the vector coin and the
+ * system's bold digits.
  *
  * Everything here runs once from onCreate, when the network pill's icon changes or when the wallpaper changes (with
  * the wallpaper's crossfade, once the new picture is half in: WallpaperFade.halfway); the icons are vector and shape
@@ -47,6 +54,8 @@ final class OdysseyHeader {
     private static final float CLOCK_SP = 58;
     /** The coin before the clock: ic_odyssey_coin's size, which a kingdom's coin takes too. */
     private static final float COIN_DP = 46;
+    /** A kingdom's coin is decoded with its longest side at most this: 46dp is 92 px on a 320 dpi TV. */
+    private static final int COIN_DECODE_PX = 256;
     private static final float BADGE_DP = 29, GLYPH_DP = 17, EYES_DP = 20;
     /** The hard edge under a pill's face, inside its 42dp (odyssey_pill_bg): the content centres on the face above. */
     private static final float EDGE_DP = 3.5f;
@@ -54,12 +63,13 @@ final class OdysseyHeader {
     private OdysseyHeader() {}
 
     /**
-     * Restyles the greeting, clock, AM/PM and date, with {@code coin} (from {@link #coin}) before the clock. Call it
-     * with the greeting's real text already set: the header block is measured before and after, and grows upwards by
-     * the difference, so the pills (aligned to its bottom) and the grid under it stay exactly where the default header
-     * has them.
+     * Restyles the greeting, clock, AM/PM and date, with {@code coin} (from {@link #coin}) before the clock and the
+     * digits in {@code clockFont} (the theme's clock_font, ThemeTypeface), or the system's bold when it is null. Call
+     * it with the greeting's real text already set: the header block is measured before and after, and grows upwards
+     * by the difference, so the pills (aligned to its bottom) and the grid under it stay exactly where the default
+     * header has them.
      */
-    static void applyHeader(Activity activity, Drawable coin) {
+    static void applyHeader(Activity activity, Drawable coin, Typeface clockFont) {
         Resources res = activity.getResources();
         float dp = res.getDisplayMetrics().density;
         View block = activity.findViewById(R.id.leftBlock);
@@ -86,11 +96,13 @@ final class OdysseyHeader {
             greeting.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_odyssey_moon, 0, 0, 0);
         }
 
-        // The digits: Fredoka at weight 700 and width 120, a white fill in a 3.5dp ink outline, the outlined digits again
-        // 3dp lower as a hard shadow, and the coin as the start drawable. The wide instance and the letter spacing keep
-        // the digits 7 to 10 px apart, so each keeps its own outline. Formats (12 or 24 hours) stay those of the layout.
+        // The digits: the theme's font (the Odyssey pack's Fredoka at weight 700 and width 120), a white fill in a 3.5dp
+        // ink outline, the outlined digits again 3dp lower as a hard shadow, and the coin as the start drawable. The
+        // wide instance and the letter spacing keep the digits 7 to 10 px apart, so each keeps its own outline. Formats
+        // (12 or 24 hours) stay those of the layout. The date pill below sits on these digits' descent, measured after
+        // the font is set, so another font moves it with the digits.
         OutlineTextClock clock = activity.findViewById(R.id.clock);
-        clock.setTypeface(res.getFont(R.font.fredoka_bold));
+        clock.setTypeface(clockFont != null ? clockFont : Typeface.DEFAULT_BOLD);
         clock.setTextSize(TypedValue.COMPLEX_UNIT_SP, CLOCK_SP);
         clock.setLetterSpacing(0.03f);
         clock.setTextColor(Color.WHITE);
@@ -147,19 +159,46 @@ final class OdysseyHeader {
     }
 
     /**
-     * The coin before the clock for {@code name}, a value {@link HeaderStyle#coin} accepted: that coin_* drawable,
-     * {@link #COIN_DP} square; or the gold vector coin for "" or a name the APK does not have. A coin is a 128 px WebP
-     * from drawable-nodpi, drawn filtered at 46dp (92 px on a 320 dpi TV). It is decoded here, so MainActivity keeps
-     * each coin it asked for and never calls this per frame.
+     * The coin before the clock for {@code path}, a value {@link HeaderStyle#coin} accepted ("icons/coin-cap.webp" in
+     * {@code themeDirectory}), {@link #COIN_DP} square; or the gold vector coin for "" or an icon that is missing, too
+     * large or does not decode. The Odyssey pack's coins are 128 px WebPs, drawn filtered at 46dp (92 px on a 320 dpi
+     * TV). It is decoded here, so MainActivity keeps each coin it asked for and never calls this per frame.
      */
-    static Drawable coin(Context context, String name) {
+    static Drawable coin(Context context, File themeDirectory, String path) {
         Resources res = context.getResources();
-        int id = name.isEmpty() ? 0 : res.getIdentifier(name, "drawable", context.getPackageName());
-        Drawable coin = context.getDrawable(id != 0 ? id : R.drawable.ic_odyssey_coin);
-        if (coin instanceof BitmapDrawable) ((BitmapDrawable) coin).setFilterBitmap(true);
+        Drawable coin = path == null || path.isEmpty() ? null : decodeCoin(res, themeDirectory, path);
+        if (coin == null) coin = context.getDrawable(R.drawable.ic_odyssey_coin);
         int size = Math.round(COIN_DP * res.getDisplayMetrics().density);
         coin.setBounds(0, 0, size, size);
         return coin;
+    }
+
+    /**
+     * The icon at {@code path}, under the pack's icons/ folder, at most ThemePackage.MAX_ICON bytes and MAX_ICON_SIDE
+     * px a side (as ThemeStore checked on import, again here as the file is read long after), decoded with its longest
+     * side at most {@link #COIN_DECODE_PX}; null for anything else, which shows the vector coin.
+     */
+    private static Drawable decodeCoin(Resources res, File themeDirectory, String path) {
+        if (!HeaderStyle.coinPath(path)) return null;
+        File icon = ThemePackage.inside(themeDirectory, "icons", path);
+        if (icon == null || icon.length() <= 0 || icon.length() > ThemePackage.MAX_ICON) return null;
+        try {
+            BitmapFactory.Options bounds = new BitmapFactory.Options();
+            bounds.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile(icon.getPath(), bounds);
+            if (bounds.outWidth <= 0 || bounds.outHeight <= 0 || bounds.outWidth > ThemePackage.MAX_ICON_SIDE
+                    || bounds.outHeight > ThemePackage.MAX_ICON_SIDE) return null;
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = ThemeArtReference.sampleFor(Math.max(bounds.outWidth, bounds.outHeight), COIN_DECODE_PX);
+            options.inPreferredConfig = Bitmap.Config.ARGB_8888;   // the coins have alpha: their rims are round
+            Bitmap bitmap = BitmapFactory.decodeFile(icon.getPath(), options);
+            if (bitmap == null || bitmap.getWidth() <= 0 || bitmap.getHeight() <= 0) return null;
+            BitmapDrawable drawable = new BitmapDrawable(res, bitmap);
+            drawable.setFilterBitmap(true);
+            return drawable;
+        } catch (RuntimeException | OutOfMemoryError e) {
+            return null;
+        }
     }
 
     /**

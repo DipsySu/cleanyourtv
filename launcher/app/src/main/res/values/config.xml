@@ -46,24 +46,10 @@
         <item>com.xiaomi.mitv.mediaexplorer=高清播放器</item>
     </string-array>
     <!-- A tile's artwork instead of the app's banner: "package=drawable", a banner_* drawable bundled with the
-         launcher (res/drawable). banner_tv is a magenta field with the Live TV glyph. -->
+         launcher (res/drawable). banner_tv is a magenta field with the Live TV glyph. Empty here: this fork's
+         character and soft cards come with their theme packs (theme-packs/), so the built-in theme shows the apps'
+         own banners. -->
     <string-array name="app_banners">
-        <item>com.xiaomi.mitv.smartshare=banner_odyssey_cast</item>
-        <item>com.xiaodianshi.tv.yst=banner_odyssey_bili</item>
-        <item>com.zb.test=banner_odyssey_iqiyi</item>
-        <item>com.xiaomi.mitv.mediaexplorer=banner_odyssey_player</item>
-        <item>com.yyw.box.androidclient=banner_odyssey_115</item>
-        <item>com.mb.android=banner_odyssey_emby</item>
-        <item>com.ktcp.video=banner_odyssey_tencent</item>
-        <item>com.xiaomi.tweather=banner_odyssey_weather</item>
-        <item>com.mitv.alarmcenter=banner_odyssey_alarm</item>
-        <item>com.xiaomi.voicecontrol=banner_odyssey_voice</item>
-        <item>com.xiaomi.mitv.light=banner_odyssey_light</item>
-        <item>com.xiaomi.mitv.calendar=banner_odyssey_calendar</item>
-        <item>com.xiaomi.tv.gallery=banner_odyssey_gallery</item>
-        <item>com.xiaomi.mitv.tvmanager=banner_odyssey_manager</item>
-        <item>com.xiaomi.mitv.settings=banner_odyssey_settings</item>
-        <item>com.duokan.videodaily=banner_odyssey_video</item>
     </string-array>
 
     <!-- TVs with no TvInputManager have no HDMI list to read, but their own source-selection panel
@@ -124,34 +110,37 @@
     <string name="greeting_name" translatable="false"></string>
 
     <!-- The header's look. "default": the thin greeting, clock and date and the frosted pills. "odyssey": a game HUD
-         for the Mario Odyssey preset: a Power Moon before the greeting, which starts with the kingdom of the
-         wallpaper on screen (wallpaper_names); a gold coin before a heavy rounded clock (Fredoka) with a dark outline
-         and a hard shadow; the date in a purple pill; and cream pills with a hard dark edge whose icons sit in
-         coloured badges (Cappy-style eyes for Inputs), turning coin gold when focused. Only the styling changes: the
-         layout, the Hebrew one included, the pills' size and the dock stay where they are, and a festival's icons
-         replace the badges while it is on. Any other value is "default". This fork's config.xml mirrors the Odyssey
-         theme, so it is odyssey here; a theme can set "header_style" either way. -->
-    <string name="header_style" translatable="false">odyssey</string>
+         for the Mario Odyssey theme: a Power Moon before the greeting, which starts with the kingdom of the
+         wallpaper on screen (wallpaper_names); a coin before a heavy clock with a dark outline and a hard shadow (the
+         rounded Fredoka digits come from the theme pack's clock_font; without one the clock is the system bold); the
+         date in a purple pill; and cream pills with a hard dark edge whose icons sit in coloured badges (Cappy-style
+         eyes for Inputs), turning coin gold when focused. Only the styling changes: the layout, the Hebrew one
+         included, the pills' size and the dock stay where they are, and a festival's icons replace the badges while
+         it is on. Any other value is "default". Default here: the built-in theme is the plain original look, and the
+         Mario Odyssey theme pack (theme-packs/mario-odyssey) sets odyssey. -->
+    <string name="header_style" translatable="false">default</string>
     <!-- With header_style odyssey: the kingdom named before the greeting for each wallpaper, "filename=Name", as in
          app_labels: "01-cap.jpg=帽子之国" shows 帽子之国 · 下午好 while that picture is on screen, and the line follows
          the rotation. A picture without a name, a plain colour or a wallpaper switched off on the TV shows the
-         greeting alone. Empty here; the Odyssey theme names its eight kingdoms in its config.json. -->
+         greeting alone. Empty here; the Mario Odyssey theme pack names its eight kingdoms. -->
     <string-array name="wallpaper_names" translatable="false">
     </string-array>
-    <!-- With header_style odyssey: the coin before the clock for each wallpaper, "filename=drawable", as in
-         wallpaper_names: "01-cap.jpg=coin_odyssey_cap" shows Cap Kingdom's purple coin while that picture is on screen,
-         and the coin follows the rotation. The drawable is one bundled with the launcher: a coin_* WebP from
-         drawable-nodpi, drawn 46dp square like the gold coin, or ic_odyssey_coin, the gold coin itself. A picture
-         without an entry, a name the launcher doesn't have, a plain colour or a wallpaper switched off on the TV
-         shows the gold coin. Empty here; the Odyssey theme gives its kingdoms their coins in its config.json (Metro the gold one). -->
+    <!-- With header_style odyssey: the coin before the clock for each wallpaper, "filename=icons/<image>", as in
+         wallpaper_names: "01-cap.jpg=icons/coin-cap.webp" shows Cap Kingdom's purple coin while that picture is on
+         screen, and the coin follows the rotation. The image is one a theme pack carries in its icons/ folder (at most
+         1 MiB and 1024 px a side), drawn 46dp square like the gold coin; no coin images are bundled with the launcher.
+         A picture without an entry, a value that is not such a pack icon (an old drawable name such as
+         coin_odyssey_cap included), a plain colour or a wallpaper switched off on the TV shows the gold vector coin.
+         Empty here, since only a theme pack can hold the images; the Mario Odyssey pack gives seven kingdoms their
+         coins (Metro keeps the gold one). -->
     <string-array name="wallpaper_coins" translatable="false">
     </string-array>
     <!-- The dock tray's tint for each wallpaper, "filename=#RRGGBB", as in wallpaper_names: a soft translucent tray in
          that colour (42% at the top, darkening to 45% of it at 56% at the bottom, with a light edge mixed from it)
          instead of the near-opaque dark one, and the tint follows the rotation. Needs dock_row; works with any
          header_style. A picture without an entry or with a value that is not #RRGGBB, a plain colour or a wallpaper
-         switched off on the TV keeps the dark tray. Empty here; the Odyssey theme tints its eight kingdoms in its
-         config.json. -->
+         switched off on the TV keeps the dark tray. Empty here; the Mario Odyssey theme pack tints its eight
+         kingdoms. -->
     <string-array name="wallpaper_tints" translatable="false">
     </string-array>
     <!-- Optional VPN app the network pill opens (hold the pill for Wi-Fi settings), e.g. the package of the

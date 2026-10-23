@@ -70,6 +70,30 @@ class ThemePackCliTest(unittest.TestCase):
             result = self.run_tool("pack", theme, root / "array.zip")
             self.assertEqual(result.returncode, 0, result.stderr)
 
+    def test_pack_carries_a_clock_font_and_coin_icons(self):
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw); theme = self.make_theme(root)
+            (theme / "fonts").mkdir(); (theme / "icons").mkdir(); (theme / "wallpapers").mkdir()
+            (theme / "fonts" / "clock.ttf").write_bytes(b"\x00\x01\x00\x00" + b"\x00" * 12)
+            (theme / "icons" / "coin-cap.webp").write_bytes(b"webp")
+            (theme / "wallpapers" / "01-cap.jpg").write_bytes(b"jpeg")
+            (theme / ".DS_Store").write_bytes(b"finder")
+            config = {"clock_font": "fonts/clock.ttf", "clock_font_axes": {"wght": 700, "wdth": 120},
+                      "wallpaper_coins": {"01-cap.jpg": "icons/coin-cap.webp"}}
+            (theme / "config.json").write_text(json.dumps(config))
+            archive = root / "clock.zip"
+            packed = self.run_tool("pack", theme, archive)
+            self.assertEqual(packed.returncode, 0, packed.stderr)
+            inspected = self.run_tool("inspect", archive)
+            self.assertEqual(inspected.returncode, 0, inspected.stderr)
+            self.assertIn("fonts/clock.ttf, icons/coin-cap.webp", inspected.stdout)
+            self.assertNotIn(".DS_Store", inspected.stdout)
+            config["wallpaper_coins"]["01-cap.jpg"] = "coin_odyssey_cap"
+            (theme / "config.json").write_text(json.dumps(config))
+            rejected = self.run_tool("pack", theme, root / "resource-coin.zip")
+            self.assertNotEqual(rejected.returncode, 0)
+            self.assertIn("invalid value for config key: wallpaper_coins", rejected.stderr)
+
     def test_pack_rejects_legacy_manifest_id_and_noncanonical_zip_paths(self):
         with tempfile.TemporaryDirectory() as raw:
             root = Path(raw); theme = self.make_theme(root)
@@ -102,9 +126,10 @@ class ThemePackCliTest(unittest.TestCase):
         self.assertIn("not an Android package name", result.stderr)
 
     def test_list_decodes_the_real_bundle_without_consuming_its_closing_bracket(self):
-        response = ('Result: Bundle[{themes=[{"id":"legacy","name":"奥德赛 · 当前主题","version":0,"active":true},'
+        response = ('Result: Bundle[{themes=[{"id":"legacy","name":"原版主题","version":0,"active":true},'
                     '{"id":"animal-crossing","name":"动森 · 岛屿来信","version":1,"active":false},'
-                    '{"id":"zelda-wilds","name":"塞尔达 · 旷野与天空","version":1,"active":false}], ok=true}]')
+                    '{"id":"zelda-wilds","name":"塞尔达 · 旷野与天空","version":1,"active":false},'
+                    '{"id":"mario-odyssey","name":"奥德赛 · 王国之旅","version":1,"active":false}], ok=true}]')
         original = THEME_PACK.content_call
         self.addCleanup(setattr, THEME_PACK, "content_call", original)
         THEME_PACK.content_call = lambda package, method: response
@@ -112,9 +137,10 @@ class ThemePackCliTest(unittest.TestCase):
         with contextlib.redirect_stdout(visible):
             THEME_PACK.list_themes("com.ts.launcher")
         self.assertEqual(visible.getvalue().splitlines(), [
-            "* legacy\t奥德赛 · 当前主题\t0",
+            "* legacy\t原版主题\t0",
             "  animal-crossing\t动森 · 岛屿来信\t1",
             "  zelda-wilds\t塞尔达 · 旷野与天空\t1",
+            "  mario-odyssey\t奥德赛 · 王国之旅\t1",
         ])
 
 
