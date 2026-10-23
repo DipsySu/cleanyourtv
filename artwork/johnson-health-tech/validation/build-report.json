@@ -36,8 +36,8 @@
         1920,
         1080
       ],
-      "bytes": 131014,
-      "sha256": "f15ae4a7dfcd77dfbb828c299b27345295918619a64ee41c5587575a1fecfb42",
+      "bytes": 145974,
+      "sha256": "b706b7cfe8e05169ed1e06df8ddf200c6a5af1e2b485c654df2abd438375413f",
       "opaque": true,
       "chunk": "VP8 "
     },
@@ -58,8 +58,8 @@
         1920,
         1080
       ],
-      "bytes": 93168,
-      "sha256": "641aa2462749c67bd2f02f252783b963ccb3b9903cc4622c9334c5c249d9768c",
+      "bytes": 93362,
+      "sha256": "2990483355dc422378c0933e956b46a2dcb2dd53c1d128991af09f07d2181593",
       "opaque": true,
       "chunk": "VP8 "
     },

@@ -1,0 +1,125 @@
+{
+  "date": "2026-10-23",
+  "device": {
+    "model": "MiTV-MFTR0",
+    "android": "11",
+    "api": 30,
+    "capture_size": [
+      1920,
+      1080
+    ]
+  },
+  "theme": {
+    "id": "johnson-health-tech",
+    "version": 2,
+    "zip_bytes": 1017265,
+    "zip_sha256": "4cd477bac1115d15cc9fd7387b3cb6561edf802e9f7b3b69f235f32032507ad0"
+  },
+  "input_method": "ADB direction/OK/Home keys and settings UI taps",
+  "settings_assertions": {
+    "01-before-settings": [
+      "columns6",
+      "rows0"
+    ],
+    "03-johnson-settings": [
+      "columns6",
+      "rows0"
+    ],
+    "12-manual-rows2": [
+      "columns6",
+      "rows2"
+    ],
+    "13-zelda-rows2": [
+      "columns6",
+      "rows2"
+    ],
+    "14-v2-restart-settings": [
+      "columns6",
+      "rows0"
+    ],
+    "17-restored-settings": [
+      "columns6",
+      "rows0"
+    ]
+  },
+  "six_dock_apps": [
+    "无线投屏",
+    "云视听小电视",
+    "直播电视",
+    "Emby",
+    "云视听极光",
+    "高清播放器"
+  ],
+  "screenshots": [
+    {
+      "file": "01-matrix.png",
+      "sha256": "7428aca10ae3e8055737eec1131bbbf70931e8d61abb455c955913d35cff4fb2"
+    },
+    {
+      "file": "02-vision.png",
+      "sha256": "e553ee224276367187e7e29580e3ab651ddcac2bc1b2fc3fd0f8808ecabe6831"
+    },
+    {
+      "file": "03-horizon.png",
+      "sha256": "91fde135ca3149698dae07164e3e5a0ff898da81bcfb21e9320af6804981c2d1"
+    },
+    {
+      "file": "04-bowflex.png",
+      "sha256": "dfd273b28c2dc1cec69dd5dc22cd4a9202410dbbdc60b4df41ac2453fb75f9a0"
+    },
+    {
+      "file": "05-schwinn.png",
+      "sha256": "0b47221bdd0c79001359dffb0c6db930a7e72a21bfc13a04ca6dde1ffe513111"
+    },
+    {
+      "file": "06-synca.png",
+      "sha256": "2271616d7fe204f35f6423d8401ee4d317ad21cc455cf3fe4af6be5105b596b7"
+    },
+    {
+      "file": "07-fujiiryoki.png",
+      "sha256": "38c16ebfe120d536579ca66811d34af3a06c58ddbc92a47c9385db969e8d3add"
+    }
+  ],
+  "rotation": {
+    "before": "MATRIX",
+    "after": "VISION",
+    "screenshot_interval_seconds": 132.491,
+    "input_during_idle": false,
+    "complete_cycle_tested": false
+  },
+  "navigation": {
+    "focused_and_launched": "com.mb.android/.MainActivity",
+    "home_return": true,
+    "library_open": true,
+    "library_app_count": 16
+  },
+  "preservation": {
+    "device_config_equal": true,
+    "device_config_bytes": 671,
+    "device_config_sha256": "06acb9f4742327566628cd94c6b09908d1eb751cfb5b6f9594d12ec41db0c61c",
+    "apk_unchanged_sha256": "c5470391c998d0add2945073a019c4974617068d703fbbc0d58a56a2212ceb85",
+    "home_unchanged": true,
+    "accessibility_unchanged": true
+  },
+  "crash_log": {
+    "since": "10-23 17:50:25.000",
+    "bytes": 0
+  },
+  "restored": {
+    "active_theme": "zelda-wilds",
+    "wallpaper": "theme default",
+    "columns": 6,
+    "rows_below_dock": 0,
+    "screen_brightness": 10,
+    "picture_backlight": 5,
+    "sound_effects_enabled": 1,
+    "johnson_v2_installed": true,
+    "power": "mWakefulness=Asleep\nDisplay Power: state=OFF"
+  },
+  "nas_directory": "/volume3/ShareFiles/cleanyourtv-johnson-health-tech-2026-10-23/real-device/",
+  "limits": [
+    "Personal Xiaomi TV; company TV not yet tested",
+    "ADB input; no human physical-remote test",
+    "First automatic transition, not full 14-minute cycle or performance benchmark"
+  ]
+}

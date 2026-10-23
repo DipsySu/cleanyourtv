@@ -23,11 +23,11 @@
   },
   {
     "id": "03-horizon",
-    "image": "horizon-product.jpg",
+    "image": "horizon-7at-home.jpg",
     "logo": "horizon-logo.png",
     "brand": "HORIZON",
     "category": "家庭健身",
-    "position": "right center",
+    "position": "center top",
     "side": "left",
     "logo_width": 300,
     "tint": "#8C7967"
@@ -49,7 +49,7 @@
     "logo": "schwinn-logo.png",
     "brand": "Schwinn",
     "category": "室内骑行",
-    "position": "left center",
+    "position": "25% center",
     "side": "left",
     "logo_width": 348,
     "tint": "#637B7A"

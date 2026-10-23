@@ -152,7 +152,7 @@ def encode(png: Path, webp: Path, size: tuple[int, int], scratch: Path, report_p
 
 def pack_metadata() -> tuple[dict, dict]:
     """Produce the only two package JSON files from the same data that drives rendering."""
-    manifest = {"schema": 1, "id": "johnson-health-tech", "name": "乔山 · 品牌展厅", "version": 1}
+    manifest = {"schema": 1, "id": "johnson-health-tech", "name": "乔山 · 品牌展厅", "version": 2}
     config = {
         "header_style": "default", "background_color": "#1A201D", "wallpaper": True,
         "wallpaper_dim": 0, "wallpaper_true_color": True, "wallpaper_rotation_minutes": 2,

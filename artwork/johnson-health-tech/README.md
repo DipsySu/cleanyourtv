@@ -10,7 +10,8 @@
 
 - MATRIX：官方 Hospitality 场景。
 - VISION：Stanley A. White 场景。
-- HORIZON、BowFlex、Schwinn、SYNCA：各品牌官网照片。
+- HORIZON：官方 7.0 AT 跑步机居家实景。
+- BowFlex、Schwinn、SYNCA：各品牌官网照片。
 - FUJIIRYOKI：官方商店 D.Core STRATUS-JP 日式环境图。
 
 16 张横幅卡片采用低饱和柔光背景和奶白色 raised glyph。除 `disk` 外，15 张卡片直接复用 `artwork/soft-tv-icons/soft-glow/` 的 glyph 几何；`disk` 使用通用文件夹 glyph，避免旧有的数字化网盘标识。背景在六组配色之间循环，Emby 和播放器仅调整内部强调色以协调卡片；腾讯标识保留品牌本色。
@@ -21,7 +22,7 @@
 
 `sources/sources.json` 记录每个本地素材对应的官方来源页面、下载地址和获取日期；`scenes.json` 指定场景、标识和画面裁切位置。官方标识和照片属于各自权利人，项目许可证不为这些素材授予额外权利；公司展示应遵循本公司的品牌素材管理要求。
 
-`design/` 保存可审阅的 HTML 和 SVG，`theme-packs/johnson-health-tech/` 保存最终主题包资源。此主题用于展示用途；截至当前记录，尚未在公司真机上完成验收。
+`design/` 保存可审阅的 HTML 和 SVG，`theme-packs/johnson-health-tech/` 保存最终主题包资源。已在用户的小米 MiTV-MFTR0 上完成七品牌显示、导航和偏好保留验证，记录见 [验收说明](ACCEPTANCE.md)。公司电视仍需按实际型号和安装环境复验。
 
 ## 离线重建
 
@@ -32,8 +33,8 @@
 ```sh
 python3 artwork/johnson-health-tech/build_theme.py
 mkdir -p backup/johnson-dist
-python3 tools/theme_pack.py pack theme-packs/johnson-health-tech backup/johnson-dist/johnson-health-tech-v1.zip
-python3 tools/theme_pack.py inspect backup/johnson-dist/johnson-health-tech-v1.zip
+python3 tools/theme_pack.py pack theme-packs/johnson-health-tech backup/johnson-dist/johnson-health-tech-v2.zip
+python3 tools/theme_pack.py inspect backup/johnson-dist/johnson-health-tech-v2.zip
 ```
 
 将 ZIP 放到电视可访问的存储位置，在 **设置 → 简洁桌面设置 → 导入主题 ZIP** 中导入，再选择「乔山 · 品牌展厅」。它需要支持主题包的本项目启动器；导入后资源复制到应用私有存储，可离线使用。
