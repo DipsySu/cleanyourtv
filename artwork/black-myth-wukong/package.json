@@ -1,0 +1,11 @@
+{
+  "name": "black-myth-wukong-theme-artwork",
+  "private": true,
+  "scripts": {
+    "banners": "node render-banners.cjs",
+    "preview": "node render-preview.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}

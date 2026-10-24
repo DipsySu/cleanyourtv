@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<title>Black Myth Wukong banner export surface</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { width: 512px; height: 288px; margin: 0; overflow: hidden; }
+  #banner {
+    position: relative;
+    width: 512px;
+    height: 288px;
+    overflow: hidden;
+    background: #D7D7D7;
+  }
+  #source {
+    position: absolute;
+    left: 128px;
+    top: 16px;
+    width: 256px;
+    height: 256px;
+    display: block;
+  }
+  #warm-wash {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: #B79D77;
+    opacity: .16;
+    pointer-events: none;
+  }
+</style>
+<main id="banner"><img id="source" alt=""><i id="warm-wash"></i></main>
+</html>

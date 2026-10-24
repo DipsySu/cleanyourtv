@@ -1,0 +1,44 @@
+{
+  "header_style": "default",
+  "background_color": "#191814",
+  "wallpaper": true,
+  "wallpaper_dim": 0,
+  "wallpaper_true_color": true,
+  "wallpaper_rotation_minutes": 0,
+  "wallpaper_order": "sequential",
+  "wallpaper_names": {
+    "wallpaper.jpg": "黑风远岫 · 八十一难"
+  },
+  "wallpaper_tints": {
+    "wallpaper.jpg": "#4B4237"
+  },
+  "wallpaper_coins": {},
+  "app_banners": {
+    "com.xiaomi.mitv.smartshare": "banners/cast.jpg",
+    "com.xiaodianshi.tv.yst": "banners/bili.jpg",
+    "com.zb.test": "banners/live.jpg",
+    "com.mb.android": "banners/emby.jpg",
+    "com.ktcp.video": "banners/tencent.jpg",
+    "com.xiaomi.mitv.mediaexplorer": "banners/player.jpg",
+    "com.yyw.box.androidclient": "banners/disk.jpg",
+    "com.xiaomi.tweather": "banners/weather.jpg",
+    "com.mitv.alarmcenter": "banners/alarm.jpg",
+    "com.xiaomi.voicecontrol": "banners/voice.jpg",
+    "com.xiaomi.mitv.light": "banners/light.jpg",
+    "com.xiaomi.mitv.calendar": "banners/calendar.jpg",
+    "com.xiaomi.tv.gallery": "banners/gallery.jpg",
+    "com.xiaomi.mitv.tvmanager": "banners/manager.jpg",
+    "com.xiaomi.mitv.settings": "banners/settings.jpg",
+    "com.duokan.videodaily": "banners/video.jpg"
+  },
+  "columns": 6,
+  "dock_columns": 6,
+  "rows_below_dock": 0,
+  "always_show_names": true,
+  "dock_row": true,
+  "dock_title": false,
+  "dock_even_padding": false,
+  "cinematic_home": false,
+  "ambient_glow": false,
+  "sky_intensity": 0
+}

@@ -1,0 +1,317 @@
+{
+  "design": {
+    "width": 512,
+    "height": 288,
+    "background": "#D7D7D7",
+    "warm_wash": {
+      "background": "#B79D77",
+      "opacity": 0.16
+    }
+  },
+  "entries": [
+    {
+      "slug": "cast",
+      "source_file": "source/08-余韵远传.jpg",
+      "source_sha256": "4240ce681e979a5bbbb1d369ffaee3af4b26f9145df2dc1b401bf1c6386caad4",
+      "source": {
+        "format": "jpeg",
+        "width": 256,
+        "height": 256,
+        "opaque": true
+      },
+      "banner": "banners/cast.jpg",
+      "output_sha256": "294b9888d0e62022df94ccdbe5d4848ebf454f1ab92c404ab16abecac52f74ae",
+      "output": {
+        "format": "jpeg",
+        "width": 512,
+        "height": 288,
+        "opaque": true
+      }
+    },
+    {
+      "slug": "bili",
+      "source_file": "source/37-三打马猴.jpg",
+      "source_sha256": "3353744be44ad5b724384a32a4bbdb4cff06ecf84f65ed0031ce9862414f2769",
+      "source": {
+        "format": "jpeg",
+        "width": 256,
+        "height": 256,
+        "opaque": true
+      },
+      "banner": "banners/bili.jpg",
+      "output_sha256": "8fbbeb9afc359fbb6a81342fcb777727938c6fa7059af3cd6f028c745e26e592",
+      "output": {
+        "format": "jpeg",
+        "width": 512,
+        "height": 288,
+        "opaque": true
+      }
+    },
+    {
+      "slug": "live",
+      "source_file": "source/72-万相归真.jpg",
+      "source_sha256": "9f4f421aae55deb28d5f6d51b1ad9d604a7844274518ce10d807f562e1105b5f",
+      "source": {
+        "format": "jpeg",
+        "width": 256,
+        "height": 256,
+        "opaque": true
+      },
+      "banner": "banners/live.jpg",
+      "output_sha256": "9e55e6fce81f61e48a6ca2f80bbe6326d68c6f1ab1bae76e5e0701ab80f55acf",
+      "output": {
+        "format": "jpeg",
+        "width": 512,
+        "height": 288,
+        "opaque": true
+      }
+    },
+    {
+      "slug": "emby",
+      "source_file": "source/61-折梅见赠.jpg",
+      "source_sha256": "72ef1f46c83e16a4f91e4db1f337cc07d85114f52d03684d6af96b78bce75b3e",
+      "source": {
+        "format": "jpeg",
+        "width": 256,
+        "height": 256,
+        "opaque": true
+      },
+      "banner": "banners/emby.jpg",
+      "output_sha256": "de977c27fd531082852653810c447790b5fee620af9464c1f13fa82bed9c36c3",
+      "output": {
+        "format": "jpeg",
+        "width": 512,
+        "height": 288,
+        "opaque": true
+      }
+    },
+    {
+      "slug": "tencent",
+      "source_file": "source/56-两双一对.jpg",
+      "source_sha256": "1225819f590e4b30a774f21fd0e2bf964f3865246607f96167c62047b2f7c4fe",
+      "source": {
+        "format": "jpeg",
+        "width": 256,
+        "height": 256,
+        "opaque": true
+      },
+      "banner": "banners/tencent.jpg",
+      "output_sha256": "5da492e9043db20e5d29edf27714a2baba11fc8f54ef8ef1197051aadf472303",
+      "output": {
+        "format": "jpeg",
+        "width": 512,
+        "height": 288,
+        "opaque": true
+      }
+    },
+    {
+      "slug": "player",
+      "source_file": "source/74-六根齐聚.jpg",
+      "source_sha256": "317e307d53825c92d0b4d61844a77f42a8f52d4ab51b250c1c48852eae8a1e30",
+      "source": {
+        "format": "jpeg",
+        "width": 256,
+        "height": 256,
+        "opaque": true
+      },
+      "banner": "banners/player.jpg",
+      "output_sha256": "3f3d9dce91addc9c63b79c73a995886de5c8b0ffe16138ad34e4c1fe5db5eaa6",
+      "output": {
+        "format": "jpeg",
+        "width": 512,
+        "height": 288,
+        "opaque": true
+      }
+    },
+    {
+      "slug": "disk",
+      "source_file": "source/49-云游有伴.jpg",
+      "source_sha256": "85d419b54ab92bad9231fbfc14becb79e0db48f45eab60ebcf2ba961ef3fd0ec",
+      "source": {
+        "format": "jpeg",
+        "width": 256,
+        "height": 256,
+        "opaque": true
+      },
+      "banner": "banners/disk.jpg",
+      "output_sha256": "45b8329f9ec20c1a91f5ca60d91fd1913e49e5b6d552d93f0e594f9858af25cc",
+      "output": {
+        "format": "jpeg",
+        "width": 512,
+        "height": 288,
+        "opaque": true
+      }
+    },
+    {
+      "slug": "weather",
+      "source_file": "source/23-好大风呵.jpg",
+      "source_sha256": "3ed9f7ac05e6525bba99d3a78f07b960cb16cbc0c4dc017fe4cac61659f19561",
+      "source": {
+        "format": "jpeg",
+        "width": 256,
+        "height": 256,
+        "opaque": true
+      },
+      "banner": "banners/weather.jpg",
+      "output_sha256": "2d192955bc29579f2316005a9928b3aea1144a138380fb040be18c6a9edec905",
+      "output": {
+        "format": "jpeg",
+        "width": 512,
+        "height": 288,
+        "opaque": true
+      }
+    },
+    {
+      "slug": "alarm",
+      "source_file": "source/46-昂首绝唱.jpg",
+      "source_sha256": "5ec8683224c0405a1362b27a8ec5946c30faf31357cd1676103f86e970a21104",
+      "source": {
+        "format": "jpeg",
+        "width": 256,
+        "height": 256,
+        "opaque": true
+      },
+      "banner": "banners/alarm.jpg",
+      "output_sha256": "44c786462036d4da99db9e34c18b5f707996a88b6ab76e8951c03d9a91b842c0",
+      "output": {
+        "format": "jpeg",
+        "width": 512,
+        "height": 288,
+        "opaque": true
+      }
+    },
+    {
+      "slug": "voice",
+      "source_file": "source/15-不济于谷.jpg",
+      "source_sha256": "4c72f04defcdc4ebe8f94a250f9116e638bb9aa6a5862c5bc9421573d09cab34",
+      "source": {
+        "format": "jpeg",
+        "width": 256,
+        "height": 256,
+        "opaque": true
+      },
+      "banner": "banners/voice.jpg",
+      "output_sha256": "d1c47df3a4b1c07b4c8bb0eea624ab2d5dbfd71029992b7ed9abf6171cb7b8dc",
+      "output": {
+        "format": "jpeg",
+        "width": 512,
+        "height": 288,
+        "opaque": true
+      }
+    },
+    {
+      "slug": "light",
+      "source_file": "source/60-琳琅满目.jpg",
+      "source_sha256": "5ad06e3b4ad88f04d857e460791d61e7f35bfd9b8da8ef8d2a219bdfd48fe044",
+      "source": {
+        "format": "jpeg",
+        "width": 256,
+        "height": 256,
+        "opaque": true
+      },
+      "banner": "banners/light.jpg",
+      "output_sha256": "d9be38ec62bdb51c52ad8d226879a3203fc79030674b6685d53cc523b1ddd881",
+      "output": {
+        "format": "jpeg",
+        "width": 512,
+        "height": 288,
+        "opaque": true
+      }
+    },
+    {
+      "slug": "calendar",
+      "source_file": "source/73-半个不少.jpg",
+      "source_sha256": "dcb7472e946657eacd70e4220a52f72ace09859d4e11440d1af26efbfdfedde5",
+      "source": {
+        "format": "jpeg",
+        "width": 256,
+        "height": 256,
+        "opaque": true
+      },
+      "banner": "banners/calendar.jpg",
+      "output_sha256": "9b5bf505a5610d3be574dfba036dbf3767c99192b6aaafeba98b10ca9f8f8f96",
+      "output": {
+        "format": "jpeg",
+        "width": 512,
+        "height": 288,
+        "opaque": true
+      }
+    },
+    {
+      "slug": "gallery",
+      "source_file": "source/29-画里乾坤.jpg",
+      "source_sha256": "c9e550ee08a5a98f0e016bea5c7995dcac39933dd39b6f8df0bd761d6a4ef595",
+      "source": {
+        "format": "jpeg",
+        "width": 256,
+        "height": 256,
+        "opaque": true
+      },
+      "banner": "banners/gallery.jpg",
+      "output_sha256": "4a2a47b530d1f7ccb62a1efbff3e5d92ef19f52c86c496869479855964ecc0b5",
+      "output": {
+        "format": "jpeg",
+        "width": 512,
+        "height": 288,
+        "opaque": true
+      }
+    },
+    {
+      "slug": "manager",
+      "source_file": "source/02-敲敲打打.jpg",
+      "source_sha256": "679b14ad554ebd7cf4159c0fe2dd9e86c232de3ae999fbafbb0705934407700e",
+      "source": {
+        "format": "jpeg",
+        "width": 256,
+        "height": 256,
+        "opaque": true
+      },
+      "banner": "banners/manager.jpg",
+      "output_sha256": "9f4192c7404f59c7fe45956055b77b27b7ca4c517ffbc003323256b0086816b0",
+      "output": {
+        "format": "jpeg",
+        "width": 512,
+        "height": 288,
+        "opaque": true
+      }
+    },
+    {
+      "slug": "settings",
+      "source_file": "source/50-守炉道人.jpg",
+      "source_sha256": "62486a883b39e889b6685d556516c1403a7c6732ec815cd6919e6b4d306dac3a",
+      "source": {
+        "format": "jpeg",
+        "width": 256,
+        "height": 256,
+        "opaque": true
+      },
+      "banner": "banners/settings.jpg",
+      "output_sha256": "7e82c3e1629684fd18f771bbf9bd24d7886fcba65ffee7d4c3217a5ad005109b",
+      "output": {
+        "format": "jpeg",
+        "width": 512,
+        "height": 288,
+        "opaque": true
+      }
+    },
+    {
+      "slug": "video",
+      "source_file": "source/01-下降尘凡.jpg",
+      "source_sha256": "8620a40e40afb68b821ff86f407ee8bae20dfe70cca05327c852feac070a6386",
+      "source": {
+        "format": "jpeg",
+        "width": 256,
+        "height": 256,
+        "opaque": true
+      },
+      "banner": "banners/video.jpg",
+      "output_sha256": "5bf3e7a16fdc82f73e94801ad9aaf52169b29d7e9b0b50eea94686086c6eeb2d",
+      "output": {
+        "format": "jpeg",
+        "width": 512,
+        "height": 288,
+        "opaque": true
+      }
+    }
+  ]
+}

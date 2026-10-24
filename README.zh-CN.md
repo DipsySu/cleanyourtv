@@ -4,7 +4,7 @@
 
 > **奥德赛角色主题：** [40 个应用的角色图标](artwork/mario-odyssey-icons/README.md)，包含横幅/方形 PNG、素材来源与离线预览。2026-10-22 首次部署到小米电视，启用 16 个已核实应用映射，横幅保持纯角色图案，固定栏为「无线投屏 → 云视听小电视 → 直播电视 → Emby → 云视听极光 → 高清播放器」。现在它是 `mario-odyssey` 主题包，包含这 16 张横幅、8 张王国壁纸、7 枚王国硬币和 Fredoka 时钟字体，这些都不再放在 APK 里。
 
-> **主题库：** [动森、塞尔达、奥德赛和柔光主题包](theme-packs/README.md)，可在电视上切换，外部 ZIP 导入时先验证。
+> **主题库：** [动森、塞尔达、奥德赛、柔光和黑神话主题包](theme-packs/README.md)，可在电视上切换，外部 ZIP 导入时先验证。
 
 <p align="center">
   <a href="https://cleanyour.tv"><img src="docs/banner.png" alt="CleanYourTV：让电视桌面回归简洁" width="800"></a>

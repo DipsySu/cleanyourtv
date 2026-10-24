@@ -1,0 +1,7 @@
+# Rebuildable previews and local delivery/installation records.
+/delivery/
+/preview.html
+
+# Superseded wallpaper and generated source contact sheet.
+/wallpaper-master.png
+/source/*.png
