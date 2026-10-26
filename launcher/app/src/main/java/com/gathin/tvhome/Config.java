@@ -304,6 +304,7 @@ final class Config {
         File legacyFile = legacyDir != null ? new File(legacyDir, FILE_NAME) : null;
         boolean mounted = Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
         JSONObject json = readOverlay(ctx, legacyFile, mounted);
+        ThemeStore.ensureBundledTheme(ctx);
         ThemeStore.Snapshot theme = ThemeStore.snapshot(ctx);
         JSONObject packageOverlay = theme.overlay;
         File dir = theme.directory;

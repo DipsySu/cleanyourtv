@@ -3,6 +3,8 @@ package com.gathin.tvhome;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.os.SystemClock;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,25 +58,70 @@ final class ThemeStore {
         }
     }
 
+    private static boolean bundledInitializing;
+    private static boolean bundledReady;
+    private static int bundledAttempts;
+    private static long lastBundledAttempt;
+    private static final int MAX_BUNDLED_ATTEMPTS = 3;
+    private static final long BUNDLED_RETRY_INTERVAL_MS = 2000L;
+
     private ThemeStore() {}
 
-    static List<Entry> list(Context context) {
+    static ThemeProfile profile(Context context) {
+        return new ThemeProfile(context.getString(R.string.bundled_theme_id),
+                context.getResources().getInteger(R.integer.bundled_theme_version));
+    }
+
+    static void ensureBundledTheme(Context context) {
         synchronized (LOCK) {
+            ThemeProfile profile = profile(context);
+            if (!profile.isBundled() || bundledReady || bundledInitializing || bundledAttempts >= MAX_BUNDLED_ATTEMPTS) return;
+            long now = SystemClock.elapsedRealtime();
+            if (bundledAttempts > 0 && now - lastBundledAttempt < BUNDLED_RETRY_INTERVAL_MS) return;
+            bundledInitializing = true;
+            bundledAttempts++;
+            lastBundledAttempt = now;
+            try {
+                String id = profile.bundledId();
+                Entry installed = publishedEntry(new File(root(context), id), prefs(context).getString("latest." + id, null));
+                if (profile.needsBundledImport(installed == null ? 0 : installed.version)) {
+                    try (InputStream stream = context.getAssets().open("company-theme.zip")) {
+                        installed = importZip(context, stream, profile.bundledVersion());
+                    }
+                }
+                if (installed == null) throw new IOException("bundled theme unavailable");
+                if (!id.equals(prefs(context).getString(ACTIVE, LEGACY))) activate(context, id);
+                bundledReady = true;
+            } catch (Exception e) {
+                Log.e("ThemeStore", "Could not initialize bundled theme", e);
+            } finally {
+                bundledInitializing = false;
+            }
+        }
+    }
+
+    static List<Entry> list(Context context) {
+        ensureBundledTheme(context);
+        synchronized (LOCK) {
+            ThemeProfile profile = profile(context);
             ArrayList<Entry> entries = new ArrayList<>();
-            entries.add(new Entry(LEGACY, context.getString(R.string.theme_legacy_name), 0, Config.dir(context)));
+            if (profile.allows(LEGACY)) entries.add(new Entry(LEGACY, context.getString(R.string.theme_legacy_name), 0, Config.dir(context)));
             File root = root(context);
             File[] ids = root.listFiles(File::isDirectory);
             if (ids != null) for (File idDir : ids) {
                 String published = prefs(context).getString("latest." + idDir.getName(), null);
                 Entry entry = publishedEntry(idDir, published);
-                if (entry != null) entries.add(entry);
+                if (entry != null && profile.allows(entry.id)) entries.add(entry);
             }
-            entries.subList(1, entries.size()).sort(Comparator.comparing(e -> e.name));
+            entries.subList(profile.allows(LEGACY) ? 1 : 0, entries.size()).sort(Comparator.comparing(e -> e.name));
             return entries;
         }
     }
 
-    static String activeId(Context context) { return prefs(context).getString(ACTIVE, LEGACY); }
+    static String activeId(Context context) {
+        ensureBundledTheme(context);
+        return prefs(context).getString(ACTIVE, LEGACY);
+    }
 
     static File activeDir(Context context) {
         synchronized (LOCK) {
@@ -132,6 +179,11 @@ final class ThemeStore {
     }
 
     static Entry importZip(Context context, InputStream stream) throws IOException {
+        ensureBundledTheme(context);
+        return importZip(context, stream, -1);
+    }
+
+    private static Entry importZip(Context context, InputStream stream, int expectedVersion) throws IOException {
         File root = root(context);
         if (!root.isDirectory() && !root.mkdirs() && !root.isDirectory()) throw new IOException("cannot create theme store");
         File staging = new File(root, ".incoming-" + UUID.randomUUID());
@@ -141,9 +193,15 @@ final class ThemeStore {
         try {
             // ZIP reads and image decoding are intentionally outside LOCK: another caller can list/activate safely.
             ThemePackage.Manifest manifest = ThemePackage.extract(stream, staging);
+            if (expectedVersion >= 0 && manifest.version != expectedVersion) throw new IOException("bundled theme version mismatch");
             validateConfig(readJson(new File(staging, "config.json")), staging);
+            ThemeProfile profile = profile(context);
+            if (!profile.allows(manifest.id)) throw new IOException("theme is not allowed by this profile");
             synchronized (LOCK) {
                 File idDir = new File(root, manifest.id);
+                Entry current = publishedEntry(idDir, prefs(context).getString("latest." + manifest.id, null));
+                if (profile.isBundled() && current != null && current.version > manifest.version)
+                    throw new IOException("cannot downgrade bundled theme");
                 if (!idDir.isDirectory() && !idDir.mkdirs()) throw new IOException("cannot create theme directory");
                 installed = new File(idDir, manifest.version + "-" + UUID.randomUUID());
                 if (!staging.renameTo(installed)) throw new IOException("cannot install theme package");
@@ -171,8 +229,9 @@ final class ThemeStore {
     }
 
     static void activate(Context context, String id) throws IOException {
+        ensureBundledTheme(context);
         synchronized (LOCK) {
-            if (id == null) throw new IOException("theme id is required");
+            if (!profile(context).allows(id)) throw new IOException("theme is not allowed by this profile");
             boolean exists = LEGACY.equals(id);
             if (!exists) for (Entry entry : list(context)) if (id.equals(entry.id)) { exists = true; break; }
             if (!exists) throw new IOException("theme is not installed");

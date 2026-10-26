@@ -78,6 +78,7 @@ public final class LauncherSettingsActivity extends Activity {
         themeChoice.setOnClickListener(v -> showThemePicker());
         importThemeChoice = findViewById(R.id.importThemeChoice);
         importThemeChoice.setOnClickListener(v -> pickThemeZip());
+        if (ThemeStore.profile(this).isBundled()) importThemeChoice.setVisibility(View.GONE);
 
         int[] ids = {R.id.columns4, R.id.columns6};
         int[] values = {4, 6};

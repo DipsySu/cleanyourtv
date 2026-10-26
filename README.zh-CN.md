@@ -1,3 +1,5 @@
+> **公司电视（Windows）：** `dipsy/johnson-company` 分支提供仅显示乔山主题的构建配置。请按 [Windows 升级说明](docs/johnson-company-windows.md)，使用原签名密钥编译并覆盖升级已安装的桌面。
+
 > **本 fork 的定制分支：** `xiaomi-freeguy-home` 包含小米 Android 11 兼容适配、Emby 固定栏和 ZIP 主题库。APK 内置的是原版外观，奥德赛和柔光两套外观改为主题包提供。改动与验证见[设备记录](docs/devices/xiaomi-mitv-mftr0-freeguy-android11.md)，使用 `./launcher/build-freeguy.sh` 构建。下文保留上游通用说明。
 
 > **新图标设计包：** [40 枚柔光电视图标](artwork/soft-tv-icons/README.md)，包含横幅/方形 SVG、Android 矢量资源及离线预览。本套件尚未替换电视主题；`soft-glow` 主题包用的是此前 APK 内置的那组柔光卡片，栅格化为 WebP。

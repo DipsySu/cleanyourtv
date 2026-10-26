@@ -1,3 +1,5 @@
+> **Company TV (Windows):** The `dipsy/johnson-company` branch provides a build profile with Johnson Health Tech as the only theme. Use the [Windows upgrade instructions](docs/johnson-company-windows.md) to build with the original signing key and upgrade an existing installation.
+
 > **Fork customization:** The `xiaomi-freeguy-home` branch contains the Xiaomi Android 11 compatibility changes, the Emby dock preset and a library of ZIP theme packs. Its built-in theme is the plain original look; the Odyssey and soft looks ship as theme packs. See the [device and change notes](docs/devices/xiaomi-mitv-mftr0-freeguy-android11.md) and build with `./launcher/build-freeguy.sh`. The upstream overview follows.
 
 > **Icon design pack:** [40 soft TV app icons](artwork/soft-tv-icons/README.md), with banner/square SVGs, Android vectors and an offline preview. This separate design pack has not replaced the installed TV theme; the `soft-glow` theme pack instead carries the earlier soft cards the launcher used to bundle, rasterised to WebP.

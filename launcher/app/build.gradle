@@ -2,6 +2,31 @@ plugins {
     id 'com.android.application'
 }
 
+def launcherProfile = providers.gradleProperty('launcherProfile').getOrElse('')
+if (!(launcherProfile in ['', 'johnson'])) throw new GradleException('Unknown launcherProfile: ' + launcherProfile)
+def versionCodeText = providers.gradleProperty('launcherVersionCode').getOrElse('6')
+if (!(versionCodeText ==~ /[0-9]+/) || !versionCodeText.isInteger() || versionCodeText.toInteger() <= 0) {
+    throw new GradleException('launcherVersionCode must be a positive integer')
+}
+def companyThemeDir = rootProject.file('../theme-packs/johnson-health-tech')
+def companyTheme = launcherProfile == 'johnson' ? new groovy.json.JsonSlurper().parse(new File(companyThemeDir, 'manifest.json')) : null
+if (companyTheme != null && (companyTheme.id != 'johnson-health-tech' || !(companyTheme.version instanceof Integer) || companyTheme.version <= 0)) {
+    throw new GradleException('Invalid company theme manifest')
+}
+def bundledAssetsDir = layout.buildDirectory.dir('generated/companyThemeAssets')
+if (companyTheme != null) {
+    def companyThemeZip = tasks.register('companyThemeZip', Zip) {
+        from(companyThemeDir) {
+            include 'manifest.json', 'config.json', 'preview.jpg', 'banners/**', 'wallpapers/**'
+        }
+        destinationDirectory = bundledAssetsDir
+        archiveFileName = 'company-theme.zip'
+        preserveFileTimestamps = false
+        reproducibleFileOrder = true
+    }
+    tasks.named('preBuild').configure { dependsOn companyThemeZip }
+}
+
 android {
     namespace 'com.gathin.tvhome'
     compileSdk 34
@@ -11,9 +36,13 @@ android {
         applicationId providers.gradleProperty('launcherApplicationId').getOrElse('com.gathin.tvhome')
         minSdk 26
         targetSdk 34
-        versionCode 6
+        versionCode versionCodeText.toInteger()
+        resValue 'string', 'bundled_theme_id', companyTheme == null ? '' : companyTheme.id
+        resValue 'integer', 'bundled_theme_version', companyTheme == null ? '0' : companyTheme.version.toString()
         versionName '2.5'
     }
+
+    if (companyTheme != null) sourceSets.main.assets.srcDir(bundledAssetsDir)
 
     buildTypes {
         release {
